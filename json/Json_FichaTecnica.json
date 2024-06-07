@@ -1,0 +1,283 @@
+{	
+	"id_codProduct" : "E-3126-A_R-3",		
+	"cliente" : "FILLER",					
+	"fecha_Elav" : "02/02/2024",		
+	"fecha_Rev" : "31-AGO-2021",		
+	"producto" : "FILETE DEL DIA",			
+	"VENTAS" : {
+		"Asesor" : "Fernando",
+		"Tipo_Empaque" : "Bolsa Sello",
+		"Product_Laminado" : "algo",
+		"Estruct_Product" : "LDPE 200 GAUGES",
+		"Empaca" : "Bolsa Enfardo"
+	},
+	"EXTRUSIÓN" : {
+		"Tipo_Material" : "LDPE",
+		"Dinaje"	: "34-36 DINAS",
+		"Formula" : "CE-07",
+		"Pigmento_pelicula" : "N/A",
+		"CalibrePel_Tolr" : {
+			"calibre" : 300,
+			"tolerancia" : 10
+		},
+		"tipo_Bobina" : "LAMINA",
+		"tipo_tratado" : "una cara",
+		"AnchoBob_Tolr" : {
+			"Ancho_Bobina" : 91,
+			"Tolerancia" : 1
+		},
+		"AnchoCore_Tolr" : {
+			"Ancho_Core" : 91,
+			"Tolerancia" : 3
+		},
+		"DiametroBob_Tolr" : {
+			"Diametro_Bobina" : 24,
+			"Tolerancia" : 2
+		},
+		"Maximo_Empal" : 1,
+		"Orient_Bob_Tarima" : "Horizontal",
+		"Tipo_Empq_Bob" : "Emplaye",			//OPCIONAL
+		"pesar_Prdct" : "Bobina",				//OPCIONAL
+		"Peso_Prom_Bob" : {
+			"peso" : 33,
+			"tolerancia" : 50
+		},
+		"Etiquetado" : "Rollo",				//OPCIONAL
+		"Num_BobCama_CamTam" : {
+			"Num_Bob_Cama" : 2,
+			"Camas_Tarima" : 1
+		},
+		"Num_bob_tarima" : 2,
+		"Peso_prom_tarima" : {
+			"peso_neto" : 700,
+			"tolerancia" : 10
+		},
+		"tarima_emplaye" : "Aplica",	//NOTA: Puede llevar cantidades
+	 	"tarima_flejada" : "Aplica",			//OPCIONAL
+	
+	},
+		
+	"IMPRESIÓN" : {
+		"Material_Imprimir" : "LDPE NAT",
+		"Dinaje" : "36-38 DINAS",
+		"CalMater_Tolr" : {
+			"calibre" : 100,
+			"tolerancia" : 10
+		},
+		"AnchoBobImpr_Tolr" : {
+			"Ancho : 74,5",
+			"tolerancia" : 0
+		},
+		"Grosor_core" : 10,
+		"AnchoCore_Tolr" : {
+			"Ancho_core" : 74.5,
+			"tolerancia" : 3
+		},
+		"DesarrolloImpr" : 550,
+		"Rep_Eje" : 1,
+		"Rep_Dessr" : 2,
+		"Cant_tintasImpr" : 8,
+		"TipoImpr" : "Interna",			//3.11 OPCIONAL
+		"TipoTintas_utilizar" : "NC 713",
+		"Tipo_barniz" : "Brillante",		
+		"FigEmbob_impr" : 3,			//3.14 OPCIONAL
+		"ValidColor" : {
+			"validación" : "pantone",
+			"combinación" : "Muestra"		//3.15 OPCIONAL
+		},
+		"MaxEmpalmes" : 1,
+		"TipoEmpaqBob" : "Emplaye",		//3.17 OPCIONAL
+		"OrientBob_Tarima" : "Bolsa",		//3.18 OPCIONAL
+		"PesarProduct" : "Bobina",		//3.19 OPCIONAL
+		"DiamBob_Tolr" : {
+			"Diámetro" : 33,
+			"Tolerancia" : 10
+		},
+		"PesoPromBob" : {
+			"Peso" : 300,
+			"Tolerancia" : 50
+		},
+		"Etiquetado" : "Rollo Individual"		#3.22 OPCIONAL
+		"Num_BobCama_CamTam" : {
+			"Num_Bob_Cama" : 2,
+			"Camas_Tarima" : 1
+		},
+		"Num_bob_tarima" : 2,
+		"Peso_prom_tarima" : {
+			"peso_neto" : 700,
+			"tolerancia" : 10
+		},
+		"tarima_emplaye" : "Aplica",	#NOTA: Puede llevar cantidades
+	 	"tarima_flejada" : "Aplica",	#3.27 OPCIONAL 
+	},
+
+	"LAMINADO" : {
+		"EstructProduct" : "LDPE NAT 100 GA ± 10% / LDPE BCO 200 GA ± 10%",
+		"Material_Impreso" : {
+			"CalibrePelic_Tolr" : {
+				"Calibre" : 12,
+				"Tolerancia" : 10
+			},
+			"AnchoBob_Tolr" : {
+				"AnchoBob" : 12,
+				"Tolerancia" : 10
+			},
+			"TipoTratado" : "UNA CARA",		#4.2.3 OPCIONAL
+		},
+		"Material_Laminar-1" : {
+			"CalibrePelic_Tolr" : {
+				"Calibre" : 12,
+				"Tolerancia" : 10
+			},
+			"AnchoBob_Tolr" : {
+				"AnchoBob" : 12,
+				"Tolerancia" : 10
+			},
+			"TipoTratado" : "UNA CARA",		#4.2.3 OPCIONAL
+			"Tipo_Laminación" : "INTERNA"		#4.3.4 OPCIONAL
+		},
+		"Material_Laminar-2" : {
+			"CalibrePelic_Tolr" : {
+				"Calibre" : 13,
+				"Tolerancia" : 11
+			},
+			"AnchoBob_Tolr" : {
+				"AnchoBob" : 13,
+				"Tolerancia" : 11
+			},
+			"TipoTratado" : "UNA CARA",		#4.2.3 OPCIONAL
+			"Tipo_Laminación" : "INTERNA"		#4.3.4 OPCIONAL
+		},
+		"Material_Laminar-3" : {
+			"CalibrePelic_Tolr" : {
+				"Calibre" : 14,
+				"Tolerancia" : 20
+			},
+			"AnchoBob_Tolr" : {
+				"AnchoBob" : 14,
+				"Tolerancia" : 20
+			},
+			"TipoTratado" : "UNA CARA",		#4.2.3 OPCIONAL
+			"Tipo_Laminación" : "INTERNA"		#4.3.4 OPCIONAL
+		},
+		"Material_Laminar-4" : {
+			"CalibrePelic_Tolr" : {
+				"Calibre" : 15,
+				"Tolerancia" : 10
+			},
+			"AnchoBob_Tolr" : {
+				"AnchoBob" : 15,
+				"Tolerancia" : 10
+			},
+			"TipoTratado" : "UNA CARA",		#4.2.3 OPCIONAL
+			"Tipo_Laminación" : "INTERNA"		#4.3.4 OPCIONAL
+		},
+		"MedidManga" : {
+			"MedidaManga" : 74.5,
+			"Tolerancia" : 1
+		},
+		"AnchoCore_Tolr" : {
+			"AnchoCore" : 74.5,
+			"Tolerancia" : 3
+		},
+		"Diametro_GrosCore" : {
+			"Diámetro" : 15.24,
+			"Grosor_Core" : 1.5
+		},
+		"Diametro_Bob_Tolr" : {
+			"Diametro_Bobina" : 22,
+			"Tolerancia" : 10
+		},
+		"MaxEmpalmesBob" : 1,
+		"OrientBobRack" : "Horizontal",			//4.12 OPCIONAL
+		"TipoEmpaqBob" : "Emplaye",
+		"Etiquetado" : "Tarima",				//4.14 OPCIONAL
+		"PesarProduct" : "Tarima",			//4.15 OPCIONAL
+		"PesoPromBob" : 600
+	},
+	
+	"REFILADO" : {
+		Proceso : "Refilar",
+		AnchoFinalBob_Tolr : {
+			AnchoFinalBob : 33,
+			Tolerancia : 10
+		},
+		AcabadoBob : "Espejo",				#5.3 OPCIONAL
+		AnchoCore_Tolr : {
+			AnchoCore : 74.5,
+			Tolerancia : 3
+		},
+		GrosorCore : 10,
+		FigEmbob_impr : 3
+		BobinaRefilar : "Peso"				#5.7 OPCIONAL
+		MetrosBobRefil_Tolr : {
+			Metros : 1068,
+			Tolerancia : 10
+		},
+		DiamBobRefil_Tolr : {
+			Diámetro : 200,
+			Tolerancia : 20
+		},
+		"Maximo_Empal" : 1,
+		"señalEmpl" : "Cinta Roja",
+		"Orient_Bob_Tarima" : "HORIZONTAL",
+		"Tipo_Empaque" : "Emplaye",
+		"pesar_Prdct" : "Bobina",
+		"Peso_Prom_Bob" : {
+			"peso" : 33,
+			"tolerancia" : 50
+		},
+		"Etiquetado" : "Rollo",
+		"Num_BobCama_CamTam" : {
+			"Num_Bob_Cama" : 2,
+			"Camas_Tarima" : 1
+		},
+		"Num_bob_tarima" : 2,
+		"Peso_prom_tarima" : {
+			"peso_neto" : 700,
+			"tolerancia" : 10
+		},
+		"tarima_emplaye" : "Aplica",	//NOTA: Puede llevar cantidades
+	 	"tarima_flejada" : "Aplica",		
+	},
+
+	"CONVERSION" : {
+		"MedidEmpq" : {
+			"ancho" : 21,
+			"alto" : 33.4
+		},
+		"Tipo_Empaque" : "STAND UP POUCH",
+		"tipoSello" : "SELLO K",
+		"tipoAcabado" : "Zipper",		//6.4 Opcional
+		"perf" : 3,
+		"llevaSuaj" : "Aplica",
+		"suaje" : "Riñon",				//6.8 Opcional
+		"empcProd" : "Piezas",			//6.9 Opcional
+		"CantPzsPacq" : 334.5,
+		"embalaje" : "caja",
+		"medidEmblj" : 33,				//NOTA: Checar bien las especificaciónes
+		"pesarProd" : "CAJA",			//6.13 Opcional
+		"pesoProm" : 33.3,
+		"etiquetado" : "CAJA",			//6.15 Opcional
+		"NumBlts_CajsCmas_CmasTarim" : {
+			"cajasCama" : 8,
+			"camasTarima" : 7
+		},
+		"NumBlts_CajsTarim" : 30,
+		"PesoNet_Prom_Tarim" : {
+			"peso" : 33,
+			"tolerancia" : 50
+		},
+
+		"tarima_Emplaye" : "Aplica",
+		"tarima_Flejada" : "Aplica"
+	} 
+}
+
+
+
+* --- OPCIONES DISPONIBLES DEL ATRIBUTO ---
+ - EXTRUCIÓN :
+ - IMPRESIÓN :
+ - LAMINADO : 
+	
