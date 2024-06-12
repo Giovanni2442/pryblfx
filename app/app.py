@@ -2,104 +2,94 @@
 
 #crate_engine   : Crea el motor hacia la conección a la base de datos
 #text           : permite escribir consultas de tipo sql
-
-import os                                                   # sqlalchemy : permita la concexión a la base de datos
-from sqlalchemy import Engine, create_engine, text          # text : Permite ejecutar querys de tipo sql
-import pandas as pd                                         # Biblioteca para leer archivos excel
-from sqlalchemy.exc import SQLAlchemyError
+import pandas as pd
+from sqlalchemy import text                                         # Biblioteca para leer archivos excel
 import components as cm
+from sqlalchemy.exc import SQLAlchemyError
+from bd.conectBd import db
 
-# ---- Conexión a la base de datos  ----
-def db():
-    result = ""
-    #Datos para la bd
-    db_type = 'mysql+pymysql'
-    usser = 'root'
-    password = '2442'
-    host = 'localhost'
-    port = '3306'
-    db_name = 'dbIngBF'
-    connectionString = f'{db_type}://{usser}:{password}@{host}:{port}/{db_name}'
-
-    #Motor de Conexión
-    engine = create_engine(connectionString)
-    #Connectar
-    connection = engine.connect()
-
-    #Probar la conección a la base de datos
-    try:
-        result = connection.execute(text("SELECT 1"))
-        if result.scalar() == 1:
-            return connection
-    except Exception as e:
-        return print(f'error : {e}')
-    
 #Lectura del excel
 def read():
     #--Leer archivo desde la ruta --
-    dir = 'c:/Users/gumrt/Desktop/ProyctIng/app/excelData/Data.xlsx'
-    data = pd.read_excel(dir,header=None)                           #DESDE PANDAS INVOCAR LA FUNCION DE LECTURA
-    #current_directory = os.path.dirname(__file__) Verifica el path
-    
-    #print(data)
-    matrix = data.values
-    print(matrix[0][0])
+    dir = 'c:/Users/gumrt/Desktop/ProyctIng/app/excelData/Data.xlsx'    #Dirección del Archivo
+    data = pd.read_excel(dir,header=None)                               #DESDE PANDAS INVOCAR LA FUNCION DE LECTURA
 
-    #-Pruebas-
-    #gnrlFilCal = 5
-    #data_fila = data.iloc[:,gnrlFilCal]
-
-    #-Especificar Columnas
-    '''
-    FichaTec
-        id_codProduct
-        cliente
-        fecha_Elav
-        fecha_Rev
-        producto
-    '''
-
-    # --- CLASE ENCAPSULADA ATRIBUTOS ---
-         #tabla FichaTecnica
-    #data.iloc[columna:Fila] : Sirve para recorrer tablas y columnas de excel por medio de indices
-
-    column = 2      #Comienzo de datos en columna 2 (CORREGIR : hacerlo con etiquetas)
-    idProduct = data.iloc[column:,8] #Todos los datos apartir de la columna 2 y la fila 8 del indice
-    cliente = data.iloc[column:,6]
+    clmn = 2      #Comienzo de datos en columna 2 (CORREGIR : hacerlo con etiquetas)
+    idProduct = data.iloc[clmn:,8] #Todos los datos apartir de la columna 2 y la fila 8 del indice
+    cliente = data.iloc[clmn:,6]
     fechaElv = "N/A"
-    fecha_Rev = data.iloc[column:,2]
+    fecha_Rev = data.iloc[clmn:,2]
     
-   
-    for c,f in data.iloc[column:].iterrows(): #Recorre las filas 
-        try:
-            with db() as connection:
-                connection.execute(text(addFichTec(data,c)))  #text : Ejecuta consultas sql
-                connection.commit()  # Confirmar la transacción
-                print("Insert successful")
-        except SQLAlchemyError as e:
-            print(f"Error occurred: {e}")
+    #filtData(data,clmn,tblFichTec)
+    tblFichTec(data,clmn)
 
-def test():
-    dir = 'c:/Users/gumrt/Desktop/ProyctIng/app/excelData/Data.xlsx'
-    data = pd.read_excel(dir,header=None)
-    clmn = 2
-    etiquetadoRefilado =  data.iloc[2:,119]
-    print(etiquetadoRefilado)
-
-    '''
-    for c,f in data.iloc[clmn:].iterrows():
+    #Ejecutar query de Inserción
+    '''for c in data.iloc[fila:].iterrows(): #Recorre las filas 
         try:
-            with db() as connection:
-                insertQuery = f"""
-                    INSERT INTO FichaTec(id_codProduct, cliente, fecha_Elav, fecha_Rev, producto)
-                    VALUES('{data[8][c]}', '{data[6][c]}', 'N/A', '{data[2][c]}', '{data[7][c]}')
-                """
-                connection.execute(text(insertQuery))
-                connection.commit()  # Confirmar la transacción
-                print("Insert successful")
+            with db() as conect:
+                conect.execute(text(addFichTec(data,c)))  #text : Ejecuta consultas sql
+                conect.commit()  # Confirmar la transacción
+                print("Insert successful!")
         except SQLAlchemyError as e:
-            print(f"Error occurred: {e}")
-       # pr1 = f[]'''
+            print(f"Error occurred: {e}")'''
+
+
+def filtData(dt,clmn,func):
+    for c,row in dt.iloc[clmn:].iterrows(): #Recorre las filas
+        filNan = (c-clmn)+1    #Especifica el lugar exacto donde se encuentra el dato vacio en Excel
+        
+
+        #Nota : Declarar las variables para cada tabla de la siguiente manera :
+        # cliente = 9 # Se especifica el indice de la columna
+        # row[cliente]
+        #Tabla fichaTec
+        codPrintCrd = row[8]      #Codigo del Producto
+        cliente = row[9]
+        fchaElav = row[2]
+        product = row[7]
+
+        func(row,clmn,c)
+
+
+        '''#print("--",row[c:])
+        if pd.isna(row[c]) :     #Identifica un NAN en el archivo de excel
+            #print(f'Falta llenar en la fila {filNan}, columna {row[c]}')
+            #break
+            pass
+        else:
+            print(f'{codPoduct}  :  {row[9]} ----')
+            pass'''
+
+def verificarNan(*args):    # Se pasa 'n' cantidad de atributos a recorrer
+    return any(pd.isna(arg) for arg in args)        #any() genera una lista donde verifica si existe algun 'nan' y devuelve un valor booleano
+
+def tblFichTec(data,clmn):
+    
+    for c,row in data.iloc[clmn:].iterrows(): #Recorre las filas
+        #Agregar Expreciónes regulares para cada fila
+        codPrintCrd = row[8] 
+        cliente = row[9]
+        fchaElav = row[2]
+        product = row[7]    
+
+        filNan = (c-clmn)+1
+
+        #print(f'{codPrintCrd}  : {cliente}')
+           
+        #Condificonales
+        if verificarNan(codPrintCrd,cliente):
+            print(f'Fallo en la fila : {filNan} , columna {clmn}')
+            break
+        else :
+            print(f'{codPrintCrd}  :  {cliente}') 
+
+
+    '''if pd.isna(codPrintCrd,cliente):
+        #print(f'Falta llenar en la fila {filNan}')
+        return 1 #banderin
+    else :
+        return f'{codPrintCrd} : {cliente} ----'''
+
     
 #Modulo de Inserción a la tabla FichaTec
 # data : especifica la fila
@@ -109,7 +99,14 @@ def addFichTec(data,c):
         INSERT INTO FichaTec(id_codProduct, cliente, fecha_Elav, fecha_Rev, producto)
         VALUES('{data[8][c]}', '{data[6][c]}', 'N/A', '{data[2][c]}', '{data[7][c]}')
     """
-    return insertQuery    
+    return insertQuery
+
+def test():
+    dir = 'c:/Users/gumrt/Desktop/ProyctIng/app/excelData/Data.xlsx'
+    data = pd.read_excel(dir,header=None)
+    clmn = 2
+    etiquetadoRefilado =  data.iloc[2:,119]
+    print(etiquetadoRefilado)
 
 read()
 #test()
