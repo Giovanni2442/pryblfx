@@ -4,9 +4,9 @@
 #text           : permite escribir consultas de tipo sql
 import pandas as pd
 from sqlalchemy import text                                         # Biblioteca para leer archivos excel
-import components as cm
 from sqlalchemy.exc import SQLAlchemyError
 from bd.conectBd import db
+from filExcel.tableFilt import tableFilt as tblFil
 
 #Lectura del excel
 def read():
@@ -20,8 +20,8 @@ def read():
     fechaElv = "N/A"
     fecha_Rev = data.iloc[clmn:,2]
     
-    #filtData(data,clmn,tblFichTec)
-    tblFichTec(data,clmn)
+    filtData(data,clmn,tblFil.tblFichTec) 
+    #tblFichTec(data,clmn)
 
     #Ejecutar query de Inserción
     '''for c in data.iloc[fila:].iterrows(): #Recorre las filas 
@@ -33,65 +33,21 @@ def read():
         except SQLAlchemyError as e:
             print(f"Error occurred: {e}")'''
 
-
+#Filtra los datos por medio de valores de retorno
 def filtData(dt,clmn,func):
     for c,row in dt.iloc[clmn:].iterrows(): #Recorre las filas
-        filNan = (c-clmn)+1    #Especifica el lugar exacto donde se encuentra el dato vacio en Excel
-        
+        table = func(row,clmn,c)
 
-        #Nota : Declarar las variables para cada tabla de la siguiente manera :
-        # cliente = 9 # Se especifica el indice de la columna
-        # row[cliente]
+        #print(func(row,clmn,c))
         #Tabla fichaTec
-        codPrintCrd = row[8]      #Codigo del Producto
-        cliente = row[9]
-        fchaElav = row[2]
-        product = row[7]
-
-        func(row,clmn,c)
-
-
-        '''#print("--",row[c:])
-        if pd.isna(row[c]) :     #Identifica un NAN en el archivo de excel
-            #print(f'Falta llenar en la fila {filNan}, columna {row[c]}')
-            #break
-            pass
-        else:
-            print(f'{codPoduct}  :  {row[9]} ----')
-            pass'''
-
-def verificarNan(*args):    # Se pasa 'n' cantidad de atributos a recorrer
-    return any(pd.isna(arg) for arg in args)        #any() genera una lista donde verifica si existe algun 'nan' y devuelve un valor booleano
-
-def tblFichTec(data,clmn):
-    
-    for c,row in data.iloc[clmn:].iterrows(): #Recorre las filas
-        #Agregar Expreciónes regulares para cada fila
-        codPrintCrd = row[8] 
-        cliente = row[9]
-        fchaElav = row[2]
-        product = row[7]    
-
-        filNan = (c-clmn)+1
-
-        #print(f'{codPrintCrd}  : {cliente}')
-           
-        #Condificonales
-        if verificarNan(codPrintCrd,cliente):
-            print(f'Fallo en la fila : {filNan} , columna {clmn}')
-            break
+        if table[0] != False:
+            print("--",table)
         else :
-            print(f'{codPrintCrd}  :  {cliente}') 
-
-
-    '''if pd.isna(codPrintCrd,cliente):
-        #print(f'Falta llenar en la fila {filNan}')
-        return 1 #banderin
-    else :
-        return f'{codPrintCrd} : {cliente} ----'''
-
-    
+            print(f'Error en la fila {table[1]}, por : {table[2]}')
+            break
+        
 #Modulo de Inserción a la tabla FichaTec
+
 # data : especifica la fila
 # c    : especifica las columnas
 def addFichTec(data,c):
@@ -100,13 +56,6 @@ def addFichTec(data,c):
         VALUES('{data[8][c]}', '{data[6][c]}', 'N/A', '{data[2][c]}', '{data[7][c]}')
     """
     return insertQuery
-
-def test():
-    dir = 'c:/Users/gumrt/Desktop/ProyctIng/app/excelData/Data.xlsx'
-    data = pd.read_excel(dir,header=None)
-    clmn = 2
-    etiquetadoRefilado =  data.iloc[2:,119]
-    print(etiquetadoRefilado)
 
 read()
 #test()

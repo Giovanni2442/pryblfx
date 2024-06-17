@@ -34,12 +34,8 @@ def db():
         return cnx
     except Exception as e:
         return print(f'error : {e}')
-    
-
-
-
 #pruebas con couple
 def jeje():
     print(config('DB_USER'))
-
-db()
+    
+#db()
