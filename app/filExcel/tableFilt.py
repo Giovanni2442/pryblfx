@@ -1,6 +1,7 @@
 # --- SE FILTRAN LAS TABLAS POR EXPRECIÓNES REGULARES ---
 #from filtroExcel import filter
 from filExcel.filtroExcel import filter
+from filExcel.tableAtributes import atributes as atrb
 
 class tableFilt():
     errArr = ""                 # tupla de errores que retorna la función
@@ -11,9 +12,9 @@ class tableFilt():
     # clmn      : Columna del archivo excel
     # msg       : mensaje de error
     # elmnts    : tupla de elementos extraidos del excel
-    def condiFilts(*func,cln,c,msg,elmnts):
+    def condiFilts(*func,c,msg,elmnts):
         #filNan = (c-cln)+1         #Formula para calcular la posisión de la fila
-        filNan = (c)+1
+        filNan = (c)+3 # NOTA : El indice se suma a +3 ya que empieza en 0 desde la fila de datos 
         #print(filNan)
         if not all(func):       #Busca el las tuplas si existe un false
             for i,j in enumerate(func):  #En el ciclo busca el indice el false para obtener el mensaje de error 
@@ -28,21 +29,20 @@ class tableFilt():
     #Color Amarillo     
     def tblFichTec(fila,clmn,cl):
         # --- Atributos de la Tabla ---
-        codPrintCrd = fila[8] 
-        cliente = fila[6]
-        fchaElav = fila[2]
-        product = fila[7]   
+        codPrintCrd = fila['CODIGO PRINT CARD'] 
+        cliente = fila['CLIENTE']
+        fchaElav = fila['FECHA']
+        product = fila['PRODUCTO']
         # ------------------------- 
         
         fecha = str(fchaElav.strftime('%d/%m/%y'))   #NOTA: Se tiene que hacer un cast a las fechas
-        atributos = codPrintCrd,cliente,fecha,product 
+        atributos = atrb.atrFichTec(fila)
 
         mensajes = "campo vacio!","El codigo es Incorrecto!","La fecha es Incorrecta!"
         return tableFilt.condiFilts(
-            filter.vrfNan(codPrintCrd,cliente,fchaElav,product),
+            filter.vrfNan(atributos[0],atributos[1],atributos[3],atributos[4]),
             filter.vrfPrintCard(codPrintCrd,cliente),
             filter.vrfFechas(fecha),
-            cln=clmn,
             c=cl,
             msg=mensajes,
             elmnts=atributos
@@ -77,9 +77,9 @@ class tableFilt():
             return errArr
 
 # ---- FUNCIONES DE PRUEBAS ---- 
-    def pr1():
+    def pr1(fila):
 
-        tupla1 = True,True,True
+        '''tupla1 = True,True,True
         tupla2 = True,False,True
         tupla3 = True,True,True
 
@@ -90,7 +90,11 @@ class tableFilt():
             tupla2,
             tupla3,
             msg=mensajes
-        )
+        )'''
+
+        ajax = atrb.pru()
+        
+
     def pru(*func,cln,c,msg,elmnts):
         filNan = (c-cln)+1         #Formula para calcular la posisión de la fila
         

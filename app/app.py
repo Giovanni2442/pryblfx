@@ -11,8 +11,8 @@ from filExcel.tableFilt import tableFilt as tblFil
 #Lectura del excel
 def read():
     #--Leer archivo desde la ruta --
-    dir = 'c:/Users/gumrt/Desktop/ProyctIng/app/excelData/Data.xlsx'    #Dirección del Archivo
-    data = pd.read_excel(dir,header=None)                               #DESDE PANDAS INVOCAR LA FUNCION DE LECTURA
+    dir = 'app/excelData/Data.xlsx'    #Dirección del Archivo
+    data = pd.read_excel(dir,header=1)                               #DESDE PANDAS INVOCAR LA FUNCION DE LECTURA
 
     clmn = 2      #Comienzo de datos en columna 2 (CORREGIR : hacerlo con etiquetas)
     idProduct = data.iloc[clmn:,8] #Todos los datos apartir de la columna 2 y la fila 8 del indice
@@ -21,6 +21,8 @@ def read():
     fecha_Rev = data.iloc[clmn:,2]
     
     filtData(data,clmn,tblFil.tblFichTec)
+    #filtData(data,clmn,tblFil.pr1)
+    #pru(data)
     #test(data,clmn)
     #tblFichTec(data,clmn)
 
@@ -37,17 +39,17 @@ def read():
 #Filtra los datos por medio de valores de retorno
 def filtData(dt,clmn,func):
     i = 0
-    for c,row in dt.iloc[clmn:].iterrows(): #Recorre las filas
+    for c,row in dt.iloc[:].iterrows(): #Recorre las filas
         table = func(row,clmn,c)
 
         #print("--",table)
         #Tabla fichaTec
-
         if table[0] != False:
             print("--",table)
         else :
-            print(f'Error en la fila {table[1],dt.columns[3]}, por : {table[2]}')
+            print(f'Error en la fila {table[1]}, por : {table[2]}')
             break
+        
         
 #Modulo de Inserción a la tabla FichaTec
 
@@ -61,10 +63,14 @@ def addFichTec(data,c):
     return insertQuery
 
 def test(dt,clmn):
-    for c,row in dt.iloc[clmn:].iterrows(): #Recorre las filas
+    for c,row in dt.iloc[:].iterrows(): #Recorre las filas
         print(f'Fila {c}:')
         for col_name in dt.columns:
             print(f'    Columna {col_name}: {row[col_name]}')
     print('-' * 40)  # Separador entre filas para mayor claridad
+
+def pru(dt):
+    print(dt['PRODUCTO'])
+
 read()
 #test()
