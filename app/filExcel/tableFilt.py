@@ -1,7 +1,7 @@
 # --- SE FILTRAN LAS TABLAS POR EXPRECIÓNES REGULARES ---
 #from filtroExcel import filter
 from filExcel.filtroExcel import filter
-from filExcel.tableAtributes import atributes as atrb
+from filExcel.tableAtributes import atributes as atrb       #Acceder a los tributos de cada Tabla
 
 class tableFilt():
     errArr = ""                 # tupla de errores que retorna la función

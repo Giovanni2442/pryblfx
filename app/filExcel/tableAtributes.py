@@ -1,9 +1,9 @@
 class atributes():
-    def pru(self):
-        self.codPrintCrd = 'CODIGO PRINT CARD'
-        self.cliente = 'CLIENTE'
-        self.fchaElav = 'FECHA'
-        product = 'PRODUCTO'
+    def __init__(self):
+        self.codPrintCrd = ['CODIGO PRINT CARD']
+        self.cliente = ['CLIENTE']
+        self.fchaElav = ['FECHA']
+        self.product = ['PRODUCTO']
 
 
     def atrFichTec(fila):
@@ -15,3 +15,6 @@ class atributes():
         fecha = str(fchaElav.strftime('%d/%m/%y'))   #NOTA: Se tiene que hacer un cast a las fechas
 
         return codPrintCrd,cliente,fecha,fchaElav,product
+    
+pru = atributes()
+print(pru.cliente)
