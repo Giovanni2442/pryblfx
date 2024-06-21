@@ -20,13 +20,17 @@ class filter():
 
     #Verifica si el dato contiene solo letras
     def vrfIsletter(*args):
-        patron = re.compile('[a-zA-Z ]+$')
+        patron = re.compile('[a-zA-Z]+$')
         return any(bool(patron.match(arg)) for arg in args)
-        
+    
+    #Verifica el Nombre del Cliente
+    def vrfCliente(*args):
+        patron = re.compile(r'^[a-zA-Z0-9_.() -]+$')
+        return any(bool(patron.match(arg)) for arg in args)
+    
     #Verifica si el Codigo del printCard es correcto
     def vrfPrintCard(*args):
         patron = re.compile('^(?=.*\d{4,})[a-zA-Z0-9_-]+$')
-        #res = bool(patron.match())
         return any(bool(patron.match(arg)) for arg in args)
     
     #Verifica las fechas de elavoración de las fichas tecnicas

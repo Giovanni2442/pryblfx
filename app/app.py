@@ -9,22 +9,17 @@ from bd.conectBd import db
 from filExcel.tableFilt import tableFilt as tblFil
 
 #Lectura del excel
-def read():
-    #--Leer archivo desde la ruta --
-    dir = 'app/excelData/Data.xlsx'    #Dirección del Archivo
-    data = pd.read_excel(dir,header=1)                               #DESDE PANDAS INVOCAR LA FUNCION DE LECTURA
+#--Leer archivo desde la ruta --
+dir = 'app/excelData/Data.xlsx'    #Dirección del Archivo
+data = pd.read_excel(dir,header=1)   
 
-    clmn = 2      #Comienzo de datos en columna 2 (CORREGIR : hacerlo con etiquetas)
-    idProduct = data.iloc[clmn:,8] #Todos los datos apartir de la columna 2 y la fila 8 del indice
-    cliente = data.iloc[clmn:,6]
-    fechaElv = "N/A"
-    fecha_Rev = data.iloc[clmn:,2]
+def read():
     
-    filtData(data,clmn,tblFil.tblFichTec)
+    # --- FUNCIONES DE VERIFICACIÓN ---
+    filtData(tblFil.tblFichTec)
+    filtData(tblFil.tblVentas)
     #filtData(data,clmn,tblFil.pr1)
-    #pru(data)
-    #test(data,clmn)
-    #tblFichTec(data,clmn)
+    #pru(data,clmn,tblFil.pr1)
 
     #Ejecutar query de Inserción
     '''for c in data.iloc[fila:].iterrows(): #Recorre las filas 
@@ -37,10 +32,12 @@ def read():
             print(f"Error occurred: {e}")'''
 
 #Filtra los datos por medio de valores de retorno
-def filtData(dt,clmn,func):
+def filtData(func):
     i = 0
-    for c,row in dt.iloc[:].iterrows(): #Recorre las filas
-        table = func(row,clmn,c)
+
+    print("  \n-------TABLA-------  ")
+    for c,row in data.iloc[:].iterrows(): #Recorre las filas
+        table = func(row,c)
 
         #print("--",table)
         #Tabla fichaTec
@@ -49,7 +46,7 @@ def filtData(dt,clmn,func):
         else :
             print(f'Error en la fila {table[1]}, por : {table[2]}')
             break
-        
+    print("\n")
         
 #Modulo de Inserción a la tabla FichaTec
 
@@ -62,15 +59,10 @@ def addFichTec(data,c):
     """
     return insertQuery
 
-def test(dt,clmn):
+def pru(dt,clmn,func):
     for c,row in dt.iloc[:].iterrows(): #Recorre las filas
-        print(f'Fila {c}:')
-        for col_name in dt.columns:
-            print(f'    Columna {col_name}: {row[col_name]}')
-    print('-' * 40)  # Separador entre filas para mayor claridad
-
-def pru(dt):
-    print(dt['PRODUCTO'])
+        table = func(row)
+        print(table)
 
 read()
 #test()
