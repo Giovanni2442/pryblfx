@@ -1,7 +1,7 @@
 # --- SE FILTRAN LAS TABLAS POR EXPRECIÓNES REGULARES ---
 #from filtroExcel import filter
 from filExcel.filtroExcel import filter
-from filExcel.tableAtributes import atributes as atrb       #Acceder a los tributos de cada Tabla
+from filExcel.tableAtributes import atributes as atrb      #Acceder a los tributos de cada Tabla
 
 class tableFilt():
     errArr = ""                 # tupla de errores que retorna la función
@@ -35,14 +35,17 @@ class tableFilt():
         product = fila['PRODUCTO']
         # ------------------------- 
         
-        fecha = str(fchaElav.strftime('%d/%m/%y'))   #NOTA: Se tiene que hacer un cast a las fechas
-        atributos = atrb.atrFichTec(fila)
-
+        he = atrb()
+        atrb.atrFichTec(he,fila)
+        
+        atributos = he.atrFichTec(fila)
+        #fecha = str(he.fchaElav.strftime('%d/%m/%y'))   #NOTA: Se tiene que hacer un cast a las fechas
         mensajes = "campo vacio!","El codigo es Incorrecto!","La fecha es Incorrecta!"
+
         return tableFilt.condiFilts(
-            filter.vrfNan(atributos[0],atributos[1],atributos[3],atributos[4]),
-            filter.vrfPrintCard(codPrintCrd,cliente),
-            filter.vrfFechas(fecha),
+            filter.vrfNan(he.codPrintCrd,he.cliente,he.fchaElav,he.product),
+            filter.vrfPrintCard(he.codPrintCrd),
+            filter.vrfFechas(he.fchaElav),
             c=cl,
             msg=mensajes,
             elmnts=atributos

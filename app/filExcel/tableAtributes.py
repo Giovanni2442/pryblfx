@@ -1,20 +1,18 @@
 class atributes():
     def __init__(self):
-        self.codPrintCrd = ['CODIGO PRINT CARD']
-        self.cliente = ['CLIENTE']
-        self.fchaElav = ['FECHA']
-        self.product = ['PRODUCTO']
+        self.codPrintCrd = None
+        self.cliente = None
+        self.fchaElav = None
+        self.product = None
+        self.fecha = None
 
-
-    def atrFichTec(fila):
-        codPrintCrd = fila['CODIGO PRINT CARD'] 
-        cliente = fila['CLIENTE']
-        fchaElav = fila['FECHA']
-        product = fila['PRODUCTO']
-
-        fecha = str(fchaElav.strftime('%d/%m/%y'))   #NOTA: Se tiene que hacer un cast a las fechas
-
-        return codPrintCrd,cliente,fecha,fchaElav,product
+    def atrFichTec(this,fila):
+        this.codPrintCrd = fila['CODIGO PRINT CARD'],
+        this.cliente = fila['CLIENTE'],
+        this.fchaElav = fila['FECHA'],
+        this.product = fila['PRODUCTO']
+       # this.fecha = str(this.fecha.strftime('%d/%m/%y'))   #NOTA: Se tiene que hacer un cast a las fechas
+        return this.codPrintCrd,this.cliente,this.fchaElav,this.product
     
-pru = atributes()
-print(pru.cliente)
+pr = atributes()
+#print(pr.atrFichTec()[0][0])
