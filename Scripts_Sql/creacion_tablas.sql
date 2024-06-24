@@ -64,7 +64,7 @@ CREATE TABLE FichaTec(
 /*------------------------EXTRUSION------------------------------*/
     CREATE TABLE EXTRUSION(
 		id INT PRIMARY KEY auto_increment,
-        idCodPrdc VARCHAR(255),
+        idCodPrdc VARCHAR(255),         /*llave foranea*/
         tipo_Material VARCHAR(255) NOT NULL,
         dinaje VARCHAR(255) NOT NULL,
         formula VARCHAR(255) NOT NULL,
