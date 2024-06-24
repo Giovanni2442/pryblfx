@@ -147,7 +147,7 @@ CREATE TABLE FichaTec(
 /*------------------------IMPRESION------------------------------*/
 	 CREATE TABLE IMPRESION(
 		id INT PRIMARY KEY auto_increment,
-		idCodPrdc VARCHAR(255),
+		idCodPrdc VARCHAR(255), #llave foranea
         material_Imprimir VARCHAR(255) NOT NULL,
         dinaje VARCHAR(255) NOT NULL,
         grosor_Core float NOT NULL,

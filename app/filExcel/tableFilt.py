@@ -48,12 +48,16 @@ class tableFilt():
         
         return tableFilt.condiFilts(
             filter.vrfNan(atr.asesor,atr.tipoEmpq,atr.estruct,atr.empaca),
-            filter.vrfIsletter(atr.asesor,atr.tipoEmpq,atr.empaca),
-            filter.vrfEstrcProd(atr.estruct),
+            filter.vrfIsletter(atr.asesor,atr.tipoEmpq,atr.empaca),# atr.empaca, atr.tipoEmpq
+            filter.prEsctr(atr.estruct),
             c=cl,
             msg=atr.mensajes,
             elmnts=atr.getAllAtr()
         )
+    
+    def tblExtruccion(fila,cl):
+        print(filter.vrfIsletter("Hoala Mundo 45"))
+       
 
 # ---- FUNCIONES DE PRUEBAS ---- 
     def pr1(fila):
@@ -78,5 +82,5 @@ class tableFilt():
             #    print("No se encontró ningún False en la tupla.")
 #-----------------------------------------
 
-clase = tableFilt
-#clase.pr1()
+#clase = tableFilt
+

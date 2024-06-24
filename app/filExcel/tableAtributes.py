@@ -23,6 +23,31 @@ class atrVentas:
     def getAllAtr(this):
         return this.asesor,this.tipoEmpq,this.estruct,this.empaca
 
+class atrVentas:
+    def __init__(self,fila):
+        #NOTA : Para esta tabla faltaria el atributo "PRODUCTO LAMINADO"
+        #self.product_Laminado = None
+        self.asesor = fila['ASESOR COMERCIAL DE LA CUENTA']
+        self.tipoEmpq = fila['TIPO DE EMPAQUE']
+        self.estruct = fila['ESTRUCTURA']
+        self.empaca = fila['PRODUCTO QUE SE EMPACA']
+        self.mensajes = "campo vacio!","Los caracteres son Incorrectos!","Error en la Estructura!"
+
+    def getAllAtr(this):
+        return this.asesor,this.tipoEmpq,this.estruct,this.empaca
+    
+class atrExtruccion:
+    def __init__(self,fila):
+        self.asesor = fila['ASESOR COMERCIAL DE LA CUENTA']
+        self.tipoEmpq = fila['TIPO DE EMPAQUE']
+        self.estruct = fila['ESTRUCTURA']
+        self.empaca = fila['PRODUCTO QUE SE EMPACA']
+        self.mensajes = "campo vacio!","Los caracteres son Incorrectos!","Error en la Estructura!"
+
+    def getAllAtr(this):
+        return this.asesor,this.tipoEmpq,this.estruct,this.empaca
+
+
 
 # --------- FUNCIÓNES DE PRUEBAS -----------------
 class pruebas:
