@@ -127,15 +127,123 @@ class atrLaminado:
     def __init__(self):
         self.estructProduct = ['ESTRUCTURA']        # Se toma de la tabla de Ventas 
         self.tipoTratado = ['TIPO DE TRATADO']
-        self.maxEmpalmesBob = ['']
-        self.orientBobRack = ['']
-        self.tipoEmpaqBob = ['']
-        self.etiquetado = ['']
-        self.pesarProduct = ['']
-        self.pesoPromBob = ['']
+        self.maxEmpalmesBob = ['MÁXIMO DE EMPALMES POR BOBINA']
+        self.orientBobRack = None                   # Averiguar de donde se saca el atributo
+        self.tipoEmpaqBob = ['TIPO DE EMPAQUE PARA BOBINA']
+        self.etiquetado = ['ETIQUETADO']
+        self.pesarProduct = ['PESAR PRODUCTO POR']  # Se toma de la tabla de Impresión
 
-        # --- Material Impreso ---
-    
+        # --- Medida de la manga para la Transferencia --
+        self.medidaManga = ['MEDIDA DE LA MANGA PARA TRANSFERENCIA (CM)']
+        self.medidaMangaTol = None                  # Averiguar de donde se saca el atributo 
+
+        # --- Ancho de core y Tolerancia ---
+        self.anchoCore = ['ANCHO DE CORE (CM)']
+        self.anchoCoreTol = ['TOLERANCIA']
+
+        # --- Diametro y Grosor de core --- 
+        self.diametro = None            # Averiguar de donde se saca el atributo
+        self.grosorCore = None          # Averiguar de donde se saca el atributo
+
+        # --- Diametro de bobina y Tolerancia ---
+        self.diametroBob = ['DIÁMETRO DE BOBINA (CM)']                      
+        self.diametroBobTol = ['TOLERANCIA (CM)']
+
+        # --- Peso promedio por bobina y Tolerancia ---
+        self.pesoPromBob = ['PESO NETO PROMEDIO DE BOBINA (KG)']
+        self.pesoPromBobTol = ['TOLERANCIA']
+
+     # --- Material Impreso ---
+    class materialImpreso:
+        def __init__(self):
+            self.tipoTratado = ['TIPO DE TRATADO']          # NOTA : EXISTEN MAS TRATADOS EN EL EXCEL
+            # --- Calibre de pelicula y Tolerancia --
+            self.calibre = ['CALIBRE gauges','CALIBRE Micras']              # Existe en GAUGUES Y EN MICRAS. Si  en GAUGUES se coloca en GAUGUES
+            self.calTol = ['TOLERANCIA']
+            # --- Ancho de Bobina y Tolerancia ---
+            self.anchoBob = ['ANCHO DE BOBINA (CM)']
+            self.anchoBobTol = ['TOLERANCIA (CM)']
+
+    class Laminacion_1:
+        def __init__(self):
+            self.material = ['MATERIAL 1 LAM (CLAVE SAP)']
+            self.tipoTratado = ['TIPO DE TRATADO']
+            self.tipoLamin = None               # Averiguar de donde se saca el atributo    
+            # --- Calibre de pelicula y Tolerancia Laminación 1 ---
+            self.calPel = ['CALIBRE MICRAS (GAUGES/4)']         # POSICIÓN "CA"
+            self.calPelTol = ['TOLERANCIA']                     #  POSICIÓN "CB"
+            # --- Ancho de Bobina y Tolerancia Laminación 1 ---
+            self.anchoBob = ['ANCHO DE BOBINA (CM)']
+            self.anchoBobTol = ['TOLERANCIA (CM)']              # POSICIÓN "CE"
+
+    class Laminacion_2:
+        def __init__(self):
+            self.material = ['MATERIAL 2 LAM (CLAVE SAP)']
+            self.tipoTratado = ['TIPO DE TRATADO']              # POSICIÓN "CO"
+            self.tipoLamin = None                                   # Averiguar de donde se saca el atributo    
+            # --- Calibre de pelicula y Tolerancia Laminación 1 ---
+            self.calPel = ['CALIBRE GAUGES']                    # POSICIÓN "CI" NOTA : SI LLEGA ALAMINACIÓN 2 ESTE ATRIBUTO, TIENE QUE TENER TOLERANCIA
+            self.calPelTol = ['TOLERANCIA']                      # POSICIÓN "CK"
+            # --- Ancho de Bobina y Tolerancia Laminación 1 ---
+            self.anchoBob = ['ANCHO DE BOBINA (CM)']            # POSICIÓN "CL"
+            self.anchoBobTol = ['TOLERANCIA (CM)']              # POSICIÓN "CN"
+
+    class Laminacion_3:
+        def __init__(self):
+            self.tipoTratado = None
+            self.tipoLamin =  None
+            # --- Calibre de pelicula y Tolerancia Laminación 1 ---
+            self.calPel =  None
+            self.calPelTol =  None
+            # --- Ancho de Bobina y Tolerancia Laminación 1 ---
+            self.anchoBob =  None
+            self.anchoBobTol =  None
+
+    class Laminacion_4:
+        def __init__(self):
+            self.tipoTratado =  None
+            self.tipoLamin =  None
+            # --- Calibre de pelicula y Tolerancia Laminación 1 ---
+            self.calPel =  None
+            self.calPelTol =  None
+            # --- Ancho de Bobina y Tolerancia Laminación 1 ---
+            self.anchoBob =  None
+            self.anchoBobTol =  None
+            
+class atrRefilado:
+    def __init__(self):
+        self.proceso = ['']
+        self.acabadoBob = ['']
+        self.grosorCore = ['']
+        self.figEmbobImpr = ['']
+        self.bobinaRefilar = ['']
+        self.maximoEmpal = ['']
+        self.señalEmpl = ['']
+        self.orientBobTarima = ['']
+        self.tipoEmpaque = ['']
+        self.pesarPrdct = ['']
+        self.etiquetado = ['']
+        self.tarimaEmplaye = ['']
+        self.tarimaFlejada = ['']
+        # --- Ancho final de bobina al refilarse/Doblarse y Tolerancia ---
+        self.anchoFinalBob = ['']
+        self.anchoFinalBobTol = ['']
+        # --- Ancho de core y Tolerancia ---
+        self.anchoCore = ['']
+        self.anchoCoreTol = ['']
+        # --- Metros por bobina al refilarse/doblarse y tolerancia ---
+        self.metrosBob = ['']
+        self.metrosBobTol = ['']
+        # --- Diametro de bobina al refilarse/doblarse y tolerancia ---
+        self.diametroRef = ['']
+        self.diametroRefTol = ['']
+        # --- Peso neto promedio por bobina ---
+        self.pesoNetPromBob = ['']
+        self.pesoNetPromBobTol = ['']
+        # --- Numero de bobinas por cama y camas por tarima ---
+
+
+
 # --------- FUNCIÓNES DE PRUEBAS -----------------
 class pruebas:
     def __init__(self,fila):
