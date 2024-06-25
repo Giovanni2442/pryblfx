@@ -25,13 +25,13 @@ class filter():
     
     #Verifica el Nombre del Cliente
     def vrfCliente(*args):
-        patron = re.compile(r'^[a-zA-Z0-9_.() -]+$')
+        patron = re.compile(r'^[a-zA-Z_.() -]+$')
         return all(bool(patron.fullmatch(arg)) for arg in args)
     
     #Verifica si el Codigo del printCard es correcto
     def vrfPrintCard(*args):
         patron = re.compile('^(?=.*\d{4,})[a-zA-Z0-9_-]+$')
-        return any(bool(patron.fullmatch(arg)) for arg in args)
+        return all(bool(patron.fullmatch(arg)) for arg in args)
     
     #Verifica las fechas de elavoración de las fichas tecnicas
     #dd/mm/yy

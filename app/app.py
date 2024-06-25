@@ -16,8 +16,8 @@ data = pd.read_excel(dir,header=1)
 def read():
     
     # --- FUNCIONES DE VERIFICACIÓN ---
-    #filtData(tblFil.tblFichTec)
-    filtData(tblFil.tblVentas)
+    filtData(tblFil.tblFichTec)
+    #filtData(tblFil.tblVentas)
     #filtData(data,clmn,tblFil.pr1)
     #pru(data,clmn,tblFil.pr1)
 
