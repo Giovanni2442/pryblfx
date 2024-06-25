@@ -47,19 +47,11 @@ class filter():
         return any(bool(patron.fullmatch(arg)) for arg in args)
 
     def prEsctr(*args):
+        # LDPE (BAJA) 110 +/-10% GAUGES 
         patron = re.compile(
-            r'^(PET|LDPE|BOPP)'                 # Coincide con PET, LDPE o BOPP
-            r'(?:\([a-zA-Z]+\))?'               # Coincide opcionalmente con (BAJA)
-            r'\s+'                              # Espacios después de PET, LDPE o BOPP
-            r'\d+'                              # Coincide con uno o más dígitos
-            r'\s*(GAUGES|GA|µ)'                 # Coincide con GAUGES, GA o µ
-            r'(?:'                              # Inicio del grupo opcional para múltiples segmentos
-            r'\s*/\s*'                          # Coincide con / rodeada de espacios
-            r'[a-zA-Z]+'                        # Coincide con una secuencia de letras (material)
-            r'(?:\([a-zA-Z]+\))?'               # Coincide opcionalmente con (BAJA)
-            r'\s*\d+'                           # Coincide con uno o más dígitos
-            r'\s*(GAUGES|GA|µ)'                 # Coincide con GAUGES, GA o µ
-            r')*$'                              # Fin del grupo opcional y fin de la cadena
+            r'^(PET|LDPE|BOPP)'              # Coincide con PET, LDPE o BOPP
+            r'(?:[a-zA-Z()/\d±% +-]*\d{}[a-zA-Z()/\d±% +-]*)*'  # Coincide opcionalmente con dígitos y +/-
+            r'(GAUGES|GA| µ)'
         )
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
