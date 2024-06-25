@@ -124,9 +124,18 @@ class atrImpresion:
         self.psoBobCamaTol = ['CAMAS POR TARIMA (PZ)']
 
 class atrLaminado:
-    pass
+    def __init__(self):
+        self.estructProduct = ['ESTRUCTURA']        # Se toma de la tabla de Ventas 
+        self.tipoTratado = ['TIPO DE TRATADO']
+        self.maxEmpalmesBob = ['']
+        self.orientBobRack = ['']
+        self.tipoEmpaqBob = ['']
+        self.etiquetado = ['']
+        self.pesarProduct = ['']
+        self.pesoPromBob = ['']
 
-
+        # --- Material Impreso ---
+    
 # --------- FUNCIÓNES DE PRUEBAS -----------------
 class pruebas:
     def __init__(self,fila):
