@@ -42,6 +42,7 @@ SELECT * FROM FichaTec;
 
 DELETE FROM FichaTec WHERE id_codProduct = 'E-5234-A_R-1' ;
 
+/*------------------------FICHA TECNICA------------------------------*/
 CREATE TABLE FichaTec(
 	id_codProduct VARCHAR(255) PRIMARY KEY NOT NULL,
     cliente VARCHAR(255) NOT NULL,
@@ -49,7 +50,7 @@ CREATE TABLE FichaTec(
     fecha_Rev VARCHAR(255) NOT NULL,
     producto VARCHAR(255) NOT NULL
 );
-	/*ventas*/
+/*------------------------VENTAS------------------------------*/
 	CREATE TABLE VENTAS(
 		id INT PRIMARY KEY auto_increment,
         idCodPrdc VARCHAR(255),
@@ -94,7 +95,7 @@ CREATE TABLE FichaTec(
         CREATE TABLE AnchoBob_Tolr(
 			id INT PRIMARY KEY auto_increment,
             idExtr INT,
-            anchoNonina float NOT NULL,
+            anchoBob float NOT NULL,
             tolerancia float NOT NULL,
 			FOREIGN KEY (idExtr) REFERENCES EXTRUSION(id) ON DELETE CASCADE
         );
@@ -121,7 +122,7 @@ CREATE TABLE FichaTec(
         CREATE TABLE Peso_Prom_Bob(
 			id INT PRIMARY KEY auto_increment,
             idExtr INT,
-            peso float not null,
+            pesoBob float not null,
             tolerancia float not null,
 			FOREIGN KEY (idExtr) REFERENCES EXTRUSION(id) ON DELETE CASCADE
         );
@@ -165,6 +166,7 @@ CREATE TABLE FichaTec(
         pesarProduct VARCHAR(50) NOT NULL,
         etiquetado VARCHAR(50) NOT NULL,
         Num_bob_tarima int NOT NULL,
+        validacion VARCHAR(50) not null,
         tarima_Emplaye VARCHAR(50) NOT NULL,
         tarima_Flejada VARCHAR(50) NOT NULL,
         FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
@@ -196,16 +198,7 @@ CREATE TABLE FichaTec(
             tolerancia float not null,
 			FOREIGN KEY (idExtr) REFERENCES IMPRESION(id) ON DELETE CASCADE
         );
-        
-        /*Validación de color*/
-        CREATE TABLE ValidColor(
-			id INT PRIMARY KEY auto_increment,
-            idExtr INT,
-            validacion VARCHAR(50) not null,
-            combinacion VARCHAR(50) not null,
-			FOREIGN KEY (idExtr) REFERENCES IMPRESION(id) ON DELETE CASCADE
-        );
-        
+            
         /*Diametro de bobina y Tolerancia*/
         CREATE TABLE DiamBob_Tolr(
 			id INT PRIMARY KEY auto_increment,
@@ -237,7 +230,16 @@ CREATE TABLE FichaTec(
         CREATE TABLE Peso_prom_tarima_Extr(
 			id INT PRIMARY KEY auto_increment,
             idExtr INT,
-            peso_neto int not null,
+            numBobCama VARCHAR(10) not null,
+            camaTam int not null,
+			FOREIGN KEY (idExtr) REFERENCES IMPRESION(id) ON DELETE CASCADE
+        );
+
+        /*Peso neto promedio por tarima y tolerancia*/
+        CREATE TABLE Peso_prom_tarima_Extr(
+			id INT PRIMARY KEY auto_increment,
+            idExtr INT,
+            pesoNto int not null,
             tolerancia int not null,
 			FOREIGN KEY (idExtr) REFERENCES IMPRESION(id) ON DELETE CASCADE
         );
@@ -254,7 +256,6 @@ CREATE TABLE FichaTec(
         tipoEmpaqBob VARCHAR(50) NOT NULL,
         etiquetado VARCHAR(50) NOT NULL,
         pesarProduct VARCHAR(50) NOT NULL,
-        pesoPromBob float NOT NULL,
 		FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
 	);
 		 /*Material Impreso*/
@@ -283,9 +284,12 @@ CREATE TABLE FichaTec(
 			);
             
 		 /*Laminación 1*/
+        
+        /*Laminación 1*/
         CREATE TABLE Material_Laminar_1(
 			id INT PRIMARY KEY auto_increment,
             idLam INT,
+            Material = VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
@@ -308,11 +312,12 @@ CREATE TABLE FichaTec(
                 tolerancia float NOT NULL,
 				FOREIGN KEY (idMtrLam1) REFERENCES Material_Laminar_1(id) ON DELETE CASCADE
 			);
-            
+           
 		/*Laminación 2*/
 		 CREATE TABLE Material_Laminar_2(
 			id INT PRIMARY KEY auto_increment,
             idLam INT,
+            Material = VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
@@ -340,6 +345,7 @@ CREATE TABLE FichaTec(
 		 CREATE TABLE Material_Laminar_3(
 			id INT PRIMARY KEY auto_increment,
             idLam INT,
+            Material = VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
@@ -367,6 +373,7 @@ CREATE TABLE FichaTec(
 		 CREATE TABLE Material_Laminar_4(
 			id INT PRIMARY KEY auto_increment,
             idLam INT,
+            Material = VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
@@ -416,7 +423,7 @@ CREATE TABLE FichaTec(
             grosorCore float NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
         );
-        
+
         /*Diametro de bobina y Tolerancia*/
         CREATE TABLE Diametro_Bob_Tolr(
 			id INT PRIMARY KEY auto_increment,
@@ -425,6 +432,15 @@ CREATE TABLE FichaTec(
             tolerancia float NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
         );
+
+        /*Peso promedio por bobina y Tolerancia*/
+        CREATE TABLE Peso_Prom_Bob(
+            id INT PRIMARY KEY auto_increment,
+            idLam INT,
+            pesoPromBob float NOT NULL,
+            tolerancia float NOT NULL,
+			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
+        )
         
 /*------------------------REFILADO------------------------------*/
 

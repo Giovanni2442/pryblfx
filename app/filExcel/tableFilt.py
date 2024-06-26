@@ -47,9 +47,9 @@ class tableFilt():
         atr = atrVentas(fila)
         
         return tableFilt.condiFilts(
-            filter.vrfNan(atr.asesor,atr.tipoEmpq,atr.estruct,atr.empaca),
-            filter.vrfIsletter(atr.asesor,atr.tipoEmpq,atr.empaca),# atr.empaca, atr.tipoEmpq
-            filter.prEsctr(atr.estruct),
+            filter.vrfNan(atr.asesor,atr.tipoEmpq,atr.estruct,atr.empaca),  # Verifica si el vampo esta vacio
+            filter.vrfIsletter(atr.asesor,atr.tipoEmpq,atr.empaca),         # atr.empaca, atr.tipoEmpq
+            filter.prEsctr(atr.estruct),                                    # Verifica la estructura 
             c=cl,
             msg=atr.mensajes,
             elmnts=atr.getAllAtr()
@@ -60,10 +60,10 @@ class tableFilt():
        
 
 # ---- FUNCIONES DE PRUEBAS ---- 
-    def pr1(fila):
-        je = atrFichTec(fila)
-        return je.getAllAtr()
-
+    def pr1():
+        je = atrLaminado.je()
+        print(je.prueba)
+    
     def pru(*func,cln,c,msg,elmnts):
         filNan = (c-cln)+1         #Formula para calcular la posisión de la fila
         
@@ -82,5 +82,6 @@ class tableFilt():
             #    print("No se encontró ningún False en la tupla.")
 #-----------------------------------------
 
-#clase = tableFilt
+clase = tableFilt
+clase.pr1()
 
