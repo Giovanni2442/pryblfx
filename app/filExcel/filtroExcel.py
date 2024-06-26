@@ -12,7 +12,8 @@ import re
 
 class filter():
     patron = ""
-#  --- FILTRADORES DE DATOS ---    
+#  --- FILTRADORES DE DATOS --- 
+   
     #Verifica si el campo esta lleno y no vacio
     # Retorna false si encuentra un campo vacio, de lo contrario es un True de que esta lleno el campo
     def vrfNan(*args):                            # Se pasa 'n' cantidad de atributos a recorrer
@@ -55,10 +56,10 @@ class filter():
         )
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
+    # --- Función para probar las Validaciónes --- 
     def pru():
-        patron = re.compile('^[a-zA-Z. ]+$')
-        print(bool(patron.match("Hola. mundo")))       
-
+        print(filter.vrfIsletter("Hola mundo"))
+          
 pr = filter
 #pr.pru()
     #   ----------------------------------

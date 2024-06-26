@@ -47,9 +47,9 @@ class tableFilt():
         atr = atrVentas(fila)
         
         return tableFilt.condiFilts(
-            filter.vrfNan(atr.asesor,atr.tipoEmpq,atr.estruct,atr.empaca),
-            filter.vrfIsletter(atr.asesor,atr.tipoEmpq,atr.empaca),# atr.empaca, atr.tipoEmpq
-            filter.prEsctr(atr.estruct),
+            filter.vrfNan(atr.asesor,atr.tipoEmpq,atr.estruct,atr.empaca),  # Verifica si el vampo esta vacio
+            filter.vrfIsletter(atr.asesor,atr.tipoEmpq,atr.empaca),         # atr.empaca, atr.tipoEmpq
+            filter.prEsctr(atr.estruct),                                    # Verifica la estructura 
             c=cl,
             msg=atr.mensajes,
             elmnts=atr.getAllAtr()

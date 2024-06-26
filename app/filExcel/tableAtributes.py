@@ -39,38 +39,38 @@ class atrExtruccion:
         self.orntBobTrm = ['ORIENTACIÓN DE BOBINA EN TARIMA']   # IMPRESIÓN en BG "VERIFICAR ESTO"     
         self.tipoEmpqBob = ['TIPO DE EMPAQUE PARA BOBINA']      # IMPRESIÓN en BF "VERIFICAR ESTO" 
         self.pesarProduct = ['PESAR PRODUCTO POR']              # IMPRESIÓN en BH "VERIFICAR ESTO"
-        self.etiquetado = None                                  # Averiguar como sacar este campo : IMPRESIÓN BM o REFILADO DQ 
+        self.etiquetado = None                                  # Averiguar como sacar este campo : IMPRESIÓN "BM" o REFILADO "DQ" 
         self.numBobTarima = ['NUMERO DE BOBINAS EN TARIMA (PZ)']  # REFILADO en DT
         self.tarimaEmplaya = None                               #Averiguar como sacar este campo : REFILADO
         self.tarimaFlejada = None                               #Averiguar como sacar este campo : REFILADO
 
         # --- CalibrePel_Tolr ---
-        self.calibre = fila['CALIBRE GAUGES']       #
-        self.calTol = fila['TOLERANCIA']            # NOTA : Aqui hay varias tablas que se llaman tolerancia, arreglar eso
+        self.calibre = fila['CALIBRE GAUGES']       # T
+        self.calTol = fila['TOLERANCIA']            # U
 
         # --- Ancho de Bobina y Tolerancia ---
-        self.anchBob = ['ANCHO DE BOBINA (CM)']     #Esto se tomo de la tabla de IMPRECIÓN
-        self.anchBobTol = ['TOLERANCIA (CM)']       #Esto se tomo de la tabla de IMPRECIÓN
+        self.anchBob = ['ANCHO DE BOBINA (CM)']     # Y
+        self.anchBobTol = ['TOLERANCIA (CM)']       # Z
 
         # --- Ancho de Core y Tolerancia ---
-        self.anchCore = ['ANCHO DE CORE (CM)']      # Se toma de la Tabla de Laminado 
-        self.anchCoreTol = ['TOLERANCIA']           # Se toma de la tabla de Laminado
+        self.anchCore = ['ANCHO DE CORE (CM)']      # Laminado en CS
+        self.anchCoreTol = ['TOLERANCIA']           # Laminado en CT
 
         # --- Diametro de Bobina y Tolerancia ---
-        self.diamBob = ['DIÁMETRO DE BOBINA (CM)']  # se toma de la tabla de Impresión
-        self.diamBobTol = ['TOLERANCIA CM']            
+        self.diamBob = ['DIÁMETRO DE BOBINA (CM)']  # Impresión en BI
+        self.diamBobTol = ['TOLERANCIA CM']         # Impreción en BJ           
 
         # --- Peso promedio por bobina ---
-        self.pesoBob = ['PESO NETO PROMEDIO DE BOBINA (KG)']                         # Existe en Impresión y Laminado, se tomo la de Laminado
-        self.pesoBobTol = ['TOLERANCIA']  
+        self.pesoBob = ['PESO NETO PROMEDIO DE BOBINA (KG)']    # Existe en Impresión y Laminado, se tomo la de Laminado en CX
+        self.pesoBobTol = ['TOLERANCIA']                        # NO COINCIDE -- Laminado en CY
 
         # --- Numero de bobinas por cama y camas por tarima ---
-        self.numBobCama = ['NUMERO DE BOBINAS POR CAMA (PZ)']  # se toma de la tabla de Impresión
-        self.cmsTarima = ['CAMAS POR TARIMA (PZ)']  
+        self.numBobCama = ['NUMERO DE BOBINAS POR CAMA (PZ)']   # Impresión en BN
+        self.cmsTarima = ['CAMAS POR TARIMA (PZ)']              # Impresión en BO
 
         # --- peso neto promedio por tarima --- 
-        self.pesoNetoTam = ['PESO NETO PROMEDIO POR TARIMA (KG)']       # se toma de la tabla de Impresión
-        self.pesoPromTamTol = ['TOLERANCIA']                            # se toma de la tabla de Impresión
+        self.pesoNetoTam = ['PESO NETO PROMEDIO POR TARIMA (KG)']       # Impresión VERIFICARLO 
+        self.pesoPromTamTol = ['TOLERANCIA']                            # Impresión VERIFICARLO
     
     def getAllAtr(this):
         return this.asesor,this.tipoEmpq,this.estruct,this.empaca
@@ -129,7 +129,7 @@ class atrImpresion:
 class atrLaminado:
     def __init__(self):
         self.estructProduct = ['ESTRUCTURA']        # Se toma de la tabla de Ventas 
-        self.tipoTratado = ['TIPO DE TRATADO']
+        self.tipoTratado = ['TIPO DE TRATADO']      
         self.maxEmpalmesBob = ['MÁXIMO DE EMPALMES POR BOBINA']
         self.orientBobRack = None                   # Averiguar de donde se saca el atributo
         self.tipoEmpaqBob = ['TIPO DE EMPAQUE PARA BOBINA']
@@ -186,7 +186,7 @@ class atrLaminado:
             self.tipoLamin = None                                   # Averiguar de donde se saca el atributo    
             # --- Calibre de pelicula y Tolerancia Laminación 1 ---
             self.calPel = ['CALIBRE GAUGES']                    # POSICIÓN "CI" NOTA : SI LLEGA ALAMINACIÓN 2 ESTE ATRIBUTO, TIENE QUE TENER TOLERANCIA
-            self.calPelTol = ['TOLERANCIA']                      # POSICIÓN "CK"
+            self.calPelTol = ['TOLERANCIA']                     # POSICIÓN "CK"
             # --- Ancho de Bobina y Tolerancia Laminación 1 ---
             self.anchoBob = ['ANCHO DE BOBINA (CM)']            # POSICIÓN "CL"
             self.anchoBobTol = ['TOLERANCIA (CM)']              # POSICIÓN "CN"
@@ -215,38 +215,45 @@ class atrLaminado:
             
 class atrRefilado:
     def __init__(self):
-        self.proceso = ['']
-        self.acabadoBob = ['']
-        self.grosorCore = ['']
-        self.figEmbobImpr = ['']
-        self.bobinaRefilar = ['']
-        self.maximoEmpal = ['']
-        self.señalEmpl = ['']
-        self.orientBobTarima = ['']
-        self.tipoEmpaque = ['']
-        self.pesarPrdct = ['']
-        self.etiquetado = ['']
-        self.tarimaEmplaye = ['']
-        self.tarimaFlejada = ['']
+        self.proceso = ['PROCESO A REALIZAR']                   # CZ
+        self.acabadoBob = None                                  # No se espesifica
+        self.grosorCore = None                                  # No se espesifica
+        self.figEmbobImpr = ['FIGURA DE EMBOBINADO']            # DE
+        self.bobinaRefilar = ['LA BOBINA SE REFILARA/DOBLARA POR METROS, DIAMETRO O PESO']  # DF
+        self.maximoEmpal = ['MÁXIMO DE EMPALMES POR BOBINA']    # DK 
+        self.señalEmpl = None
+        self.orientBobTarima = ['ORIENTACIÓN DE BOBINA EN TARIMA']  # DL
+        self.tipoEmpaque = ['TIPO DE EMPAQUE PARA BOBINA']          # BM
+        self.pesarPrdct = ['PESAR PRODUCTO POR']                    # DN
+        self.etiquetado = ['ETIQUETADO']                            # DQ
+        self.tarimaEmplaye = None
+        self.tarimaFlejada = None
         # --- Ancho final de bobina al refilarse/Doblarse y Tolerancia ---
-        self.anchoFinalBob = ['']
-        self.anchoFinalBobTol = ['']
+        self.anchoFinalBob = ['ANCHO FINAL DE BOBINA (CM)']         # DA
+        self.anchoFinalBobTol = ['TOLERANCIA (CM)']                 # DB
         # --- Ancho de core y Tolerancia ---
-        self.anchoCore = ['']
-        self.anchoCoreTol = ['']
+        self.anchoCore = ['ANCHO DE CORE (LONGITUD DE BOBINA)']     # DC   
+        self.anchoCoreTol = ['TOLERANCIA']                          # DD
         # --- Metros por bobina al refilarse/doblarse y tolerancia ---
-        self.metrosBob = ['']
-        self.metrosBobTol = ['']
+        self.metrosBob = ['METROS POR BOBINA AL REFILARSE/DOBLARSE']    # DG
+        self.metrosBobTol = ['TOLERANCIA MTS']                          # DH
         # --- Diametro de bobina al refilarse/doblarse y tolerancia ---
-        self.diametroRef = ['']
-        self.diametroRefTol = ['']
+        self.diametroRef = ['DIAMETRO DE BOBINA AL REFILARSE/DOBLARSE (CM)']    # DI
+        self.diametroRefTol = ['TOLERANCIA (CM)']                               # DJ
         # --- Peso neto promedio por bobina ---
-        self.pesoNetPromBob = ['']
-        self.pesoNetPromBobTol = ['']
+        self.pesoNetPromBob = ['PESO NETO PROMEDIO DE BOBINA (KG)']             # DP
+        self.pesoNetPromBobTol = ['TOLERANCIA']                                 # DQ
         # --- Numero de bobinas por cama y camas por tarima ---
+        self.numBobCama = ['NUMERO DE BOBINAS POR CAMA (PZ)']                   # DR
+        self.camasTam = ['CAMAS POR TARIMA']                                    # DT
+        # --- Peso neto promedio por tarima --- 
+        self.pesoNtoTam = ['PESO NETO PROMEDIO POR TARIMA']                     # DU
+        self.pesoNtoTamTol = ['TOLERANCIA']                                     # DV
 
-
-
+class atrConversion:
+    def __init__(self):
+        pass
+    
 # --------- FUNCIÓNES DE PRUEBAS -----------------
 class pruebas:
     def __init__(self,fila):

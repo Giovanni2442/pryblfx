@@ -95,7 +95,7 @@ CREATE TABLE FichaTec(
         CREATE TABLE AnchoBob_Tolr(
 			id INT PRIMARY KEY auto_increment,
             idExtr INT,
-            anchoNonina float NOT NULL,
+            anchoBob float NOT NULL,
             tolerancia float NOT NULL,
 			FOREIGN KEY (idExtr) REFERENCES EXTRUSION(id) ON DELETE CASCADE
         );
@@ -122,7 +122,7 @@ CREATE TABLE FichaTec(
         CREATE TABLE Peso_Prom_Bob(
 			id INT PRIMARY KEY auto_increment,
             idExtr INT,
-            peso float not null,
+            pesoBob float not null,
             tolerancia float not null,
 			FOREIGN KEY (idExtr) REFERENCES EXTRUSION(id) ON DELETE CASCADE
         );
