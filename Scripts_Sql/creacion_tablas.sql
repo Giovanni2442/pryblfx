@@ -42,6 +42,7 @@ SELECT * FROM FichaTec;
 
 DELETE FROM FichaTec WHERE id_codProduct = 'E-5234-A_R-1' ;
 
+/*------------------------FICHA TECNICA------------------------------*/
 CREATE TABLE FichaTec(
 	id_codProduct VARCHAR(255) PRIMARY KEY NOT NULL,
     cliente VARCHAR(255) NOT NULL,
@@ -49,7 +50,7 @@ CREATE TABLE FichaTec(
     fecha_Rev VARCHAR(255) NOT NULL,
     producto VARCHAR(255) NOT NULL
 );
-	/*ventas*/
+/*------------------------VENTAS------------------------------*/
 	CREATE TABLE VENTAS(
 		id INT PRIMARY KEY auto_increment,
         idCodPrdc VARCHAR(255),
@@ -165,6 +166,7 @@ CREATE TABLE FichaTec(
         pesarProduct VARCHAR(50) NOT NULL,
         etiquetado VARCHAR(50) NOT NULL,
         Num_bob_tarima int NOT NULL,
+        validacion VARCHAR(50) not null,
         tarima_Emplaye VARCHAR(50) NOT NULL,
         tarima_Flejada VARCHAR(50) NOT NULL,
         FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
@@ -196,16 +198,7 @@ CREATE TABLE FichaTec(
             tolerancia float not null,
 			FOREIGN KEY (idExtr) REFERENCES IMPRESION(id) ON DELETE CASCADE
         );
-        
-        /*Validación de color*/
-        CREATE TABLE ValidColor(
-			id INT PRIMARY KEY auto_increment,
-            idExtr INT,
-            validacion VARCHAR(50) not null,
-            combinacion VARCHAR(50) not null,
-			FOREIGN KEY (idExtr) REFERENCES IMPRESION(id) ON DELETE CASCADE
-        );
-        
+            
         /*Diametro de bobina y Tolerancia*/
         CREATE TABLE DiamBob_Tolr(
 			id INT PRIMARY KEY auto_increment,
@@ -237,7 +230,16 @@ CREATE TABLE FichaTec(
         CREATE TABLE Peso_prom_tarima_Extr(
 			id INT PRIMARY KEY auto_increment,
             idExtr INT,
-            peso_neto int not null,
+            numBobCama VARCHAR(10) not null,
+            camaTam int not null,
+			FOREIGN KEY (idExtr) REFERENCES IMPRESION(id) ON DELETE CASCADE
+        );
+
+        /*Peso neto promedio por tarima y tolerancia*/
+        CREATE TABLE Peso_prom_tarima_Extr(
+			id INT PRIMARY KEY auto_increment,
+            idExtr INT,
+            pesoNto int not null,
             tolerancia int not null,
 			FOREIGN KEY (idExtr) REFERENCES IMPRESION(id) ON DELETE CASCADE
         );

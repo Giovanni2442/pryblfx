@@ -18,7 +18,9 @@ class atrVentas:
         self.tipoEmpq = fila['TIPO DE EMPAQUE']
         self.estruct = fila['ESTRUCTURA']
         self.empaca = fila['PRODUCTO QUE SE EMPACA']
-        self.mensajes = "campo vacio!","Los caracteres son Incorrectos!","Error en la Estructura!"
+        self.mensajes = "campo vacio!",
+        "Los caracteres son Incorrectos!",
+        "Error en la Estructura!"
 
     def getAllAtr(this):
         return this.asesor,this.tipoEmpq,this.estruct,this.empaca
@@ -27,20 +29,20 @@ class atrVentas:
 class atrExtruccion:
     def __init__(self,fila):
         # Atributos Atomicos
-        self.tipoMtrl = fila['TIPO DE MATERIAL A EXTRUIR']
-        self.dinaje = fila['DINAJE REQUERIDO']
-        self.formula = fila['FÓRMULA DEL LDPE']
-        self.pigmento = None                        #Hace falta el pigmento del producto, no se encuentra en las capturas
-        self.tipoBob = fila['TIPO DE BOBINA']       #
-        self.tipoTrat = fila['TIPO DE TRATADO']
-        self.maxEmplm = None                        #Averiguar como sacar este campo : IMPRESIÓN
-        self.orntBobTrm = None                      #Averiguar como sacar este campo : IMPRESIÓN     
-        self.tipoEmpqBob = None                     #Averiguar como sacar este campo : IMPRESIÓN
-        self.pesarProduct = None                    #Averiguar como sacar este campo : IMPRESIÓN
-        self.etiquetado = None                      #Averiguar como sacar este campo : IMPRESIÓN
-        self.numBobTarima = None                    #Averiguar como sacar este campo : REFILADO
-        self.tarimaEmplaya = None                   #Averiguar como sacar este campo : REFILADO
-        self.tarimaFlejada = None                   #Averiguar como sacar este campo : REFILADO
+        self.tipoMtrl = fila['TIPO DE MATERIAL A EXTRUIR']      # O        
+        self.dinaje = fila['DINAJE REQUERIDO']                  # P
+        self.formula = fila['FÓRMULA DEL LDPE']                 # Q
+        self.pigmento = None                                    # No se encuentra en capturas pigmento
+        self.tipoBob = fila['TIPO DE BOBINA']                   # V
+        self.tipoTrat = fila['TIPO DE TRATADO']                 # W
+        self.maxEmplm = ['MÁXIMO DE EMPALMES POR BOBINA']       # IMPRESIÓN en BE "VERIFICAR ESTO"
+        self.orntBobTrm = ['ORIENTACIÓN DE BOBINA EN TARIMA']   # IMPRESIÓN en BG "VERIFICAR ESTO"     
+        self.tipoEmpqBob = ['TIPO DE EMPAQUE PARA BOBINA']      # IMPRESIÓN en BF "VERIFICAR ESTO" 
+        self.pesarProduct = ['PESAR PRODUCTO POR']              # IMPRESIÓN en BH "VERIFICAR ESTO"
+        self.etiquetado = None                                  # Averiguar como sacar este campo : IMPRESIÓN BM o REFILADO DQ 
+        self.numBobTarima = ['NUMERO DE BOBINAS EN TARIMA (PZ)']  # REFILADO en DT
+        self.tarimaEmplaya = None                               #Averiguar como sacar este campo : REFILADO
+        self.tarimaFlejada = None                               #Averiguar como sacar este campo : REFILADO
 
         # --- CalibrePel_Tolr ---
         self.calibre = fila['CALIBRE GAUGES']       #
@@ -75,53 +77,54 @@ class atrExtruccion:
 
 class atrImpresion:
     def __init__(self):
-        self.matImpr = ['MATERIAL A IMPRIMIR']
-        self.dinaje = ['DINAJE']
-        self.grosorCore = None                          # Averiguar como sacar este atributo
-        self.dsrrllImpr = ['DESARROLLO A IMPRIMIR mm (MANGA)']
-        self.repEje = ['REPETICIONES AL EJE']
-        self.repDesrr = ['REPETICIONES AL DESARROLLO']
-        self.cantTinImpr = ['CANTIDAD DE TINTAS A IMPRIMIR']
-        self.tipImpr = ['TIPO DE IMPRESION']
-        self.tipoTintasUtilizar = ['TIPO DE TINTAS A UTILIZAR']
-        self.tipoBarniz = ['TIPO DE BARNIZ']
-        self.figEmbobImpr = ['sentido de embobinado(Figura de Embobinado)']
-        self.maxEmpalmes = ['MÁXIMO DE EMPALMES POR BOBINA']
-        self.tipoEmpaqBob = ['TIPO DE EMPAQUE PARA BOBINA']
-        self.orientBobTarima = ['ORIENTACIÓN DE BOBINA EN TARIMA']
-        self.pesarProduct = ['PESAR PRODUCTO POR']
-        self.etiquetado = ['ETIQUETADO']
-        self.NumbobTarima = ['NUMERO DE BOBINAS POR CAMA']
-        self.tarimaEmplaye = None                      # Averiguar como sacar este atributo
-        self.tarimaFlejada = None                      # Averiguar como sacar este atributo
+        self.matImpr = ['MATERIAL A IMPRIMIR']                      # AA                           
+        self.dinaje = ['DINAJE']                                    # AC
+        self.grosorCore = None                                      # Averiguar como sacar este atributo
+        self.dsrrllImpr = ['DESARROLLO A IMPRIMIR mm (MANGA)']      # AL
+        self.repEje = ['REPETICIONES AL EJE']                       # AM
+        self.repDesrr = ['REPETICIONES AL DESARROLLO']              # AN    
+        self.cantTinImpr = ['CANTIDAD DE TINTAS A IMPRIMIR']        # AO
+        self.tipImpr = ['TIPO DE EMPRESION']                        # AD
+        self.tipoTintasUtilizar = ['TIPO DE TINTAS A UTILIZAR']     # AR 
+        self.tipoBarniz = ['TIPO DE BARNIZ']                        # BA 
+        self.figEmbobImpr = ['sentido de embobinado(Figura de Embobinado)'] # BB
+        self.maxEmpalmes = ['MÁXIMO DE EMPALMES POR BOBINA']        # BE
+        self.tipoEmpaqBob = ['TIPO DE EMPAQUE PARA BOBINA']         # BF
+        self.orientBobTarima = ['ORIENTACIÓN DE BOBINA EN TARIMA']  # BG
+        self.pesarProduct = ['PESAR PRODUCTO POR']                  # BH            
+        self.etiquetado = ['ETIQUETADO']                            # BM
+        self.NumbobTarima = ['NUMERO DE BOBINAS POR CAMA']          # Refilado en DT
+        self.validClr = ['VALIDACIÓN DE COLOR']                     # BC                  
+        self.tarimaEmplaye = None                                   # Averiguar como sacar este atributo
+        self.tarimaFlejada = None                                   # Averiguar como sacar este atributo
 
         # --- Calibre del material y Tolerancia ---
-        self.calibre = ['']
-        self.calibreTol = ['']
+        self.calibre = ['CALIBRE Micras']                           # Se encuantra en "AE"
+        self.calibreTol = ['TOLERANCIA']                            # Se encuentra en "AF"
 
         # --- Ancho de bobina a imprimir y tolerancia ---
-        self.anchBob = ['']
-        self.anchBobTol = ['']
+        self.anchBob = ['ANCHO DE BOBINA (CM)']                     # AI
+        self.anchBobTol = ['TOLERANCIA (CM)']                       # AJ
 
         # --- Ancho de core y tolerancia
-        self.anchCore = ['']
-        self.anchCoreTol = ['']
-
-        # --- Validación de color ---
-        self.validClr = ['VALIDACIÓN DE COLOR']        
-        self.combinacion = ['']     #Varifica esto
+        self.anchCore = ['ANCHO DE CORE (CM)']                      # "Laminado" en "CS"
+        self.anchCoreTol = ['TOLERANCIA']                           # CT
 
         # --- Diametro de bobina y Tolerancia ---
-        self.diamBob = ['DIÁMETRO DE BOBINA (CM)']
-        self.diamBobTol = ['TOLERANCIA CM']
+        self.diamBob = ['DIÁMETRO DE BOBINA (CM)']                  # BI
+        self.diamBobTol = ['TOLERANCIA CM']                         # BJ
 
         # --- Peso neto promedio de bobina ---
-        self.pesoPromBob = ['PESO NETO PROMEDIO DE BOBINA (KG)']
-        self.pesoPromBobTol = ['TOLERANCIA']
+        self.pesoPromBob = ['PESO NETO PROMEDIO DE BOBINA (KG)']    # BK
+        self.pesoPromBobTol = ['TOLERANCIA']                        # BL
 
         # --- Numero de bobinas por cama y camas por tarima ---
-        self.psoBobCama = ['NUMERO DE BOBINAS POR CAMA']
-        self.psoBobCamaTol = ['CAMAS POR TARIMA (PZ)']
+        self.numBobCama = ['NUMERO DE BOBINAS POR CAMA']            # BN
+        self.camaTam = ['CAMAS POR TARIMA (PZ)']                    # B0
+
+        # --- Peso neto por tarima ---
+        self.pesoNto = ['PESO NETO PROMEDIO POR TARIMA (KG)']       # BP                 
+        self.pesoNtoTol = ['TOLERANCIA']                            # BQ
 
 class atrLaminado:
     def __init__(self):
