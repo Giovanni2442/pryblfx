@@ -8,27 +8,114 @@ class UI(UserControl):
 
         self.color_teal = "teal"
 
-        self.frame1 = Container(
-            #Text("Este es el contenedor 1"),
-            bgcolor=self.color_teal,
+        self.cntEncabezado = Container(
+            expand=True,
+            bgcolor="green",
             border_radius=10,
-            #col=1
-            col={"sm": 4, "md": 12, "xl": 6}
-        )
-        self.frame2 = Container(
-            #Text("Este es el contenedor 1"),
-            bgcolor=self.color_teal,
-            border_radius=10,
-            col=6
-            #col={"sm": 8, "md": 5, "xl": 2}
+            padding=10
         )
 
-        self.container = ResponsiveRow(             # 
+        # Contenedor para el filtrado
+        self.cntFiltPrinf = Container(
+            expand=True,
+            bgcolor="green",
+            border_radius=10,
+            padding=10,
+            content= Row(
+                controls=[
+                    Container(
+                        expand=True,
+                        bgcolor="blue",
+                        border_radius=10,
+                        padding=5,
+                        content= Column(
+                            controls=[
+                                
+                                    
+                            ]
+                        )
+                    ),
+                    Container(
+                        expand=True,
+                        bgcolor="blue",
+                        border_radius=10,
+                    ),
+                    Container(
+                        expand=True,
+                        bgcolor="blue",
+                        border_radius=10,
+                        padding=5,
+                        alignment = alignment.center_right,
+                        content= Column(
+                            controls=[
+                                Container( 
+                                    Text("Buscar Por:",color="black"),
+                                    padding=5,
+                                    bgcolor="#83AC9E",
+                                    border_radius=10
+                                ),
+                                Container(
+                                    padding=5,
+                                    border_radius=10,
+                                    bgcolor="#83AC9E",
+                                    content= Row(
+                                        controls=[
+                                            IconButton(icon=icons.SEARCH),
+                                            TextField(
+                                                hint_text="PrindCard..",
+                                                border=InputBorder.NONE
+                                            )
+                                        ]
+                                    )
+                                ),
+
+                                Container(
+                                    padding=5,
+                                    border_radius=10,
+                                    bgcolor="#83AC9E",
+                                    content= Row(
+                                        controls=[
+                                            IconButton(icon=icons.SEARCH),
+                                            TextField(
+                                                hint_text="Cliente..",
+                                                border=InputBorder.NONE
+                                            )
+                                        ]
+                                    )
+                                )
+                                
+                            ]
+                        )
+                    )
+                ]
+            ),
+        )
+
+        self.cntTable = Container(
+            bgcolor="green",  # Cambiado a azul para distinguir visualmente
+            border_radius=10,
+            expand=True,
+            #border=20
+            #col=6  # Ocupa 6 columnas de las 12 disponibles
+        )
+
+        self.frameMain = Container(
+            bgcolor=self.color_teal,
+            border_radius=10,
+            padding=5,
+            content=Column(
+                    controls=[
+                        self.cntFiltPrinf,
+                        self.cntTable
+                    ],
+                ),
+        )
+        self.container = ResponsiveRow(
             controls=[
-                self.frame1,
-                self.frame2
+                self.frameMain
             ]
         )
+        
 
         self.controls.append(self.container)  # Añadir el contenedor al layout del UserControl
 
