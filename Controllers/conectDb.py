@@ -30,5 +30,5 @@ def db(query):
 
        
 # Llamada a la función para probar la conexión
-#pru = dbManager()
+#pru = db()
 #pru.db()

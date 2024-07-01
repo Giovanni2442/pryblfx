@@ -1,7 +1,12 @@
 from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
-from Controllers.appTable import Controllers
+#from Controllers.appTable import Controllers
+
+def pru():
+    #db = Controllers().get_row_Table()
+    #print(db)
+    pass
 
 class UI(UserControl):
     def __init__(self,page):
@@ -40,11 +45,79 @@ class UI(UserControl):
             border= border.all(2,"purple"),
             columns=[
                 DataColumn(Text("PRIND_CARD",color="whithe",weight="bold")),
+               # DataColumn(Text("CLIENTE",color="whithe",weight="bold")),
+               # DataColumn(Text("PRODUCTO",color="whithe",weight="bold")),
+               #z DataColumn(Text("FECHA2",color="whithe",weight="bold")),
+               # DataColumn(Text("HERRAMIENTAS",color="whithe",weight="bold"))
+            ],
+            rows=[
+                DataRow(
+                    cells=[
+                        DataCell(Text("Name 1")),
+                        DataCell(Text("Name 2")),
+                        DataCell(Text("Name 3")),
+                    ],
+                )
+            ]
+
+        )
+
+
+        self.tablePru = DataTable(
+            border= border.all(2,"purple"),
+            columns=[
                 DataColumn(Text("CLIENTE",color="whithe",weight="bold")),
                 DataColumn(Text("PRODUCTO",color="whithe",weight="bold")),
-                DataColumn(Text("FECHA",color="whithe",weight="bold")),
+                DataColumn(Text("FECHA2",color="whithe",weight="bold")),
                 DataColumn(Text("HERRAMIENTAS",color="whithe",weight="bold"))
-            ]
+            ],
+            rows=[
+                DataRow(
+                    cells=[
+                        DataCell(ft.Text("John")),
+                        DataCell(ft.Text("Smith")),
+                        DataCell(ft.Text("43")),
+                        DataCell(ft.Text("25")),
+                    ],
+                ),
+                DataRow(
+                    cells=[
+                        DataCell(ft.Text("Jack")),
+                        DataCell(ft.Text("Brown")),
+                        DataCell(ft.Text("19")),
+                        DataCell(ft.Text("25")),
+                    ],
+                ),
+                DataRow(
+                    cells=[
+                        DataCell(ft.Text("Alice")),
+                        DataCell(ft.Text("Wong")),
+                        DataCell(ft.Text("25")),
+                        DataCell(ft.Text("25")),
+                    ],
+                ),
+                DataRow(
+                    cells=[
+                        DataCell(
+                            Text("ELement")
+                        ),
+                        DataCell(
+                            ft.Text("Wong")
+                        ),
+                        DataCell(
+                            ft.Text("25")
+                        ),
+                        DataCell(
+                            Row(
+                                controls=[
+                                    Text("ELemento 1"),
+                                    Text("Elemento 2")
+                                ]
+                            )
+                        ),
+                    ],
+                ),
+            ],
         )
 
         # Muestra los datos de la base de datos
@@ -117,7 +190,9 @@ class UI(UserControl):
                 expand=True,
                 scroll="auto",
                 controls=[
-                    self.data_table
+                    #self.data_table
+                    self.tablePru 
+
                 ]
             )
         )
@@ -151,3 +226,4 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.add(UI(page))
 
 ft.app(main)
+#pru()
