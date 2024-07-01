@@ -1,8 +1,9 @@
 /*---CREAR TABLAS DE PREOCESOS*/
-
-
 show databases;
 use dbingbf;
+create database dbingbf;
+
+DROP DATABASE dbingbf;
 
 /*--Drop tables--*/
 drop table FichaTec;
@@ -33,6 +34,10 @@ show tables;
 /*------------------------ficja encabezado------------------------------*/
 
 INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2334','SS','SS','SS','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2335','S2','S44','StS','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2336','S3','S55','SSt','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2337','S4','S66','SSt','SS');
+
 INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
 
 SELECT * FROM FichaTec;
@@ -227,7 +232,7 @@ CREATE TABLE FichaTec(
         );
         
         /*Numero de bobinas por cama y camas por tarima*/
-        CREATE TABLE Peso_prom_tarima_Extr(
+        CREATE TABLE Num_BobCama_CamaTarima(
 			id INT PRIMARY KEY auto_increment,
             idExtr INT,
             numBobCama VARCHAR(10) not null,
@@ -289,7 +294,7 @@ CREATE TABLE FichaTec(
         CREATE TABLE Material_Laminar_1(
 			id INT PRIMARY KEY auto_increment,
             idLam INT,
-            Material = VARCHAR(50) NOT NULL,
+            Material VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
@@ -317,7 +322,7 @@ CREATE TABLE FichaTec(
 		 CREATE TABLE Material_Laminar_2(
 			id INT PRIMARY KEY auto_increment,
             idLam INT,
-            Material = VARCHAR(50) NOT NULL,
+            Material  VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
@@ -345,7 +350,7 @@ CREATE TABLE FichaTec(
 		 CREATE TABLE Material_Laminar_3(
 			id INT PRIMARY KEY auto_increment,
             idLam INT,
-            Material = VARCHAR(50) NOT NULL,
+            Material  VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
@@ -373,7 +378,7 @@ CREATE TABLE FichaTec(
 		 CREATE TABLE Material_Laminar_4(
 			id INT PRIMARY KEY auto_increment,
             idLam INT,
-            Material = VARCHAR(50) NOT NULL,
+            Material  VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
@@ -434,13 +439,13 @@ CREATE TABLE FichaTec(
         );
 
         /*Peso promedio por bobina y Tolerancia*/
-        CREATE TABLE Peso_Prom_Bob(
+        CREATE TABLE Peso_Prom_BobLam(
             id INT PRIMARY KEY auto_increment,
             idLam INT,
             pesoPromBob float NOT NULL,
             tolerancia float NOT NULL,
 			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
-        )
+        );
         
 /*------------------------REFILADO------------------------------*/
 
@@ -573,8 +578,6 @@ CREATE TABLE FichaTec(
             tolerancia float NOT NULL,
 			FOREIGN KEY (idCnvrs) REFERENCES CONVERSION(id) ON DELETE CASCADE
         );
-        
-        
     
 		
         
