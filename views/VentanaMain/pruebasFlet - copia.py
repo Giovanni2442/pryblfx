@@ -1,89 +1,105 @@
 from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
+from Controllers.appTable import Controllers
 
 class UI(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
 
+    # --- COMPONENTES ---
         self.color_teal = "teal"
 
-        self.cntEncabezado = Container(
-            expand=True,
-            bgcolor="green",
-            border_radius=10,
-            padding=10
+        #Input de busqueda del PrindCard
+        self.InptPrindCard = TextField(
+            label="Buscar PridCard",
+            suffix_icon= icons.SEARCH,
+            border= InputBorder.UNDERLINE,
+            border_color= "black",
+            label_style=TextStyle(color="Black",italic=True)
         )
 
+        self.InptClienteSimple = TextField(
+            label="Buscar Cliente",
+            suffix_icon= icons.SEARCH,
+            border= InputBorder.UNDERLINE,
+            border_color= "black",
+            label_style=TextStyle(color="Black",italic=True)
+        )
+
+        self.InptClienteMasiva = TextField(
+            label="Buscar Cliente",
+            suffix_icon= icons.SEARCH,
+            border= InputBorder.UNDERLINE,
+            border_color= "black",
+            label_style=TextStyle(color="black",italic=True)
+        )
+
+        #Table
+        self.data_table = DataTable(
+            border= border.all(2,"purple"),
+            columns=[
+                DataColumn(Text("PRIND_CARD",color="whithe",weight="bold")),
+                DataColumn(Text("CLIENTE",color="whithe",weight="bold")),
+                DataColumn(Text("PRODUCTO",color="whithe",weight="bold")),
+                DataColumn(Text("FECHA",color="whithe",weight="bold")),
+                DataColumn(Text("HERRAMIENTAS",color="whithe",weight="bold"))
+            ]
+        )
+
+        # Muestra los datos de la base de datos
+        def showData(self):
+           # return self.dataTable.rows = []
+           pass
+    #-----------------------------
+
+    # --- CONTENEDORES,FRAMES ETC ... ---
         # Contenedor para el filtrado
         self.cntFiltPrinf = Container(
             expand=True,
-            bgcolor="green",
-            border_radius=10,
+            bgcolor="#222222",
+            border_radius=5,
             padding=10,
             content= Row(
                 controls=[
+                    #Contenedor de busquedas masivas por ciente
                     Container(
                         expand=True,
-                        bgcolor="blue",
+                        bgcolor=self.color_teal,
                         border_radius=10,
-                        padding=5,
+                        padding=8,
                         content= Column(
-                            controls=[
-                                
-                                    
+                            controls=[  
+                                Container(
+                                    Text("Busqueda Masiva : ",color="whithe"),
+                                    #self.InptPrindCard,
+                                    alignment=alignment.center,
+                                    bgcolor="black",
+                                    border_radius=5
+                                ),
+                                self.InptClienteMasiva
                             ]
                         )
                     ),
+                    # Contenedor de Busquedas Simples
                     Container(
                         expand=True,
-                        bgcolor="blue",
+                        bgcolor= self.color_teal,
                         border_radius=10,
-                    ),
-                    Container(
-                        expand=True,
-                        bgcolor="blue",
-                        border_radius=10,
-                        padding=5,
+                        padding=8,
                         alignment = alignment.center_right,
                         content= Column(
                             controls=[
                                 Container( 
-                                    Text("Buscar Por:",color="black"),
-                                    padding=5,
-                                    bgcolor="#83AC9E",
-                                    border_radius=10
+                                    Text("Buscar por : ",color="whithe"),
+                                    #self.InptPrindCard,
+                                    alignment=alignment.center,
+                                    bgcolor="black",
+                                    border_radius=5
                                 ),
-                                Container(
-                                    padding=5,
-                                    border_radius=10,
-                                    bgcolor="#83AC9E",
-                                    content= Row(
-                                        controls=[
-                                            IconButton(icon=icons.SEARCH),
-                                            TextField(
-                                                hint_text="PrindCard..",
-                                                border=InputBorder.NONE
-                                            )
-                                        ]
-                                    )
-                                ),
-
-                                Container(
-                                    padding=5,
-                                    border_radius=10,
-                                    bgcolor="#83AC9E",
-                                    content= Row(
-                                        controls=[
-                                            IconButton(icon=icons.SEARCH),
-                                            TextField(
-                                                hint_text="Cliente..",
-                                                border=InputBorder.NONE
-                                            )
-                                        ]
-                                    )
-                                )
                                 
+                                self.InptPrindCard,
+                                self.InptClienteSimple
                             ]
                         )
                     )
@@ -92,17 +108,24 @@ class UI(UserControl):
         )
 
         self.cntTable = Container(
-            bgcolor="green",  # Cambiado a azul para distinguir visualmente
+            bgcolor="#222222",  # Cambiado a azul para distinguir visualmente
             border_radius=10,
+            alignment=alignment.top_center,
             expand=True,
-            #border=20
-            #col=6  # Ocupa 6 columnas de las 12 disponibles
+            padding=10,
+            content= Column( 
+                expand=True,
+                scroll="auto",
+                controls=[
+                    self.data_table
+                ]
+            )
         )
 
         self.frameMain = Container(
-            bgcolor=self.color_teal,
+            bgcolor="black",
             border_radius=10,
-            padding=5,
+            padding=2,
             content=Column(
                     controls=[
                         self.cntFiltPrinf,
@@ -124,6 +147,7 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.window_min_height = 200
     page.window_min_width = 200
     page.theme_mode = ThemeMode.DARK
+    page.padding = 5
     page.add(UI(page))
 
 ft.app(main)
