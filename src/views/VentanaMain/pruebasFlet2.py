@@ -1,19 +1,28 @@
 from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
+from src.Controllers.appTable import Controllers
 #from Controllers.appTable import Controllers
 
 def pru():
-    #db = Controllers().get_row_Table()
-    #print(db)
-    pass
+    db = Controllers().get_row_Table()
+    print(db)
+    #pass
 
 class UI(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
 
     # --- COMPONENTES ---
+        self.page = page
         self.color_teal = "teal"
+        self.dataTbl = Controllers().get_row_Table()
+
+        self.dataTblPru = [
+            (1, "Cliente 1", "Producto 1", "2024-06-28"),
+            (2, "Cliente 2", "Producto 2", "2024-06-29"),
+            (3, "Cliente 3", "Producto 3", "2024-06-30")
+        ]
 
         #Input de busqueda del PrindCard
         self.InptPrindCard = TextField(
@@ -40,90 +49,48 @@ class UI(UserControl):
             label_style=TextStyle(color="black",italic=True)
         )
 
-        #Table
-        self.data_table = DataTable(
-            border= border.all(2,"purple"),
-            columns=[
-                DataColumn(Text("PRIND_CARD",color="whithe",weight="bold")),
-               # DataColumn(Text("CLIENTE",color="whithe",weight="bold")),
-               # DataColumn(Text("PRODUCTO",color="whithe",weight="bold")),
-               #z DataColumn(Text("FECHA2",color="whithe",weight="bold")),
-               # DataColumn(Text("HERRAMIENTAS",color="whithe",weight="bold"))
-            ],
-            rows=[
-                DataRow(
-                    cells=[
-                        DataCell(Text("Name 1")),
-                        DataCell(Text("Name 2")),
-                        DataCell(Text("Name 3")),
-                    ],
-                )
-            ]
-
-        )
-
-
+        # --- Columnas de la tabla ---
         self.tablePru = DataTable(
             border= border.all(2,"purple"),
             columns=[
+                DataColumn(Text("ID_PRODUCTO",color="whithe",weight="bold")),
                 DataColumn(Text("CLIENTE",color="whithe",weight="bold")),
                 DataColumn(Text("PRODUCTO",color="whithe",weight="bold")),
-                DataColumn(Text("FECHA2",color="whithe",weight="bold")),
+                DataColumn(Text("FECHA",color="whithe",weight="bold")),
                 DataColumn(Text("HERRAMIENTAS",color="whithe",weight="bold"))
             ],
-            rows=[
-                DataRow(
-                    cells=[
-                        DataCell(ft.Text("John")),
-                        DataCell(ft.Text("Smith")),
-                        DataCell(ft.Text("43")),
-                        DataCell(ft.Text("25")),
-                    ],
-                ),
-                DataRow(
-                    cells=[
-                        DataCell(ft.Text("Jack")),
-                        DataCell(ft.Text("Brown")),
-                        DataCell(ft.Text("19")),
-                        DataCell(ft.Text("25")),
-                    ],
-                ),
-                DataRow(
-                    cells=[
-                        DataCell(ft.Text("Alice")),
-                        DataCell(ft.Text("Wong")),
-                        DataCell(ft.Text("25")),
-                        DataCell(ft.Text("25")),
-                    ],
-                ),
-                DataRow(
-                    cells=[
-                        DataCell(
-                            Text("ELement")
-                        ),
-                        DataCell(
-                            ft.Text("Wong")
-                        ),
-                        DataCell(
-                            ft.Text("25")
-                        ),
-                        DataCell(
-                            Row(
-                                controls=[
-                                    Text("ELemento 1"),
-                                    Text("Elemento 2")
-                                ]
-                            )
-                        ),
-                    ],
-                ),
-            ],
+           # self.showData()
         )
+        self.pruebasRow()
 
-        # Muestra los datos de la base de datos
-        def showData(self):
-           # return self.dataTable.rows = []
-           pass
+    def pruebasRow(self):
+        self.tablePru.rows[
+            DataRow(
+                DataCell(Text("Hola")),
+                DataCell(Text("Hola")),
+                DataCell(Text("Hola")),
+                DataCell(Text("Hola")),
+            )
+        ]
+        self.update()
+        
+    # Muestra los datos de la base de datos
+    def showData(self):
+        self.tablePru.rows = []
+        for row in self.dataTblPru:
+            self.tablePru.rows.append(
+                DataRow(
+                    cells=[
+                        DataCell(Text(str(row[0]))),
+                        DataCell(Text(row[1])),
+                        DataCell(Text(row[2])),
+                        DataCell(Text(row[3])),
+                    ]
+                )
+            )
+        self.update()
+        
+    
     #-----------------------------
 
     # --- CONTENEDORES,FRAMES ETC ... ---
@@ -191,7 +158,8 @@ class UI(UserControl):
                 scroll="auto",
                 controls=[
                     #self.data_table
-                    self.tablePru 
+                    self.tablePru,
+                    self.showData() 
 
                 ]
             )

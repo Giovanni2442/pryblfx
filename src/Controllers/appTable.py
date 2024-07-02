@@ -1,4 +1,4 @@
-from conectDb import db
+from src.conectDataBase.conectDb import db
 
 class Controllers():
     def __init__(self):
@@ -9,5 +9,5 @@ class Controllers():
         self.connect = db(query).fetchall()
         return self.connect
     
-pr = Controllers()
-print(pr.get_row_Table())
+#pr = Controllers()
+#print(pr.get_row_Table())
