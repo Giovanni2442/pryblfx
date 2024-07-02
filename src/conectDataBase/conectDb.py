@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
 from sqlalchemy.exc import SQLAlchemyError
 
-def db(query):
+def db():
     # Cargar variables de entorno desde el archivo .env
     load_dotenv()
 
@@ -24,11 +24,30 @@ def db(query):
     # Motor de Conexión
     try:
         engine = create_engine(connectionString)
-        return engine.connect().execute(text(query))
+        return engine.connect()
     except SQLAlchemyError as e:
         return print(f"Error al conectar con la base de datos: {e}")
 
-       
-# Llamada a la función para probar la conexión
-#pru = db()
-#pru.db()
+# --- PRUEBAS QUERYS ---
+def getAll():
+    query = 'SELECT * FROM FichaTec;'
+    cursor = db()
+    cursor.fetchall()
+    prdct = cursor
+    #print(prdct)
+    for row in cursor:
+        print(row)  # Imprimir cada fila
+
+def dltUsr(id):
+    query = "DELETE FROM FichaTec WHERE id_codProduct = ?"
+    try:
+        cursor = db(query,id)
+        #cursor.commit()
+        #print("Delete Ok!")
+        return "Delete Ok!"
+    except SQLAlchemyError as e:
+        return "No se pudo eliminar"
+    
+
+getAll()
+#dltUsr('E-2334')

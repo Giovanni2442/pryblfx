@@ -16,15 +16,10 @@ class UI(UserControl):
     # --- COMPONENTES ---
         self.page = page
         self.color_teal = "teal"
-        self.dataTbl = Controllers().get_row_Table()
-
-        self.dataTblPru = [
-            (1, "Cliente 1", "Producto 1", "2024-06-28"),
-            (2, "Cliente 2", "Producto 2", "2024-06-29"),
-            (3, "Cliente 3", "Producto 3", "2024-06-30")
-        ]
-
-        #Input de busqueda del PrindCard
+        self.dataTbl = Controllers().get_row_Table()  #Accede a la información en la base de datos
+        self.select_row = None
+        # --- INPUTS DE BUSQUEDA --- 
+            # Busqueda del PrindCard
         self.InptPrindCard = TextField(
             label="Buscar PridCard",
             suffix_icon= icons.SEARCH,
@@ -32,7 +27,7 @@ class UI(UserControl):
             border_color= "black",
             label_style=TextStyle(color="Black",italic=True)
         )
-
+            # Busqueda por cliente
         self.InptClienteSimple = TextField(
             label="Buscar Cliente",
             suffix_icon= icons.SEARCH,
@@ -40,7 +35,7 @@ class UI(UserControl):
             border_color= "black",
             label_style=TextStyle(color="Black",italic=True)
         )
-
+            # Busqueda / cliente Masivo
         self.InptClienteMasiva = TextField(
             label="Buscar Cliente",
             suffix_icon= icons.SEARCH,
@@ -49,9 +44,11 @@ class UI(UserControl):
             label_style=TextStyle(color="black",italic=True)
         )
 
-        # --- Columnas de la tabla ---
+        # --- TABLA ---
+            # --- Columnas de la tabla ---
         self.tablePru = DataTable(
             border= border.all(2,"purple"),
+            border_radius=5,
             columns=[
                 DataColumn(Text("ID_PRODUCTO",color="whithe",weight="bold")),
                 DataColumn(Text("CLIENTE",color="whithe",weight="bold")),
@@ -59,39 +56,56 @@ class UI(UserControl):
                 DataColumn(Text("FECHA",color="whithe",weight="bold")),
                 DataColumn(Text("HERRAMIENTAS",color="whithe",weight="bold"))
             ],
-           # self.showData()
         )
-        self.pruebasRow()
+        self.showData() # Carga la función donde se recorre las tuplas de productos disponibles
+  
+    # -- Herramientas de la tabla --
+    def dltButton(self,e):
+        AlertDialog(
+            title=Text("Alerta!"),
+            content=Text(f"Estas Seguro de eliminar : {e.control.data[0]} ?"),
+            actions=[
+                TextButton("Eliminar"),
+                TextButton("Cancelar")
+            ]
 
-    def pruebasRow(self):
-        self.tablePru.rows[
-            DataRow(
-                DataCell(Text("Hola")),
-                DataCell(Text("Hola")),
-                DataCell(Text("Hola")),
-                DataCell(Text("Hola")),
-            )
-        ]
-        self.update()
-        
+        )
+        print("->",e.control.data[0])
+
+    #def update(self,e):
+    #    print("->",e)
+
     # Muestra los datos de la base de datos
     def showData(self):
         self.tablePru.rows = []
-        for row in self.dataTblPru:
+        for row in self.dataTbl:    # Accede a la variable de la conexión
             self.tablePru.rows.append(
                 DataRow(
                     cells=[
-                        DataCell(Text(str(row[0]))),
+                        DataCell(Text((row[0]))),
                         DataCell(Text(row[1])),
-                        DataCell(Text(row[2])),
                         DataCell(Text(row[3])),
+                        DataCell(Text(row[2])),
+                        DataCell(
+                            Row([
+                                IconButton("delete",
+                                    icon_color="red",
+                                    data=row,
+                                    on_click=self.dltButton # --- PROXIMA TAREA ---
+                                ),
+                                IconButton("edit",
+                                    icon_color="green",
+                                    data=row,
+                                    #on_click=EditButton() # --- PROXIMA TAREA ---
+                                )
+                            ])
+                        )
                     ]
                 )
             )
         self.update()
         
-    
-    #-----------------------------
+    #-------------------------------------
 
     # --- CONTENEDORES,FRAMES ETC ... ---
         # Contenedor para el filtrado
@@ -158,9 +172,12 @@ class UI(UserControl):
                 scroll="auto",
                 controls=[
                     #self.data_table
-                    self.tablePru,
-                    self.showData() 
-
+                    ResponsiveRow(
+                        controls=[
+                            self.tablePru
+                        ]
+                    )
+                   
                 ]
             )
         )
