@@ -27,6 +27,7 @@ class ejmpl(ft.UserControl):
             ),
         )
 
+        # Botones que abren el modal
         self.cntIni = ft.Container(
             content=ft.Column(
                 controls=[
@@ -37,15 +38,32 @@ class ejmpl(ft.UserControl):
             alignment=ft.alignment.center
         )
 
+        self.ejemplo = ft.Container(
+            border_radius=10,
+            width=100,
+            height=100,
+            shadow=ft.BoxShadow(
+                spread_radius=0,
+                blur_radius=50,
+                color=ft.colors.AMBER_700,
+                offset=ft.Offset(50, 110),
+                blur_style=ft.ShadowBlurStyle.OUTER,
+            )
+        )
+
+        # Frame Principal
         self.frameMain = ft.Container(
             content=ft.Column(
                 controls=[
-                    self.cntIni
+                    self.cntIni,
+                    self.ejemplo
                 ]
             )
         )
 
         return self.frameMain
+    def pruebas(self):
+        self.pr = "Messasge!"
 
     def open_non_modal_dialog(self, e):
         self.page.overlay.append(self.dlg)

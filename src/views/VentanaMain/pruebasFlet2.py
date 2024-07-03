@@ -16,9 +16,8 @@ class UI(UserControl):
     # --- COMPONENTES ---
         self.page = page  
         self.color_teal = "teal"
-        self.dataTbl = Controllers().get_row_Table()  #Accede a la información en la base de datos
-        self.select_row = None
-
+        self.dataTbl = Controllers()  #Accede a la información en la base de datos
+    
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
         self.InptPrindCard = TextField(
@@ -47,7 +46,7 @@ class UI(UserControl):
 
         # --- TABLA ---
             # --- Columnas de la tabla ---
-        self.tablePru = DataTable(
+        self.Table = DataTable(
             border= border.all(2,"purple"),
             border_radius=5,
             columns=[
@@ -59,33 +58,59 @@ class UI(UserControl):
             ],
         )
         self.showData() # Carga la función donde se recorre las tuplas de productos disponibles
-  
-    # -- Close Modal --
-    def handle_close(self,e):
-        self.page.close(self.dltButton)
-        
+      
     # -- Herramientas de la tabla --
+        # --- Delete Product ---
     def dltButton(self,e):
-        mdlDlt = AlertDialog(
+        idPrind = e.control.data[0]
+        self.mdlDlt = AlertDialog(
             modal=True,
             title=Text("Alerta!"),
-            content=Text(f"Estas Seguro de eliminar : {e.control.data[0]} ?"),
+            content=Text(f"Estas Seguro de eliminar : {idPrind} ?"),
             actions=[
-                TextButton("Eliminar",on_click=self.handle_close),
-                TextButton("Cancelar",on_click=self.handle_close)
+                #TextButton("Eliminar",on_click= lambda _: self.btnSlct(bnd=True,id=idPrind)),   # lambda _ : "_" el guión sirve para tomar ignorar los parametros, ya que no se usan en la función  
+                TextButton("Eliminar",on_click= lambda _: self.btnSlct(bnd=True,id=idPrind)),
+                TextButton("Cancelar",on_click= lambda _: self.btnSlct(bnd=False,id=None))
             ],
             actions_alignment= MainAxisAlignment.END
         )
-        self.page.overlay.append(mdlDlt)
-        mdlDlt.open = True
-        self.update()
+        self.page.overlay.append(self.mdlDlt)
+        self.mdlDlt.open = True
+        self.page.update()
+        # ----
 
-
+        # -- Query Modal Delete --
+    def btnSlct(self,bnd,id):
+        if not bnd:
+            self.mdlDlt.open = False
+        else:
+            #eje = self.dataTbl.delete_row_Table(id=id)
+            #print(eje)
+            self.mdlDlt.open = False
+            # -- Limpia y Actualiza la tabla -- 
+            self.Table.rows.clear() 
+            self.showData()
+            # Mensaje parte inferior
+            self.msgDlt = SnackBar(
+                content=Column(
+                    controls=[
+                        Container(
+                            Text(f"Se elimino : {id}",size=20,color="white"),
+                            alignment=alignment.center
+                        ),
+                    ],
+                ),
+                bgcolor="#831D1D",
+            )
+            self.page.overlay.append(self.msgDlt)
+            self.msgDlt.open = True 
+        self.page.update()
+        
     # Muestra los datos de la base de datos
     def showData(self):
-        self.tablePru.rows = []
-        for row in self.dataTbl:    # Accede a la variable de la conexión
-            self.tablePru.rows.append(
+        self.Table.rows = []
+        for row in self.dataTbl.get_row_Table():    # Accede a la variable de la conexión
+            self.Table.rows.append(
                 DataRow(
                     cells=[
                         DataCell(Text((row[0]))),
@@ -95,6 +120,7 @@ class UI(UserControl):
                         DataCell(
                             Row([
                                 IconButton("delete",
+                                    #icons.CHECK,
                                     icon_color="red",
                                     data=row,
                                     on_click=self.dltButton # --- PROXIMA TAREA ---
@@ -181,7 +207,7 @@ class UI(UserControl):
                     #self.data_table
                     ResponsiveRow(
                         controls=[
-                            self.tablePru
+                            self.Table
                         ]
                     )
                    
