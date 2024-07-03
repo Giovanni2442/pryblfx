@@ -39,4 +39,4 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.theme_mode = ThemeMode.DARK
     page.add(UI(page))
 
-ft.app(main)
+app(main)

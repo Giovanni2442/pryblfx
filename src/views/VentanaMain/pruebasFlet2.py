@@ -14,10 +14,11 @@ class UI(UserControl):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
 
     # --- COMPONENTES ---
-        self.page = page
+        self.page = page  
         self.color_teal = "teal"
         self.dataTbl = Controllers().get_row_Table()  #Accede a la información en la base de datos
         self.select_row = None
+
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
         self.InptPrindCard = TextField(
@@ -59,21 +60,26 @@ class UI(UserControl):
         )
         self.showData() # Carga la función donde se recorre las tuplas de productos disponibles
   
+    # -- Close Modal --
+    def handle_close(self,e):
+        self.page.close(self.dltButton)
+        
     # -- Herramientas de la tabla --
     def dltButton(self,e):
-        AlertDialog(
+        mdlDlt = AlertDialog(
+            modal=True,
             title=Text("Alerta!"),
             content=Text(f"Estas Seguro de eliminar : {e.control.data[0]} ?"),
             actions=[
-                TextButton("Eliminar"),
-                TextButton("Cancelar")
-            ]
-
+                TextButton("Eliminar",on_click=self.handle_close),
+                TextButton("Cancelar",on_click=self.handle_close)
+            ],
+            actions_alignment= MainAxisAlignment.END
         )
-        print("->",e.control.data[0])
+        self.page.overlay.append(mdlDlt)
+        mdlDlt.open = True
+        self.update()
 
-    #def update(self,e):
-    #    print("->",e)
 
     # Muestra los datos de la base de datos
     def showData(self):
@@ -161,6 +167,7 @@ class UI(UserControl):
             ),
         )
 
+        #Frame table
         self.cntTable = Container(
             bgcolor="#222222",  # Cambiado a azul para distinguir visualmente
             border_radius=10,
@@ -182,6 +189,7 @@ class UI(UserControl):
             )
         )
 
+        # Colocar los frames en forma de columna
         self.frameMain = Container(
             bgcolor="black",
             border_radius=10,
@@ -193,16 +201,17 @@ class UI(UserControl):
                     ],
                 ),
         )
+        # Hacer responsiva los framaes en forma de Fila
         self.container = ResponsiveRow(
             controls=[
                 self.frameMain
             ]
         )
-        
 
-        self.controls.append(self.container)  # Añadir el contenedor al layout del UserControl
+    # IMPORTANTE : Retorna todos los Gidwts del promama
+    def build(self):    
+        return self.container
 
-    
 def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicación
     page.window_min_height = 200
     page.window_min_width = 200

@@ -1,46 +1,70 @@
-from tkinter import *
-from tkinter import Misc, ttk
+import flet as ft
 
-# Clase vtnMain que hereda de un Frama()
-class vtnMain(Frame):
-    def __init__(self, master=None):
-        super().__init__(master,width=680, height=500)
-        self.master = master
-        self.pack()
-        self.widgetsMain()
+class ejmpl(ft.UserControl):
+    def __init__(self):
+        super().__init__()
 
-    def widgetsMain(self):
-        # --- Frame de busqueda y filtrados ---
-        frameFilter = Frame(self,bg="#768E90")
-        frameFilter.place(x=5,y=5,width=670,height=200)
+    def build(self):
+        title = "AlertDialog examples"
+        horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
-        # --- Frame para las tablas ---
-        frameTable = Frame(self,bg="#17C497")
-        frameTable.place(x=5,y=210,width=670,height=285)
+        self.dlg = ft.AlertDialog(
+            title=ft.Text("Hi, this is a non-modal dialog!"),
+            on_dismiss=lambda e: self.page.add(ft.Text("Non-modal dialog dismissed")),
+        )
 
-        # --- Labels ---
-        lblIndex = Label(frameFilter,text="Busqueda de Fichas!",font=("Arial",15))
-        lblIndex.place(x=260,y=7)
+        self.dlg_modal = ft.AlertDialog(
+            modal=True,
+            title=ft.Text("Please confirm"),
+            content=ft.Text("Do you really want to delete all those files?"),
+            actions=[
+                ft.TextButton("Yes", on_click=self.handle_close),
+                ft.TextButton("No", on_click=self.handle_close),
+            ],
+            actions_alignment=ft.MainAxisAlignment.END,
+            on_dismiss=lambda e: self.page.add(
+                ft.Text("Modal dialog dismissed"),
+            ),
+        )
 
-        lblFiltr = Label(frameFilter,text="FILTRAR BUSQUEDA : ",font=("Calibri",10))
-        lblFiltr.place(x=470,y=70)
-        
-        # --- Inputs ---
-        self.InptName=Entry(frameTable)
-        self.InptName.place(x=3,y=75,width=120, height=20)  
+        self.cntIni = ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.ElevatedButton("Open dialog", on_click=self.open_non_modal_dialog),
+                    ft.ElevatedButton("Open modal dialog", on_click=self.open_modal_dialog),
+                ]
+            ),
+            alignment=ft.alignment.center
+        )
 
-        self.InptFltrPrintCard=Entry(frameFilter)
-        self.InptFltrPrintCard.place(x=470,y=100,width=120, height=20) 
+        self.frameMain = ft.Container(
+            content=ft.Column(
+                controls=[
+                    self.cntIni
+                ]
+            )
+        )
 
-                # Crear un estilo para ttk.Entry
-        style = ttk.Style()
-        style.configure("TEntry",
-                        fieldbackground="red",  # Color de fondo del campo
-                        background="red",  # Color del borde
-                        borderwidth=5,  # Ancho del borde
-                        relief="solid")  # Estilo del borde (solid, groove, ridge, etc.)
+        return self.frameMain
 
-        # Crear un ttk.Entry con el estilo personalizado
-        self.InptFltrPrintCard = ttk.Entry(frameFilter, style="TEntry")
-        self.InptFltrPrintCard.place(x=470, y=140, width=120, height=20)
-        
+    def open_non_modal_dialog(self, e):
+        self.page.overlay.append(self.dlg)
+        self.dlg.open = True
+        self.page.update()
+
+    def open_modal_dialog(self, e):
+        self.page.overlay.append(self.dlg_modal)
+        self.dlg_modal.open = True
+        self.page.update()
+
+    def handle_close(self, e):
+        self.dlg_modal.open = False
+        self.page.update()
+        self.page.add(ft.Text(f"Modal dialog closed with action: {e.control.text}"))
+
+def main(page: ft.Page):
+    page.padding = 5
+    page.add(ejmpl())
+
+ft.app(target=main)
+
