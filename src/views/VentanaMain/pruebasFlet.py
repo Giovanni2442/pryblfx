@@ -79,7 +79,8 @@ class UI(UserControl):
         self.mdlDlt.open = True
         self.page.update()
         # ----
-    
+    def jer(self):
+        pass
         # -- Query Modal Delete --
     def btnSlct(self,bnd,id):
         if not bnd:
