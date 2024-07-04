@@ -57,6 +57,7 @@ class UI(UserControl):
                 DataColumn(Text("HERRAMIENTAS",color="whithe",weight="bold"))
             ],
         )
+        # row table
         self.showData() # Carga la función donde se recorre las tuplas de productos disponibles
       
     # -- Herramientas de la tabla --
@@ -84,8 +85,7 @@ class UI(UserControl):
         if not bnd:
             self.mdlDlt.open = False
         else:
-            #eje = self.dataTbl.delete_row_Table(id=id)
-            #print(eje)
+            self.dataTbl.delete_row_Table(id=id)
             self.mdlDlt.open = False
             # -- Limpia y Actualiza la tabla -- 
             self.Table.rows.clear() 
@@ -106,6 +106,54 @@ class UI(UserControl):
             self.msgDlt.open = True 
         self.page.update()
         
+        # -----------------------------
+
+    # --- BUSCADORES ---
+    def search_PrindCard(self,e):
+        srchPrindCrd = self.InptPrindCard.value.lower()
+        filterId = list(filter(lambda x: srchPrindCrd in x[0].lower(), self.dataTbl.get_row_Table()))
+        print("you find : ",filterId)
+        self.Table.rows = []
+
+        # Si el input es diferente de vacio
+        if not self.InptPrindCard.value == "":
+            # Si la list que se creo es mayor a cero, significa que encontro coincidencias
+            if len(filterId) > 0:
+                self.dataNotFound = False
+                for row in filterId:
+                    self.Table.rows.append(
+                        DataRow(
+                            cells=[
+                                DataCell(Text((row[0]))),
+                                DataCell(Text(row[1])),
+                                DataCell(Text(row[3])),
+                                DataCell(Text(row[2])),
+                                DataCell(
+                                    Row([
+                                        IconButton("delete",
+                                            #icons.CHECK,
+                                            icon_color="red",
+                                            data=row,
+                                            on_click=self.dltButton # --- PROXIMA TAREA ---
+                                        ),
+                                        IconButton("edit",
+                                            icon_color="green",
+                                            data=row,
+                                            #on_click=EditButton() # --- PROXIMA TAREA ---
+                                        )
+                                    ])
+                                )
+                            ]
+                        )
+                    )
+              
+                
+        # Componenete de Dato No Encontrado! para el Buscador de la tabla       
+        self.dataNotFound = Text("No se encontro el Producto!",
+                weight="bold",
+                size=20
+            )
+
     # Muestra los datos de la base de datos
     def showData(self):
         self.Table.rows = []
@@ -140,7 +188,7 @@ class UI(UserControl):
     #-------------------------------------
 
     # --- CONTENEDORES,FRAMES ETC ... ---
-        # Contenedor para el filtrado
+        # --- FRAME FILTRADO ---
         self.cntFiltPrinf = Container(
             expand=True,
             bgcolor="#222222",
@@ -193,7 +241,7 @@ class UI(UserControl):
             ),
         )
 
-        #Frame table
+        # --- FRAME TABLE ---
         self.cntTable = Container(
             bgcolor="#222222",  # Cambiado a azul para distinguir visualmente
             border_radius=10,
