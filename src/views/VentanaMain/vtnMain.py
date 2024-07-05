@@ -1,70 +1,27 @@
+import flet as ft
 from flet import *
 
 import flet as ft
 
-class ejemplo(UserControl):
-    def __init__(self,page):
-        super().__init__(expand=True)
-
+class MyApp(UserControl):
+    def __init__(self, page):
         self.page = page
+        self.setup_ui()
 
-
-        self.frame1 = Container(
-            bgcolor="red",
-            width=150,
-            height=150,
-            padding=5,
-            margin=0,
-            alignment=alignment.center,
-            content= Row(
-                controls=[
-                    Text("Hola"),
-                    Text("Hola"),
-                    Text("Hola"),
-                ],
-            )
+    def setup_ui(self):
+        self.t = ft.Text()
+        self.tb = ft.TextField(
+            label="Textbox with 'change' event:",
+            on_change=self.textbox_changed,
         )
+        self.page.add(self.tb, self.t)
 
-        self.frame2 = Container(
-            bgcolor="blue",
-            width=150,
-            height=150,
-            padding=10,
-            margin=0,
-            alignment=alignment.center,
-            content= Row(
-                controls=[
-                    Text("Hola"),
-                    Text("Hola"),
-                    Text("Hola"),
-                ],
-            )
-        )
+    def textbox_changed(self, e):
+        self.tb.value = e.control.value
+        print(self.tb.value)
+        self.page.update()
 
-    def ejemplo(self,e):
-        pass
+def main(page: ft.Page):
+    app = MyApp(page)
 
-    # Colocar los frames en forma de columna
-        self.frameMain = Container(
-            bgcolor="yellow",
-            border_radius=10,
-            padding=2,
-            content=Column(
-                    expand=False,
-                    controls=[
-                        self.frame1,
-                        self.frame2
-                    ],
-                ),
-        )
-        
-    # Construye todos los frames tiene el frame Main
-    def build(self):
-        return self.frameMain
-
-def main(page: Page):
-    page.theme_mode = ThemeMode.DARK
-    page.add(ejemplo(page))
-
-# Main
-app(main)
+ft.app(target=main)

@@ -70,7 +70,6 @@ class cntTable(UserControl):
             )
             self.page.overlay.append(self.msgDlt)
             self.msgDlt.open = True 
-            self.update()
         self.page.update()
         
     # --- Filas de la tabla ---
@@ -108,7 +107,7 @@ class cntTable(UserControl):
                # self.dataRows(row)
                self.dataRows(row)
             )
-            self.update()
+        self.page.update()
 
               # --- FRAME TABLE ---
         self.cntTable = Container(
@@ -131,5 +130,3 @@ class cntTable(UserControl):
             )
         )
         
-    def build(self):
-        return super().build()

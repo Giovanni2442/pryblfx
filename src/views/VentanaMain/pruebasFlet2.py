@@ -11,7 +11,7 @@ class UI(UserControl):
     # --- COMPONENTES ---
         self.page = page  
         self.color_teal = "teal"
-        self.tbl = cntTable(self.page)  # Se pasa el pagina actual
+        self.tbl = cntTable(page)  # Se pasa el pagina actual
         self.dataTbl = Controllers()  #Accede a la información en la base de datos
     
         # --- INPUTS DE BUSQUEDA --- 
@@ -115,7 +115,8 @@ class UI(UserControl):
                     )
                 ]
             )
-        )
+        ),
+        self.update()
       
 
         # Colocar los frames en forma de columna

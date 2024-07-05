@@ -13,10 +13,11 @@ class UI(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
 
-    # --- COMPONENTES ---
+    # ########## COMPONENTES ############################
         self.page = page  
         self.color_teal = "teal"
         self.dataTbl = Controllers()  #Accede a la información en la base de datos
+    
     
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
@@ -25,7 +26,8 @@ class UI(UserControl):
             suffix_icon= icons.SEARCH,
             border= InputBorder.UNDERLINE,
             border_color= "black",
-            label_style=TextStyle(color="Black",italic=True)
+            label_style=TextStyle(color="Black",italic=True),
+            on_change=self.searchInput
         )
             # Busqueda por cliente
         self.InptClienteSimple = TextField(
@@ -49,6 +51,7 @@ class UI(UserControl):
         self.Table = DataTable(
             border= border.all(2,"purple"),
             border_radius=5,
+            vertical_lines= BorderSide(1,"whithe"),
             columns=[
                 DataColumn(Text("ID_PRODUCTO",color="whithe",weight="bold")),
                 DataColumn(Text("CLIENTE",color="whithe",weight="bold")),
@@ -59,7 +62,12 @@ class UI(UserControl):
         )
         # row table
         self.showData() # Carga la función donde se recorre las tuplas de productos disponibles
-      
+
+
+    def pru(self,e):
+        print(e.control.value.lower())
+
+
     # -- Herramientas de la tabla --
         # --- Delete Product ---
     def dltButton(self,e):
@@ -79,8 +87,7 @@ class UI(UserControl):
         self.mdlDlt.open = True
         self.page.update()
         # ----
-    def jer(self):
-        pass
+
         # -- Query Modal Delete --
     def btnSlct(self,bnd,id):
         if not bnd:
@@ -109,45 +116,62 @@ class UI(UserControl):
         
         # -----------------------------
 
+     # --- Filas de la tabla ---
+    def dataRows(self,row):
+        self.rows = DataRow(
+            cells=[
+                DataCell(Text((row[0]))),
+                DataCell(Text(row[1])),
+                DataCell(Text(row[3])),
+                DataCell(Text(row[2])),
+                DataCell(
+                    Row([
+                        IconButton("delete",
+                            #icons.CHECK,
+                            icon_color="red",
+                            data=row,
+                            on_click=self.dltButton # --- PROXIMA TAREA ---
+                        ),
+                        IconButton("edit",
+                            icon_color="green",
+                            data=row,
+                            #on_click=EditButton() # --- PROXIMA TAREA ---
+                        )
+                    ])
+                )
+            ]
+        )
+        return self.rows
+    
     # --- BUSCADORES ---
-    def search_PrindCard(self,e):
-        srchPrindCrd = self.InptPrindCard.value.lower()
-        filterId = list(filter(lambda x: srchPrindCrd in x[0].lower(), self.dataTbl.get_row_Table()))
+        # inpt  : Input que se va a utilizar
+        # e     : Evento de escucha
+    def searchInput(self,e):
+        srchInpt = e.control.value.lower()
+        print(srchInpt)
+        filterId = list(filter(lambda x: srchInpt in x[0].lower(), self.dataTbl.get_row_Table()))
         print("you find : ",filterId)
         self.Table.rows = []
 
         # Si el input es diferente de vacio
-        if not self.InptPrindCard.value == "":
+        if not e.control.value == "":
             # Si la list que se creo es mayor a cero, significa que encontro coincidencias
+            print(len(filterId))
             if len(filterId) > 0:
-                self.dataNotFound = False
+                #self.dataNotFound = False
                 for row in filterId:
                     self.Table.rows.append(
-                        DataRow(
-                            cells=[
-                                DataCell(Text((row[0]))),
-                                DataCell(Text(row[1])),
-                                DataCell(Text(row[3])),
-                                DataCell(Text(row[2])),
-                                DataCell(
-                                    Row([
-                                        IconButton("delete",
-                                            #icons.CHECK,
-                                            icon_color="red",
-                                            data=row,
-                                            on_click=self.dltButton # --- PROXIMA TAREA ---
-                                        ),
-                                        IconButton("edit",
-                                            icon_color="green",
-                                            data=row,
-                                            #on_click=EditButton() # --- PROXIMA TAREA ---
-                                        )
-                                    ])
-                                )
-                            ]
-                        )
+                        self.dataRows(row),
                     )
-              
+                self.update()
+            else:
+                print("data no found!")
+                self.dataRows("data not fount")
+                self.update()
+        # Si no hay datos en el TextFile Vuelve a mostrar los datos en la tabla
+        else:
+            self.showData(),
+            self.update()
                 
         # Componenete de Dato No Encontrado! para el Buscador de la tabla       
         self.dataNotFound = Text("No se encontro el Producto!",
@@ -160,33 +184,11 @@ class UI(UserControl):
         self.Table.rows = []
         for row in self.dataTbl.get_row_Table():    # Accede a la variable de la conexión
             self.Table.rows.append(
-                DataRow(
-                    cells=[
-                        DataCell(Text((row[0]))),
-                        DataCell(Text(row[1])),
-                        DataCell(Text(row[3])),
-                        DataCell(Text(row[2])),
-                        DataCell(
-                            Row([
-                                IconButton("delete",
-                                    #icons.CHECK,
-                                    icon_color="red",
-                                    data=row,
-                                    on_click=self.dltButton # --- PROXIMA TAREA ---
-                                ),
-                                IconButton("edit",
-                                    icon_color="green",
-                                    data=row,
-                                    #on_click=EditButton() # --- PROXIMA TAREA ---
-                                )
-                            ])
-                        )
-                    ]
-                )
+                self.dataRows(row)
             )
         self.update()
         
-    #-------------------------------------
+    #######################################################
 
     # --- CONTENEDORES,FRAMES ETC ... ---
         # --- FRAME FILTRADO ---
@@ -254,6 +256,14 @@ class UI(UserControl):
                 scroll="auto",
                 controls=[
                     #self.data_table
+                    Container(
+                        #expand=True,
+                        bgcolor="red",
+                        margin=0,
+                        border_radius=3,
+                        alignment=ft.alignment.center,
+                        content=Text("Lista de PrindCards"),
+                    ),
                     ResponsiveRow(
                         controls=[
                             self.Table
