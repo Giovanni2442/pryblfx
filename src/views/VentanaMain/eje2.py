@@ -1,8 +1,6 @@
 from flet import *
 
-import flet as ft
-
-class ejemplo(UserControl):
+class ejemplo2(UserControl):
     def __init__(self,page):
         super().__init__()
 
@@ -15,11 +13,11 @@ class ejemplo(UserControl):
             padding=5,
             margin=0,
             alignment=alignment.center,
-            content= Row(
+            content= Column(
                 controls=[
-                    Text("Hola"),
-                    Text("Hola"),
-                    Text("Hola"),
+                    Text("Este es el ejemplo 2"),
+                    Text("Este es el ejemplo 2"),
+                    Text("Este es el ejemplo 2"),
                 ],
             )
         )
@@ -31,11 +29,11 @@ class ejemplo(UserControl):
             padding=10,
             margin=0,
             alignment=alignment.center,
-            content= Row(
+            content= Column(
                 controls=[
-                    Text("Hola"),
-                    Text("Hola"),
-                    Text("Hola"),
+                    Text("Este es el ejemplo 2"),
+                    Text("Este es el ejemplo 2"),
+                    Text("Este es el ejemplo 2"),
                 ],
             )
         )
@@ -52,8 +50,9 @@ class ejemplo(UserControl):
                     #Text(),
                     TextButton("Press Here!",
                         icon=icons.PLAY_CIRCLE_FILL_OUTLINED,
-                        on_click= lambda _: self.page.go('/frame2'))
-                ] 
+                        on_click= lambda _: self.page.go('/'))
+                ]
+                    
             )
         )
 
@@ -61,24 +60,27 @@ class ejemplo(UserControl):
         self.frameMain = Container(
             bgcolor="yellow",
             border_radius=10,
-            padding=2,
+            padding=10,
             content=Column(
+                    alignment=alignment.center,
                     expand=False,
                     controls=[
                         self.frame1,
                         self.frame2,
-                        self.cntBtn
+                        self.cntBtn 
                     ],
                 ),
         )
-        
-    # Construye todos los frames tiene el frame Main
+
+
+   # Construye todos los frames tiene el frame Main
     def build(self):
         return self.frameMain
 
+'''
 def main(page: Page):
     page.theme_mode = ThemeMode.DARK
-    page.add(ejemplo(page))
-'''
+    page.add(ejemplo2(page))
+
 # Main
 app(main)'''

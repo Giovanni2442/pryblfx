@@ -11,7 +11,7 @@ class UI(UserControl):
     # --- COMPONENTES ---
         self.page = page  
         self.color_teal = "teal"
-        self.tbl = cntTable(page)  # Se pasa el pagina actual
+        self.tbl = cntTable(self.page)  # Se pasa el pagina actual
         self.dataTbl = Controllers()  #Accede a la información en la base de datos
     
         # --- INPUTS DE BUSQUEDA --- 
@@ -95,7 +95,7 @@ class UI(UserControl):
                 ]
             ),
         )
-
+    
         # --- FRAME TABLE ---
         self.cntTable = Container(
             bgcolor="#222222",  # Cambiado a azul para distinguir visualmente
@@ -110,15 +110,15 @@ class UI(UserControl):
                     #self.data_table
                     ResponsiveRow(
                         controls=[
-                            self.tbl.Table
+                            self.tbl.Table.update()
+                            #self.updateTable()
                         ]
                     )
                 ]
             )
-        ),
-        self.update()
-      
+        )
 
+    
         # Colocar los frames en forma de columna
         self.frameMain = Container(
             bgcolor="black",
@@ -127,7 +127,7 @@ class UI(UserControl):
             content=Column(
                     controls=[
                         self.cntFiltPrinf,
-                        self.tbl.cntTable
+                        self.cntTable
                     ],
                 ),
         )
@@ -149,6 +149,8 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.window_min_width = 200
     page.theme_mode = ThemeMode.DARK
     page.padding = 5
-    page.add(UI(page))
+    ui = UI(page)
+    page.add(ui)
+    page.update()
 ft.app(main)
 #pru()

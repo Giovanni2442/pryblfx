@@ -55,7 +55,6 @@ class cntTable(UserControl):
             # -- Limpia y Actualiza la tabla -- 
             self.Table.rows.clear() 
             self.showData()
-            self.page.update()
             # Mensaje parte inferior
             self.msgDlt = SnackBar(
                 content=Column(
@@ -106,27 +105,13 @@ class cntTable(UserControl):
             self.Table.rows.append(
                # self.dataRows(row)
                self.dataRows(row)
+               
             )
+            self.update()
         self.page.update()
 
-              # --- FRAME TABLE ---
-        self.cntTable = Container(
-            bgcolor="#222222",  # Cambiado a azul para distinguir visualmente
-            border_radius=10,
-            alignment=alignment.top_center,
-            expand=True,
-            padding=10,
-            content= Column( 
-                expand=True,
-                scroll="auto",
-                controls=[
-                    #self.data_table
-                    ResponsiveRow(
-                        controls=[
-                            self.Table
-                        ]
-                    )
-                ]
-            )
-        )
+        
+
+
+
         
