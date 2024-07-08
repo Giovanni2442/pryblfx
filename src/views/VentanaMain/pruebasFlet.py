@@ -2,6 +2,7 @@ from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
 from src.Controllers.appTable import Controllers
+
 #from Controllers.appTable import Controllers
 
 def pru():
@@ -46,6 +47,27 @@ class UI(UserControl):
             label_style=TextStyle(color="black",italic=True)
         )
 
+        # --- BOTONES ---
+        self.BtnCreate = FilledButton(
+            text="Crear PrindCard",
+            adaptive=True,
+            style=ButtonStyle(
+                bgcolor="#21A772",
+                color={
+                    ControlState.HOVERED: colors.RED,
+                    ControlState.HOVERED: colors.BLACK,
+                },
+                overlay_color=ft.colors.TRANSPARENT,
+                elevation={"pressed": 0, "": 1},
+                animation_duration=200,
+                shape={
+                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                },
+            ),
+            on_click= lambda _: self.page.go('/'),
+        )
+
         # --- TABLA ---
             # --- Columnas de la tabla ---
         self.Table = DataTable(
@@ -62,11 +84,6 @@ class UI(UserControl):
         )
         # row table
         self.showData() # Carga la función donde se recorre las tuplas de productos disponibles
-
-
-    def pru(self,e):
-        print(e.control.value.lower())
-
 
     # -- Herramientas de la tabla --
         # --- Delete Product ---
@@ -119,6 +136,7 @@ class UI(UserControl):
      # --- Filas de la tabla ---
     def dataRows(self,row):
         self.rows = DataRow(
+            
             cells=[
                 DataCell(Text((row[0]))),
                 DataCell(Text(row[1])),
@@ -236,7 +254,20 @@ class UI(UserControl):
                                 ),
                                 
                                 self.InptPrindCard,
-                                self.InptClienteSimple
+                                self.InptClienteSimple,
+                                # Se coloca en un contenedor para centar
+                                Container(
+                                    expand=True,
+                                    alignment=alignment.bottom_right,
+                                    #bgcolor="yellow",
+                                    padding=5,
+                                    border_radius=3,
+                                    content= Row(
+                                        controls= [
+                                            self.BtnCreate
+                                        ]
+                                    )
+                                )
                             ]
                         )
                     )
@@ -264,12 +295,11 @@ class UI(UserControl):
                         alignment=ft.alignment.center,
                         content=Text("Lista de PrindCards"),
                     ),
-                    ResponsiveRow(
+                    ResponsiveRow(                        
                         controls=[
                             self.Table
                         ]
-                    )
-                   
+                    )     
                 ]
             )
         )
@@ -302,7 +332,8 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.window_min_width = 200
     page.theme_mode = ThemeMode.DARK
     page.padding = 5
-    page.add(UI(page))
+    #page.add(UI(page))
 
+''''
 ft.app(main)
-#pru()
+#pru()'''
