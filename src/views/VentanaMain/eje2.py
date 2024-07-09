@@ -1,48 +1,40 @@
 from flet import *
+
 import flet as ft
 
-def main(page):
-    table=ft.DataTable(
-        border=ft.border.all(2, "red"),
-        show_bottom_border=True,
-        #columns 里必须添加 DataColumn 类型的控件
-        columns=[
-                ft.DataColumn(ft.Text("名字")),
-                ft.DataColumn(ft.Text("电话")),
-                ft.DataColumn(ft.Text("地址"), numeric=True),
-            ],
-        #rows 里必须添加 DataRow 类型的控件
-        #DataRow 
-        rows=[
-            ft.DataRow(
-                cells=[
-                    ft.DataCell(ft.Text("John")),
-                    ft.DataCell(ft.Text("John")),
-                    ft.DataCell(ft.Text("John")),
-                    ])
-            ]
-        )
-    lv = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=True)
-    lv.controls.append(table)
-    page.add(lv)
-    def button_clicked(e):
-        
-        
-        b=ft.DataRow(
-                cells=[
-                    ft.DataCell(ft.Text("John")),
-                    ft.DataCell(ft.Text("John")),
-                    ft.DataCell(ft.Text("John")),
-                    ])
+def main(page: ft.Page):
+    t = ft.Tabs(
+        selected_index=1,
+        animation_duration=300,
+        tabs=[
+            ft.Tab(
+                text="Tab 1",
+                content=ft.Container(
+                    content=ft.Text("This is Tab 1"), alignment=ft.alignment.center
+                ),
+            ),
+            ft.Tab(
+                tab_content=ft.Icon(ft.icons.SEARCH),
+                content=ft.Text("This is Tab 2"),
+            ),
+            ft.Tab(
+                text="Tab 3",
+                icon=ft.icons.SETTINGS,
+                content=ft.Text("This is Tab 3"),
+            ),
+        ],
+        expand=1,
+    )
 
-        table.rows.append(b)
-        page.update()
-        print("按钮被点击")
-    page.add(ft.ElevatedButton(text="添加一行数据",on_click=button_clicked,data=0))
+    # Crear un Row para centrar los tabs
+    centered_tabs = ft.Row(
+        controls=[t],
+        alignment=ft.MainAxisAlignment.CENTER,  # Centrar los tabs
+    )
+
+    page.add(centered_tabs)
 
 ft.app(target=main)
-
-
 
 
 '''
