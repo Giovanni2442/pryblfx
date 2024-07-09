@@ -2,40 +2,51 @@ from flet import *
 
 import flet as ft
 
-def main(page: ft.Page):
-    t = ft.Tabs(
-        selected_index=1,
-        animation_duration=300,
-        tabs=[
-            ft.Tab(
-                text="Tab 1",
-                content=ft.Container(
-                    content=ft.Text("This is Tab 1"), alignment=ft.alignment.center
-                ),
-            ),
-            ft.Tab(
-                tab_content=ft.Icon(ft.icons.SEARCH),
-                content=ft.Text("This is Tab 2"),
-            ),
-            ft.Tab(
-                text="Tab 3",
-                icon=ft.icons.SETTINGS,
-                content=ft.Text("This is Tab 3"),
-            ),
-        ],
-        expand=1,
+def main(page: Page):
+
+    eje = Container(        # --- Contenedor para las pestañas --
+        expand=True,
+        #height=150,
+        width=2000,
+        bgcolor="yellow",
+        padding=10,
+        content= Container(
+            #alignment=MainAxisAlignment.CENTER,
+            bgcolor="red",
+            width=150,
+            content=
+                Tabs(
+                    selected_index=0,
+                    #tab_alignment=alignment.center,
+                    animation_duration=300,
+                    width=100,
+                    #expand=False,
+                    #alignment=MainAxisAlignment.SPACE_BETWEEN,
+                    tabs=[ 
+                        Tab(
+                            text="Tab 1",
+                            content=Container(
+                                content=Text("This is Tab 1"), alignment=alignment.center
+                            ),
+                        ),
+                        Tab(
+                            tab_content=Icon(icons.SEARCH),
+                            content=Text("This is Tab 2"),
+                        ),
+                        Tab(
+                            text="Tab 3",
+                            icon=icons.SETTINGS,
+                            content=Text("This is Tab 3"),
+                        ),
+                    ],
+                    expand=True,
+                )
+        )                      
     )
+    
+    page.add(eje)
 
-    # Crear un Row para centrar los tabs
-    centered_tabs = ft.Row(
-        controls=[t],
-        alignment=ft.MainAxisAlignment.CENTER,  # Centrar los tabs
-    )
-
-    page.add(centered_tabs)
-
-ft.app(target=main)
-
+app(target=main)
 
 '''
 class ejemplo2(UserControl):

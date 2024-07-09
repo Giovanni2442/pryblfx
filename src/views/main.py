@@ -1,20 +1,71 @@
-from tkinter import *
-from tkinter import Misc, ttk
-#from ttkthemes import ThemedStyle # type: ignore
-from VentanaMain.vtnMain import *
+from flet import *
 
-class appMain:
-    root = Tk()     # raiz : Objeto de tipo Frame de la clase Tk()
-    root.wm_title("ventana de pruebas")
-    app = vtnMain(root)     # Pasando el frame a la clase ventana, que en este caso es la instancia root
-    app.mainloop()
+class menu(UserControl):
+    def __init__(self,page):
+        super().__init__()
 
+        self.page = page
 
-if __name__ == "__main__":
-    re = appMain()
-    re()
+    def viewiD(slef,e):
+        id = e.control.data.value
+        pass
 
+        self.menu = Container(
+            bgcolor="blue",
+            #height=200,
+            padding=5,
+            animate=animation.Animation(300,"cubic"),
+            content= Row(
+                alignment=MainAxisAlignment.SPACE_BETWEEN,
+                controls=[
+                    Container(
+                        IconButton(
+                            icon=icons.NOTIFICATION_ADD,
+                            icon_size=25
+                        ),
+                    ),
+                    
+                    Container(
+                        IconButton(
+                            icon=icons.NOTIFICATION_ADD,
+                            icon_size=25
+                        ),
+                    ),
 
+                    Container(
+                        IconButton(
+                            icon=icons.NOTIFICATION_ADD,
+                            icon_size=25
+                        ),
+                    ),
+                ]
+            )
+        )
+
+        self.frameMain = Container(
+            bgcolor="yellow",
+            padding=3,
+            content= Column(
+                controls=[
+                    self.menu
+                ]
+            )
+        )
+        self.pru = Container(
+            bgcolor="Red",
+            height=100,
+            expand=True
+        )
+
+    def build(self):
+        return self.frameMain
+
+def main(page: Page):
+    page.theme_mode = ThemeMode.DARK
+    page.add(menu(page)) 
+
+app(main)
+    
 '''
 from flet import Container, Row, Column, Label, margin
 

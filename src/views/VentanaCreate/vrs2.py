@@ -8,7 +8,7 @@ class createPrind(UserControl):
 
         # Header
         self.cntHeader = Container(
-            #expand=True,
+            expand=True,
             bgcolor=self.color_teal,
             #height=80,
             padding=5,
@@ -33,66 +33,48 @@ class createPrind(UserControl):
                             ]
                         )
                     ),
+                    Container(        # --- Contenedor para las pestañas --
+                        #expand=True,
+                        height=150,
+                        width=800,
+                        bgcolor="yellow",
+                        padding=10,
+                        content= Container(
+                            #alignment=MainAxisAlignment.CENTER,
+                            bgcolor="red",
+                            width=250,
+                            content=
+                                Tabs(
+                                    selected_index=0,
+                                    #tab_alignment=alignment.center,
+                                    animation_duration=300,
+                                    width=100,
+                                    #expand=False,
+                                    #alignment=MainAxisAlignment.SPACE_BETWEEN,
+                                    tabs=[ 
+                                        Tab(
+                                            text="Tab 1",
+                                            content=Container(
+                                                content=Text("This is Tab 1"), alignment=alignment.center
+                                            ),
+                                        ),
+                                        Tab(
+                                            tab_content=Icon(icons.SEARCH),
+                                            content=Text("This is Tab 2"),
+                                        ),
+                                        Tab(
+                                            text="Tab 3",
+                                            icon=icons.SETTINGS,
+                                            content=Text("This is Tab 3"),
+                                        ),
+                                    ],
+                                    expand=0,
+                                )
+                        )                      
+                    )
                 ]
             )
-        )
-
-        self.cnt1 = Container(
-            bgcolor="green",
-            expand= True,
-            #padding=5,
-            #width= 500,
-            #height= 500,
-            border_radius= 5,
-            #content= Text("Elementos")
-        )
-
-        self.cnt2 = Container(
-            bgcolor="blue",
-            expand= True,
-            #width= 500,
-            #height= 500,
-            border_radius= 5,
-            #content= Text("Elementos")
-        )
-
-        self.Pestañas = Tabs(
-        selected_index=1,
-        animation_duration=300,
-        tabs=[
-            Tab(
-                text="Tab 1",
-                content= Container(
-                    padding=10,
-                    margin= margin.only(top=5),
-                    expand=True,
-                    content= Row(
-                        controls=[
-                        self.cnt1,
-                        self.cnt2
-                    ]
-                    ),
-                )
-            ),
-            Tab(
-                tab_content=Icon(icons.SEARCH),
-                content=Container(
-                    bgcolor="red",
-                    expand= True,
-                    #width= 500,
-                    #height= 500,
-                    border_radius= 5,
-                    content= Text("Elementos")
-                )
-            ),
-            Tab(
-                text="Tab 3",
-                icon=icons.SETTINGS,
-                content=Text("This is Tab 3"),
-            ),
-        ],
-        expand=True,
-    )
+        )   
 
        # Contenido de la tabla 
         self.cntForm = Container(
@@ -104,7 +86,7 @@ class createPrind(UserControl):
                 controls=[
                     Container(      # --- Contenedor Ficha ---
                         expand=True,
-                        bgcolor="#5C516D", 
+                        bgcolor="green", 
                         margin=0,
                         padding=5,
                         content= Column(
@@ -162,7 +144,7 @@ class createPrind(UserControl):
                     ),
                     Container(      # --- Contenedor Ventas ---            
                         expand=True,
-                        bgcolor="#5C516D",
+                        bgcolor="green",
                         margin=0,
                         padding=5,
                         content=Column(
@@ -230,8 +212,7 @@ class createPrind(UserControl):
             content=Column(
                 controls=[
                     self.cntHeader,
-                    self.Pestañas
-                    #self.cntForm
+                    self.cntForm
                 ]
             )
         )
