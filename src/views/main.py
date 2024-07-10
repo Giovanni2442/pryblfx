@@ -6,10 +6,6 @@ class menu(UserControl):
 
         self.page = page
 
-    def viewiD(slef,e):
-        id = e.control.data.value
-        pass
-
         self.menu = Container(
             bgcolor="blue",
             #height=200,

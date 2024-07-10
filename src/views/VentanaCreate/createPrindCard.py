@@ -6,6 +6,40 @@ class createPrind(UserControl):
 
         self.color_teal = "teal"
 
+        # Pestañas
+        self.Pestañas = Tabs(
+            label_color="red",
+            indicator_color="Red",
+            indicator_border_radius=60,
+            divider_color="#fc4795",
+            tabs=[
+                Tab(
+                    text="Tab 1",
+                    icon="home"
+                ),
+                Tab(
+                    text="Tab 2",
+                    icon="face"
+                ),
+                Tab(
+                    text="Tab 3",
+                    icon="person"
+                ),
+                Tab(
+                    text="Tab 3",
+                    icon="person"
+                ),
+                Tab(
+                    text="Tab 3",
+                    icon="person"
+                ),
+                Tab(
+                    text="Tab 3",
+                    icon="person"
+                ),
+            ]
+    )
+
         # Header
         self.cntHeader = Container(
             #expand=True,
@@ -33,6 +67,16 @@ class createPrind(UserControl):
                             ]
                         )
                     ),
+                    Container(
+                        #height=100,
+                        bgcolor="green",
+                        content= Row(
+                            alignment=MainAxisAlignment.CENTER,
+                            controls=[
+                                self.Pestañas
+                            ]
+                        )
+                    )
                 ]
             )
         )
@@ -56,43 +100,7 @@ class createPrind(UserControl):
             #content= Text("Elementos")
         )
 
-        self.Pestañas = Tabs(
-        selected_index=1,
-        animation_duration=300,
-        tabs=[
-            Tab(
-                text="Tab 1",
-                content= Container(
-                    padding=10,
-                    margin= margin.only(top=5),
-                    expand=True,
-                    content= Row(
-                        controls=[
-                        self.cnt1,
-                        self.cnt2
-                    ]
-                    ),
-                )
-            ),
-            Tab(
-                tab_content=Icon(icons.SEARCH),
-                content=Container(
-                    bgcolor="red",
-                    expand= True,
-                    #width= 500,
-                    #height= 500,
-                    border_radius= 5,
-                    content= Text("Elementos")
-                )
-            ),
-            Tab(
-                text="Tab 3",
-                icon=icons.SETTINGS,
-                content=Text("This is Tab 3"),
-            ),
-        ],
-        expand=True,
-    )
+        
 
        # Contenido de la tabla 
         self.cntForm = Container(
@@ -230,8 +238,8 @@ class createPrind(UserControl):
             content=Column(
                 controls=[
                     self.cntHeader,
-                    self.Pestañas
-                    #self.cntForm
+                    #self.Pestañas
+                    self.cntForm
                 ]
             )
         )

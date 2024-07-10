@@ -1,52 +1,134 @@
 from flet import *
 
 import flet as ft
+from flet import UserControl, Tabs, Tab, Container, BoxShadow, LinearGradient, alignment, Column, Row, IconButton, Text, margin, MainAxisAlignment, Page, ThemeMode
+
+class Menu(UserControl):
+    def __init__(self, page):
+        super().__init__()
+        self.page = page
+
+
+        # TABS
+        self.mytab = Tabs(
+            selected_index=0,
+            label_color="white",
+            indicator_color="Red",
+            indicator_border_radius=30,
+            divider_color="#fc4795",
+            scrollable=True,
+            on_change=self.changeSelect,
+            tabs=[
+                Tab(
+                    text="Home",
+                    icon="home"
+                ),
+                Tab(
+                    text="Face",
+                    icon="face"
+                ),
+                Tab(
+                    text="Person",
+                    icon="person"
+                ),
+                Tab(
+                    text="Notifications",
+                    icon="notifications"
+                ),
+            ]
+        )
+
+        self.mybar = Container(
+            border_radius=ft.border_radius.vertical(
+                bottom=30
+            ),
+            shadow=BoxShadow(
+                spread_radius=1,
+                blur_radius=10,
+                color="#fc4795",
+                ),
+                gradient=LinearGradient(
+                    begin=alignment.top_left,
+                    end=alignment.bottom_right,
+                    colors=["#fc4795", "#7c59f0"]
+                ),
+                width=self.page.window_width,
+                height=150,
+                padding=20,  # Cambio el padding para que se ajuste mejor
+                content=Column(
+                    controls=[
+                        Row(
+                            alignment=MainAxisAlignment.SPACE_BETWEEN,
+                            controls=[
+                                IconButton(icon="menu", icon_color="white"),
+                                Text("panch0", color="white"),
+                                Row(
+                                    controls=[
+                                        IconButton(icon="menu", icon_color="white"),
+                                        IconButton(icon="notifications", icon_color="white"),
+                                        IconButton(icon="search", icon_color="white"),
+                                    ]
+                                )
+                            ],
+                        ),
+                        Container(
+                            bgcolor="red",
+                            #alignment=MainAxisAlignment.SPACE_BETWEEN,
+                            content=
+                                Row(
+                                alignment=MainAxisAlignment.SPACE_AROUND,
+                                controls=[
+                                    self.mytab
+                                ]
+                        )
+                        ),
+                        
+                    ]
+                ),
+        )
+
+        self.cnt1 = Column(
+            controls=[
+                Container(
+                    margin=margin.only(top=self.page.window_height/2),
+                    alignment=alignment.center,
+                    content=Column(
+                        controls=[
+                            Text("Sample", size=30)
+                        ]
+                    )
+                )
+            ]
+        )
+
+        self.frameMain = Column(
+            controls=[
+                self.mybar,
+                self.cnt1,
+            ]
+        )
+    
+    def changeSelect(self,e):
+        id = e.control.selected_index
+        nameScreen = e.control.tabs[id].text
+        #print(id,nameScreen)
+        #print(e.control.tabs)
+        for x in range(0,len(e.control.tabs)):
+            if id == x:
+                self.page.controls[0].controls[0].content.controls[0].value = nameScreen
+        self.page.update()
+
+    def sal(self,e):
+        print(e.control.value)
+
+    def build(self):
+        return self.frameMain
 
 def main(page: Page):
+    page.theme_mode = ThemeMode.DARK
+    page.add(Menu(page))
 
-    eje = Container(        # --- Contenedor para las pestañas --
-        expand=True,
-        #height=150,
-        width=2000,
-        bgcolor="yellow",
-        padding=10,
-        content= Container(
-            #alignment=MainAxisAlignment.CENTER,
-            bgcolor="red",
-            width=150,
-            content=
-                Tabs(
-                    selected_index=0,
-                    #tab_alignment=alignment.center,
-                    animation_duration=300,
-                    width=100,
-                    #expand=False,
-                    #alignment=MainAxisAlignment.SPACE_BETWEEN,
-                    tabs=[ 
-                        Tab(
-                            text="Tab 1",
-                            content=Container(
-                                content=Text("This is Tab 1"), alignment=alignment.center
-                            ),
-                        ),
-                        Tab(
-                            tab_content=Icon(icons.SEARCH),
-                            content=Text("This is Tab 2"),
-                        ),
-                        Tab(
-                            text="Tab 3",
-                            icon=icons.SETTINGS,
-                            content=Text("This is Tab 3"),
-                        ),
-                    ],
-                    expand=True,
-                )
-        )                      
-    )
-    
-    page.add(eje)
-
-app(target=main)
+ft.app(target=main)
 
 '''
 class ejemplo2(UserControl):
