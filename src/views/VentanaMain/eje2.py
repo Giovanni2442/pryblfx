@@ -115,7 +115,7 @@ class Menu(UserControl):
         #print(e.control.tabs)
         for x in range(0,len(e.control.tabs)):
             if id == x:
-                self.page.controls[0].controls[0].content.controls[0].value = nameScreen
+        #        self.page.controls[0].controls[0].content.controls[0].value = nameScreen
         self.page.update()
 
     def sal(self,e):

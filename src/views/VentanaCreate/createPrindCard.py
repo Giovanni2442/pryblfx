@@ -12,6 +12,7 @@ class createPrind(UserControl):
             indicator_color="Red",
             indicator_border_radius=60,
             divider_color="#fc4795",
+            on_change=self.jiji,
             tabs=[
                 Tab(
                     text="Tab 1",
@@ -24,19 +25,7 @@ class createPrind(UserControl):
                 Tab(
                     text="Tab 3",
                     icon="person"
-                ),
-                Tab(
-                    text="Tab 3",
-                    icon="person"
-                ),
-                Tab(
-                    text="Tab 3",
-                    icon="person"
-                ),
-                Tab(
-                    text="Tab 3",
-                    icon="person"
-                ),
+                )
             ]
     )
 
@@ -67,13 +56,13 @@ class createPrind(UserControl):
                             ]
                         )
                     ),
-                    Container(
+                    Container(      # Contenedor para las Pestañas
                         #height=100,
                         bgcolor="green",
                         content= Row(
                             alignment=MainAxisAlignment.CENTER,
                             controls=[
-                                self.Pestañas
+                                self.Pestañas # Añadir las pestañas
                             ]
                         )
                     )
@@ -81,28 +70,8 @@ class createPrind(UserControl):
             )
         )
 
-        self.cnt1 = Container(
-            bgcolor="green",
-            expand= True,
-            #padding=5,
-            #width= 500,
-            #height= 500,
-            border_radius= 5,
-            #content= Text("Elementos")
-        )
-
-        self.cnt2 = Container(
-            bgcolor="blue",
-            expand= True,
-            #width= 500,
-            #height= 500,
-            border_radius= 5,
-            #content= Text("Elementos")
-        )
-
-        
-
-       # Contenido de la tabla 
+#################### FORMULARIOS ########################################
+       # FICHA / VENTAS
         self.cntForm = Container(
             expand=True,
             margin=margin.only(top=-5),
@@ -221,8 +190,8 @@ class createPrind(UserControl):
                                                     border= InputBorder.OUTLINE,
                                                     border_color="Black",
                                                     label_style=TextStyle(color="Black",italic=True),
-                                            ),
-                                        ]
+                                                )
+                                            ]
                                     ),
                                 )
                             ]
@@ -230,7 +199,178 @@ class createPrind(UserControl):
                     )
                 ]
             )
-        )  
+        )
+
+        # EXTRUSIÓN
+        self.cntForm = Container(
+            expand=True,
+            margin=margin.only(top=-5),
+            bgcolor=self.color_teal,
+            padding=5,
+            content= Row(
+                controls=[
+                    Container(      # --- Contenedor EXTRUSIÓN ---
+                        expand=True,
+                        bgcolor="#5C516D", 
+                        margin=0,
+                        padding=5,
+                        content= Column(
+                            controls=[
+                                # ENCABEZADO
+                                Container(    # Tamaño Ficha Tecnica
+                                    Text("EXTRUSIÓN",color="white"),
+                                    alignment=alignment.center,
+                                    bgcolor="blue",
+                                ),
+                                # FORMULARIO
+                                Container(
+                                    alignment=alignment.center,
+                                    content=Column(
+                                        controls=[
+                                            Text("Tipo de Material a Extruir"),
+                                            TextField(
+                                                label="Ingresar tipo de material",
+                                                border= InputBorder.OUTLINE,
+                                                border_color="Black",
+                                                label_style=TextStyle(color="Black",italic=True),
+                                            ),
+                                            Text("Dinaje Requerido"),
+                                            TextField(
+                                                label="Ingresar el Dinaje",
+                                                border= InputBorder.OUTLINE,
+                                                border_color="Black",
+                                                label_style=TextStyle(color="Black",italic=True),
+                                            ),
+                                            Text("Formula Extrusión"),
+                                            TextField(
+                                                label="Ingresar la Formula",
+                                                border= InputBorder.OUTLINE,
+                                                border_color="Black",
+                                                label_style=TextStyle(color="Black",italic=True),
+                                            ),
+                                            Text("Pigmento de Pelicula"),
+                                            TextField(
+                                                 label="Ingresar el Pigmento",
+                                                border= InputBorder.OUTLINE,
+                                                border_color="Black",
+                                                label_style=TextStyle(color="Black",italic=True),
+                                            ),
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                bgcolor="blue",
+                                                border_radius=5,
+                                                padding=5,
+                                                content= PopupMenuButton(
+                                                    #Text("Ingresar!",icon=icons.DOWNLOAD_DONE),
+                                                    bgcolor="white",
+                                                    menu_position=PopupMenuPosition.OVER,
+                                                    items=[ 
+                                                        PopupMenuItem(
+                                                            content= Column(width=200,controls=[
+                                                                Text("Ingresar!"),
+                                                                TextField(
+                                                                    label="Ingresar la Estructura",
+                                                                    border= InputBorder.OUTLINE,
+                                                                    #width=100,
+                                                                    border_color="black",
+                                                                    label_style=TextStyle(color="black",italic=True),
+                                                                )
+                                                            ])
+                                                        ),
+                                                        PopupMenuItem(
+                                                            content= Column([
+                                                                Text("Ingresar!"),
+                                                                TextField(
+                                                                    label="Ingresar la Estructura",
+                                                                    border= InputBorder.OUTLINE,
+                                                                    border_color="Black",
+                                                                    label_style=TextStyle(color="Black",italic=True),
+                                                                )
+                                                            ])
+                                                        ),
+                                                    ]
+                                                )
+                                                #width=500,
+                                                #height=500,
+                                            ),
+                                        ]
+                                    ),
+                                    
+                                )
+                            ],
+                        )
+                    ),
+                    Container(      # --- Contenedor Ventas ---            
+                        expand=True,
+                        bgcolor="#5C516D",
+                        margin=0,
+                        padding=5,
+                        content=Column(
+                            controls=[
+                                Container(    # Tamaño Ficha Tecnica
+                                    Text("VENTAS",color="white"),
+                                    alignment=alignment.center,
+                                    bgcolor="blue",
+                                ),
+                                Container(
+                                    content=Column(
+                                            controls=[
+                                                Text("Asesor Comercial de la Cuenta"),
+                                                TextField(
+                                                    label="Ingresar el Asesor",
+                                                    border= InputBorder.OUTLINE,
+                                                    border_color="Black",
+                                                    label_style=TextStyle(color="Black",italic=True),
+                                                ),
+                                                Text("Tipo de Empaque"),
+                                                TextField(
+                                                    label="Ingresar el Tipo de Empaque",
+                                                    border= InputBorder.OUTLINE,
+                                                    border_color="Black",
+                                                    label_style=TextStyle(color="Black",italic=True),
+                                                ),
+                                                Text("Producto Laminado"),
+                                                Dropdown(
+                                                    label="Laminado",
+                                                    hint_text="Producto Laminado",
+                                                    options=[
+                                                        dropdown.Option("N/A"),
+                                                        dropdown.Option("APLICA"),
+                                                    ],
+                                                    autofocus=True,
+                                                    on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+                                                ),
+                                                Text("Estructura del Producto"),
+                                                TextField(
+                                                    label="Ingresar la Estructura",
+                                                    border= InputBorder.OUTLINE,
+                                                    border_color="Black",
+                                                    label_style=TextStyle(color="Black",italic=True),
+                                                ),
+                                                Text("Producto que se empaca"),
+                                                TextField(
+                                                    label="Ingrese el Empaque",
+                                                    border= InputBorder.OUTLINE,
+                                                    border_color="Black",
+                                                    label_style=TextStyle(color="Black",italic=True),
+                                                )
+                                            ]
+                                    ),
+                                )
+                            ]
+                        )
+                    )
+                ]
+            )
+        )
+
+
+
+
+
+
+########################################################################
+
         # Frame Main
         self.frameMain = Container(
             bgcolor="#737373",
@@ -238,14 +378,40 @@ class createPrind(UserControl):
             content=Column(
                 controls=[
                     self.cntHeader,
-                    #self.Pestañas
                     self.cntForm
+                    #self.jiji()
+                    #self.pru()
                 ]
             )
         )
 
-    def jer(self,e):
-        return e.contol.value
+
+#################### PRUEBA #######################
+    def jiji(self,e):
+        id = e.control.selected_index
+        #print(id)
+        dic = [
+            self.cntForm,
+            Container(
+                bgcolor="red",
+                width=100,
+                height=100
+            ),
+            Container(
+                bgcolor="blue",
+                width=100,
+                height=100
+            ),
+            Container(
+                bgcolor="green",
+                width=100,
+                height=100
+            ),
+        ]
+        self.frameMain.content.controls = [self.cntHeader]
+        self.frameMain.content.controls.append(dic[id])
+        self.update()
+
 
     def build(self):
         return self.frameMain
