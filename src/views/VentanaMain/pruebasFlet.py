@@ -332,8 +332,8 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.window_min_width = 200
     page.theme_mode = ThemeMode.DARK
     page.padding = 5
-    #page.add(UI(page))
+    page.add(UI(page))
 
-''''
+
 ft.app(main)
 #pru()'''

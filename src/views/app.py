@@ -17,8 +17,8 @@ def main(page: Page):
     page.on_route_change = route_change  # Cambiado a on_route_change
     page.go('/')  # Inicia la navegación a la página raíz
 
-    page.window_min_height = 12
-    page.window_min_width = 12
+    page.window_min_height = 102
+    page.window_min_width = 102
     page.theme_mode = ThemeMode.DARK
     page.padding = 5
 

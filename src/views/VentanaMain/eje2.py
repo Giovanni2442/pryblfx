@@ -6,7 +6,6 @@
 # * Agregar las validaciónes (Expreciones regulares a los inputs)
 
 
-
 from flet import *
 import flet as ft
 
@@ -731,7 +730,10 @@ class createPrind(UserControl):
 
 def main(page: Page):
     page.theme_mode = ThemeMode.DARK
+    page.window_min_height = 100
+    page.window_min_width = 100
     page.add(createPrind(page))
+
     #margin=margin.only(top=-5)
 
 app(main)
