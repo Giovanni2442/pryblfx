@@ -27,7 +27,7 @@ class createPrind(UserControl):
                     icon="person"
                 )
             ]
-    )
+        )
 
         # Header
         self.cntHeader = Container(
@@ -202,19 +202,21 @@ class createPrind(UserControl):
         )
 
         # EXTRUSIÓN
-        self.cntForm = Container(
+        self.cntForm2 = Container(
             expand=True,
             margin=margin.only(top=-5),
             bgcolor=self.color_teal,
             padding=5,
-            content= Row(
-                controls=[
+            content=
+                Row(
+                    controls=[
                     Container(      # --- Contenedor EXTRUSIÓN ---
-                        expand=True,
+                        #expand=True,
                         bgcolor="#5C516D", 
                         margin=0,
-                        padding=5,
+                        padding=15,
                         content= Column(
+                            scroll="auto",
                             controls=[
                                 # ENCABEZADO
                                 Container(    # Tamaño Ficha Tecnica
@@ -255,6 +257,7 @@ class createPrind(UserControl):
                                                 border_color="Black",
                                                 label_style=TextStyle(color="Black",italic=True),
                                             ),
+                                            #DropBox de Inpits
                                             Container(
                                                 #Text("Ingresar !"),
                                                 bgcolor="blue",
@@ -290,8 +293,18 @@ class createPrind(UserControl):
                                                         ),
                                                     ]
                                                 )
-                                                #width=500,
-                                                #height=500,
+                                            ),
+                                            Text("Tipo de Bobina"),
+                                            Dropdown(
+                                                label="Laminado",
+                                                hint_text="Producto Laminado",
+                                                options=[
+                                                    dropdown.Option("N/A"),
+                                                    dropdown.Option("Lamina"),
+                                                    dropdown.Option("Tabular"),
+                                                ],
+                                                autofocus=True,
+                                                on_change= lambda e: print(e.control.value)  # Imprimir el resultado
                                             ),
                                         ]
                                     ),
@@ -299,74 +312,10 @@ class createPrind(UserControl):
                                 )
                             ],
                         )
-                    ),
-                    Container(      # --- Contenedor Ventas ---            
-                        expand=True,
-                        bgcolor="#5C516D",
-                        margin=0,
-                        padding=5,
-                        content=Column(
-                            controls=[
-                                Container(    # Tamaño Ficha Tecnica
-                                    Text("VENTAS",color="white"),
-                                    alignment=alignment.center,
-                                    bgcolor="blue",
-                                ),
-                                Container(
-                                    content=Column(
-                                            controls=[
-                                                Text("Asesor Comercial de la Cuenta"),
-                                                TextField(
-                                                    label="Ingresar el Asesor",
-                                                    border= InputBorder.OUTLINE,
-                                                    border_color="Black",
-                                                    label_style=TextStyle(color="Black",italic=True),
-                                                ),
-                                                Text("Tipo de Empaque"),
-                                                TextField(
-                                                    label="Ingresar el Tipo de Empaque",
-                                                    border= InputBorder.OUTLINE,
-                                                    border_color="Black",
-                                                    label_style=TextStyle(color="Black",italic=True),
-                                                ),
-                                                Text("Producto Laminado"),
-                                                Dropdown(
-                                                    label="Laminado",
-                                                    hint_text="Producto Laminado",
-                                                    options=[
-                                                        dropdown.Option("N/A"),
-                                                        dropdown.Option("APLICA"),
-                                                    ],
-                                                    autofocus=True,
-                                                    on_change= lambda e: print(e.control.value)  # Imprimir el resultado
-                                                ),
-                                                Text("Estructura del Producto"),
-                                                TextField(
-                                                    label="Ingresar la Estructura",
-                                                    border= InputBorder.OUTLINE,
-                                                    border_color="Black",
-                                                    label_style=TextStyle(color="Black",italic=True),
-                                                ),
-                                                Text("Producto que se empaca"),
-                                                TextField(
-                                                    label="Ingrese el Empaque",
-                                                    border= InputBorder.OUTLINE,
-                                                    border_color="Black",
-                                                    label_style=TextStyle(color="Black",italic=True),
-                                                )
-                                            ]
-                                    ),
-                                )
-                            ]
-                        )
                     )
                 ]
             )
         )
-
-
-
-
 
 
 ########################################################################
@@ -378,8 +327,8 @@ class createPrind(UserControl):
             content=Column(
                 controls=[
                     self.cntHeader,
-                    self.cntForm
-                    #self.jiji()
+                    #self.cntForm       # Contenedor de FICHA / VENTAS como Inicio
+                    self.cntForm2
                     #self.pru()
                 ]
             )
@@ -408,6 +357,7 @@ class createPrind(UserControl):
                 height=100
             ),
         ]
+
         self.frameMain.content.controls = [self.cntHeader]
         self.frameMain.content.controls.append(dic[id])
         self.update()
