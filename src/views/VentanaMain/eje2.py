@@ -1,6 +1,5 @@
 
 # NOTAS para MAÑANA: 
-# * Acabar el Formulario de Extrución
 # * Arreglar la parte de las Pestañas y redirecciónes
 # * Hacer la conexión de los formularios a la base de datos (las 2 primeras tablas)
 # * Agregar las validaciónes (Expreciones regulares a los inputs)
@@ -49,7 +48,7 @@ class createPrind(UserControl):
                     Container(      #-- Contenedor de Inicio y Usuario --
                         #expand=True,
                         #height=100,
-                        bgcolor="green",
+                        bgcolor="#B6DE3A",
                         alignment=alignment.center,
                         content= Row(
                             alignment=MainAxisAlignment.SPACE_BETWEEN,
@@ -67,7 +66,7 @@ class createPrind(UserControl):
                     ),
                     Container(      # Contenedor para las Pestañas
                         #height=100,
-                        bgcolor="green",
+                        bgcolor="#B6DE3A",
                         content= Row(
                             alignment=MainAxisAlignment.CENTER,
                             controls=[
@@ -98,7 +97,7 @@ class createPrind(UserControl):
                                 Container(    # Tamaño Ficha Tecnica
                                     Text("FICHA TECNICA",color="white"),
                                     alignment=alignment.center,
-                                    bgcolor="blue",
+                                    bgcolor="#858585",
                                 ),
                                 Container(
                                     alignment=alignment.center,
@@ -156,7 +155,7 @@ class createPrind(UserControl):
                                 Container(    # Tamaño Ficha Tecnica
                                     Text("VENTAS",color="white"),
                                     alignment=alignment.center,
-                                    bgcolor="blue",
+                                    bgcolor="#858585",
                                 ),
                                 Container(
                                     content=Column(
@@ -222,14 +221,14 @@ class createPrind(UserControl):
                     #expand=True,
                     Text("EXTRUSIÓN",color="white"),
                     alignment=alignment.center,
-                    bgcolor="blue",
+                    bgcolor="#858585",
                 ),
                 Row(                    # --- Contenedor EXTRUSIÓN ---
                     expand=True,
                     controls=[
                     Container(                  # -- Seccion 1 --
                         expand=True,
-                        bgcolor="blue", 
+                        bgcolor="#858585", 
                         margin=0,
                         padding=15,
                         alignment=alignment.center,
@@ -272,7 +271,7 @@ class createPrind(UserControl):
                                             #DropBox de Inpits
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="green",
+                                                bgcolor="#B6DE3A",
                                                 border_radius=5,
                                                 padding=5,
                                                 content= PopupMenuButton(
@@ -318,28 +317,6 @@ class createPrind(UserControl):
                                                 autofocus=True,
                                                 on_change= lambda e: print(e.control.value)  # Imprimir el resultado
                                             ),
-                                        ]
-                                    ),
-                                    
-                                )
-                                
-                            ]
-                        )
-                    ),
-                    Container(                  # -- Seccion 2 --
-                        expand=True,
-                        bgcolor="blue", 
-                        margin=0,
-                        padding=15,
-                        alignment=alignment.center,
-                        content= Column(
-                            expand=True,
-                            scroll="auto",
-                            controls=[
-                                Container(         
-                                    #alignment=alignment.center,
-                                    content=Column(
-                                        controls=[
                                             Text("Tipó de Tratado"),
                                             Dropdown(
                                                 label="Laminado",
@@ -354,10 +331,32 @@ class createPrind(UserControl):
                                                 autofocus=True,
                                                 on_change= lambda e: print(e.control.value)  # Imprimir el resultado
                                             ),
+                                        ]
+                                    ),
+                                    
+                                )
+                                
+                            ]
+                        )
+                    ),
+                    Container(                  # -- Seccion 2 --     
+                        expand=True,
+                        bgcolor="#858585", 
+                        margin=0,
+                        padding=15,
+                        alignment=alignment.center,
+                        content= Column(
+                            expand=True,
+                            scroll="auto",
+                            controls=[
+                                Container(
+                                    alignment=alignment.center,
+                                    content=Column(
+                                        controls=[
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="green",
+                                                bgcolor="#B6DE3A",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
@@ -395,7 +394,7 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="green",
+                                                bgcolor="#B6DE3A",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
@@ -430,10 +429,115 @@ class createPrind(UserControl):
                                                     ]
                                                 )
                                             ),
+                                            Text("Maximo de Empalmes por Bobina"),
+                                            TextField(
+                                                label="N/A",
+                                                border= InputBorder.OUTLINE,
+                                                border_color="Black",
+                                                label_style=TextStyle(color="Black",italic=True),
+                                            ),
+                                            Text("Orientación de Bobina en Tarima"),
+                                            Dropdown(
+                                                label="Orientación",
+                                                hint_text="Orientación de Bobina",
+                                                options=[
+                                                    dropdown.Option("N/A"),
+                                                    dropdown.Option("Horizontal"),
+                                                    dropdown.Option("Vertical"),
+                                                ],
+                                                autofocus=True,
+                                                on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+                                            ),
+                                            Text("Tipó de Empaque para Bonina"),
+                                            Dropdown(
+                                                label="Empaque",
+                                                hint_text="Tipo de Empaque",
+                                                options=[
+                                                    dropdown.Option("N/A"),
+                                                    dropdown.Option("Emplaye"),
+                                                    dropdown.Option("Bolsa"),
+                                                    
+                                                ],
+                                                autofocus=True,
+                                                on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+                                            ),
+                                            Text("Pesar producto Por"),
+                                            Dropdown(
+                                                label="Pesar por..",
+                                                hint_text="Pesar producto",
+                                                options=[
+                                                    dropdown.Option("N/A"),
+                                                    dropdown.Option("Tarima"),
+                                                    dropdown.Option("Bobina"),
+                                                    dropdown.Option("Ambos")
+                                                ],
+                                                autofocus=True,
+                                                on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+                                            ),
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="green",
+                                                bgcolor="#B6DE3A",
+                                                alignment=alignment.center,
+                                                border_radius=5,
+                                                padding=5,
+                                                content= PopupMenuButton(
+                                                    Text("Peso neto Promedio de Bobina"),
+                                                    bgcolor="white",
+                                                    menu_position=PopupMenuPosition.OVER,
+                                                    items=[ 
+                                                        PopupMenuItem(
+                                                            content= Column(width=200,controls=[
+                                                                Text("Peso Neto"),
+                                                                TextField(
+                                                                    label="N/A",
+                                                                    border= InputBorder.OUTLINE,
+                                                                    #width=100,
+                                                                    border_color="black",
+                                                                    label_style=TextStyle(color="black",italic=True),
+                                                                )
+                                                            ])
+                                                        ),
+                                                        PopupMenuItem(
+                                                            content= Column([
+                                                                Text("Tolerancia"),
+                                                                TextField(
+                                                                    label="N/A",
+                                                                    border= InputBorder.OUTLINE,
+                                                                    border_color="Black",
+                                                                    label_style=TextStyle(color="Black",italic=True),
+                                                                )
+                                                            ])
+                                                        ),
+                                                    ]
+                                                )
+                                            ),
+                                        ]
+                                    ),
+                                    
+                                )
+                                
+                            ]
+                        )
+                    ),
+                    Container(                  # -- Seccion 3 --   
+                        expand=True,
+                        bgcolor="#858585", 
+                        margin=0,
+                        padding=15,
+                        alignment=alignment.center,
+                        content= Column(
+                            expand=True,
+                            scroll="auto",
+                            controls=[
+                                Container(
+                                    alignment=alignment.center,
+                                    content=Column(
+                                        controls=[
+                                            #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                bgcolor="#B6DE3A",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
@@ -467,172 +571,36 @@ class createPrind(UserControl):
                                                         ),
                                                     ]
                                                 )
-                                            )
-                                        ]
-                                    ),
-                                    
-                                )
-                                
-                            ]
-                        )
-                    ),
-                    Container(                  # -- Seccion 3 --     
-                        expand=True,
-                        bgcolor="blue", 
-                        margin=0,
-                        padding=15,
-                        alignment=alignment.center,
-                        content= Column(
-                            expand=True,
-                            scroll="auto",
-                            controls=[
-                                Container(
-                                    alignment=alignment.center,
-                                    content=Column(
-                                        controls=[
-                                            Text("Maximo de Empalmes por Bobina"),
-                                            TextField(
-                                                label="N/A",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
                                             ),
-                                            Text("Dinaje Requerido"),
-                                            TextField(
-                                                label="Ingresar el Dinaje",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
-                                            Text("Formula Extrusión"),
-                                            TextField(
-                                                label="Ingresar la Formula",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
-                                            Text("Pigmento de Pelicula"),
-                                            TextField(
-                                                 label="Ingresar el Pigmento",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
-                                            #DropBox de Inpits
-                                            Container(
-                                                #Text("Ingresar !"),
-                                                bgcolor="blue",
-                                                border_radius=5,
-                                                padding=5,
-                                                content= PopupMenuButton(
-                                                    #Text("Ingresar!",icon=icons.DOWNLOAD_DONE),
-                                                    bgcolor="white",
-                                                    menu_position=PopupMenuPosition.OVER,
-                                                    items=[ 
-                                                        PopupMenuItem(
-                                                            content= Column(width=200,controls=[
-                                                                Text("Ingresar!"),
-                                                                TextField(
-                                                                    label="Ingresar la Estructura",
-                                                                    border= InputBorder.OUTLINE,
-                                                                    #width=100,
-                                                                    border_color="black",
-                                                                    label_style=TextStyle(color="black",italic=True),
-                                                                )
-                                                            ])
-                                                        ),
-                                                        PopupMenuItem(
-                                                            content= Column([
-                                                                Text("Ingresar!"),
-                                                                TextField(
-                                                                    label="Ingresar la Estructura",
-                                                                    border= InputBorder.OUTLINE,
-                                                                    border_color="Black",
-                                                                    label_style=TextStyle(color="Black",italic=True),
-                                                                )
-                                                            ])
-                                                        ),
-                                                    ]
-                                                )
-                                            ),
-                                            Text("Tipo de Bobina"),
+                                            Text("Etiquetado"),
                                             Dropdown(
-                                                label="Laminado",
-                                                hint_text="Producto Laminado",
+                                                label="Pesar por..",
+                                                hint_text="Pesar producto",
                                                 options=[
                                                     dropdown.Option("N/A"),
-                                                    dropdown.Option("Lamina"),
-                                                    dropdown.Option("Tabular"),
+                                                    dropdown.Option("Rollo Individual"),
+                                                    dropdown.Option("Tarima"),
+                                                    dropdown.Option("Ambos")
                                                 ],
                                                 autofocus=True,
                                                 on_change= lambda e: print(e.control.value)  # Imprimir el resultado
                                             ),
-                                        ]
-                                    ),
-                                    
-                                )
-                                
-                            ]
-                        )
-                    ),
-                    Container(             # -- Seccion 3 --   
-                        expand=True,
-                        bgcolor="blue", 
-                        margin=0,
-                        padding=15,
-                        alignment=alignment.center,
-                        content= Column(
-                            expand=True,
-                            scroll="auto",
-                            controls=[
-                                Container(
-                                    alignment=alignment.center,
-                                    content=Column(
-                                        controls=[
-                                            Text("Tipo de Material a Extruir"),
-                                            TextField(
-                                                label="Ingresar tipo de material",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
-                                            Text("Dinaje Requerido"),
-                                            TextField(
-                                                label="Ingresar el Dinaje",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
-                                            Text("Formula Extrusión"),
-                                            TextField(
-                                                label="Ingresar la Formula",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
-                                            Text("Pigmento de Pelicula"),
-                                            TextField(
-                                                 label="Ingresar el Pigmento",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
-                                            #DropBox de Inpits
+                                            #DropBox de Inputs
                                             Container(
-                                                #Text("Ingresar !"),
-                                                bgcolor="blue",
+                                                bgcolor="#B6DE3A",
+                                                alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
                                                 content= PopupMenuButton(
-                                                    #Text("Ingresar!",icon=icons.DOWNLOAD_DONE),
+                                                    Text("Numero de Bobinas por Cama y Camas por Tarima"),
                                                     bgcolor="white",
                                                     menu_position=PopupMenuPosition.OVER,
                                                     items=[ 
                                                         PopupMenuItem(
                                                             content= Column(width=200,controls=[
-                                                                Text("Ingresar!"),
+                                                                Text("Bobinas por Cama"),
                                                                 TextField(
-                                                                    label="Ingresar la Estructura",
+                                                                    label="N/A",
                                                                     border= InputBorder.OUTLINE,
                                                                     #width=100,
                                                                     border_color="black",
@@ -642,9 +610,9 @@ class createPrind(UserControl):
                                                         ),
                                                         PopupMenuItem(
                                                             content= Column([
-                                                                Text("Ingresar!"),
+                                                                Text("Camas por Bobina"),
                                                                 TextField(
-                                                                    label="Ingresar la Estructura",
+                                                                    label="N/A",
                                                                     border= InputBorder.OUTLINE,
                                                                     border_color="Black",
                                                                     label_style=TextStyle(color="Black",italic=True),
@@ -654,14 +622,69 @@ class createPrind(UserControl):
                                                     ]
                                                 )
                                             ),
-                                            Text("Tipo de Bobina"),
+                                            Text("Numero de Bobinas en Tarima"),
+                                            TextField(
+                                                label="Ingresar Numero de Bobinas",
+                                                border= InputBorder.OUTLINE,
+                                                border_color="Black",
+                                                label_style=TextStyle(color="Black",italic=True),
+                                            ),
+                                            #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                bgcolor="#B6DE3A",
+                                                alignment=alignment.center,
+                                                border_radius=5,
+                                                padding=5,
+                                                content= PopupMenuButton(
+                                                    Text("Peso neto Promedio por Tarima"),
+                                                    bgcolor="white",
+                                                    menu_position=PopupMenuPosition.OVER,
+                                                    items=[ 
+                                                        PopupMenuItem(
+                                                            content= Column(width=200,controls=[
+                                                                Text("Peso"),
+                                                                TextField(
+                                                                    label="N/A",
+                                                                    border= InputBorder.OUTLINE,
+                                                                    #width=100,
+                                                                    border_color="black",
+                                                                    label_style=TextStyle(color="black",italic=True),
+                                                                )
+                                                            ])
+                                                        ),
+                                                        PopupMenuItem(
+                                                            content= Column([
+                                                                Text("Tolerancia"),
+                                                                TextField(
+                                                                    label="N/A",
+                                                                    border= InputBorder.OUTLINE,
+                                                                    border_color="Black",
+                                                                    label_style=TextStyle(color="Black",italic=True),
+                                                                )
+                                                            ])
+                                                        ),
+                                                    ]
+                                                )
+                                            ),
+                                            Text("La tarima llevara emplaye"),
                                             Dropdown(
-                                                label="Laminado",
-                                                hint_text="Producto Laminado",
+                                                label="Ingresar opción",
+                                                hint_text="Emplaye",
                                                 options=[
                                                     dropdown.Option("N/A"),
-                                                    dropdown.Option("Lamina"),
-                                                    dropdown.Option("Tabular"),
+                                                    dropdown.Option("Aplica"),
+                                                ],
+                                                autofocus=True,
+                                                on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+                                            ),
+                                            Text("La tarima sera refilada"),
+                                            Dropdown(
+                                                label="Ingresar opción",
+                                                hint_text="Refilado",
+                                                options=[
+                                                    dropdown.Option("N/A"),
+                                                    dropdown.Option("Aplica"),
                                                 ],
                                                 autofocus=True,
                                                 on_change= lambda e: print(e.control.value)  # Imprimir el resultado
@@ -677,8 +700,7 @@ class createPrind(UserControl):
                 ])
             ])       
         )
-        
-
+    
 
 ########################################################################
 
@@ -709,12 +731,12 @@ class createPrind(UserControl):
                 height=100
             ),
             Container(
-                bgcolor="blue",
+                bgcolor="#858585",
                 width=100,
                 height=100
             ),
             Container(
-                bgcolor="green",
+                bgcolor="#B6DE3A",
                 width=100,
                 height=100
             ),

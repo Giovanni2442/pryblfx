@@ -1,9 +1,6 @@
 from flet import *
 from src.views.viewNavigate.views import getViews
 
-from flet import *
-from src.views.viewNavigate.views import getViews
-
 #  --- Comienza desde el main --- 
 def main(page: Page):
     def route_change(route):    # Función para el cambio de pestañas

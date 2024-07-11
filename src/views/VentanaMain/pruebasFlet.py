@@ -10,7 +10,7 @@ def pru():
     print(db)
     #pass
 
-class UI(UserControl):
+class crudPrintCard(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
 
@@ -332,8 +332,8 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.window_min_width = 200
     page.theme_mode = ThemeMode.DARK
     page.padding = 5
-    page.add(UI(page))
+    page.add(crudPrintCard(page))
 
 
-ft.app(main)
+#ft.app(main)
 #pru()'''

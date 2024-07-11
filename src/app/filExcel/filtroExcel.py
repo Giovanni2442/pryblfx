@@ -1,4 +1,4 @@
-import pandas as pd
+#import pandas as pd
 import re 
 
 #Acordeón :
@@ -16,8 +16,8 @@ class filter():
    
     #Verifica si el campo esta lleno y no vacio
     # Retorna false si encuentra un campo vacio, de lo contrario es un True de que esta lleno el campo
-    def vrfNan(*args):                            # Se pasa 'n' cantidad de atributos a recorrer
-        return all( not pd.isna(arg) for arg in args)        #any() genera una lista donde verifica si existe algun 'nan' y devuelve un valor booleano
+    #def vrfNan(*args):                            # Se pasa 'n' cantidad de atributos a recorrer
+    #    return all( not pd.isna(arg) for arg in args)        #any() genera una lista donde verifica si existe algun 'nan' y devuelve un valor booleano
 
     #Verifica si el dato contiene solo letras
     def vrfIsletter(*args):
