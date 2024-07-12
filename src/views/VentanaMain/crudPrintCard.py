@@ -2,6 +2,13 @@ from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
 from src.Controllers.appTable import Controllers
+from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
+
+# Tareas : 
+# Conexión a la base de datos con el boton create, por lo menos 2 tablas
+# Modularizar el modal de inserción, eliminar y actualizar (La pendejada que aparece abajo xd)
+# 
+
 
 #from Controllers.appTable import Controllers
 
@@ -18,7 +25,7 @@ class crudPrintCard(UserControl):
         self.page = page  
         self.color_teal = "teal"
         self.dataTbl = Controllers()  #Accede a la información en la base de datos
-    
+        self.InsrtData = CntrlsCreatePrindCard()
     
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
@@ -48,6 +55,8 @@ class crudPrintCard(UserControl):
         )
 
         # --- BOTONES ---
+            ###  - CREAR UN NUEVO PRIND CARD  - ###
+
         self.BtnCreate = FilledButton(
             text="Crear PrindCard",
             adaptive=True,
@@ -65,7 +74,30 @@ class crudPrintCard(UserControl):
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
             ),
-            on_click= lambda _: self.page.go('/'),
+            #on_click= lambda _: self.page.go('/cratePrindCard'),
+            on_click= self.btnInsert
+        )
+
+
+        self.BtnCreate2 = FilledButton(
+            text="Crear PrindCard 2",
+            adaptive=True,
+            style=ButtonStyle(
+                bgcolor="#21A742",
+                color={
+                    ControlState.HOVERED: colors.RED,
+                    ControlState.HOVERED: colors.BLACK,
+                },
+                overlay_color=ft.colors.TRANSPARENT,
+                elevation={"pressed": 0, "": 1},
+                animation_duration=200,
+                shape={
+                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                },
+            ),
+            on_click= lambda _: self.page.go('/cratePrindCard'),
+            #on_click= self.btnInsert
         )
 
         # --- TABLA ---
@@ -87,6 +119,7 @@ class crudPrintCard(UserControl):
 
     # -- Herramientas de la tabla --
         # --- Delete Product ---
+        # Modularizar el Modal para Eliminar, Atualizar y Agregar
     def dltButton(self,e):
         idPrind = e.control.data[0]
         self.mdlDlt = AlertDialog(
@@ -105,6 +138,21 @@ class crudPrintCard(UserControl):
         self.page.update()
         # ----
 
+        ##### QUERYS ########
+        # -- Query Insert
+    def btnInsert(self,e):
+        dic = [
+            'E-888888888888888',
+            'PANCH0',
+            'PANCHO',
+            'PANCHO',
+            'JEJE'
+        ]
+        self.dataTbl.post_data(id=dic[0],cln=dic[1],fch1=dic[2],fch2=dic[3],prdct=dic[4])
+        #self.dataTbl.delete_row_Table('E-2340')
+        print("Se ingreso Chid0")
+        self.page.update()
+        
         # -- Query Modal Delete --
     def btnSlct(self,bnd,id):
         if not bnd:
@@ -136,7 +184,6 @@ class crudPrintCard(UserControl):
      # --- Filas de la tabla ---
     def dataRows(self,row):
         self.rows = DataRow(
-            
             cells=[
                 DataCell(Text((row[0]))),
                 DataCell(Text(row[1])),
@@ -264,7 +311,8 @@ class crudPrintCard(UserControl):
                                     border_radius=3,
                                     content= Row(
                                         controls= [
-                                            self.BtnCreate
+                                            self.BtnCreate,
+                                            self.BtnCreate2
                                         ]
                                     )
                                 )
@@ -335,5 +383,5 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.add(crudPrintCard(page))
 
 
-#ft.app(main)
+#app(main)
 #pru()'''

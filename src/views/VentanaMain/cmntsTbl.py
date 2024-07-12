@@ -3,7 +3,7 @@ from src.Controllers.appTable import Controllers
 #from src.views.VentanaMain.pruebasFlet2 import UI
 
 class cntTable(UserControl):
-    def __init__(self,page):
+    def __init__(self):
         super().__init__()
 
         self.page = page

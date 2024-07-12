@@ -1,5 +1,6 @@
 from flet import *
-from src.views.VentanaMain.pruebasFlet import crudPrintCard
+from src.views.VentanaMain.crudPrintCard import crudPrintCard
+from src.views.VentanaCreate.createPrindCard import createPrind
 
 # retorna mi conjunto de rutas para el manejo de vistas 
 def getViews(page):
@@ -14,7 +15,7 @@ def getViews(page):
         '/cratePrindCard':View(
             route='/cratePrindCard',
             controls=[
-                #UI(page)
+                createPrind(page)
             ]
         ),
     }

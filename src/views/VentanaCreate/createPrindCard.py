@@ -1,11 +1,17 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
+from src.views.VentanaCreate.InptFich_Vents import InptsTable
+
+
+#Notas : para el usuario se puede agregar cerrar su seción, ver su historial de modificaciónes etc..
 
 class createPrind(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
 
         self.color_teal = "teal"
+        self.page = page
+        self.Inpts = InptsTable()
 
         # Pestañas
         self.Pestañas = Tabs(
@@ -59,11 +65,15 @@ class createPrind(UserControl):
                             alignment=MainAxisAlignment.SPACE_BETWEEN,
                             controls=[
                                 Container(
-                                    TextButton("INICIO",icon=icons.HOME),
+                                    TextButton("INICIO",
+                                               icon=icons.HOME,
+                                               on_click=  lambda _: self.page.go('/')),
                                     #bgcolor="RED",
                                 ), 
                                 Container(
-                                    IconButton(icon=icons.ACCOUNT_CIRCLE,icon_color="violet"),
+                                    IconButton(icon=icons.ACCOUNT_CIRCLE,
+                                               icon_color="violet",
+                                               on_click=  lambda _: self.page.go('/')), #Agregar el registro de usuarios
                                     #bgcolor="RED",
                                 ),             
                             ]
@@ -86,7 +96,7 @@ class createPrind(UserControl):
 #################### FORMULARIOS ########################################
         # FICHA / VENTAS
         self.vtnFicha_Ventas = Container(
-            expand=True,
+            #expand=True,
             margin=margin.only(top=-5),
             bgcolor=self.color_teal,
             padding=5,
@@ -97,6 +107,7 @@ class createPrind(UserControl):
                         bgcolor="#5C516D", 
                         margin=0,
                         padding=5,
+                        alignment=alignment.center,
                         content= Column(
                             controls=[
                                 Container(    # Tamaño Ficha Tecnica
@@ -105,50 +116,28 @@ class createPrind(UserControl):
                                     bgcolor="blue",
                                 ),
                                 Container(
-                                    alignment=alignment.center,
                                     content=Column(
+                                        alignment=MainAxisAlignment.CENTER,
                                         controls=[
                                             Text("Codigo del Producto"),
-                                            TextField(
-                                                label="Ingresar el PrindCard",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                                on_change= self.verInpts #lambda e: print(e.control.value.lower())
-                                            ),
+                                            self.Inpts.id_product,
+
                                             Text("Cliente"),
-                                            TextField(
-                                                label="Ingresar el Cliente",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
+                                            self.Inpts.cliente,
+
                                             Text("Fecha de Elavoración"),
-                                            TextField(
-                                                label="dd/MM/YYYY",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
+                                            self.Inpts.fecha_Elav,
+
                                             Text("Fecha de Revición"),
-                                            TextField(
-                                                label="dd/MM/YYYY",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
+                                            self.Inpts.fecha_Rev,
+
                                             Text("Nombre del Producto"),
-                                            TextField(
-                                                label="Ingrese el Nombre",
-                                                border= InputBorder.OUTLINE,
-                                                border_color="Black",
-                                                label_style=TextStyle(color="Black",italic=True),
-                                            ),
+                                            self.Inpts.producto,
                                         ]
                                     ),
                                     
                                 )
-                            ],
+                            ],  
                         )
                     ),
                     Container(      # --- Contenedor Ventas ---            
@@ -157,6 +146,7 @@ class createPrind(UserControl):
                         margin=0,
                         padding=5,
                         content=Column(
+                            #alignment=MainAxisAlignment.CENTER,
                             controls=[
                                 Container(    # Tamaño Ficha Tecnica
                                     Text("VENTAS",color="white"),
@@ -709,6 +699,43 @@ class createPrind(UserControl):
     
 ########################################################################
 
+        #btn
+        self.btn = FilledButton(
+                    text="Crear PrindCard 2",
+                    adaptive=True,
+                    style=ButtonStyle(
+                        bgcolor="#21A742",
+                        color={
+                            ControlState.HOVERED: colors.RED,
+                            ControlState.HOVERED: colors.BLACK,
+                        },
+                        overlay_color=colors.TRANSPARENT,
+                        elevation={"pressed": 0, "": 1},
+                        animation_duration=200,
+                        shape={
+                            ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                            ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                        },
+                    ),
+                   # on_click= lambda _: self.page.go('/cratePrindCard'),
+                    on_click= self.Inpts.pruData
+                )
+
+
+        # Boton de Agregar a la BD
+        self.cntBtn = Container(
+            #expand=True,
+            bgcolor=self.color_teal,
+            padding=5,
+            border_radius=5,
+            content= Row(
+                alignment=MainAxisAlignment.END,
+                controls=[
+                    self.btn
+                ]
+            )
+        )
+
         # Frame Main
         self.frameMain = Container(
             bgcolor="#737373",
@@ -716,8 +743,9 @@ class createPrind(UserControl):
             content=Column(
                 controls=[
                     self.cntHeader,
-                    self.vtnFicha_Ventas       # Contenedor de FICHA / VENTAS como Inicio
+                    self.vtnFicha_Ventas,       # Contenedor de FICHA / VENTAS como Inicio
                     #self.pru()
+                    self.cntBtn
                 ]
             )
         )
@@ -751,6 +779,9 @@ class createPrind(UserControl):
         self.update()
 
     ## VERIFICAR ENTRADAS DE TEXTO Y FILTRADO ##
+    def shwAllInpts(self,*labl):
+        print(labl)
+        
     def verInpts(self,e):
         rejex = filter.vrfPrintCard
         jer = len(e.control.value)
@@ -762,6 +793,8 @@ class createPrind(UserControl):
                 e.control.border_color="green"
             else:
                 e.control.border_color="red"
+                e.control.value = "FALSE"
+                print(f"{e.control.label}  : {e.control.value}")
                 print("Incorrecto")
         else:
             e.control.border_color="red"
