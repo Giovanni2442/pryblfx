@@ -11,7 +11,7 @@ class createPrind(UserControl):
 
         self.color_teal = "teal"
         self.page = page
-        self.Inpts = InptsTable(UserControl)
+        self.Inpts = InptsTable()
 
         # btn Agregar
         self.btn = FilledButton(
@@ -118,119 +118,105 @@ class createPrind(UserControl):
 #################### FORMULARIOS ########################################
         # FICHA / VENTAS
         self.vtnFicha_Ventas = Container(
-            #expand=True,
+            expand=True,
             margin=margin.only(top=-5),
             bgcolor=self.color_teal,
             padding=5,
-            content= Row(
-                alignment=MainAxisAlignment.CENTER,
-                controls=[
-                    Container(      # --- Contenedor Ficha ---
-                        expand=True,
-                        bgcolor="#5C536D", 
-                        margin=0,
-                        padding=5,
-                        alignment=alignment.center,
-                        content= Column(
-                            #scroll="auto",
-                            controls=[
-                                Container(    # Tamaño Ficha Tecnica
-                                    Text("FICHA TECNICA",color="white"),
-                                    alignment=alignment.center,
-                                    bgcolor="blue",
-                                ),
-                                Container(
-                                    content=Column(
-                                        alignment=MainAxisAlignment.CENTER,
-                                        scroll="auto",
-                                        controls=[
-                                            Text("Codigo del Producto"),
-                                            self.Inpts.id_product,
-
-                                            Text("Cliente"),
-                                            self.Inpts.cliente,
-
-                                            Text("Fecha de Elavoración"),
-                                            self.Inpts.fecha_Elav,
-
-                                            Text("Fecha de Revición"),
-                                            self.Inpts.fecha_Rev,
-
-                                            Text("Nombre del Producto"),
-                                            self.Inpts.producto,
-                                        ]
-                                    ),
-                                    
-                                )
-                            ],  
-                        )
-                    ),
-                    Container(      # --- Contenedor Ventas ---            
-                        expand=True,
-                        bgcolor="#5C716D",
-                        margin=0,
-                        padding=5,
-                        content=Column(
-                            #alignment=MainAxisAlignment.CENTER,
-                            controls=[
-                                Container(    # Tamaño Ficha Tecnica
-                                    Text("VENTAS",color="white"),
-                                    alignment=alignment.center,
-                                    bgcolor="blue",
-                                ),
-                                Container(
-                                    content=Column(
-                                            scroll="auto",
+            content=
+            Column([
+                Container(
+                    bgcolor=self.color_teal,
+                    content=
+                        Row([       # --- ENCABEZADOS DE LAS TABLAS --- #
+                            Container(    # Tamaño Ficha Tecnica
+                                Text("FICHA TECNICA",color="white"),
+                                expand=True,
+                                alignment=alignment.center,
+                                bgcolor="#858585",
+                            ),
+                            Container(    # Tamaño Ficha Tecnica
+                                Text("VENTAS",color="white"),
+                                expand=True,
+                                alignment=alignment.center,
+                                bgcolor="#858585",
+                            ),
+                        ])
+                ),
+                Row(                    # --- TABLAS FICHA / VENTAS ---
+                    expand=True,
+                    controls=[
+                        Container(                  # -- Seccion 1 Ficha Tecnica--
+                            expand=True,
+                            bgcolor="#858585", 
+                            margin=0,
+                            padding=15,
+                            alignment=alignment.center,
+                            content= Column(
+                                expand=True,
+                                scroll="auto",
+                                controls=[
+                                    Container(      # FORMULARIO
+                                        alignment=alignment.center,
+                                        content=Column(
                                             controls=[
-                                                Text("Asesor Comercial de la Cuenta"),
-                                                TextField(
-                                                    label="Ingresar el Asesor",
-                                                    border= InputBorder.OUTLINE,
-                                                    border_color="Black",
-                                                    label_style=TextStyle(color="Black",italic=True),
-                                                ),
-                                                Text("Tipo de Empaque"),
-                                                TextField(
-                                                    label="Ingresar el Tipo de Empaque",
-                                                    border= InputBorder.OUTLINE,
-                                                    border_color="Black",
-                                                    label_style=TextStyle(color="Black",italic=True),
-                                                ),
-                                                Text("Producto Laminado"),
-                                                Dropdown(
-                                                    label="Laminado",
-                                                    hint_text="Producto Laminado",
-                                                    options=[
-                                                        dropdown.Option("N/A"),
-                                                        dropdown.Option("APLICA"),
-                                                    ],
-                                                    autofocus=True,
-                                                    on_change= lambda e: print(e.control.value)  # Imprimir el resultado
-                                                ),
-                                                Text("Estructura del Producto"),
-                                                TextField(
-                                                    label="Ingresar la Estructura",
-                                                    border= InputBorder.OUTLINE,
-                                                    border_color="Black",
-                                                    label_style=TextStyle(color="Black",italic=True),
-                                                ),
-                                                Text("Producto que se empaca"),
-                                                TextField(
-                                                    label="Ingrese el Empaque",
-                                                    border= InputBorder.OUTLINE,
-                                                    border_color="Black",
-                                                    label_style=TextStyle(color="Black",italic=True),
-                                                )
-                                            ]
-                                    ),
-                                )
-                            ]
-                        )
-                    )
-                ]
-            )
-        )
+                                                Text("Codigo del Producto"),
+                                                self.Inpts.id_product,
 
+                                                Text("Cliente"),
+                                                self.Inpts.cliente,
+
+                                                Text("Fecha de Elavoración"),
+                                                self.Inpts.fecha_Elav,
+
+                                                Text("Fecha de Revición"),
+                                                self.Inpts.fecha_Rev,
+
+                                                Text("Nombre del Producto"),
+                                                self.Inpts.producto,
+                                            ]
+                                        ),  
+                                    )
+                                ]
+                            )
+                        ),
+                        Container(                  # -- Seccion 2 VENTAS --     
+                            expand=True,
+                            bgcolor="#858585", 
+                            margin=0,
+                            padding=15,
+                            alignment=alignment.center,
+                            content= Column(    # Formulario
+                                expand=True,
+                                scroll="auto",
+                                controls=[
+                                    Container(
+                                        content=Column(
+                                                scroll="auto",
+                                                controls=[
+                                                    Text("Asesor Comercial de la Cuenta"),
+                                                    self.Inpts.AsesorCmrcl,
+
+                                                    Text("Tipo de Empaque"),
+                                                    self.Inpts.TipEmpq,
+
+                                                    Text("Producto Laminado"),
+                                                    self.Inpts.prdcLam,
+
+                                                    Text("Estructura del Producto"),
+                                                    self.Inpts.EstrcPrdct,
+
+                                                    Text("Producto que se empaca"),
+                                                    self.Inpts.PrdctEmpq
+                                                ]
+                                            ),
+                                        )
+                                    ]
+                                )
+                            )
+                        ])
+                    ])       
+        )
+    
         # EXTRUSIÓN
         self.vtnExtr = Container(
             expand=True,

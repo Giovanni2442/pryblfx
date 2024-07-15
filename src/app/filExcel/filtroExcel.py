@@ -42,18 +42,7 @@ class filter():
    
     #Verifica la estructura del Producto
     def vrfEstrcProd(*args):
-        estructuras = ["LDPE","PET","BOPP"]
-        estrctString = r'\b(?:' + '|'.join(estructuras) + r')\b'
-        patron = re.compile(r'(' + estrctString + r'|\w+%)')
-        return any(bool(patron.fullmatch(arg)) for arg in args)
-
-    def prEsctr(*args):
-        # LDPE (BAJA) 110 +/-10% GAUGES 
-        patron = re.compile(
-            r'^(PET|LDPE|BOPP)'              # Coincide con PET, LDPE o BOPP
-            r'(?:[a-zA-Z()/\d±% +-]*\d{}[a-zA-Z()/\d±% +-]*)*'  # Coincide opcionalmente con dígitos y +/-
-            r'(GAUGES|GA| µ)'
-        )
+        patron = re.compile('^(PET|BOPP|LDPE)[A-Za-z0-9%+/()-µ± ]*\d{2,}[A-Za-z0-9%+/()-µ± ]*$')
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
     # --- Función para probar las Validaciónes --- 

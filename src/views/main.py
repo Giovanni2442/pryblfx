@@ -1,67 +1,35 @@
 from flet import *
 
-class menu(UserControl):
-    def __init__(self,page):
-        super().__init__()
+import datetime
+import flet as ft
 
-        self.page = page
 
-        self.menu = Container(
-            bgcolor="blue",
-            #height=200,
-            padding=5,
-            animate=animation.Animation(300,"cubic"),
-            content= Row(
-                alignment=MainAxisAlignment.SPACE_BETWEEN,
-                controls=[
-                    Container(
-                        IconButton(
-                            icon=icons.NOTIFICATION_ADD,
-                            icon_size=25
-                        ),
-                    ),
-                    
-                    Container(
-                        IconButton(
-                            icon=icons.NOTIFICATION_ADD,
-                            icon_size=25
-                        ),
-                    ),
+def main(page: ft.Page):
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
 
-                    Container(
-                        IconButton(
-                            icon=icons.NOTIFICATION_ADD,
-                            icon_size=25
-                        ),
-                    ),
-                ]
-            )
+    def handle_change(e):
+        page.add(ft.Text(f"Date changed: {e.control.value.strftime('%Y-%m-%d')}"))
+
+    def handle_dismissal(e):
+        page.add(ft.Text(f"DatePicker dismissed"))       
+
+    page.add(
+        ft.ElevatedButton(
+            "Pick date",
+            icon=ft.icons.CALENDAR_MONTH,
+            on_click=lambda e: page.open(
+                ft.DatePicker(
+                    first_date=datetime.datetime(year=2000, month=12, day=1),
+                    last_date=datetime.datetime(year=2064, month=12, day=1),
+                    on_change=handle_change,
+                    on_dismiss=handle_dismissal,  
+                )
+            ),
         )
+    )
 
-        self.frameMain = Container(
-            bgcolor="yellow",
-            padding=3,
-            content= Column(
-                controls=[
-                    self.menu
-                ]
-            )
-        )
-        self.pru = Container(
-            bgcolor="Red",
-            height=100,
-            expand=True
-        )
 
-    def build(self):
-        return self.frameMain
-
-def main(page: Page):
-    page.theme_mode = ThemeMode.DARK
-    page.add(menu(page)) 
-
-app(main)
-    
+ft.app(target=main)
 '''
 from flet import Container, Row, Column, Label, margin
 

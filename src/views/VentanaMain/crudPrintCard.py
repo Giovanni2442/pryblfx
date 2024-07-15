@@ -25,7 +25,7 @@ class crudPrintCard(UserControl):
     # ########## COMPONENTES ############################
         self.page = page  
         self.color_teal = "teal"
-        self.inptTable = InptsTable(page)
+        self.inptTable = InptsTable()
         self.dataTbl = Controllers()  #Accede a la información en la base de datos
         self.InsrtData = CntrlsCreatePrindCard()
     
@@ -130,8 +130,8 @@ class crudPrintCard(UserControl):
             content=Text(f"Estas Seguro de eliminar : {idPrind} ?"),
             actions=[
                 #TextButton("Eliminar",on_click= lambda _: self.btnSlct(bnd=True,id=idPrind)),   # lambda _ : "_" el guión sirve para tomar ignorar los parametros, ya que no se usan en la función  
-                TextButton("Eliminar",on_click= lambda _: self.btnSlct(bnd=True,id=idPrind)),
-                TextButton("Cancelar",on_click= lambda _: self.btnSlct(bnd=False,id=None))
+                TextButton("Eliminar",on_click= lambda _: self.queryDlt(bnd=True,id=idPrind)),
+                TextButton("Cancelar",on_click= lambda _: self.queryDlt(bnd=False,id=None))
             ],
             actions_alignment= MainAxisAlignment.END
         )
@@ -141,27 +141,21 @@ class crudPrintCard(UserControl):
         # ----
 
         ##### QUERYS ########
-        # -- Query Insert
-    def btnInsert(self,e):
-        '''
-        dic = [
-            'E-888888888888888',
-            'PANCH0',
-            'PANCHO',
-            'PANCHO',
-            'JEJE'
-        ]
-        self.dataTbl.post_data(id=dic[0],cln=dic[1],fch1=dic[2],fch2=dic[3],prdct=dic[4])
-        #self.dataTbl.delete_row_Table('E-2340')
-        print("Se ingreso Chid0")
-        self.page.update()'''
+        # -- Query Update
+    def updateButton(self,e):
+        idPrind = e.control.data[0]     # id del PridCard para traerme todos los datos de la BD
+        #idProduct = e.control
+       # self.inptTable.id_product.label = idPrind 
+        self.inptTable.ji(idPrind)
+        self.page.go('/cratePrindCard')
+        #print(idPrind)
         
         # -- Query Modal Delete --
-    def btnSlct(self,bnd,id):
+    def queryDlt(self,bnd,id):
         if not bnd:
             self.mdlDlt.open = False
         else:
-            self.dataTbl.delete_row_Table(id=id)
+            self.dataTbl.delete_row_Table(id=id) 
             self.mdlDlt.open = False
             # -- Limpia y Actualiza la tabla -- 
             self.Table.rows.clear() 
@@ -203,7 +197,7 @@ class crudPrintCard(UserControl):
                         IconButton("edit",
                             icon_color="green",
                             data=row,
-                            #on_click=EditButton() # --- PROXIMA TAREA ---
+                            on_click=self.updateButton # --- PROXIMA TAREA ---
                         )
                     ])
                 )

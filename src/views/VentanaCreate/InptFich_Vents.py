@@ -15,10 +15,10 @@ from src.Controllers.appTable import Controllers
 
 
 class InptsTable():
-    def __init__(self,page):
+    def __init__(self):
         super().__init__()
 
-        self.page = page
+        #self.page = page
         self.filter = filter().vrfPrintCard
         self.b1 = True
         self.dataTbl = Controllers()
@@ -38,7 +38,7 @@ class InptsTable():
             value="N/A",
             border_color="Black",
             label_style=TextStyle(color="Black",italic=True),
-            on_change= lambda e: self.verInpts(e,filter.vrfPrintCard)
+            on_change= lambda e: self.verInpts(e,filter.vrfCliente)
         )
 
         self.fecha_Elav = TextField(
@@ -46,7 +46,7 @@ class InptsTable():
             border= InputBorder.OUTLINE,
             border_color="Black",
             label_style=TextStyle(color="Black",italic=True),
-            on_change= lambda e: self.verInpts(e,filter.vrfPrintCard)
+            on_change= lambda e: self.verInpts(e,filter.vrfFechas)
         )
 
         self.fecha_Rev = TextField(
@@ -55,16 +55,62 @@ class InptsTable():
             border= InputBorder.OUTLINE,
             border_color="Black",
             label_style=TextStyle(color="Black",italic=True),
-            on_change= lambda e: self.verInpts(e,filter.vrfPrintCard)
+            on_change= lambda e: self.verInpts(e,filter.vrfFechas)
         )
 
         self.producto = TextField(
-            label="Ingrese el Nombre",
+            label="Producto",
             border= InputBorder.OUTLINE,       
             border_color="Black",
             label_style=TextStyle(color="Black",italic=True),
-            #on_change= lambda e: self.verInpts(e,filter.vrfPrintCard)
+            on_change= lambda e: self.verInpts(e,filter.vrfIsletter)
         )
+
+
+    ### INPUTS DE TABLA VENTAS ###
+        self.AsesorCmrcl = TextField(
+            label="Asesor Comercial",
+            border= InputBorder.OUTLINE,       
+            border_color="Black",
+            label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.verInpts(e,filter.vrfIsletter) # change it
+        )
+
+        self.TipEmpq = TextField(
+            label="Tipo de Empaque",
+            border= InputBorder.OUTLINE,       
+            border_color="Black",
+            label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.verInpts(e,filter.vrfIsletter) # change it
+        )
+
+        self.prdcLam = Dropdown(
+            label="Laminado",
+            hint_text="Producto Laminado",
+            options=[
+                dropdown.Option("N/A"),
+                dropdown.Option("APLICA"),
+            ],
+            autofocus=True,
+            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+        )
+
+        self.EstrcPrdct = TextField(
+            label="Estructura del Producto",
+            border= InputBorder.OUTLINE,       
+            border_color="Black",
+            label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.verInpts(e,filter.vrfEstrcProd) # change it
+        )
+
+        self.PrdctEmpq = TextField(
+            label="Producto que se empaca",
+            border= InputBorder.OUTLINE,       
+            border_color="Black",
+            label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.verInpts(e,filter.vrfIsletter) # change it
+        )
+
     
     # Tupla de TextFields
     def tplInpts(self):
@@ -76,7 +122,7 @@ class InptsTable():
             self.fecha_Rev
         ]
         return dic
-    
+
     # Limpiar Labels
     def clean_fields(self):
         tpl = self.tplInpts()
@@ -94,6 +140,12 @@ class InptsTable():
             prdct=tpl[4].value)
         self.clean_fields()
         #print(self.dataTbl.get_row_Table())
+
+    def ji(self,id):
+        self.id_product.value = id
+        print("--",id)
+        self.id_product.update()
+        
     
 ###### PRUEBAS PARA FILTRADO ###########
     def verInpts(self,e,rejex):
