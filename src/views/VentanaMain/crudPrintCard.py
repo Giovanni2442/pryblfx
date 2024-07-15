@@ -3,6 +3,7 @@ import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
 from src.Controllers.appTable import Controllers
 from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
+from src.views.VentanaCreate.InptFich_Vents import InptsTable
 
 # Tareas : 
 # Conexión a la base de datos con el boton create, por lo menos 2 tablas
@@ -24,6 +25,7 @@ class crudPrintCard(UserControl):
     # ########## COMPONENTES ############################
         self.page = page  
         self.color_teal = "teal"
+        self.inptTable = InptsTable(page)
         self.dataTbl = Controllers()  #Accede a la información en la base de datos
         self.InsrtData = CntrlsCreatePrindCard()
     
@@ -75,7 +77,7 @@ class crudPrintCard(UserControl):
                 },
             ),
             #on_click= lambda _: self.page.go('/cratePrindCard'),
-            on_click= self.btnInsert
+            #on_click= self.inptTable.jer
         )
 
 
@@ -141,6 +143,7 @@ class crudPrintCard(UserControl):
         ##### QUERYS ########
         # -- Query Insert
     def btnInsert(self,e):
+        '''
         dic = [
             'E-888888888888888',
             'PANCH0',
@@ -151,7 +154,7 @@ class crudPrintCard(UserControl):
         self.dataTbl.post_data(id=dic[0],cln=dic[1],fch1=dic[2],fch2=dic[3],prdct=dic[4])
         #self.dataTbl.delete_row_Table('E-2340')
         print("Se ingreso Chid0")
-        self.page.update()
+        self.page.update()'''
         
         # -- Query Modal Delete --
     def btnSlct(self,bnd,id):

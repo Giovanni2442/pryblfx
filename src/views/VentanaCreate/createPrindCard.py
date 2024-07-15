@@ -11,7 +11,29 @@ class createPrind(UserControl):
 
         self.color_teal = "teal"
         self.page = page
-        self.Inpts = InptsTable()
+        self.Inpts = InptsTable(UserControl)
+
+        # btn Agregar
+        self.btn = FilledButton(
+                    text="ADD",
+                    adaptive=True,
+                    style=ButtonStyle(
+                        bgcolor="#21A742",
+                        color={
+                            ControlState.HOVERED: colors.RED,
+                            ControlState.HOVERED: colors.BLACK,
+                        },
+                        overlay_color=colors.TRANSPARENT,
+                        elevation={"pressed": 0, "": 1},
+                        animation_duration=200,
+                        shape={
+                            ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                            ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                        },
+                    ),
+                    #on_click= lambda e: self.Inpts.clean_fields(e), 
+                    on_click= self.upd
+        )
 
         # Pestañas
         self.Pestañas = Tabs(
@@ -101,14 +123,16 @@ class createPrind(UserControl):
             bgcolor=self.color_teal,
             padding=5,
             content= Row(
+                alignment=MainAxisAlignment.CENTER,
                 controls=[
                     Container(      # --- Contenedor Ficha ---
                         expand=True,
-                        bgcolor="#5C516D", 
+                        bgcolor="#5C536D", 
                         margin=0,
                         padding=5,
                         alignment=alignment.center,
                         content= Column(
+                            #scroll="auto",
                             controls=[
                                 Container(    # Tamaño Ficha Tecnica
                                     Text("FICHA TECNICA",color="white"),
@@ -118,6 +142,7 @@ class createPrind(UserControl):
                                 Container(
                                     content=Column(
                                         alignment=MainAxisAlignment.CENTER,
+                                        scroll="auto",
                                         controls=[
                                             Text("Codigo del Producto"),
                                             self.Inpts.id_product,
@@ -142,7 +167,7 @@ class createPrind(UserControl):
                     ),
                     Container(      # --- Contenedor Ventas ---            
                         expand=True,
-                        bgcolor="#5C516D",
+                        bgcolor="#5C716D",
                         margin=0,
                         padding=5,
                         content=Column(
@@ -155,6 +180,7 @@ class createPrind(UserControl):
                                 ),
                                 Container(
                                     content=Column(
+                                            scroll="auto",
                                             controls=[
                                                 Text("Asesor Comercial de la Cuenta"),
                                                 TextField(
@@ -697,32 +723,7 @@ class createPrind(UserControl):
             ])       
         )
     
-########################################################################
-
-        #btn
-        self.btn = FilledButton(
-                    text="Crear PrindCard 2",
-                    adaptive=True,
-                    style=ButtonStyle(
-                        bgcolor="#21A742",
-                        color={
-                            ControlState.HOVERED: colors.RED,
-                            ControlState.HOVERED: colors.BLACK,
-                        },
-                        overlay_color=colors.TRANSPARENT,
-                        elevation={"pressed": 0, "": 1},
-                        animation_duration=200,
-                        shape={
-                            ControlState.HOVERED: RoundedRectangleBorder(radius=15),
-                            ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
-                        },
-                    ),
-                   # on_click= lambda _: self.page.go('/cratePrindCard'),
-                    on_click= self.Inpts.pruData
-                )
-
-
-        # Boton de Agregar a la BD
+        # Contenedor de Boton Agregar a la BD
         self.cntBtn = Container(
             #expand=True,
             bgcolor=self.color_teal,
@@ -736,6 +737,8 @@ class createPrind(UserControl):
             )
         )
 
+########################################################################
+
         # Frame Main
         self.frameMain = Container(
             bgcolor="#737373",
@@ -744,13 +747,13 @@ class createPrind(UserControl):
                 controls=[
                     self.cntHeader,
                     self.vtnFicha_Ventas,       # Contenedor de FICHA / VENTAS como Inicio
-                    #self.pru()
-                    self.cntBtn
+                    self.cntBtn,
                 ]
             )
         )
 
 #################### PRUEBAS #######################
+
     def navTabs(self,e):
         id = e.control.selected_index
         #print(id)
@@ -776,36 +779,25 @@ class createPrind(UserControl):
 
         self.frameMain.content.controls = [self.cntHeader]
         self.frameMain.content.controls.append(dic[id])
+        self.frameMain.content.controls.append(self.cntBtn)
+
         self.update()
 
-    ## VERIFICAR ENTRADAS DE TEXTO Y FILTRADO ##
-    def shwAllInpts(self,*labl):
-        print(labl)
-        
-    def verInpts(self,e):
-        rejex = filter.vrfPrintCard
-        jer = len(e.control.value)
-        trimmed_value = e.control.value.strip()
-        #print(jer)
-        if jer != 0 and trimmed_value:
-            if filter.vrfPrintCard(e.control.value):
-                print(f"{e.control.label}  : {e.control.value}")
-                e.control.border_color="green"
-            else:
-                e.control.border_color="red"
-                e.control.value = "FALSE"
-                print(f"{e.control.label}  : {e.control.value}")
-                print("Incorrecto")
-        else:
-            e.control.border_color="red"
-            print("Campo Vacio")
+          # Limpiar Labels
+    def clean_fields(self,e):
+        self.Inpts.id_product.value = ""
+        self.Inpts.cliente.value = ""
+        self.Inpts.producto.value = ""
+        self.Inpts.fecha_Elav.value = ""
+        self.Inpts.fecha_Rev.value = ""
 
-        e.control.update()  # Actualiza el control para reflejar los cambios
-
-
-        #print(e.control.label)
-
-
+        self.update()
+    
+    def upd(self,e):
+        #self.Inpts.pruData()
+        self.Inpts.prCero()
+        self.update()
+  
     def build(self):
         return self.frameMain
 
@@ -814,4 +806,4 @@ def main(page: Page):
     page.add(createPrind(page))
     #margin=margin.only(top=-5)
 
-app(main)
+#app(main)
