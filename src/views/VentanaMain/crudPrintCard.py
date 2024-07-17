@@ -3,15 +3,8 @@ import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
 from src.Controllers.appTable import Controllers
 from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
-from src.views.VentanaCreate.InptFich_Vents import InptsTable
-
-# Tareas : 
-# Conexión a la base de datos con el boton create, por lo menos 2 tablas
-# Modularizar el modal de inserción, eliminar y actualizar (La pendejada que aparece abajo xd)
-# 
-
-
-#from Controllers.appTable import Controllers
+from src.views.VentanaCreate.createPrindCard import createPrind
+from src.views.VentanaMain.vtnMain import pr
 
 def pru():
     db = Controllers().get_row_Table()
@@ -25,10 +18,12 @@ class crudPrintCard(UserControl):
     # ########## COMPONENTES ############################
         self.page = page  
         self.color_teal = "teal"
-        self.inptTable = InptsTable()
+        #self.inptTable = InptsTable(page)
         self.dataTbl = Controllers()  #Accede a la información en la base de datos
         self.InsrtData = CntrlsCreatePrindCard()
-    
+
+        self.createPrnt = createPrind(page)
+        self.pr = pr(page)
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
         self.InptPrindCard = TextField(
@@ -143,12 +138,9 @@ class crudPrintCard(UserControl):
         ##### QUERYS ########
         # -- Query Update
     def updateButton(self,e):
-        idPrind = e.control.data[0]     # id del PridCard para traerme todos los datos de la BD
-        #idProduct = e.control
-       # self.inptTable.id_product.label = idPrind 
-        self.inptTable.ji(idPrind)
-        self.page.go('/cratePrindCard')
-        #print(idPrind)
+        self.page.go('/prueba')
+        self.pr.update(e.control.data[0])
+        self.pr.qt = e.control.data[0]
         
         # -- Query Modal Delete --
     def queryDlt(self,bnd,id):
@@ -197,7 +189,7 @@ class crudPrintCard(UserControl):
                         IconButton("edit",
                             icon_color="green",
                             data=row,
-                            on_click=self.updateButton # --- PROXIMA TAREA ---
+                            on_click= self.updateButton # --- PROXIMA TAREA ---
                         )
                     ])
                 )
