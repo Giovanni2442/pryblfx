@@ -68,10 +68,12 @@ class InptsExtrc():
         )
         #####################
 
+        #GestureDetector(),
         ### SECCION 2 ###
         self.anchBob_Tol = PopupMenuButton(
             Text("Ancho de Bobina y Tolerancia!"),
-            bgcolor="white",
+            bgcolor="red",
+            #padding=10,
             menu_position=PopupMenuPosition.OVER,
             items=[ 
                 PopupMenuItem(

@@ -8,7 +8,7 @@ from src.views.VentanaCreate.InptFich_Vents import InptsTable
 from src.views.VentanaCreate.InptsForm.Inpts_FichaTecVentas import Inpts_FichaTec_Ventas
 from src.views.VentanaCreate.InptsForm.Inpts_Extrc import InptsExtrc
 from src.views.VentanaCreate.InptsForm.Inpts_ImprDig import Inpst_ImprDig
-
+from src.views.VentanaCreate.InptsForm.Inpts_Lam import Inpts_Lam
 
 class createPrind(UserControl):
     def __init__(self,page):
@@ -19,8 +19,8 @@ class createPrind(UserControl):
 
         self.Inpts = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
         self.InptsExtrc = InptsExtrc(page)          # Inputs Extrusión
-        self.InptsImpDig = Inpst_ImprDig(page)
-
+        self.InptsImpDig = Inpst_ImprDig(page)      # Inputs Impresión Digital
+        self.InptsLam = Inpts_Lam(page)
 
         # btn Agregar
         self.btn = FilledButton(
@@ -51,9 +51,11 @@ class createPrind(UserControl):
             indicator_border_radius=60,
             divider_color="#fc4795",
             on_change=self.navTabs,
+            tab_alignment=TabAlignment.CENTER,
+
             tabs=[
                 Tab(
-                    text="FICHA / VENTAS"
+                    text="FICHA / VENTAS",
                     #icon="home"
                 ),
                 Tab(
@@ -287,13 +289,13 @@ class createPrind(UserControl):
                         bgcolor="#858585", 
                         margin=0,
                         padding=15,
-                        alignment=alignment.center,
+                        #alignment=alignment.center,
                         content= Column(
                             expand=True,
                             scroll="auto",
                             controls=[
                                 Container(
-                                    alignment=alignment.center,
+                                    #alignment=alignment.center,
                                     content=Column(
                                         controls=[
                                             #DropBox de Inputs
@@ -302,9 +304,16 @@ class createPrind(UserControl):
                                                 bgcolor="#B6DE3A",
                                                 alignment=alignment.center,
                                                 border_radius=5,
-                                                padding=5,
+                                                shadow=BoxShadow(
+                                                    spread_radius=1,
+                                                    blur_radius=15,
+                                                    color=colors.AMBER_400,
+                                                    offset=Offset(0, 0),
+                                                    blur_style=ShadowBlurStyle.OUTER,
+                                                ),
                                                 content= self.InptsExtrc.anchBob_Tol
                                             ),
+
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
@@ -415,11 +424,12 @@ class createPrind(UserControl):
             margin=margin.only(top=-5),
             bgcolor=self.color_teal,
             padding=5,
+            alignment=alignment.center,
             content=
             Column([
                 Container(    # Tamaño Ficha Tecnica
                     #expand=True,
-                    Text("EXTRUSIÓN",color="white"),
+                    Text("IMPRESIÓN DIGITAL",color="white"),
                     alignment=alignment.center,
                     bgcolor="#858585",
                 ),
@@ -439,6 +449,7 @@ class createPrind(UserControl):
                                 Container(
                                     alignment=alignment.center,
                                     content=Column(
+                                        #alignment=MainAxisAlignment.SPACE_BETWEEN,
                                         controls=[
                                             Text("Material a Imprimir"),
                                             self.InptsImpDig.mtrlImpr,
@@ -451,6 +462,7 @@ class createPrind(UserControl):
                                                 #Text("Ingresar !"),
                                                 bgcolor="#B6DE3A",
                                                 border_radius=5,
+                                                alignment=alignment.center,
                                                 padding=5,
                                                 content= self.InptsImpDig.calMtrlImpr_Tol,
                                             ),
@@ -460,6 +472,7 @@ class createPrind(UserControl):
                                                 #Text("Ingresar !"),
                                                 bgcolor="#B6DE3A",
                                                 border_radius=5,
+                                                alignment=alignment.center,
                                                 padding=5,
                                                 content= self.InptsImpDig.anchBobImpr_Tol,
                                             ),
@@ -472,6 +485,7 @@ class createPrind(UserControl):
                                                 #Text("Ingresar !"),
                                                 bgcolor="#B6DE3A",
                                                 border_radius=5,
+                                                alignment=alignment.center,
                                                 padding=5,
                                                 content= self.InptsImpDig.anchCore_Tol,
                                             ),
@@ -497,13 +511,13 @@ class createPrind(UserControl):
                         bgcolor="#858585", 
                         margin=0,
                         padding=15,
-                        alignment=alignment.center,
+                        #alignment=alignment.center,
                         content= Column(
                             expand=True,
                             scroll="auto",
                             controls=[
                                 Container(
-                                    alignment=alignment.center,
+                                    #alignment=alignment.center,
                                     content=Column(
                                         controls=[
 
@@ -526,6 +540,7 @@ class createPrind(UserControl):
                                                 #Text("Ingresar !"),
                                                 bgcolor="#B6DE3A",
                                                 border_radius=5,
+                                                alignment=alignment.center,
                                                 padding=5,
                                                 content= self.InptsImpDig.vldClr,
                                             ),
@@ -569,6 +584,7 @@ class createPrind(UserControl):
                                                 #Text("Ingresar !"),
                                                 bgcolor="#B6DE3A",
                                                 border_radius=5,
+                                                alignment=alignment.center,
                                                 padding=5,
                                                 content= self.InptsImpDig.dimtrBob_Tol,
                                             ),
@@ -577,6 +593,7 @@ class createPrind(UserControl):
                                                 #Text("Ingresar !"),
                                                 bgcolor="#B6DE3A",
                                                 border_radius=5,
+                                                alignment=alignment.center,
                                                 padding=5,
                                                 content= self.InptsImpDig.psPromBob,
                                             ),
@@ -588,6 +605,7 @@ class createPrind(UserControl):
                                                 #Text("Ingresar !"),
                                                 bgcolor="#B6DE3A",
                                                 border_radius=5,
+                                                alignment=alignment.center,
                                                 padding=5,
                                                 content= self.InptsImpDig.numBobCam_CamTam,
                                             ),
@@ -599,6 +617,7 @@ class createPrind(UserControl):
                                                 #Text("Ingresar !"),
                                                 bgcolor="#B6DE3A",
                                                 border_radius=5,
+                                                alignment=alignment.center,
                                                 padding=5,
                                                 content= self.InptsImpDig.psNtPromTam,
                                             ),
@@ -613,6 +632,174 @@ class createPrind(UserControl):
                                     
                                 )
                                 
+                            ]
+                        )
+                    )
+                ])
+            ])       
+        )
+
+        # LAMINACIÓN 
+        self.vtnLam = Container(
+            expand=True,
+            margin=margin.only(top=-5),
+            bgcolor=self.color_teal,
+            padding=5,
+            content=
+            Column([
+                Container(    # CONTENEDOR PARA EL ENCABEZADO        
+                    bgcolor=self.color_teal,
+                    content = 
+                        Column([
+                            #expand=True,
+                            Container(
+                                Text("LAMINACIÓN",color="white"),
+                                alignment=alignment.center,
+                                bgcolor="#858585",
+                            ),
+                            Container(   # Contenedor SUBMENU
+                                #expand=True,
+                                bgcolor="yellow",
+                                padding=3,
+                                content= 
+                                    Row([           # --- SUBMENU PARA SECCIÓNAR LAS LAMINACIÓNES --- #
+                                        FilledButton(
+                                            expand=True,
+                                            height=20,
+                                            text = "Texto 1",
+                                            style = ButtonStyle(
+                                                #bgcolor="#616F67",
+                                                shape={
+                                                #ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                                                ControlState.DEFAULT: RoundedRectangleBorder(radius=2)
+                                                },
+                                            ),
+                                            on_click= self.subMnuLam
+                                        ),
+                                        FilledButton(
+                                            expand=True,
+                                            #border_radius=0,
+                                            height=20,
+                                            text = "Texto 2",
+                                            style = ButtonStyle(
+                                                #bgcolor="#616F67",
+                                                shape={
+                                                #ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                                                ControlState.DEFAULT: RoundedRectangleBorder(radius=2)
+                                                },
+                                            ),
+                                            on_click= self.subMnuLam
+                                        )        
+                                    ])
+                                )
+                            ]),
+                        ),
+                Row(                    # --- Contenedor LAMINASIÓN ---
+                    expand=True,
+                    controls=[
+                    Container(                  # -- Seccion 1 --
+                        expand=True,
+                        bgcolor="#858585", 
+                        margin=0,
+                        padding=15,
+                        alignment=alignment.center,
+                        content= Column(
+                            alignment=MainAxisAlignment.SPACE_BETWEEN,
+                            expand=True,
+                            scroll="auto",
+                            controls=[
+                                Container(
+                                    alignment=alignment.center,
+                                    content=Column(
+                                        controls=[
+                                            Text("Estructura del Producto"),
+                                            self.InptsLam.estrcPrdct,
+
+                                            #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                margin=5,
+                                                bgcolor="#B6DE3A",
+                                                border_radius=5,
+                                                alignment=alignment.center,
+                                                padding=5,
+                                                content= self.InptsLam.medMngTransf,
+                                            ),
+
+                                            #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                margin=5,
+                                                bgcolor="#B6DE3A",
+                                                border_radius=5,
+                                                alignment=alignment.center,
+                                                padding=5,
+                                                content= self.InptsLam.anchCore_Tol,
+                                            ),
+
+                                            #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                margin=5,
+                                                bgcolor="#B6DE3A",
+                                                border_radius=5,
+                                                alignment=alignment.center,
+                                                padding=5,
+                                                content= self.InptsLam.dmtrGrsrCore,
+                                            ),
+
+                                            #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                margin=5,
+                                                bgcolor="#B6DE3A",
+                                                border_radius=5,
+                                                alignment=alignment.center,
+                                                padding=5,
+                                                content= self.InptsLam.dmtrBob_Tol,
+                                            ),
+
+                                            Text("Maximo de Empalmes por Bobina"),
+                                            self.InptsLam.mxmEmplBob,
+
+                                        ]
+                                    ),
+                                )    
+                            ]
+                        )
+                    ),
+                    Container(                  # -- Seccion 2 --     
+                        expand=True,
+                        bgcolor="#858585", 
+                        margin=0,
+                        padding=15,
+                        alignment=alignment.center,
+                        content= Column(
+                            expand=True,
+                            scroll="auto",
+                            controls=[
+                                Container(
+                                    alignment=alignment.center,
+                                    content=Column(
+                                        controls=[
+                                        
+                                            Text("Orientación de Bobina en Rack"),
+                                            self.InptsLam.orntBobRck,
+                                        
+                                            Text("Tipo de Empaque para Bobina"),
+                                            self.InptsLam.tipEmpqBob,
+                                            
+                                            Text("Etiquetado"),
+                                            self.InptsLam.etiquetado,
+
+                                            Text("Pesar Producto Por : "),
+                                            self.InptsLam.psNtPromBob,
+
+                                            Text("Peso Neto Promedio de Bobina"),
+                                            self.InptsLam.psNtPromBob
+                                        ]
+                                    ),       
+                                ) 
                             ]
                         )
                     )
@@ -664,6 +851,28 @@ class createPrind(UserControl):
         self.update()
         
         #self.id_product.update(
+
+    def subMnuLam(self,e):
+        id = e.control.text
+        dic = {
+            "Texto 1" : Container(
+                        bgcolor="blue",
+                        width=100,
+                        height=100
+                    ) ,
+            "Texto 2" : Container(
+                        bgcolor="green",
+                        width=100,
+                        height=100
+                    )
+        }
+
+        self.frameMain.content.controls = [self.cntHeader]
+        self.frameMain.content.controls = [self.]
+        self.frameMain.content.controls.append(dic.get(id))
+        self.frameMain.content.controls.append(self.cntBtn)
+        self.update()
+        
         
     def navTabs(self,e):
         id = e.control.selected_index
@@ -672,6 +881,7 @@ class createPrind(UserControl):
             self.vtnFicha_Ventas,
             self.vtnExtr,
             self.vtnImprDigtl,
+            self.vtnLam,
             Container(
                 bgcolor="blue",
                 width=100,
