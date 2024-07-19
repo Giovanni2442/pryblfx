@@ -573,7 +573,7 @@ class Inpts_Lam():
                             ControlState.DEFAULT: RoundedRectangleBorder(radius=2)
                             },
                         ),
-                        on_click= self.subMnuLam
+                        on_click= self.subMnuLamFunc
                     ),
                     FilledButton(
                         expand=True,
@@ -587,16 +587,16 @@ class Inpts_Lam():
                             ControlState.DEFAULT: RoundedRectangleBorder(radius=2)
                             },
                         ),
-                        on_click= self.subMnuLam
+                        on_click= self.subMnuLamFunc
                     )        
                 ])
         )
 
-    def subMnuLam(self,e):
+    def subMnuLamFunc(self,e):
         id = e.control.text
         dic = {
-            "Texto 1" : "11",
-            "Texto 2" : "22"
+            "Texto 1" : a,
+            "Texto 2" : b
         }
         print(dic[id])
 
