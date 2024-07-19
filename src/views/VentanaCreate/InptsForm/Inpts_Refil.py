@@ -3,7 +3,7 @@ from src.views.VentanaCreate.InptFich_Vents import InptsTable
 from src.app.filExcel.filtroExcel import filter
 
 class Inpts_Refil():
-    def __init__(self):
+    def __init__(self,page):
         super().__init__()
 
     ### INPUTS DE LA TABLA REFILADO ###
@@ -384,9 +384,3 @@ class Inpts_Refil():
             autofocus=True,
             on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
-
-
-
-
-
-

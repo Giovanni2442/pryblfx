@@ -4,7 +4,7 @@ from src.Controllers.appTable import Controllers
 
 
 # Tareas : 
-# * Mejorar Las validadicones de cambio de color rojo 
+# * Mejorar Las validadicones de cambio de color rojo               
 # * Implementar las expreciones regulares adecuadas a cada Input
 # * Implementar el boton de edicción
 # * Implementar los modales de errores, Inserción y Modificación
