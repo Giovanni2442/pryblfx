@@ -1,5 +1,5 @@
 from flet import * 
-from src.views.VentanaCreate.InptFich_Vents import InptsTable
+from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
 
 
@@ -8,7 +8,7 @@ class InptsExtrc():
         super().__init__()
 
         self.page = page
-        self.valida = InptsTable(page)
+        self.valida = verificaciones(page)
 
         ### INPUTS DE TABLA EXTRUCIÓN ###
         
