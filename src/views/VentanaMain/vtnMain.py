@@ -24,10 +24,10 @@ class pr(UserControl):
     
     def update(self,id):
         self.id_product.value = id
-        id2 = id
-        self.id_product.value = id2
-        self.update()
-        print(id2)
+        
+        #self.page.update()
+        print(id)
+        #self.id_product.update()
 
     def vl(self, e=None, id=None):
         #print(id)

@@ -3,6 +3,9 @@ from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.Verificaciones import verificaciones
 
 #Notas : para el usuario se puede agregar cerrar su seción, ver su historial de modificaciónes etc..
+# python -m venv venv
+#pip install -r requirements.txt
+
 
 # Librerias de Prueba con los inputs 
 from src.views.VentanaCreate.InptsForm.Inpts_FichaTecVentas import Inpts_FichaTec_Ventas
@@ -1491,29 +1494,13 @@ class createPrind(UserControl):
         self.update()
 
           # Limpiar Labels
-    
-    def clean_fields(self,e):
-        self.Inpts.id_product.value = ""
-        self.Inpts.cliente.value = ""
-        self.Inpts.producto.value = ""
-        self.Inpts.fecha_Elav.value = ""
-        self.Inpts.fecha_Rev.value = ""
-        self.update()
-
-    def add_fields(self):
-        self.Inpts.id_product.value = "Value"
-        self.Inpts.cliente.value = "Value"
-        self.Inpts.producto.value = "Value"
-        self.Inpts.fecha_Elav.value = "Value"
-        self.Inpts.fecha_Rev.value = "Value"
-        self.update()
-    
+      
     def upd(self,e):
         #self.vrf.tplInpts(a=self.Inpts.tplInptsFichTec())
-        '''self.vrf.prTpl(
+        '''self.vrf.pr3(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas())'''
-        self.vrf.pruData(self.Inpts.tplInptsFichTec(),
+        self.vrf.pr3(self.Inpts.tplInptsFichTec(),
                     self.Inpts.tplInptsVentas())
         self.update()
   

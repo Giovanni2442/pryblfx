@@ -27,36 +27,18 @@ class verificaciones():
 
         #self.InptsFichT = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
         
-    # Tupla de TextFields
-    '''def tplInpts(self,*any):
-        dic = []
-        dic = (
-            #self.InptsFichT.tplInptsFichTec
-            any
-        )
-        return dic'''
-    
-
     # Limpiar Labels
-    def clean_fields(self):
-    #    tpl = self.tplInpts()
-    #    for i in tpl:
-    #        i.value = ""
-    #        i.border_color = "black"
-        pass
+    def clean_fields(self,tpl):
+        #tpl = self.tplInpts()
+        for i in tpl:
+            for j in i:
+                j.value = ""
+                j.update()
+        self.page.update()
 
-    # Este es un Metodo de Prueba hacer caso Omiso
-    #def jer(self):      # Obtiene el conjunto de valores de los TextFields
-    #    #tpl = self.tplInpts()
-    #    self.dataTbl.post_data(
-    #        id=tpl[0].value,
-    #        cln=tpl[1].value,
-    #        fch1=tpl[2].value,
-    #        fch2=tpl[3].value,
-    #        prdct=tpl[4].value)
-    #    self.clean_fields()
-        #print(self.dataTbl.get_row_Table())
-
+    def seeVal(slef,*tpl):
+        r = tpl[0][0].value = "Esto es una prueba"
+        print( tpl[0][0].value)
         
 ###### PRUEBAS PARA FILTRADO ###########
     def verInpts(self,e,rejex):
@@ -113,12 +95,12 @@ class verificaciones():
         vlErr = []         
         sr = None
         #print(len(tpl[0].value))
-        for i in tpl:
-            for j in i:
+        for i in tpl:                               # Recorre las tuplas
+            for j in i:                             # Recorre el conjunto de tuplas
                 if j.value != "":
                     #if j.border_color != "red":
                     if j.error_text != "":
-                        vlErr.append(j.label)
+                        vlErr.append(j.label)       # Captura los campos vacios
                     continue
                 else:
                     j.error_text = "Ingrese los valores"
@@ -154,28 +136,13 @@ class verificaciones():
         b1 = self.vlVoid(tpl)
         print(b1)
 
-
-    def pruData(self,*dic):
-        dic2 = [] # Tupla de Errores  
-        #tpl = self.tplInpts()
-        tpl = dic
-        bnd = 0
-        
-        # Recolecta los errores para mostrarlos en Modal
-        #for i in tpl:
-        #    for j in i:
-        #        pass
-        
-        if self.vlVoid(tpl) != False:
-        #else:       # Comprobar si ya existe en la base de datos, evitando sobre escritura
+        if self.vlVoid(tpl) != False:                   # Si ninguna validación se cumple
             contact_exists = False
-            for row in self.dataTbl.get_row_Table():
-                if row[0] == tpl[0][0].value:
+            for row in self.dataTbl.get_row_Table():    # Recorre la tabla FichaTecnica ya que es la tabla padre       
+                if row[0] == tpl[0][0].value:           # La primera tabla FichaTecnica contiene el ID asi que de la tupa toma el [FichaTec][Id]
                     contact_exists = True
-                    #bnd = 1
                     break
-                #if bnd !=0:
-                #    break ### ARREGLAR ESTE PINCHE DESMADRE ####
+                #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
                 #param_values = [item.value for item in j]     # Recorre las tuplas con el valor de los Inputs y le asigna su valor
@@ -185,10 +152,28 @@ class verificaciones():
                     tpl[0][2].value,
                     tpl[0][3].value,
                     tpl[0][4].value
-                )  
-                
-                print("Insertado!")
-                self.clean_fields()
+                )
+                self.dataTbl.post_dataVentas(
+                    tpl[0][0].value, # Id en Ventas
+                    tpl[1][0].value,
+                    tpl[1][1].value,
+                    tpl[1][2].value,
+                    tpl[1][3].value,
+                    tpl[1][4].value
+                )
+                self.msgDlt = SnackBar(
+                    content=Column(
+                        controls=[
+                            Container(
+                                Text(f"PRODUCTO : {tpl[0][0].value} , INSERTADO CON EXITO!",size=20,color="white"),
+                                alignment=alignment.center
+                            ),
+                        ],
+                    ),
+                    bgcolor="#5AE590",
+                )
+                self.open_dialog(self.msgDlt,self.page)
+                self.clean_fields(tpl)
             else:
                 self.mdlDplctPrdct = AlertDialog(
                     modal=True,

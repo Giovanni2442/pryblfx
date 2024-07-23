@@ -38,7 +38,7 @@ class crudPrintCard(UserControl):
             border= InputBorder.UNDERLINE,
             border_color= "black",
             label_style=TextStyle(color="Black",italic=True),
-            on_change=self.searchInput
+            on_change= lambda e : self.searchInput(e,i=0)
         )
             # Busqueda por cliente
         self.InptClienteSimple = TextField(
@@ -46,7 +46,8 @@ class crudPrintCard(UserControl):
             suffix_icon= icons.SEARCH,
             border= InputBorder.UNDERLINE,
             border_color= "black",
-            label_style=TextStyle(color="Black",italic=True)
+            label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e : self.searchInput(e,i=1)
         )
             # Busqueda / cliente Masivo
         self.InptClienteMasiva = TextField(
@@ -143,9 +144,13 @@ class crudPrintCard(UserControl):
         ##### QUERYS ########
         # -- Query Update
     def updateButton(self,e):
-        self.page.go('/prueba')
-        self.pr.update(e.control.data[0])
-        self.pr.qt = e.control.data[0]
+        self.frameMain.content.controls.append(self.createPrnt)
+
+        #self.page.go('/prueba')
+        #self.update()
+        #self.pr.update(e.control.data[0])
+        self.update()
+        #self.pr.qt = e.control.data[0]
         
         # -- Query Modal Delete --
     def queryDlt(self,bnd,id):
@@ -205,11 +210,12 @@ class crudPrintCard(UserControl):
     # --- BUSCADORES ---
         # inpt  : Input que se va a utilizar
         # e     : Evento de escucha
-    def searchInput(self,e):
-        srchInpt = e.control.value.lower()
-        print(srchInpt)
-        filterId = list(filter(lambda x: srchInpt in x[0].lower(), self.dataTbl.get_row_Table()))
-        print("you find : ",filterId)
+        # i     : El atributo de la tabla donde buscara i = 0 : id_pridcard ; i = 1 : cliente
+    def searchInput(self,e,i):
+        srchInpt = e.control.value.lower()  # Convierte a minuscula la enrada de Texto
+        #print(srchInpt)
+        filterId = list(filter(lambda x: srchInpt in x[i].lower(), self.dataTbl.get_row_Table()))       # Toma la tabla padre FichaTecnica
+        #print("you find : ",filterId)
         self.Table.rows = []
 
         # Si el input es diferente de vacio
@@ -219,7 +225,7 @@ class crudPrintCard(UserControl):
             if len(filterId) > 0:
                 #self.dataNotFound = False
                 for row in filterId:
-                    self.Table.rows.append(
+                    self.Table.rows.append(             # Agregar a la Tabla las coincidencias de la busqueda
                         self.dataRows(row),
                     )
                 self.update()
