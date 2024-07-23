@@ -107,7 +107,6 @@ class verificaciones():
         #        print(j.label)
         print(tpl[1][2].label)
 
-        
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
        # tpl = self.tplInpts()
         vlVoid = []      # Recolecta campos vaciós
@@ -146,32 +145,37 @@ class verificaciones():
                     ]
                 )
             self.open_dialog(self.mdlErrValue,self.page)
+            #print(False)
             return False
         else : 
             return True
+        
+    def pr3(self,*tpl):
+        b1 = self.vlVoid(tpl)
+        print(b1)
+
 
     def pruData(self,*dic):
         dic2 = [] # Tupla de Errores  
         #tpl = self.tplInpts()
         tpl = dic
         bnd = 0
-        self.vlueVoid(dic)
         
         # Recolecta los errores para mostrarlos en Modal
-        
+        #for i in tpl:
+        #    for j in i:
+        #        pass
         
         if self.vlVoid(tpl) != False:
         #else:       # Comprobar si ya existe en la base de datos, evitando sobre escritura
             contact_exists = False
             for row in self.dataTbl.get_row_Table():
-                for i in tpl:
-                    for j in i:
-                        if row[0] == j[0].value:
-                            contact_exists = True
-                            bnd = 1
-                            break
-            if bnd !=0:
-                break ###ARREGLAR ESTE PINCHE DESMADRE ####
+                if row[0] == tpl[0][0].value:
+                    contact_exists = True
+                    #bnd = 1
+                    break
+                #if bnd !=0:
+                #    break ### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
                 #param_values = [item.value for item in j]     # Recorre las tuplas con el valor de los Inputs y le asigna su valor

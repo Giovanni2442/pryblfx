@@ -1514,7 +1514,7 @@ class createPrind(UserControl):
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas())'''
         self.vrf.pruData(self.Inpts.tplInptsFichTec(),
-                        self.Inpts.tplInptsVentas())
+                    self.Inpts.tplInptsVentas())
         self.update()
   
     def build(self):
