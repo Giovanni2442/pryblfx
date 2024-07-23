@@ -1,7 +1,6 @@
 from flet import *
-from src.views.VentanaCreate.InptFich_Vents import InptsTable
+from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
-
 
 ### ENTRADAS DE TEXTO Y COMPONENTES PARA LA TABLA FichaTecnica y Ventas ###
 class Inpts_FichaTec_Ventas():  
@@ -9,7 +8,8 @@ class Inpts_FichaTec_Ventas():
         super().__init__()
 
         self.page = page
-        self.valida = InptsTable(page)
+        self.valida = verificaciones(page)
+
         
     ### INPUTS DE TABLA FichaTecnica ###
         self.id_product = TextField(
@@ -24,6 +24,7 @@ class Inpts_FichaTec_Ventas():
             label="Ingresar el Cliente",
             border= InputBorder.OUTLINE,
             value="N/A",
+            error_text="",
             border_color="Black",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfCliente)
@@ -75,6 +76,8 @@ class Inpts_FichaTec_Ventas():
         self.prdcLam = Dropdown(
             label="Laminado",
             hint_text="Producto Laminado",
+            value="N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("APLICA"),
@@ -98,3 +101,22 @@ class Inpts_FichaTec_Ventas():
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
+    
+    def tplInptsFichTec(self):
+        return [
+            self.id_product,
+            self.cliente,
+            self.fecha_Elav,
+            self.fecha_Rev,
+            self.producto
+        ]
+    
+    def tplInptsVentas(self):
+        return [
+            self.AsesorCmrcl,
+            self.TipEmpq,
+            self.prdcLam,
+            self.EstrcPrdct,
+            self.PrdctEmpq
+        ]
+        

@@ -6,6 +6,12 @@ from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
 from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
 
+
+#  --- TASK --- 
+# * Conectar todas las tablas a la base de datos (Hacer el intento de forma abstracta)
+# * Empezar a hacer un prototipo de insersión al pdf 
+# * Conectar sus respectivas verificaciónes
+
 def pru():
     db = Controllers().get_row_Table()
     print(db)
@@ -50,7 +56,7 @@ class crudPrintCard(UserControl):
             border_color= "black",
             label_style=TextStyle(color="black",italic=True)
         )
-
+  
         # --- BOTONES ---
             ###  - CREAR UN NUEVO PRIND CARD  - ###
 
@@ -74,7 +80,6 @@ class crudPrintCard(UserControl):
             #on_click= lambda _: self.page.go('/cratePrindCard'),
             #on_click= self.inptTable.jer
         )
-
 
         self.BtnCreate2 = FilledButton(
             text="Crear PrindCard 2",

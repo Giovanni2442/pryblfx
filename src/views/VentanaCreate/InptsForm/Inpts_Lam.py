@@ -1,5 +1,5 @@
 from flet import * 
-from src.views.VentanaCreate.InptFich_Vents import InptsTable
+from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
 
 class Inpts_Lam():

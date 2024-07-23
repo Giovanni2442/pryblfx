@@ -1,6 +1,6 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
-from src.views.VentanaCreate.InptFich_Vents import InptsTable
+from src.views.VentanaCreate.Verificaciones import verificaciones
 
 #Notas : para el usuario se puede agregar cerrar su seción, ver su historial de modificaciónes etc..
 
@@ -11,6 +11,8 @@ from src.views.VentanaCreate.InptsForm.Inpts_ImprDig import Inpst_ImprDig
 from src.views.VentanaCreate.InptsForm.Inpts_Lam import Inpts_Lam
 from src.views.VentanaCreate.InptsForm.Inpts_Refil import Inpts_Refil
 from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
+from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
+from src.views.VentanaCreate.Verificaciones import verificaciones
 
 class createPrind(UserControl):
     def __init__(self,page):
@@ -25,6 +27,8 @@ class createPrind(UserControl):
         self.InptsLam = Inpts_Lam(page)
         self.InptsRefl = Inpts_Refil(page)
         self.InptsConvrs = Inpts_Convrs(page)
+
+        self.vrf = verificaciones(page)
 
         # btn Agregar
         self.btn = FilledButton(
@@ -1505,8 +1509,12 @@ class createPrind(UserControl):
         self.update()
     
     def upd(self,e):
-        #self.Inpts.pruData()
-        self.Inpts.prCero()
+        #self.vrf.tplInpts(a=self.Inpts.tplInptsFichTec())
+        '''self.vrf.prTpl(
+            self.Inpts.tplInptsFichTec(),
+            self.Inpts.tplInptsVentas())'''
+        self.vrf.pruData(self.Inpts.tplInptsFichTec(),
+                        self.Inpts.tplInptsVentas())
         self.update()
   
     def build(self):
