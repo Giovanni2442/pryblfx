@@ -200,6 +200,11 @@ class crudPrintCard(UserControl):
                             icon_color="green",
                             data=row,
                             on_click= self.updateButton # --- PROXIMA TAREA ---
+                        ),
+                        IconButton("NEWSPAPER", # Ficha Tecnica
+                            icon_color="yellow",
+                            data=row,
+                            #on_click= self.updateButton # --- PROXIMA TAREA ---
                         )
                     ])
                 )

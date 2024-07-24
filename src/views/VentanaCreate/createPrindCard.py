@@ -1,6 +1,7 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.Verificaciones import verificaciones
+from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 #Notas : para el usuario se puede agregar cerrar su seción, ver su historial de modificaciónes etc..
 # python -m venv venv
@@ -32,6 +33,8 @@ class createPrind(UserControl):
         self.InptsConvrs = Inpts_Convrs(page)
 
         self.vrf = verificaciones(page)
+        # Crear pdf prindcard
+        #self.crtPdf = CreatePdf()
 
         # btn Agregar
         self.btn = FilledButton(
@@ -1502,6 +1505,11 @@ class createPrind(UserControl):
             self.Inpts.tplInptsVentas())'''
         self.vrf.pr3(self.Inpts.tplInptsFichTec(),
                     self.Inpts.tplInptsVentas())
+        '''self.crtPdf.getData(
+            self.Inpts.tplInptsFichTec(),
+            self.Inpts.tplInptsVentas()
+        )'''
+
         self.update()
   
     def build(self):

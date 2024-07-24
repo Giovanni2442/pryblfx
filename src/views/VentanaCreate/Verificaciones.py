@@ -1,6 +1,7 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appTable import Controllers
+from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 # Librerias de Prueba con los inputs 
 #from src.views.VentanaCreate.InptsForm.Inpts_FichaTecVentas import Inpts_FichaTec_Ventas
@@ -24,6 +25,7 @@ class verificaciones():
         self.b1 = True
         self.page = page
         self.dataTbl = Controllers()
+        self.crtPdf = CreatePdf()
 
         #self.InptsFichT = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
         
@@ -66,17 +68,15 @@ class verificaciones():
 
 ################# MODALES #######################
 
-       # Función para cerrar el diálogo
-
+    # Función para abrir el diálogo
     def open_dialog(slef,dialog,page):
         page.overlay.append(dialog)
         dialog.open = True
         page.update()
-        
-    def close_dialog(self,dialog, page):
+    # Función para cerrar el diálogo
+    def close_dialog(self,e,dialog,page):
         dialog.open = False
         page.update()
-        
 
 #################################################
 
@@ -84,9 +84,6 @@ class verificaciones():
 ###### INSERCIÓN A LA BASE DE DATOS ##########################
 
     def prTpl(self,*tpl):
-        #for i in tpl:
-        #    for j in i: 
-        #        print(j.label)
         print(tpl[1][2].label)
 
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
@@ -108,14 +105,14 @@ class verificaciones():
                     j.update()
 
         if len(vlVoid) > 0:
+            #mdlVoidVl
             self.mdlVoidVl = AlertDialog(
                     modal=True,
-                    title= Text("Faltan campos por llenar!"),
+                    title= Text(f"Faltan campos por llenar!"),
                     actions=[
-                        TextButton("CERRAR", on_click=lambda e: self.close_dialog(self.mdlVoidVl,self.page))
+                        TextButton("CERRAR", on_click= lambda e: self.close_dialog(e,self.mdlVoidVl,self.page))
                     ]
                 )
-            
             self.open_dialog(self.mdlVoidVl,self.page)
             return False
         elif len(vlErr) > 0:
@@ -123,18 +120,17 @@ class verificaciones():
                     modal=True,
                     title= Text(f"Los valores en {vlErr} , Son incorrectos!"),
                     actions=[
-                        TextButton("CERRAR", on_click=lambda e: self.close_dialog(self.mdlErrValue,self.page))
+                        TextButton("CERRAR", on_click=lambda e: self.close_dialog(e,self.mdlErrValue,self.page))
                     ]
                 )
             self.open_dialog(self.mdlErrValue,self.page)
-            #print(False)
             return False
         else : 
             return True
         
     def pr3(self,*tpl):
-        b1 = self.vlVoid(tpl)
-        print(b1)
+        #b1 = self.vlVoid(tpl)
+        #print(b1) <-- bromita de 1 hora XD
 
         if self.vlVoid(tpl) != False:                   # Si ninguna validación se cumple
             contact_exists = False
@@ -161,6 +157,9 @@ class verificaciones():
                     tpl[1][3].value,
                     tpl[1][4].value
                 )
+                ### VALORES DE LOS INPUTS ###
+                self.crtPdf.Inser(tpl)
+                #############################
                 self.msgDlt = SnackBar(
                     content=Column(
                         controls=[
@@ -179,8 +178,9 @@ class verificaciones():
                     modal=True,
                     title= Text(f"El Producto : {row[0]} ya Existe!"),
                     actions=[
-                        TextButton("CERRAR", on_click=lambda e: self.close_dialog(self.mdlDplctPrdct,self.page))
+                        TextButton("CERRAR", on_click=lambda e: self.close_dialog(e,self.mdlDplctPrdct,self.page))
                     ]
                 )
                 self.open_dialog(self.mdlDplctPrdct,self.page)
+                return False
                 #print("El contacto ya existe en la base de datos.")
