@@ -141,22 +141,13 @@ class verificaciones():
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
-                #param_values = [item.value for item in j]     # Recorre las tuplas con el valor de los Inputs y le asigna su valor
-                self.dataTbl.post_data(     # Ingresar en la Tabla de Ficha [0][elmt]
-                    tpl[0][0].value,
-                    tpl[0][1].value,
-                    tpl[0][2].value,
-                    tpl[0][3].value,
-                    tpl[0][4].value
-                )
-                self.dataTbl.post_dataVentas(
-                    tpl[0][0].value, # Id en Ventas
-                    tpl[1][0].value,
-                    tpl[1][1].value,
-                    tpl[1][2].value,
-                    tpl[1][3].value,
-                    tpl[1][4].value
-                )
+                # MODULARIZARLO
+                ficha_tec_values = [item.value for item in tpl[0]]
+                ventas_values = [item.value for item in tpl[1]]
+
+                self.dataTbl.post_data(*ficha_tec_values)
+                self.dataTbl.post_dataVentas(tpl[0][0],*ventas_values)            
+                
                 ### VALORES DE LOS INPUTS ###
                 self.crtPdf.Inser(tpl)
                 #############################

@@ -1500,16 +1500,8 @@ class createPrind(UserControl):
       
     def upd(self,e):
         #self.vrf.tplInpts(a=self.Inpts.tplInptsFichTec())
-        '''self.vrf.pr3(
-            self.Inpts.tplInptsFichTec(),
-            self.Inpts.tplInptsVentas())'''
         self.vrf.pr3(self.Inpts.tplInptsFichTec(),
                     self.Inpts.tplInptsVentas())
-        '''self.crtPdf.getData(
-            self.Inpts.tplInptsFichTec(),
-            self.Inpts.tplInptsVentas()
-        )'''
-
         self.update()
   
     def build(self):

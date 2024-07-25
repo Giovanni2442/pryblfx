@@ -4,6 +4,32 @@ class Controllers():
     def __init__(self):
         self.connect = db()
 
+
+    def getFichaVentas(self):
+        query = '''
+            SELECT 
+                FichaTec.id_codProduct,
+                FichaTec.cliente,
+                FichaTec.producto,
+                FichaTec.fecha_Elav,
+                FichaTec.fecha_Rev,
+                VENTAS.asesor,
+                VENTAS.tipo_Empaque,
+                VENTAS.product_Laminado,
+                VENTAS.estruct_Product,
+                VENTAS.empaca
+            FROM 
+                FichaTec
+            INNER JOIN 
+                VENTAS ON FichaTec.id_codProduct = VENTAS.idCodPrdc
+            WHERE 
+                FichaTec.id_codProduct = %s;
+        '''
+        cursor = self.connect.cursor()
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
+
     # Show all products
     def get_row_Table(self):
         query = 'SELECT * FROM FichaTec;'
