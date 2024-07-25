@@ -23,7 +23,7 @@ class Inpts_FichaTec_Ventas():
         self.cliente = TextField(
             label="Ingresar el Cliente",
             border= InputBorder.OUTLINE,
-            value="N/A",
+            #value="N/A",
             error_text="",
             border_color="Black",
             label_style=TextStyle(color="Black",italic=True),

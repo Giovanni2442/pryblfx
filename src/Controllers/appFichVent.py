@@ -1,34 +1,10 @@
 from src.conectDataBase.testConectDb import db
 
-class Controllers():
+class appFichVent():
     def __init__(self):
         self.connect = db()
 
-
-    def getFichaVentas(self):
-        query = '''
-            SELECT 
-                FichaTec.id_codProduct,
-                FichaTec.cliente,
-                FichaTec.producto,
-                FichaTec.fecha_Elav,
-                FichaTec.fecha_Rev,
-                VENTAS.asesor,
-                VENTAS.tipo_Empaque,
-                VENTAS.product_Laminado,
-                VENTAS.estruct_Product,
-                VENTAS.empaca
-            FROM 
-                FichaTec
-            INNER JOIN 
-                VENTAS ON FichaTec.id_codProduct = VENTAS.idCodPrdc
-            WHERE 
-                FichaTec.id_codProduct = %s;
-        '''
-        cursor = self.connect.cursor()
-        cursor.execute(query)
-        result = cursor.fetchall()
-        return result
+    # --- Tabla Ficha Tecnica TABLA PADRE ----
 
     # Show all products
     def get_row_Table(self):
@@ -60,18 +36,47 @@ class Controllers():
         self.connect.commit()
         return "Insert Ok!"
     
-    # INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
+    # --- Tabla Ventas ---
+    
     # Test Insert in table FichaTecnica 
     def post_dataVentas(self,*args):
         # INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
-
         query = 'INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES (%s,%s,%s,%s,%s,%s);'
         cursor = self.connect.cursor()
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
         cursor.execute(query,args)
         self.connect.commit()
         return "Insert Ok!"
+
+    #### QUERY´S DE PRUEBA ####
+
+    def getFichaVentas(self):
+        query = '''
+            SELECT 
+                FichaTec.id_codProduct,
+                FichaTec.cliente,
+                FichaTec.producto,
+                FichaTec.fecha_Elav,
+                FichaTec.fecha_Rev,
+                VENTAS.asesor,
+                VENTAS.tipo_Empaque,
+                VENTAS.product_Laminado,
+                VENTAS.estruct_Product,
+                VENTAS.empaca
+            FROM 
+                FichaTec
+            INNER JOIN 
+                VENTAS ON FichaTec.id_codProduct = VENTAS.idCodPrdc
+            WHERE 
+                FichaTec.id_codProduct = %s;
+        '''
+        cursor = self.connect.cursor()
+        cursor.execute(query)
+        result = cursor.fetchall()
+        return result
     
-pr = Controllers()
+    ###################################
+    
+#pr = Controllers()
 #print(pr.delete_row_Table("E-2335"))
 #print(pr.get_row_Table())

@@ -3,6 +3,8 @@ show databases;
 use dbingbf;
 create database dbingbf;
 
+show databases;
+
 DROP DATABASE dbingbf;
 
 /*--Drop tables--*/
@@ -33,12 +35,33 @@ show tables;
 
 /*------------------------ficja encabezado------------------------------*/
 
-INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2334','SS','SS','SS','SS');
-INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2335','S2','S44','StS','SS');
-INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2336','S3','S55','SSt','SS');
-INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2337','S4','S66','SSt','SS');
 
+						/*------ INSERCIÓNES A LA BASE DE DATOS ----------*/
+                        
+/*--------FichaTec--------*/
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2334','Reyma','Envaces desechables','03/07/2024','03/07/2024');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2335','Fresno','granos','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2336','Waltmart','herramientas','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2337','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2338','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2339','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2340','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2341','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2342','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2343','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2344','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2345','pounch','comina','03/07/2024','SS');
+INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2346','pounch','comina','03/07/2024','SS');
+
+/*--------VENTAS--------*/
 INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
+
+/*--------EXTRUSIÓN--------*/
+INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,tipo_Bobina,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
+
+
+show tables;
+INSERT INTO EXTRUSION(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
 
 SELECT * FROM FichaTec;
 SELECT * FROM VENTAS;
@@ -51,9 +74,9 @@ DELETE FROM FichaTec WHERE id_codProduct = 'E-5234-A_R-1' ;
 CREATE TABLE FichaTec(
 	id_codProduct VARCHAR(255) PRIMARY KEY NOT NULL,
     cliente VARCHAR(255) NOT NULL,
+	producto VARCHAR(255) NOT NULL,
     fecha_Elav VARCHAR(255) NOT NULL,
-    fecha_Rev VARCHAR(255) NOT NULL,
-    producto VARCHAR(255) NOT NULL
+    fecha_Rev VARCHAR(255) NOT NULL
 );
 /*------------------------VENTAS------------------------------*/
 	CREATE TABLE VENTAS(
@@ -578,39 +601,4 @@ CREATE TABLE FichaTec(
             tolerancia float NOT NULL,
 			FOREIGN KEY (idCnvrs) REFERENCES CONVERSION(id) ON DELETE CASCADE
         );
-    
-		
-        
-        
-
-		
-            
-		
-            
-		
-            
-            
-        
-			
-            
-            
-        
-			
-			
-		
-        
-	
-        
-        
-        
-        
-        
-		
-        
-        
-        
-        
-        
-        
-    
-    
+   

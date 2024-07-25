@@ -1,7 +1,7 @@
 import fitz  # PyMuPDF
 import os
 
-from src.Controllers.appTable import Controllers
+#from src.Controllers.appTable import Controllers
 
 #### TAREAS ###
 # * Obtener los datos de la bd
@@ -17,12 +17,11 @@ doc = fitz.open(tmpl)
 
 class CreatePdf():
     def __init__(self):
-        self.data = Controllers()
+        #self.data = Controllers()
 
     def Inser(self,tpl):
         # Ejemplo: añadir texto en la primera página
         page = doc[0]
-        
         #text = "PRUEBA"
 
         #### TABLA FichaTecnica ####

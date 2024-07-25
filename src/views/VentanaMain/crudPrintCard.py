@@ -1,7 +1,7 @@
 from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
-from src.Controllers.appTable import Controllers
+from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
 from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
@@ -13,7 +13,7 @@ from src.views.VentanaMain.vtnMain import pr
 # * Conectar sus respectivas verificaciónes
 
 def pru():
-    db = Controllers().get_row_Table()
+    db = appFichVent().get_row_Table()
     print(db)
     #pass
 
@@ -25,7 +25,7 @@ class crudPrintCard(UserControl):
         self.page = page  
         self.color_teal = "teal"
         #self.inptTable = InptsTable(page)
-        self.dataTbl = Controllers()  #Accede a la información en la base de datos
+        self.dataTbl = appFichVent()  #Accede a la información en la base de datos
         self.InsrtData = CntrlsCreatePrindCard()
 
         self.createPrnt = createPrind(page)

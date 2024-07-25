@@ -1,12 +1,11 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.Verificaciones import verificaciones
-from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
+#from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 #Notas : para el usuario se puede agregar cerrar su seción, ver su historial de modificaciónes etc..
 # python -m venv venv
 #pip install -r requirements.txt
-
 
 # Librerias de Prueba con los inputs 
 from src.views.VentanaCreate.InptsForm.Inpts_FichaTecVentas import Inpts_FichaTec_Ventas
@@ -1500,8 +1499,9 @@ class createPrind(UserControl):
       
     def upd(self,e):
         #self.vrf.tplInpts(a=self.Inpts.tplInptsFichTec())
-        self.vrf.pr3(self.Inpts.tplInptsFichTec(),
-                    self.Inpts.tplInptsVentas())
+        self.vrf.prTpl(self.Inpts.tplInptsFichTec(),
+                    self.Inpts.tplInptsVentas(),
+                    self.InptsExtrc.tplInptsExtr())
         self.update()
   
     def build(self):

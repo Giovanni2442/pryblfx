@@ -23,7 +23,12 @@ class filter():
     def vrfIsletter(*args):
         patron = re.compile('^[a-zA-Z. ]+$')
         return all(all(bool(patron.fullmatch(item)) for item in arg) for arg in args) #itera por cada lista y despues por cada argumento de la lista
-    
+
+    #Verifica si el contenido es numerico
+    def vrfIsNumber(*args):
+        patron = re.compile('^[0-9.]+$')
+        return all(all(bool(patron.fullmatch(item)) for item in arg) for arg in args)
+
     #Verifica el Nombre del Cliente
     def vrfCliente(*args):
         patron = re.compile(r'^[a-zA-Z_.() -]+$')
@@ -31,25 +36,35 @@ class filter():
     
     #Verifica si el Codigo del printCard es correcto
     def vrfPrintCard(*args):
-        patron = re.compile('^(?=.*\d{4,})[a-zA-Z0-9_-]+$')
+        patron = re.compile(r"^(?=.*\d{4,})[a-zA-Z0-9_-]+$")
         return all(bool(patron.fullmatch(arg)) for arg in args)
     
     #Verifica las fechas de elavoración de las fichas tecnicas
     #dd/mm/yy
     def vrfFechas(*args):              #Dias                  /           Meses                 /        Años       
-        patron = re.compile("^(0[1-9]|[12][0-9]|3[01])\s*(/|-)\s*(0[1-9]|1[0-2]|(\w{3}))\s*(/|-)\s*(\d{2}|\d{4})$")         #Validar las fechas deacuerdo con : [0-9][a-zA-Z][]
+        patron = re.compile(r"^(0[1-9]|[12][0-9]|3[01])\s*(/|-)\s*(0[1-9]|1[0-2]|(\w{3}))\s*(/|-)\s*(\d{2}|\d{4})$")         #Validar las fechas deacuerdo con : [0-9][a-zA-Z][]
         return all(bool(patron.fullmatch(arg)) for arg in args)
    
     #Verifica la estructura del Producto
     def vrfEstrcProd(*args):
-        patron = re.compile('^(PET|BOPP|LDPE)[A-Za-z0-9%+/()-µ± ]*\d{2,}[A-Za-z0-9%+/()-µ± ]*$')
+        patron = re.compile(r'^(PET|BOPP|LDPE)[A-Za-z0-9%+/()-µ± ]*\d{2,}[A-Za-z0-9%+/()-µ± ]*$')
+        return all(bool(patron.fullmatch(arg)) for arg in args)
+
+    #Verificación generica
+    def vrfAny(*args):
+        patron = re.compile(r'[A-Za-z0-9+-/() ]*')
+        return all(bool(patron.fullmatch(arg)) for arg in args)
+
+    #Verifica la formula
+    def vrfFrml(*args):
+        patron = re.compile(r'^[a-zA-Z]*-\d{1,4}')
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
     # --- Función para probar las Validaciónes --- 
     def pru():
-        print(filter.vrfIsletter("Hola mundo"))
+        print(filter.vrfIsNumber("99.9d"))
           
 pr = filter
-#pr.pru()
+pr.pru()
     #   ----------------------------------
     #Tabla Ficha Tecnica    

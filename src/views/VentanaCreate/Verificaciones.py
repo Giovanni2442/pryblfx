@@ -1,20 +1,19 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
-from src.Controllers.appTable import Controllers
-from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
+from src.Controllers.appFichVent import appFichVent
+#from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 # Librerias de Prueba con los inputs 
 #from src.views.VentanaCreate.InptsForm.Inpts_FichaTecVentas import Inpts_FichaTec_Ventas
 
-# Tareas : 
-# * Mejorar Las validadicones de cambio de color rojo               
+# Tareas :               
 # * Implementar las expreciones regulares adecuadas a cada Input
 # * Implementar el boton de edicción
-# * Implementar los modales de errores, Inserción y Modificación
-# * Implementar los inputs y las vistas para el formulario restante e ingresar sus validaciónes
 # * Hacer sus respetivas conexiónes y controllers a la base de datos
 # * Modularizarlo
 # * Hacer un prototipo para Editar el PDF de la ficha tecnica
+# * Hacer la tabla de de para guardar los PDF
+# * Implementar las OBSERVACIÓNES donde se pueda colocar Imagenes, sus comentarios y la secuencia de procesos de igual forma su Tabla en la bd
 
 class verificaciones():
     def __init__(self,page):
@@ -24,8 +23,8 @@ class verificaciones():
         self.filter = filter().vrfPrintCard
         self.b1 = True
         self.page = page
-        self.dataTbl = Controllers()
-        self.crtPdf = CreatePdf()
+        self.dataTbl = appFichVent()
+        #self.crtPdf = CreatePdf()
 
         #self.InptsFichT = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
         
@@ -84,7 +83,14 @@ class verificaciones():
 ###### INSERCIÓN A LA BASE DE DATOS ##########################
 
     def prTpl(self,*tpl):
-        print(tpl[1][2].label)
+        print(tpl[2][6].items[0].content.controls)
+        print(tpl[2][6].items[0].content.controls[0])
+
+        # Obtener el valor de un PopupMenuItem HACERLO UNA FUNCIÓN
+        # NOTAS : 
+        # tpl[tbl][atr]     : [tbl] : la tabla que se va ha obtener ; [atr] : El atributo de la tabla
+        # items[n]          : Agregar el Item que se desea Obtener 
+        print("--->",tpl[2][6].items[0].content.controls[1].value)      
 
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
        # tpl = self.tplInpts()
@@ -141,15 +147,17 @@ class verificaciones():
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
-                # MODULARIZARLO
+                #### MODULARIZARLO ####
                 ficha_tec_values = [item.value for item in tpl[0]]
-                ventas_values = [item.value for item in tpl[1]]
-
                 self.dataTbl.post_data(*ficha_tec_values)
-                self.dataTbl.post_dataVentas(tpl[0][0],*ventas_values)            
+
+                ventas_values = [item.value for item in tpl[1]]
+                self.dataTbl.post_dataVentas(tpl[0][0].value,*ventas_values)            
                 
+                ###########################
+
                 ### VALORES DE LOS INPUTS ###
-                self.crtPdf.Inser(tpl)
+                #self.crtPdf.Inser(tpl)
                 #############################
                 self.msgDlt = SnackBar(
                     content=Column(

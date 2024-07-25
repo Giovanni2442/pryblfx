@@ -33,31 +33,6 @@ def db():
     except mysql.connector.Error as err:
         print("Error al conectar a la base de datos:", err)
         return None
-
-def get():
-    # Obtener la conexión y el cursor
-    connection = db()  # Llamando a la función db() que devuelve la conexión
-    cursor = connection.cursor()
-    query = "SELECT * FROM FichaTec"
-    cursor.execute(query)
-    rows = cursor.fetchall()
-    print(rows)
-
-        # Cerrar el cursor y la conexión
-    cursor.close()
-    connection.close()
-
-def delete(id):
-    try:
-        conection = db()
-        cursor = conection.cursor()
-        query = "DELETE FROM FichaTec WHERE id_codProduct = %s"
-        cursor.execute(query,(id,))
-        conection.commit()
-        print("Delete ok!")
-    except mysql.connector.Error as e:
-        print(e)
- 
     
 
 
