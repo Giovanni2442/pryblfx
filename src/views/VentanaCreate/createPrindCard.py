@@ -1495,13 +1495,15 @@ class createPrind(UserControl):
 
         self.update()
 
-          # Limpiar Labels
-      
     def upd(self,e):
+        #prTpl
+        #pr3
+        # self.InptsExtrc.tplInptsExtr()
         #self.vrf.tplInpts(a=self.Inpts.tplInptsFichTec())
-        self.vrf.prTpl(self.Inpts.tplInptsFichTec(),
-                    self.Inpts.tplInptsVentas(),
-                    self.InptsExtrc.tplInptsExtr())
+        self.vrf.pr3(
+            self.Inpts.tplInptsFichTec(),
+            self.Inpts.tplInptsVentas(),
+            self.InptsExtrc.tplInptsExtr())
         self.update()
   
     def build(self):

@@ -83,14 +83,22 @@ class verificaciones():
 ###### INSERCIÓN A LA BASE DE DATOS ##########################
 
     def prTpl(self,*tpl):
-        print(tpl[2][6].items[0].content.controls)
-        print(tpl[2][6].items[0].content.controls[0])
+        #print(tpl[2][6].items[0].content.controls)
+        #print(tpl[2][6].items[0].content.controls[0])
 
         # Obtener el valor de un PopupMenuItem HACERLO UNA FUNCIÓN
         # NOTAS : 
         # tpl[tbl][atr]     : [tbl] : la tabla que se va ha obtener ; [atr] : El atributo de la tabla
         # items[n]          : Agregar el Item que se desea Obtener 
-        print("--->",tpl[2][6].items[0].content.controls[1].value)      
+        #print("--->",tpl[2][6].items[0].content.controls[1].value)
+
+        for i in tpl:
+            for j in i:
+                if isinstance(j,PopupMenuButton):
+                    for k in j.items: 
+                        
+                        #k.content.controls[1].error_text = "IngresR"
+                        print(k.content.controls[1].label ," : ",k.content.controls[1].error_text)  
 
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
        # tpl = self.tplInpts()
@@ -100,15 +108,27 @@ class verificaciones():
         #print(len(tpl[0].value))
         for i in tpl:                               # Recorre las tuplas
             for j in i:                             # Recorre el conjunto de tuplas
-                if j.value != "":
-                    #if j.border_color != "red":
-                    if j.error_text != "":
-                        vlErr.append(j.label)       # Captura los campos vacios
-                    continue
-                else:
-                    j.error_text = "Ingrese los valores"
-                    vlVoid.append(j.label)
-                    j.update()
+                 
+                # Verifica si es un Combo de TextFields
+                if isinstance(j,PopupMenuButton):
+                    for k in j.items:       # Recorre el conjunto de TextFields que contiene el Popup
+                        if k.content.controls[1].value != "":
+                            if k.content.controls[1].error_text != "":
+                                vlErr.append(k.content.controls[1].label)
+                            continue
+                        else :
+                            k.content.controls[1].error_text = "Ingrese los valores"
+                            vlVoid.append(k.content.controls[1].label)
+                            k.content.update()
+                else:                       # Verifia todo TextField Simple 
+                    if j.value != "":
+                        if j.error_text != "":
+                            vlErr.append(j.label)       # Captura los campos vacios
+                        continue
+                    else:
+                        j.error_text = "Ingrese los valores"
+                        vlVoid.append(j.label)
+                        j.update()
 
         if len(vlVoid) > 0:
             #mdlVoidVl
@@ -148,11 +168,12 @@ class verificaciones():
 
             if not contact_exists:
                 #### MODULARIZARLO ####
-                ficha_tec_values = [item.value for item in tpl[0]]
-                self.dataTbl.post_data(*ficha_tec_values)
+                #ficha_tec_values = [item.value for item in tpl[0]]
+                #self.dataTbl.post_data(*ficha_tec_values)
 
-                ventas_values = [item.value for item in tpl[1]]
-                self.dataTbl.post_dataVentas(tpl[0][0].value,*ventas_values)            
+                #ventas_values = [item.value for item in tpl[1]]
+                #print(ventas_values)
+                #self.dataTbl.post_dataVentas(tpl[0][0].value,*ventas_values)            
                 
                 ###########################
 

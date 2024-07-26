@@ -35,7 +35,6 @@ show tables;
 
 /*------------------------ficja encabezado------------------------------*/
 
-
 						/*------ INSERCIÓNES A LA BASE DE DATOS ----------*/
                         
 /*--------FichaTec--------*/
@@ -54,12 +53,12 @@ INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES
 INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2346','pounch','comina','03/07/2024','SS');
 
 /*--------VENTAS--------*/
-INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E999','rr','rr','rr','rr','rr');
+INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
 
 /*--------EXTRUSIÓN--------*/
-INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada) VALUES ('E-2335','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe');
+INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada) VALUES ('E-2334','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe');
 
-INSERT INTO CalibrePel_Tolr(idCodPrdc,calibre,tolerancia) VALUES  ('E-2335',30,40);
+INSERT INTO CalibrePel_Tolr(idCodPrdc,calibre,tolerancia) VALUES  ('E-2334',30,40);
 
 INSERT INTO AnchoBob_Tolr(idCodPrdc,anchoBob,tolerancia) VALUES ('E-2334',30,40);
 
@@ -73,6 +72,17 @@ INSERT INTO Num_BobCama_CamTam(idCodPrdc,num_Bob_Cama,camas_Tarima) VALUES ('E-2
 
 INSERT INTO Peso_prom_tarima(idCodPrdc,peso_neto,tolerancia) VALUES ('E-2334',30,40);
 
+
+SELECT * FROM EXTRUSION;
+SELECT * FROM CalibrePel_Tolr;
+SELECT * FROM AnchoBob_Tolr;
+SELECT * FROM AnchoCore_Tolr;
+SELECT * FROM DiametroBob_Tolr;
+SELECT * FROM Peso_Prom_Bob;
+SELECT * FROM Peso_prom_tarima;
+
+
+/*
 SELECT 
 	FichaTec.id_codProduct,
     EXTRUSION.tipo_Material,
@@ -104,7 +114,7 @@ FROM
 INNER JOIN 
 	CalibrePel_Tolr,Peso_prom_tarima ON FichaTec.id_codProduct = VENTAS.idCodPrdc
 WHERE 
-	FichaTec.id_codProduct = %s;
+	FichaTec.id_codProduct = %s; */
 
 
 /*--------------------------------------------------------------------------------------------------------------------------------------*/

@@ -16,15 +16,16 @@ class InptsExtrc():
         ### SECCIÓN 1 ##
 
         self.tipMtrlExtr = Dropdown(               # Tipo de material a Extruir
-            label="Laminado",
-            hint_text="Producto Laminado",
+            label="Material",
+            hint_text="Material",
             value="N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("LDPE"),
                 dropdown.Option("HDPE"),
             ],
-            autofocus=True,
+            autofocus=True
         )
 
         self.dinajeReq = TextField(                 # Dinaje requerido
@@ -32,6 +33,7 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             value="N/A",
+            error_text="",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
@@ -41,6 +43,7 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             value="N/A",
+            error_text="",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFrml)
         )
@@ -50,14 +53,16 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             value="N/A",
+            error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
         )
     
         self.tipBob = Dropdown(                     # Tipo de Bobina
-            label="Laminado",
-            hint_text="Producto Laminado",
+            label="Tipo",
+            hint_text="Tipo de Bobina",
             value="N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Lamina"),
@@ -68,8 +73,10 @@ class InptsExtrc():
         )
 
         self.tipTratado =  Dropdown(                # Tipo de tratado
-            label="Laminado",
-            hint_text="Producto Laminado",
+            label="tratado",
+            hint_text="Tratado",
+            value = "N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Seccionado"),
@@ -98,7 +105,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -111,7 +119,8 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
 
@@ -130,11 +139,12 @@ class InptsExtrc():
                     content= Column(width=200,controls=[
                         Text("Ancho de Core"),
                         TextField(
-                            label="N/A",
+                            label="Ancho",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -144,10 +154,11 @@ class InptsExtrc():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -157,10 +168,11 @@ class InptsExtrc():
         )
 
         self.maxEmplBob = TextField(                # Maximo de Empalmes por bobina
-            label="N/A",
+            label="Empalmes de Bobina",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = "N/A",
+            value = "0",
+            error_text="",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
@@ -169,12 +181,13 @@ class InptsExtrc():
             label="Orientación",
             hint_text="Orientación de Bobina",
             value = "N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Horizontal"),
                 dropdown.Option("Vertical"),
             ],
-            autofocus=True,
+            autofocus=True
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
@@ -182,12 +195,13 @@ class InptsExtrc():
             label="Empaque",
             hint_text="Tipo de Empaque",
             value = "N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Emplaye"),
                 dropdown.Option("Bolsa"),
             ],
-            autofocus=True,
+            autofocus=True
            # on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
@@ -195,13 +209,14 @@ class InptsExtrc():
             label="Pesar por..",
             hint_text="Pesar producto",
             value = "N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Tarima"),
                 dropdown.Option("Bobina"),
                 dropdown.Option("Ambos")
             ],
-            autofocus=True,
+            autofocus=True
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
     
@@ -218,7 +233,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -231,7 +247,8 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -256,7 +273,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -269,7 +287,8 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -282,6 +301,7 @@ class InptsExtrc():
             label="etiquetado",
             hint_text="etiquetado",
             value= "N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Rollo Individual"),
@@ -305,7 +325,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -318,7 +339,8 @@ class InptsExtrc():
                             label="CamasBobina",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -331,7 +353,8 @@ class InptsExtrc():
             label="Ingresar Numero de Bobinas",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = "N/A",
+            value = "0",
+            error_text="",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
@@ -349,7 +372,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -359,10 +383,11 @@ class InptsExtrc():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "N/A",
+                            value = "0",
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
@@ -375,6 +400,7 @@ class InptsExtrc():
             label="Ingresar opción",
             hint_text="Emplaye",
             value = "N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Aplica"),
@@ -387,6 +413,7 @@ class InptsExtrc():
             label="Ingresar opción",
             hint_text="Refilado",
             value = "N/A",
+            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Aplica"),
