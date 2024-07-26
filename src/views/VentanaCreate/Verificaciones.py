@@ -7,9 +7,9 @@ from src.Controllers.appFichVent import appFichVent
 #from src.views.VentanaCreate.InptsForm.Inpts_FichaTecVentas import Inpts_FichaTec_Ventas
 
 # Tareas :               
-# * Implementar las expreciones regulares adecuadas a cada Input
-# * Implementar el boton de edicción
-# * Hacer sus respetivas conexiónes y controllers a la base de datos
+# * Implementar las expreciones regulares adecuadas a cada Input * 
+# * Implementar el boton de edicción * 
+# * Hacer sus respetivas conexiónes y controllers a la base de datos *
 # * Modularizarlo
 # * Hacer un prototipo para Editar el PDF de la ficha tecnica
 # * Hacer la tabla de de para guardar los PDF

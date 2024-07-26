@@ -7,11 +7,72 @@ class appFichVent():
     def get(slef):
         pass
 
-    def post_data(self,*args):
-        # INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2335','Fresno','granos','03/07/2024','SS');
-        query = 'INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES (%s,%s,%s,%s,%s);'
+    # --- TABLA PADRE EXTRUSIÓN ---
+    def postExtr(self,*args):
+        query='''INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada)
+            VALUES ('E-2334','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe');'''
         cursor = self.connect.cursor()
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
         cursor.execute(query,args)
         self.connect.commit()
-        return "Insert Ok!" 
+        return "Insert Ok!"
+    
+     # --- CalibrePel_Tolr ---
+    def postCalibrePel_Tolr(self,*args):
+        query = '''INSERT INTO CalibrePel_Tolr(idCodPrdc,calibre,tolerancia)
+                VALUES  ('E-2335',30,40);'''
+        cursor = self.connect.cursor()
+        #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
+    
+     # --- AnchoBob_Tolr ---
+    def postAnchoBob_Tolr(self,*args):
+        query = '''INSERT INTO AnchoBob_Tolr(idCodPrdc,anchoBob,tolerancia)
+                VALUES ('E-2334',30,40);'''
+        cursor = self.connect.cursor()
+        #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
+    
+     # --- TABLA PADRE EXTRUSIÓN ---
+    def postExtr(self,*args):
+        query='''INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada)
+            VALUES ('E-2334','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe');'''
+        cursor = self.connect.cursor()
+        #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
+    
+     # --- TABLA PADRE EXTRUSIÓN ---
+    def postExtr(self,*args):
+        query='''INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada)
+            VALUES ('E-2334','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe');'''
+        cursor = self.connect.cursor()
+        #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
+    
+     # --- TABLA PADRE EXTRUSIÓN ---
+    def postExtr(self,*args):
+        query='''INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada)
+            VALUES ('E-2334','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe');'''
+        cursor = self.connect.cursor()
+        #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
+    
+     # --- TABLA PADRE EXTRUSIÓN ---
+    def postExtr(self,*args):
+        query='''INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada)
+            VALUES ('E-2334','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe');'''
+        cursor = self.connect.cursor()
+        #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
