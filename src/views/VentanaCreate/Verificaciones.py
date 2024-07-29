@@ -24,6 +24,10 @@ class verificaciones():
         self.b1 = True
         self.page = page
         self.dataTbl = appFichVent()
+
+        self.tpl = []
+        self.tpl2 = []
+        self.bnd = 0
         #self.crtPdf = CreatePdf()
 
         #self.InptsFichT = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
@@ -40,7 +44,7 @@ class verificaciones():
     def seeVal(slef,*tpl):
         r = tpl[0][0].value = "Esto es una prueba"
         print( tpl[0][0].value)
-        
+
 ###### PRUEBAS PARA FILTRADO ###########
     def verInpts(self,e,rejex):
         inpt = e.control
@@ -83,45 +87,92 @@ class verificaciones():
 ###### INSERCIÓN A LA BASE DE DATOS ##########################
 
     def prTpl(self,*tpl):
-        #print(tpl[2][6].items[0].content.controls)
-        #print(tpl[2][6].items[0].content.controls[0])
-
+        print(tpl[2][6].items[0].content.controls)
+        print(tpl[2][6].items[0].content.controls[0])
         # Obtener el valor de un PopupMenuItem HACERLO UNA FUNCIÓN
         # NOTAS : 
         # tpl[tbl][atr]     : [tbl] : la tabla que se va ha obtener ; [atr] : El atributo de la tabla
         # items[n]          : Agregar el Item que se desea Obtener 
-        #print("--->",tpl[2][6].items[0].content.controls[1].value)
+        print("--->",tpl[2][6].items[0].content.controls[1].value)     
+   
+    def pr4(self):
+        self.bnd +=1
 
-        for i in tpl:
+    def vlMnuPop(self, inx, j):
+        #print("inx:", )
+      
+        if self.bnd == inx:
+            if isinstance(j, PopupMenuButton):
+                for k in j.items:
+                    txtFld = k.content.controls[1]
+                    print("--- **** ", txtFld.label)
+                    self.tpl2.append(txtFld.value)
+            else:
+                print(f" --xx {inx}  : {j.label} : {j.value}")
+                self.tpl2.append(j.value)
+        else:
+            self.bnd = inx
+            self.tpl.append(tuple(self.tpl2))
+            self.tpl2 = [] 
+            
+    def dic(self,inx,j):
+        # NOTA : El post solo acepta arreglos NO iteraci+ón
+        funciones = {
+            0: self.vlMnuPop,
+            1: self.vlMnuPop,
+            2: self.vlMnuPop,
+           # 3: self.vlMnuPop, # Elemento NO funcional por bug
+        }
+        funcion = funciones.get(inx)
+        if funcion:
+            funcion(inx, j)
+        else:
+            print(f"No hay función definida para el índice {inx}")
+    
+    def pru(self,*tpl):
+        #vle = tpl[2][0].items[0].content.controls[1].value
+        for indx,i in enumerate(tpl):
             for j in i:
-                if isinstance(j,PopupMenuButton):
-                    for k in j.items: 
-                        
-                        #k.content.controls[1].error_text = "IngresR"
-                        print(k.content.controls[1].label ," : ",k.content.controls[1].error_text)  
+                self.dic(indx,j)
 
+        #print(self.tpl[1])
+        print(self.tpl)
+        self.tpl = []
+
+        #values = [field.value for field in tpl[0]]
+        #values2 = (tpl[0][0].value,) + tuple(field.value for field in tpl[2])
+        
+        #self.dataTbl.post_data(*values)
+        #self.dataTbl.post_dataVentas(*values2)
+        #self.dataTbl.post_dataVentas(*values2)
+        #print(values2)
+        
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
        # tpl = self.tplInpts()
         vlVoid = []      # Recolecta campos vaciós
         vlErr = []         
         sr = None
-        #print(len(tpl[0].value))
-        for i in tpl:                               # Recorre las tuplas
-            for j in i:                             # Recorre el conjunto de tuplas
-                 
-                # Verifica si es un Combo de TextFields
-                if isinstance(j,PopupMenuButton):
-                    for k in j.items:       # Recorre el conjunto de TextFields que contiene el Popup
-                        if k.content.controls[1].value != "":
-                            if k.content.controls[1].error_text != "":
-                                vlErr.append(k.content.controls[1].label)
+        
+        for i in tpl:
+            for j in i:
+                if isinstance(j, PopupMenuButton):
+                    for k in j.items:
+                        txtfld =  k.content.controls[1]
+                        if txtfld.value != "":
+                            if txtfld.error_text !="":
+                                print(txtfld.label)
+                                vlErr.append(txtfld.label)       # Captura los campos vacios
                             continue
-                        else :
-                            k.content.controls[1].error_text = "Ingrese los valores"
-                            vlVoid.append(k.content.controls[1].label)
+                        else:
+                            txtfld.error_text = "Ingrese los valores"
+                            print(txtfld.label)
+                            vlVoid.append(txtfld.label)
                             k.content.update()
-                else:                       # Verifia todo TextField Simple 
+    
+                        #print(k.content.controls[1].value)
+                else:
                     if j.value != "":
+                        #if j.border_color != "red":
                         if j.error_text != "":
                             vlErr.append(j.label)       # Captura los campos vacios
                         continue
@@ -129,7 +180,8 @@ class verificaciones():
                         j.error_text = "Ingrese los valores"
                         vlVoid.append(j.label)
                         j.update()
-
+     # Recorre el conjunto de tuplas
+                
         if len(vlVoid) > 0:
             #mdlVoidVl
             self.mdlVoidVl = AlertDialog(
@@ -154,6 +206,7 @@ class verificaciones():
         else : 
             return True
         
+        
     def pr3(self,*tpl):
         #b1 = self.vlVoid(tpl)
         #print(b1) <-- bromita de 1 hora XD
@@ -167,16 +220,10 @@ class verificaciones():
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
-                #### MODULARIZARLO ####
-                #ficha_tec_values = [item.value for item in tpl[0]]
-                #self.dataTbl.post_data(*ficha_tec_values)
-
-                #ventas_values = [item.value for item in tpl[1]]
-                #print(ventas_values)
-                #self.dataTbl.post_dataVentas(tpl[0][0].value,*ventas_values)            
+                #self.pru(tpl)
+                #values = [field.value for field in tpl[0]]
+                #self.dataTbl.post_data(*values)
                 
-                ###########################
-
                 ### VALORES DE LOS INPUTS ###
                 #self.crtPdf.Inser(tpl)
                 #############################

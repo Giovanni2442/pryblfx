@@ -21,12 +21,12 @@ class filter():
 
     #Verifica si el dato contiene solo letras
     def vrfIsletter(*args):
-        patron = re.compile(r'^[a-zA-Z/. ]+$')
+        patron = re.compile('^[a-zA-Z. ]+$')
         return all(all(bool(patron.fullmatch(item)) for item in arg) for arg in args) #itera por cada lista y despues por cada argumento de la lista
 
     #Verifica si el contenido es numerico
     def vrfIsNumber(*args):
-        patron = re.compile('^[0-9. ]+$')
+        patron = re.compile('^[0-9.]+$')
         return all(all(bool(patron.fullmatch(item)) for item in arg) for arg in args)
 
     #Verifica el Nombre del Cliente
@@ -52,17 +52,17 @@ class filter():
 
     #Verificación generica
     def vrfAny(*args):
-        patron = re.compile(r'[A-Za-z0-9+-/() ]*')
+        patron = re.compile(r'[A-Za-z0-9+,-/() ]*')
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
     #Verifica la formula
     def vrfFrml(*args):
-        patron = re.compile(r'^[a-zA-Z]*-\d{1,4}|^N/A$')
+        patron = re.compile(r'^[a-zA-Z]*-\d{1,4}|N/A')
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
     # --- Función para probar las Validaciónes --- 
     def pru():
-        print(filter.vrfIsNumber("0"))
+        print(filter.vrfAny("kk,,j"))
           
 pr = filter
 pr.pru()
