@@ -40,7 +40,7 @@ class verificaciones():
     def seeVal(slef,*tpl):
         r = tpl[0][0].value = "Esto es una prueba"
         print( tpl[0][0].value)
-        
+
 ###### PRUEBAS PARA FILTRADO ###########
     def verInpts(self,e,rejex):
         inpt = e.control
@@ -90,26 +90,96 @@ class verificaciones():
         # NOTAS : 
         # tpl[tbl][atr]     : [tbl] : la tabla que se va ha obtener ; [atr] : El atributo de la tabla
         # items[n]          : Agregar el Item que se desea Obtener 
-        print("--->",tpl[2][6].items[0].content.controls[1].value)      
+        print("--->",tpl[2][6].items[0].content.controls[1].value)     
+   
+    def vlMnuPop(self,inx,j):
+        tpl = []
+        #txtfld =  k.content.controls[1]
+        if isinstance(j, PopupMenuButton):
+            #for k in j.items:
+                #txtFld = k.content.controls[1]
+                #print("--- **** ",txtFld.label)
+            #tpl.append()
+            print(f" --xx {inx}  : {j}")
+        else: 
+            print(f" --xx {inx}  : {j.label}")
+
+    def vlTxtFldFish(self,index,j):
+        #ficha_tec_values = [item.value for item in tpl[0]]
+        self.dataTbl.post_data(j.value)
+        print(f" -- >> {index}  : {j.label}")
+    
+    def vlTxtFldVen(self,index,j):
+        #ficha_tec_values = [item.value for item in tpl[0]]
+        tpl = []
+        tpl.append(j.value)
+        #self.dataTbl.post_data(j.value)
+        print(f" -- >> {index}  : {j.label}")
+        
+
+    def cero(self,inx,j):
+        print(f"{inx} : {j.label}")
+
+    def dic(self,inx,j):
+        # NOTA : El post solo acepta arreglos NO iteraci+ón
+        funciones = {
+            0: self.vlMnuPop,
+           # 1: self.vlTxtFld,
+            #2: self.vlMnuPop
+        }
+        funcion = funciones.get(inx)
+        if funcion:
+            funcion(inx, j)
+        else:
+            print(f"No hay función definida para el índice {inx}")
+
+    def pru(self,tpl):
+        #vle = tpl[2][0].items[0].content.controls[1].value
+        for indx,i in enumerate(tpl):
+            for j in i:
+                self.dic(indx,j)
+        
+    def paradd(slef,tpl):
+        for i in tpl:
+            for j in i:
+                pass
+          
 
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
        # tpl = self.tplInpts()
         vlVoid = []      # Recolecta campos vaciós
         vlErr = []         
         sr = None
-        #print(len(tpl[0].value))
-        for i in tpl:                               # Recorre las tuplas
-            for j in i:                             # Recorre el conjunto de tuplas
-                if j.value != "":
-                    #if j.border_color != "red":
-                    if j.error_text != "":
-                        vlErr.append(j.label)       # Captura los campos vacios
-                    continue
+        
+        for i in tpl:
+            for j in i:
+                if isinstance(j, PopupMenuButton):
+                    for k in j.items:
+                        txtfld =  k.content.controls[1]
+                        if txtfld.value != "":
+                            if txtfld.error_text !="":
+                                print(txtfld.label)
+                                vlErr.append(txtfld.label)       # Captura los campos vacios
+                            continue
+                        else:
+                            txtfld.error_text = "Ingrese los valores"
+                            print(txtfld.label)
+                            vlVoid.append(txtfld.label)
+                            k.content.update()
+    
+                        #print(k.content.controls[1].value)
                 else:
-                    j.error_text = "Ingrese los valores"
-                    vlVoid.append(j.label)
-                    j.update()
-
+                    if j.value != "":
+                        #if j.border_color != "red":
+                        if j.error_text != "":
+                            vlErr.append(j.label)       # Captura los campos vacios
+                        continue
+                    else:
+                        j.error_text = "Ingrese los valores"
+                        vlVoid.append(j.label)
+                        j.update()
+     # Recorre el conjunto de tuplas
+                
         if len(vlVoid) > 0:
             #mdlVoidVl
             self.mdlVoidVl = AlertDialog(
@@ -134,6 +204,7 @@ class verificaciones():
         else : 
             return True
         
+        
     def pr3(self,*tpl):
         #b1 = self.vlVoid(tpl)
         #print(b1) <-- bromita de 1 hora XD
@@ -147,14 +218,7 @@ class verificaciones():
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
-                #### MODULARIZARLO ####
-                ficha_tec_values = [item.value for item in tpl[0]]
-                self.dataTbl.post_data(*ficha_tec_values)
-
-                ventas_values = [item.value for item in tpl[1]]
-                self.dataTbl.post_dataVentas(tpl[0][0].value,*ventas_values)            
-                
-                ###########################
+                self.pru(tpl)
 
                 ### VALORES DE LOS INPUTS ###
                 #self.crtPdf.Inser(tpl)

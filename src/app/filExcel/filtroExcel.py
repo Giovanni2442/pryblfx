@@ -52,17 +52,17 @@ class filter():
 
     #Verificación generica
     def vrfAny(*args):
-        patron = re.compile(r'[A-Za-z0-9+-/() ]*')
+        patron = re.compile(r'[A-Za-z0-9+,-/() ]*')
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
     #Verifica la formula
     def vrfFrml(*args):
-        patron = re.compile(r'^[a-zA-Z]*-\d{1,4}')
+        patron = re.compile(r'^[a-zA-Z]*-\d{1,4}|N/A')
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
     # --- Función para probar las Validaciónes --- 
     def pru():
-        print(filter.vrfIsNumber("99.9d"))
+        print(filter.vrfAny("kk,,j"))
           
 pr = filter
 pr.pru()
