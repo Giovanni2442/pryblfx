@@ -72,10 +72,50 @@ class InptsExtrc():
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
+        self.calPel_Tol = PopupMenuButton(         # Calibre de pelicula y tolerancia
+            Text("Calibre de pelicula y tolerancia"),
+            bgcolor="red",
+            #padding=10,
+            menu_position=PopupMenuPosition.OVER,
+            items=[ 
+                PopupMenuItem(
+                    content= Column(width=200,controls=[
+                        Text("Calibre"),
+                        TextField(
+                            label="Calibre",
+                            border= InputBorder.OUTLINE,
+                            #width=100,
+                            border_color="black",
+                            value = "0",
+                            error_text= "",
+                            label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
+                        )
+                    ])
+                ),
+                PopupMenuItem(
+                    content= Column([
+                        Text("Tolerancia"),
+                        TextField(
+                            label="Tolerancia",
+                            border= InputBorder.OUTLINE,
+                            border_color="Black",
+                            value = "0",
+                            error_text= "",
+                            label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
+
+                        )
+                    ])
+                ),
+            ]
+        )
+
         self.tipTratado =  Dropdown(                # Tipo de tratado
             label="Tipo de tratado",
             hint_text="Producto Laminado",
             error_text = "",
+            value="N/A",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Seccionado"),
@@ -170,7 +210,7 @@ class InptsExtrc():
             label="Empalmes",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = "0",
+            value = 0,
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -428,20 +468,21 @@ class InptsExtrc():
             self.frmlExtr,
             self.pigmPelc,
             self.tipBob,
-            self.tipTratado,
-            self.anchBob_Tol,   # SECCIÓN 2
-            self.anchCore_Tol,
             self.maxEmplBob,
             self.orntBobTam,
             self.tipEmpqBob,
+            self.tipTratado,
             self.psrPrdct,
-            self.psPromBob,
-            self.DimBob_Tol,     # SECCIÓN 3
             self.etiquetado,
-            self.numBobCma_CmaTrm,
             self.numBobTam,
-            self.psNtPromTam,
             self.tamEmplaye,
             self.tamRefila,
-            
+
+            self.calPel_Tol,
+            self.anchBob_Tol,   # SECCIÓN 2
+            self.anchCore_Tol,
+            self.DimBob_Tol,     # SECCIÓN 3
+            self.psPromBob, 
+            self.numBobCma_CmaTrm,
+            self.psNtPromTam,
         ]

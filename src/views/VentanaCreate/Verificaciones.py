@@ -1,6 +1,7 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appFichVent import appFichVent
+from src.Controllers.appExtr import appExtr
 #from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 # Librerias de Prueba con los inputs 
@@ -24,6 +25,7 @@ class verificaciones():
         self.b1 = True
         self.page = page
         self.dataTbl = appFichVent()
+        self.dtaExtr = appExtr()
 
         self.tpl = []
         self.tpl2 = []
@@ -41,9 +43,6 @@ class verificaciones():
                 j.update()
         self.page.update()
 
-    def seeVal(slef,*tpl):
-        r = tpl[0][0].value = "Esto es una prueba"
-        print( tpl[0][0].value)
 
 ###### PRUEBAS PARA FILTRADO ###########
     def verInpts(self,e,rejex):
@@ -95,27 +94,24 @@ class verificaciones():
         # items[n]          : Agregar el Item que se desea Obtener 
         print("--->",tpl[2][6].items[0].content.controls[1].value)     
    
-    def pr4(self):
-        self.bnd +=1
-
-    def vlMnuPop(self, inx, j):
-        #print("inx:", )
+    def vlMnuPop(self, inx, tpl, j):
+        print(len(tpl))      
       
         if self.bnd == inx:
-            if isinstance(j, PopupMenuButton):
-                for k in j.items:
-                    txtFld = k.content.controls[1]
-                    print("--- **** ", txtFld.label)
-                    self.tpl2.append(txtFld.value)
-            else:
-                print(f" --xx {inx}  : {j.label} : {j.value}")
-                self.tpl2.append(j.value)
+            #print(f"id : {self.bnd}  :  {j}")
+            self.tpl2.append(self.bnd)
         else:
+              # Añade el último conjunto antes de vaciar self.tpl2 y cambiar self.bnd
+            if self.tpl2:
+                print(self.tpl2)
+                #tpl.append(tuple(self.tpl2))
+                #self.tpl2 = []
             self.bnd = inx
-            self.tpl.append(tuple(self.tpl2))
-            self.tpl2 = [] 
+    
+        #print(tuple(self.tpl))
             
-    def dic(self,inx,j):
+    def dic(self,inx,tpl,j):
+        
         # NOTA : El post solo acepta arreglos NO iteraci+ón
         funciones = {
             0: self.vlMnuPop,
@@ -125,27 +121,38 @@ class verificaciones():
         }
         funcion = funciones.get(inx)
         if funcion:
-            funcion(inx, j)
+            funcion(inx,tpl,j)
         else:
             print(f"No hay función definida para el índice {inx}")
     
     def pru(self,*tpl):
         #vle = tpl[2][0].items[0].content.controls[1].value
+        #id = 0
+        #tpl = []
         for indx,i in enumerate(tpl):
             for j in i:
-                self.dic(indx,j)
-
-        #print(self.tpl[1])
-        print(self.tpl)
-        self.tpl = []
-
-        #values = [field.value for field in tpl[0]]
-        #values2 = (tpl[0][0].value,) + tuple(field.value for field in tpl[2])
+                if isinstance(j, PopupMenuButton):
+                    for k in j.items:
+                        txtFld = k.content.controls[1]
+                        #print("--- **** ", txtFld.label)
+                        self.tpl2.append(txtFld.value)
+                else:
+                    #print(f" --xx {inx}  : {j.label} : {j.value}")
+                    self.tpl2.append(j.value)
+                #    self.tpl2 = [] 
+            
+        #-- INSERCIÓN --#
+        je = self.tpl2[10:24]
+        print(je)
         
-        #self.dataTbl.post_data(*values)
-        #self.dataTbl.post_dataVentas(*values2)
-        #self.dataTbl.post_dataVentas(*values2)
-        #print(values2)
+        #self.dataTbl.post_data(*self.tpl2[:5])
+        self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
+        self.dtaExtr.postExtr(self.tpl2[0],*self.tpl2[10:24])
+        self.tpl2 = []
+
+
+
+
         
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
        # tpl = self.tplInpts()

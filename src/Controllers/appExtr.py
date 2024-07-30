@@ -1,6 +1,6 @@
 from src.conectDataBase.testConectDb import db
 
-class appFichVent():
+class appExtr():
     def __init__(self):
         self.connect = db()
 

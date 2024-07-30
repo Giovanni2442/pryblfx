@@ -315,6 +315,22 @@ class createPrind(UserControl):
 
                                             Text("Pigmento de Pelicula"),
                                             self.InptsExtrc.pigmPelc,
+
+                                            #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                bgcolor="#B6DE3A",
+                                                alignment=alignment.center,
+                                                border_radius=5,
+                                                shadow=BoxShadow(
+                                                    spread_radius=1,
+                                                    blur_radius=15,
+                                                    color=colors.AMBER_400,
+                                                    offset=Offset(0, 0),
+                                                    blur_style=ShadowBlurStyle.OUTER,
+                                                ),
+                                                content= self.InptsExtrc.calPel_Tol
+                                            ),
                                             
                                             Text("Tipo de Bobina"),
                                             self.InptsExtrc.tipBob,
@@ -1500,11 +1516,10 @@ class createPrind(UserControl):
     def upd(self,e):
         #pr2
         #tplInpts
-        #self.vrf.tplInpts(a=self.Inpts.tplInptsFichTec())
         self.vrf.pru(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),
-            #self.InptsExtrc.tplInptsExtr(),
+            self.InptsExtrc.tplInptsExtr(),
             #self.Inpts.tplInptsFichTec(), # Arreglar el bug, ya que no acepta el ultimo conjunto
             )
         self.update()
