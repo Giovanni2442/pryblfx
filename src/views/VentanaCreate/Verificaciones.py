@@ -2,6 +2,8 @@ from flet import *
 from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
+from src.Controllers.appImpr import appImpr
+
 #from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 # Librerias de Prueba con los inputs 
@@ -26,6 +28,7 @@ class verificaciones():
         self.page = page
         self.dataTbl = appFichVent()
         self.dtaExtr = appExtr()
+        self.dtaImpr = appImpr()
 
         self.tpl = []
         self.tpl2 = []
@@ -125,6 +128,14 @@ class verificaciones():
         else:
             print(f"No hay función definida para el índice {inx}")
     
+    
+    def prImprs(slef,*tpl):
+        for indx,i in enumerate(tpl):
+            for j in i:
+                if isinstance(j, PopupMenuButton):
+                    for k in j.items:
+                        print(k.content.label)
+    
     def pru(self,*tpl):
         #vle = tpl[2][0].items[0].content.controls[1].value
         #id = 0
@@ -139,19 +150,29 @@ class verificaciones():
                 else:
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
                     self.tpl2.append(j.value)
-                #    self.tpl2 = [] 
             
         #-- INSERCIÓN --#
-        je = self.tpl2[10:24]
+        je = self.tpl2[38:]
         print(je)
+        #print(self.tpl2)
         
-        #self.dataTbl.post_data(*self.tpl2[:5])
+                # --- INSERCIÓN POR REBANADAS ---   
+            # --- FICHA --- 
+        self.dataTbl.post_data(*self.tpl2[:5])
+            # --- VENTAS ---
         self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
-        self.dtaExtr.postExtr(self.tpl2[0],*self.tpl2[10:24])
+            # --- EXTRUCIÓN ---
+        self.dtaExtr.postExtr(self.tpl2[0],*self.tpl2[10:24])               # TABLA PADRE EXTEUSIÓN
+        self.dtaExtr.postCalibrePel_Tolr(self.tpl2[0],*self.tpl2[24:26])    # Calibre_Tol
+        self.dtaExtr.postAnchoBob_Tolr(self.tpl2[0],*self.tpl2[26:28])    # Calibre_Tol
+        self.dtaExtr.postAnchoCore_Tolr(self.tpl2[0],*self.tpl2[28:30])    # Calibre_Tol
+        self.dtaExtr.postDiametroBob_Tolr(self.tpl2[0],*self.tpl2[30:32])    # Calibre_Tol
+        self.dtaExtr.postPeso_Prom_Bob(self.tpl2[0],*self.tpl2[32:34])    # Calibre_Tol
+        self.dtaExtr.postNum_BobCama_CamTam(self.tpl2[0],*self.tpl2[34:36])    # Calibre_Tol
+        self.dtaExtr.postPeso_prom_tarima(self.tpl2[0],*self.tpl2[36:38])    # Calibre_Tol
+             # --- IMPRESION ---
+        self.dtaImpr.postImprs(self.tpl2[0],*self.tpl2[38:])
         self.tpl2 = []
-
-
-
 
         
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios

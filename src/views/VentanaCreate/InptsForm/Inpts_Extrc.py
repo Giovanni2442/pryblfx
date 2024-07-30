@@ -86,7 +86,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "0",
+                            value = '0',
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -100,7 +100,7 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "0",
+                            value = '0',
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -210,7 +210,7 @@ class InptsExtrc():
             label="Empalmes",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = 0,
+            value = '0',
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -468,10 +468,10 @@ class InptsExtrc():
             self.frmlExtr,
             self.pigmPelc,
             self.tipBob,
+            self.tipTratado,
             self.maxEmplBob,
             self.orntBobTam,
             self.tipEmpqBob,
-            self.tipTratado,
             self.psrPrdct,
             self.etiquetado,
             self.numBobTam,

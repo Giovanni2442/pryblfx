@@ -557,8 +557,8 @@ class createPrind(UserControl):
                                             Text("Repeticiónes al eje"),
                                             self.InptsImpDig.repEje,
 
-                                            Text("Desarrollo a Imprimir"),
-                                            self.InptsImpDig.grosorCore,
+                                            Text("Repeticiónes al Desarrollo"),
+                                            self.InptsImpDig.repDesr,
                                         ]
                                     ),
                                     
@@ -1520,7 +1520,7 @@ class createPrind(UserControl):
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),
             self.InptsExtrc.tplInptsExtr(),
-            #self.Inpts.tplInptsFichTec(), # Arreglar el bug, ya que no acepta el ultimo conjunto
+            self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
             )
         self.update()
   
