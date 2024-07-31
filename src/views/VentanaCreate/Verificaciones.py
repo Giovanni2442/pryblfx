@@ -152,26 +152,36 @@ class verificaciones():
                     self.tpl2.append(j.value)
             
         #-- INSERCIÓN --#
-        je = self.tpl2[38:]
+        je = self.tpl2[57:59]
         print(je)
         #print(self.tpl2)
         
                 # --- INSERCIÓN POR REBANADAS ---   
             # --- FICHA --- 
-        self.dataTbl.post_data(*self.tpl2[:5])
+        #self.dataTbl.post_data(*self.tpl2[:5])
             # --- VENTAS ---
-        self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
+        #self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
             # --- EXTRUCIÓN ---
-        self.dtaExtr.postExtr(self.tpl2[0],*self.tpl2[10:24])               # TABLA PADRE EXTEUSIÓN
-        self.dtaExtr.postCalibrePel_Tolr(self.tpl2[0],*self.tpl2[24:26])    # Calibre_Tol
-        self.dtaExtr.postAnchoBob_Tolr(self.tpl2[0],*self.tpl2[26:28])    # Calibre_Tol
-        self.dtaExtr.postAnchoCore_Tolr(self.tpl2[0],*self.tpl2[28:30])    # Calibre_Tol
-        self.dtaExtr.postDiametroBob_Tolr(self.tpl2[0],*self.tpl2[30:32])    # Calibre_Tol
-        self.dtaExtr.postPeso_Prom_Bob(self.tpl2[0],*self.tpl2[32:34])    # Calibre_Tol
-        self.dtaExtr.postNum_BobCama_CamTam(self.tpl2[0],*self.tpl2[34:36])    # Calibre_Tol
-        self.dtaExtr.postPeso_prom_tarima(self.tpl2[0],*self.tpl2[36:38])    # Calibre_Tol
+        #self.dtaExtr.postExtr(self.tpl2[0],*self.tpl2[10:24])                  # TABLA PADRE EXTEUSIÓN
+        #self.dtaExtr.postCalibrePel_Tolr(self.tpl2[0],*self.tpl2[24:26])       # Calibre_Tol
+        #self.dtaExtr.postAnchoBob_Tolr(self.tpl2[0],*self.tpl2[26:28])         # Calibre_Tol
+        #self.dtaExtr.postAnchoCore_Tolr(self.tpl2[0],*self.tpl2[28:30])        # Calibre_Tol
+        #self.dtaExtr.postDiametroBob_Tolr(self.tpl2[0],*self.tpl2[30:32])      # Calibre_Tol
+        #self.dtaExtr.postPeso_Prom_Bob(self.tpl2[0],*self.tpl2[32:34])         # Calibre_Tol
+        #self.dtaExtr.postNum_BobCama_CamTam(self.tpl2[0],*self.tpl2[34:36])    # Calibre_Tol
+        #self.dtaExtr.postPeso_prom_tarima(self.tpl2[0],*self.tpl2[36:38])      # Calibre_Tol
              # --- IMPRESION ---
-        self.dtaImpr.postImprs(self.tpl2[0],*self.tpl2[38:])
+        #self.dtaImpr.postImprs(self.tpl2[0],*self.tpl2[38:57])                  # TABLA PADRE IMPRESION
+        self.dtaImpr.postVldClr(self.tpl2[0],*self.tpl2[57:59])  
+        self.dtaImpr.postCalMater_Tolr(self.tpl2[0],*self.tpl2[59:61])  
+        self.dtaImpr.postAnchoBobImpr_Tolr(self.tpl2[0],*self.tpl2[61:63])  
+        self.dtaImpr.postAnchoCore_Tolr(self.tpl2[0],*self.tpl2[63:65])  
+        self.dtaImpr.postAnchoDiamBob_Tolr(self.tpl2[0],*self.tpl2[65:67])  
+        self.dtaImpr.postPesoPromBob(self.tpl2[0],*self.tpl2[67:69])  
+        self.dtaImpr.postNum_BobCama_CamaTarima(self.tpl2[0],*self.tpl2[69:71])  
+        self.dtaImpr.Peso_prom_tarimaImpr(self.tpl2[0],*self.tpl2[71:73])  
+
+        
         self.tpl2 = []
 
         

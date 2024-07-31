@@ -27,6 +27,7 @@ drop table FichaTec;
 drop table impresion;
 
 
+
 	/*--crear bd--*/
 create database dbIngBF;
 use dbIngBF;
@@ -77,6 +78,19 @@ INSERT INTO Peso_prom_tarima(idCodPrdc,peso_neto,tolerancia) VALUES ('E-2334',30
 INSERT INTO IMPRESION (idCodPrdc,material_Imprimir,dinaje,grosor_Core,desarrolloImpr,rep_Eje,rep_Dessr,cant_TintasImpr,tipoImpr,tipoTintas_Utilizar,tipo_Barniz,figEmbob_Impr,maxEmpalmes,tipoEmpaqBob,orientBob_Tarima,pesarProduct, etiquetado,Num_bob_tarima,tarima_Emplaye,tarima_Flejada)
  VALUES ('E-2335','Papel','300g',0.5,5,3,2,4,'Offset','Tinta UV','Barniz Brillante',1,2,'Caja','Vertical','Peso Neto','Etiqueta A',20,'Envuelta','Flejada');
 
+INSERT INTO vldClr(idCodPrdc,color,tolDelts) VALUES ('E-2121','EW','EW');
+
+INSERT INTO LAMINADO(idCodPrdc, estructProduct, tipoTratado, maxEmpalmesBob, orientBobRack, tipoEmpaqBob, etiquetado, pesarProduct) 
+VALUES (
+    'E-2121',          -- idCodPrdc: Debe existir en la tabla FichaTec
+    'Estructura A',  -- estructProduct: Valor no nulo
+    'Tratado X',     -- tipoTratado: Valor no nulo
+    '5',             -- maxEmpalmesBob: Valor no nulo
+    'Vertical',      -- orientBobRack: Valor no nulo
+    'Empaque A',     -- tipoEmpaqBob: Valor no nulo
+    'Etiqueta B',    -- etiquetado: Valor no nulo
+    'Pesado Y'       -- pesarProduct: Valor no nulo
+);
 
 SELECT * FROM FichaTec;
 SELECT * FROM VENTAS;
@@ -91,6 +105,17 @@ SELECT * FROM EXTRUSION;
 	
     # -- TABLA IMPRESIÓN -- #
 SELECT * FROM IMPRESION;
+	SELECT * FROM vldClr;
+    SELECT * FROM CalMater_Tolr;
+    SELECT * FROM AnchoBobImpr_Tolr;
+    SELECT * FROM AnchoCore_Tolr_Extr;
+    SELECT * FROM DiamBob_Tolr;
+    SELECT * FROM PesoPromBob;
+    SELECT * FROM Num_BobCama_CamaTarima;
+    SELECT * FROM Peso_prom_tarimaImpr;
+    
+       # -- TABLA IMPRESIÓN -- #
+SELECT * FROM LAMINADO;
 
 
 /*
@@ -218,8 +243,9 @@ CREATE TABLE FichaTec(
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
         
+        drop table Peso_prom_tarimaImpr;
         /*peso neto promedio por tarima*/
-        CREATE TABLE Peso_prom_tarima(
+        CREATE TABLE Peso_prom_tarimaImpr(
             idCodPrdc VARCHAR(255),
             peso_neto float not null,
             tolerancia float not null,
@@ -275,8 +301,10 @@ CREATE TABLE FichaTec(
 			FOREIGN KEY (idCodPrdc) REFERENCES IMPRESION(idCodPrdc) ON DELETE CASCADE
         );
         
+        drop table AnchoCore_Tolr;
+        
         /*Ancho de core y tolerancia*/
-        CREATE TABLE AnchoCore_Tolr_Extr(
+        CREATE TABLE AnchoCore_Tolr(
 			idCodPrdc VARCHAR(255),
             ancho_Core float not null,
             tolerancia float not null,
@@ -308,7 +336,7 @@ CREATE TABLE FichaTec(
         );
 
         /*Peso neto promedio por tarima y tolerancia*/
-        CREATE TABLE Peso_prom_tarima_Extr(
+        CREATE TABLE Peso_prom_tarimaImpr(
 			idCodPrdc VARCHAR(255),
             pesoNto int not null,
             tolerancia int not null,
@@ -318,7 +346,6 @@ CREATE TABLE FichaTec(
 /*------------------------LAMINADO------------------------------*/
         
 	CREATE TABLE LAMINADO(
-		id INT PRIMARY KEY auto_increment,
 		idCodPrdc VARCHAR(255),
 		estructProduct VARCHAR(255) NOT NULL,
         tipoTratado VARCHAR(100) NOT NULL,
@@ -331,39 +358,36 @@ CREATE TABLE FichaTec(
 	);
 		 /*Material Impreso*/
         CREATE TABLE Material_Impreso(
-			id INT PRIMARY KEY auto_increment,
-            idLam INT,
+            idCodPrdc VARCHAR(255),
             tipoTratado VARCHAR(50) NOT NULL,
-			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
 			/*Calibre de pelicula y Tolerancia*/
 			CREATE TABLE CalibrePelic_Tolr(
-				id INT PRIMARY KEY auto_increment,
-				idMtrlIm INT,
+				idCodPrdc VARCHAR(255),
 				calibre float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrlIm) REFERENCES Material_Impreso(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
 			);
         
 			/*Ancho de Bobina y Tolerancia*/
 			CREATE TABLE AnchoBob_TolrMtrl(
-				id INT PRIMARY KEY auto_increment,
+				idCodPrdc VARCHAR(255),
 				idMtrlIm INT,
 				anchoBob float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrlIm) REFERENCES Material_Impreso(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
 			);
             
 		 /*Laminación 1*/
         
         /*Laminación 1*/
         CREATE TABLE Material_Laminar_1(
-			id INT PRIMARY KEY auto_increment,
-            idLam INT,
+			idCodPrdc VARCHAR(255),
             Material VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
-			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
         
 			/*Ancho de Bobina y Tolerancia Laminación 1*/
@@ -372,7 +396,7 @@ CREATE TABLE FichaTec(
 				idMtrLam1 INT,  /*foreign key*/
 				calibre float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrLam1) REFERENCES Material_Laminar_1(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
 			);
             
             /*Ancho de Bobina y Tolerancia Laminación 1*/

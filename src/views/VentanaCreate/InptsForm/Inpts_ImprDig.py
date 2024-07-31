@@ -40,7 +40,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -53,7 +53,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
