@@ -730,6 +730,34 @@ class createPrind(UserControl):
                                             Text("Estructura del Producto"),
                                             self.InptsLam.estrcPrdct,
 
+                                            Text("Material Impreso"),
+                                            self.InptsLam.mtlImpr,
+
+                                             #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                margin=5,
+                                                bgcolor="#B6DE3A",
+                                                border_radius=5,
+                                                alignment=alignment.center,
+                                                padding=5,
+                                                content= self.InptsLam.clPlc_Tol,
+                                            ),
+
+                                             #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                margin=5,
+                                                bgcolor="#B6DE3A",
+                                                border_radius=5,
+                                                alignment=alignment.center,
+                                                padding=5,
+                                                content= self.InptsLam.anchBob_Tol,
+                                            ),
+
+                                            Text("Material Impreso"),
+                                            self.InptsLam.tipTratado,
+
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
@@ -762,21 +790,6 @@ class createPrind(UserControl):
                                                 padding=5,
                                                 content= self.InptsLam.dmtrGrsrCore,
                                             ),
-
-                                            #DropBox de Inputs
-                                            Container(
-                                                #Text("Ingresar !"),
-                                                margin=5,
-                                                bgcolor="#B6DE3A",
-                                                border_radius=5,
-                                                alignment=alignment.center,
-                                                padding=5,
-                                                content= self.InptsLam.dmtrBob_Tol,
-                                            ),
-
-                                            Text("Maximo de Empalmes por Bobina"),
-                                            self.InptsLam.mxmEmplBob,
-
                                         ]
                                     ),
                                 )    
@@ -797,7 +810,21 @@ class createPrind(UserControl):
                                     alignment=alignment.center,
                                     content=Column(
                                         controls=[
-                                        
+
+                                            #DropBox de Inputs
+                                            Container(
+                                                #Text("Ingresar !"),
+                                                margin=5,
+                                                bgcolor="#B6DE3A",
+                                                border_radius=5,
+                                                alignment=alignment.center,
+                                                padding=5,
+                                                content= self.InptsLam.dmtrBob_Tol,
+                                            ),
+
+                                            Text("Maximo de Empalmes por Bobina"),
+                                            self.InptsLam.mxmEmplBob,
+
                                             Text("Orientación de Bobina en Rack"),
                                             self.InptsLam.orntBobRck,
                                         
@@ -1521,6 +1548,7 @@ class createPrind(UserControl):
             self.Inpts.tplInptsVentas(),
             self.InptsExtrc.tplInptsExtr(),
             self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
+            self.InptsLam.tplInptsLam(),
             )
         self.update()
   

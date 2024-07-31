@@ -3,6 +3,7 @@ from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
 from src.Controllers.appImpr import appImpr
+from src.Controllers.appLam import appLam
 
 #from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
@@ -29,14 +30,12 @@ class verificaciones():
         self.dataTbl = appFichVent()
         self.dtaExtr = appExtr()
         self.dtaImpr = appImpr()
+        self.dtaLam = appLam()
 
         self.tpl = []
         self.tpl2 = []
         self.bnd = 0
-        #self.crtPdf = CreatePdf()
-
-        #self.InptsFichT = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
-        
+    
     # Limpiar Labels
     def clean_fields(self,tpl):
         #tpl = self.tplInpts()
@@ -136,52 +135,66 @@ class verificaciones():
                     for k in j.items:
                         print(k.content.label)
     
-    def pru(self,*tpl):
+    # --- MODULARIZAR ESTE METODO --- 
+    def pru(self,*tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
         #vle = tpl[2][0].items[0].content.controls[1].value
-        #id = 0
-        #tpl = []
-        for indx,i in enumerate(tpl):
-            for j in i:
+        for indx,i in enumerate(tpl):       # Recorre las listas de Inputs
+            for j in i:                     # Recorre los valores de cada lista
+                if isinstance(j, list):     # Verifica si el valor de la lista hay listas, para colocar los valores en la lista padre
+                    for f in j:             # Recorre la sub lista desde el indice
+                        if isinstance( f, PopupMenuButton):
+                            for m in f.items:
+                                txtFld = m.content.controls[1]
+                                #print("--- **** ", txtFld.label)
+                                self.tpl2.append(txtFld.label)
+                        else:
+                            #print(f" --xx {f.label}")
+                            self.tpl2.append(f.label)
+                        #print("-->" ,f) 
+                    continue
                 if isinstance(j, PopupMenuButton):
                     for k in j.items:
                         txtFld = k.content.controls[1]
                         #print("--- **** ", txtFld.label)
-                        self.tpl2.append(txtFld.value)
+                        self.tpl2.append(txtFld.label)
                 else:
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
-                    self.tpl2.append(j.value)
+                    self.tpl2.append(j.label)
             
         #-- INSERCIÓN --#
-        je = self.tpl2[57:59]
-        print(je)
+        je = self.tpl2[73:] # Laminación
+        #print(je)
         #print(self.tpl2)
-        
+        print(self.tpl2)
+
                 # --- INSERCIÓN POR REBANADAS ---   
             # --- FICHA --- 
-        #self.dataTbl.post_data(*self.tpl2[:5])
+        self.dataTbl.post_data(*self.tpl2[:5])
             # --- VENTAS ---
-        #self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
+        self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
             # --- EXTRUCIÓN ---
-        #self.dtaExtr.postExtr(self.tpl2[0],*self.tpl2[10:24])                  # TABLA PADRE EXTEUSIÓN
-        #self.dtaExtr.postCalibrePel_Tolr(self.tpl2[0],*self.tpl2[24:26])       # Calibre_Tol
-        #self.dtaExtr.postAnchoBob_Tolr(self.tpl2[0],*self.tpl2[26:28])         # Calibre_Tol
-        #self.dtaExtr.postAnchoCore_Tolr(self.tpl2[0],*self.tpl2[28:30])        # Calibre_Tol
-        #self.dtaExtr.postDiametroBob_Tolr(self.tpl2[0],*self.tpl2[30:32])      # Calibre_Tol
-        #self.dtaExtr.postPeso_Prom_Bob(self.tpl2[0],*self.tpl2[32:34])         # Calibre_Tol
-        #self.dtaExtr.postNum_BobCama_CamTam(self.tpl2[0],*self.tpl2[34:36])    # Calibre_Tol
-        #self.dtaExtr.postPeso_prom_tarima(self.tpl2[0],*self.tpl2[36:38])      # Calibre_Tol
+        self.dtaExtr.postExtr(self.tpl2[0],*self.tpl2[10:24])                  # TABLA PADRE EXTEUSIÓN
+        self.dtaExtr.postCalibrePel_Tolr(self.tpl2[0],*self.tpl2[24:26])       # Calibre_Tol
+        self.dtaExtr.postAnchoBob_Tolr(self.tpl2[0],*self.tpl2[26:28])         # Calibre_Tol
+        self.dtaExtr.postAnchoCore_Tolr(self.tpl2[0],*self.tpl2[28:30])        # Calibre_Tol
+        self.dtaExtr.postDiametroBob_Tolr(self.tpl2[0],*self.tpl2[30:32])      # Calibre_Tol
+        self.dtaExtr.postPeso_Prom_Bob(self.tpl2[0],*self.tpl2[32:34])         # Calibre_Tol
+        self.dtaExtr.postNum_BobCama_CamTam(self.tpl2[0],*self.tpl2[34:36])    # Calibre_Tol
+        self.dtaExtr.postPeso_prom_tarima(self.tpl2[0],*self.tpl2[36:38])      # Calibre_Tol
              # --- IMPRESION ---
-        #self.dtaImpr.postImprs(self.tpl2[0],*self.tpl2[38:57])                  # TABLA PADRE IMPRESION
+        self.dtaImpr.postImprs(self.tpl2[0],*self.tpl2[38:57])                  # TABLA PADRE IMPRESION
         self.dtaImpr.postVldClr(self.tpl2[0],*self.tpl2[57:59])  
         self.dtaImpr.postCalMater_Tolr(self.tpl2[0],*self.tpl2[59:61])  
         self.dtaImpr.postAnchoBobImpr_Tolr(self.tpl2[0],*self.tpl2[61:63])  
-        self.dtaImpr.postAnchoCore_Tolr(self.tpl2[0],*self.tpl2[63:65])  
+        self.dtaImpr.postAnchoCore_TolrImpr(self.tpl2[0],*self.tpl2[63:65])  
         self.dtaImpr.postAnchoDiamBob_Tolr(self.tpl2[0],*self.tpl2[65:67])  
         self.dtaImpr.postPesoPromBob(self.tpl2[0],*self.tpl2[67:69])  
         self.dtaImpr.postNum_BobCama_CamaTarima(self.tpl2[0],*self.tpl2[69:71])  
-        self.dtaImpr.Peso_prom_tarimaImpr(self.tpl2[0],*self.tpl2[71:73])  
+        self.dtaImpr.postPeso_prom_tarimaImpr(self.tpl2[0],*self.tpl2[71:73]) 
+            # --- LAMINADO ---
+        #self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:78])
+        #self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[78:80])
 
-        
         self.tpl2 = []
 
         

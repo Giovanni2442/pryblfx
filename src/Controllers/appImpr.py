@@ -45,8 +45,8 @@ class appImpr():
         return "Insert Ok!"
     
      # --- Ancho de core y tolerancia ---
-    def postAnchoCore_Tolr(self,*args):
-        query = '''INSERT INTO AnchoCore_Tolr(idCodPrdc,ancho_Core,tolerancia)
+    def postAnchoCore_TolrImpr(self,*args):
+        query = '''INSERT INTO AnchoCore_TolrImpr(idCodPrdc,ancho_Core,tolerancia)
                 VALUES (%s,%s,%s);'''
         cursor = self.connect.cursor()
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
@@ -86,8 +86,8 @@ class appImpr():
         return "Insert Ok!"
     
       # --- Peso neto promedio por tarima y tolerancia ---
-    def Peso_prom_tarimaImpr(self,*args):
-        query = '''INSERT INTO Peso_prom_tarimaImpr(idCodPrdc,peso_neto,tolerancia)
+    def postPeso_prom_tarimaImpr(self,*args):
+        query = '''INSERT INTO Peso_prom_tarimaImpr(idCodPrdc,pesoNto,tolerancia)
                 VALUES (%s,%s,%s);'''
         cursor = self.connect.cursor()
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
