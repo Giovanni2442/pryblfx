@@ -39,7 +39,7 @@ class appExtr():
     
    # --- AnchoCore_Tolr ---
     def postAnchoCore_Tolr(self,*args):
-        query = '''INSERT INTO AnchoCore_Tolr(idCodPrdc,anchoCore,tolerancia)
+        query = '''INSERT INTO AnchoCore_TolrExtr(idCodPrdc,anchoCore,tolerancia)
                 VALUES (%s,%s,%s);'''
         cursor = self.connect.cursor()
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))

@@ -146,27 +146,27 @@ class verificaciones():
                             for m in f.items:
                                 txtFld = m.content.controls[1]
                                 #print("--- **** ", txtFld.label)
-                                self.tpl2.append(txtFld.label)
+                                self.tpl2.append(txtFld.value)
                         else:
                             #print(f" --xx {f.label}")
-                            self.tpl2.append(f.label)
+                            self.tpl2.append(f.value)
                         #print("-->" ,f) 
                     continue
                 if isinstance(j, PopupMenuButton):
                     for k in j.items:
                         txtFld = k.content.controls[1]
                         #print("--- **** ", txtFld.label)
-                        self.tpl2.append(txtFld.label)
+                        self.tpl2.append(txtFld.value)
                 else:
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
-                    self.tpl2.append(j.label)
+                    self.tpl2.append(j.value)
             
         #-- INSERCIÓN --#
-        je = self.tpl2[73:] # Laminación
+        je = self.tpl2[73:78] # Laminación
         #print(je)
         #print(self.tpl2)
-        print(self.tpl2)
-
+        print(je)
+        '''
                 # --- INSERCIÓN POR REBANADAS ---   
             # --- FICHA --- 
         self.dataTbl.post_data(*self.tpl2[:5])
@@ -192,12 +192,10 @@ class verificaciones():
         self.dtaImpr.postNum_BobCama_CamaTarima(self.tpl2[0],*self.tpl2[69:71])  
         self.dtaImpr.postPeso_prom_tarimaImpr(self.tpl2[0],*self.tpl2[71:73]) 
             # --- LAMINADO ---
-        #self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:78])
-        #self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[78:80])
-
+        self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:78])
+        #self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[78:80])'''
         self.tpl2 = []
 
-        
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
        # tpl = self.tplInpts()
         vlVoid = []      # Recolecta campos vaciós
