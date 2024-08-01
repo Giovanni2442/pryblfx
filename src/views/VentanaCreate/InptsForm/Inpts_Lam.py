@@ -307,8 +307,8 @@ class Inpts_Lam():
         )
     
         self.tipTratado = Dropdown(             # MatrImprs
-            label="Pesar producto por : ",
-            hint_text="pesar por ..",
+            label="Tratado : ",
+            hint_text="tratado",
             value="N/A",
             error_text = "",
             options=[
@@ -326,6 +326,16 @@ class Inpts_Lam():
 
     ### LAMINACIÓN N.1 ###
 
+        #### INGRESAR ESTE TEXTFIELD QUE FALTO JIJIJA ###
+        self.LN1mtrLam = TextField(           # GENERAL
+            label="Material para Laminar",
+            border= InputBorder.OUTLINE,
+            border_color="Black",
+            value="N/A",
+            error_text = "",
+            label_style=TextStyle(color="Black",italic=True),
+        )
+
         self.LN1clbPel_Tol = PopupMenuButton(
             Text("Calibre de Pelicula y Tolerancia"),
             bgcolor="white",
@@ -335,11 +345,11 @@ class Inpts_Lam():
                     content= Column(width=200,controls=[
                         Text("Calibre"),
                         TextField(
-                            label="N/A",
+                            label="calibre",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -349,10 +359,10 @@ class Inpts_Lam():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -370,11 +380,11 @@ class Inpts_Lam():
                     content= Column(width=200,controls=[
                         Text("Ancho Bobina"),
                         TextField(
-                            label="N/A",
+                            label="ancho",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -384,10 +394,10 @@ class Inpts_Lam():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -411,15 +421,15 @@ class Inpts_Lam():
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
-        self.LN1orntBobTam = Dropdown(
-            label="Orientación de Bobina en Tarima",
-            hint_text="Orientación",
+        self.LN1tipLam = Dropdown(
+            label="Tipo de Laminación",
+            hint_text="Laminación",
             value="N/A",
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
-                dropdown.Option("HORIZONTAL"),
-                dropdown.Option("VERTICAL"),
+                dropdown.Option("INTERNA"),
+                dropdown.Option("EXTERNA"),
             ],
             autofocus=True,
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
@@ -428,6 +438,14 @@ class Inpts_Lam():
     ###############################
 
     ### LAMINACIÓN N.2 ###
+        self.LN2mtrLam = TextField(           # GENERAL
+            label="Material para Laminar",
+            border= InputBorder.OUTLINE,
+            border_color="Black",
+            value="N/A",
+            error_text = "",
+            label_style=TextStyle(color="Black",italic=True),
+        )
 
         self.LN2clbPel_Tol = PopupMenuButton(
             Text("Calibre de Pelicula y Tolerancia"),
@@ -438,11 +456,11 @@ class Inpts_Lam():
                     content= Column(width=200,controls=[
                         Text("Calibre"),
                         TextField(
-                            label="N/A",
+                            label="calibre",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -455,7 +473,7 @@ class Inpts_Lam():
                             label="N/A",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -473,11 +491,11 @@ class Inpts_Lam():
                     content= Column(width=200,controls=[
                         Text("Ancho Bobina"),
                         TextField(
-                            label="N/A",
+                            label="Ancho",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -487,10 +505,10 @@ class Inpts_Lam():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -514,21 +532,29 @@ class Inpts_Lam():
             on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
-        self.LN2orntBobTam = Dropdown(
-            label="Orientación de Bobina en Tarima",
-            hint_text="Orientación",
+        self.LN2tipLam = Dropdown(
+            label="Tipo de Laminación",
+            hint_text="Laminación",
             value="N/A",
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
-                dropdown.Option("HORIZONTAL"),
-                dropdown.Option("VERTICAL"),
+                dropdown.Option("INTERNA"),
+                dropdown.Option("EXTERNA"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
     ### LAMINACIÓN N.3 ###
+        self.LN3mtrLam = TextField(           # GENERAL
+            label="Material para Laminar",
+            border= InputBorder.OUTLINE,
+            border_color="Black",
+            value="N/A",
+            error_text = "",
+            label_style=TextStyle(color="Black",italic=True),
+        )
 
         self.LN3clbPel_Tol = PopupMenuButton(
             Text("Calibre de Pelicula y Tolerancia"),
@@ -539,11 +565,11 @@ class Inpts_Lam():
                     content= Column(width=200,controls=[
                         Text("Calibre"),
                         TextField(
-                            label="N/A",
+                            label="Calibre",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -553,10 +579,10 @@ class Inpts_Lam():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -574,11 +600,11 @@ class Inpts_Lam():
                     content= Column(width=200,controls=[
                         Text("Ancho Bobina"),
                         TextField(
-                            label="N/A",
+                            label="Ancho",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -588,10 +614,10 @@ class Inpts_Lam():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -615,21 +641,30 @@ class Inpts_Lam():
             on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
-        self.LN3orntBobTam = Dropdown(
-            label="Orientación de Bobina en Tarima",
-            hint_text="Orientación",
+        self.LN3tipLam = Dropdown(
+            label="Tipo de Laminación",
+            hint_text="Laminación",
             value="N/A",
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
-                dropdown.Option("HORIZONTAL"),
-                dropdown.Option("VERTICAL"),
+                dropdown.Option("INTERNA"),
+                dropdown.Option("EXTERNA"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
     ### LAMINACIÓN N.4 ###
+        
+        self.LN4mtrLam = TextField(           # GENERAL
+            label="Material para Laminar",
+            border= InputBorder.OUTLINE,
+            border_color="Black",
+            value="N/A",
+            error_text = "",
+            label_style=TextStyle(color="Black",italic=True),
+        )
 
         self.LN4clbPel_Tol = PopupMenuButton(
             Text("Calibre de Pelicula y Tolerancia"),
@@ -640,11 +675,11 @@ class Inpts_Lam():
                     content= Column(width=200,controls=[
                         Text("Calibre"),
                         TextField(
-                            label="N/A",
+                            label="Calibre",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -654,10 +689,10 @@ class Inpts_Lam():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -716,15 +751,15 @@ class Inpts_Lam():
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
-        self.LN4orntBobTam = Dropdown(
-            label="Orientación de Bobina en Tarima",
-            hint_text="Orientación",
+        self.LN4tipLam = Dropdown(
+            label="Tipo de Laminación",
+            hint_text="Laminación",
             value="N/A",
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
-                dropdown.Option("HORIZONTAL"),
-                dropdown.Option("VERTICAL"),
+                dropdown.Option("INTERNA"),
+                dropdown.Option("EXTERNA"),
             ],
             autofocus=True,
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
@@ -774,6 +809,7 @@ class Inpts_Lam():
             self.orntBobRck,
             self.tipEmpqBob,
             self.etiquetado,
+            self.psrPrdct,
             self.psNtPromBob,
 
             self.medMngTransf,
@@ -783,8 +819,41 @@ class Inpts_Lam():
 
             [   # --- MATERIAL IMPRESO --- #
                 self.mtlImpr,
-                self.clPlc_Tol,
                 self.tipTratado,
+                self.clPlc_Tol,
+                self.anchBob_Tol,
+            ],
+
+            [   # --- LAMINAR 1 --- #
+                self.LN1mtrLam,
+                self.LN1tipTratado,
+                self.LN1tipLam,
+                self.LN1clbPel_Tol,
+                self.LN1anchBob_Tol,
+            ],
+
+            [   # --- LAMINAR 2 --- #
+                self.LN2mtrLam,
+                self.LN2tipTratado,
+                self.LN2tipLam,
+                self.LN2clbPel_Tol,
+                self.LN2anchBob_Tol,
+            ],
+
+            [   # --- LAMINAR 3 --- #
+                self.LN3mtrLam,
+                self.LN3tipTratado,
+                self.LN3tipLam,
+                self.LN3clbPel_Tol,
+                self.LN3anchBob_Tol,
+            ],
+
+            [   # --- LAMINAR 4 --- #
+                self.LN4mtrLam,
+                self.LN4tipTratado,
+                self.LN4tipLam,
+                self.LN4clbPel_Tol,
+                self.LN4anchBob_Tol,
             ]
 
         ]

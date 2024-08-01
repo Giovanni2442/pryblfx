@@ -146,28 +146,28 @@ class verificaciones():
                             for m in f.items:
                                 txtFld = m.content.controls[1]
                                 #print("--- **** ", txtFld.label)
-                                self.tpl2.append(txtFld.label)
+                                self.tpl2.append(txtFld.value)
                         else:
                             #print(f" --xx {f.label}")
-                            self.tpl2.append(f.label)
+                            self.tpl2.append(f.value)
                         #print("-->" ,f) 
                     continue
                 if isinstance(j, PopupMenuButton):
                     for k in j.items:
                         txtFld = k.content.controls[1]
                         #print("--- **** ", txtFld.label)
-                        self.tpl2.append(txtFld.label)
+                        self.tpl2.append(txtFld.value)
                 else:
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
-                    self.tpl2.append(j.label)
+                    self.tpl2.append(j.value)
             
         #-- INSERCIÓN --#
-        je = self.tpl2[73:] # Laminación
+        je = self.tpl2[108:] # Laminación
         #print(je)
         #print(self.tpl2)
-        print(self.tpl2)
-
-                # --- INSERCIÓN POR REBANADAS ---   
+        print(je)
+        
+        #'''        # --- INSERCIÓN POR REBANADAS ---   
             # --- FICHA --- 
         self.dataTbl.post_data(*self.tpl2[:5])
             # --- VENTAS ---
@@ -192,8 +192,33 @@ class verificaciones():
         self.dtaImpr.postNum_BobCama_CamaTarima(self.tpl2[0],*self.tpl2[69:71])  
         self.dtaImpr.postPeso_prom_tarimaImpr(self.tpl2[0],*self.tpl2[71:73]) 
             # --- LAMINADO ---
-        #self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:78])
-        #self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[78:80])
+        self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:80])
+        self.dtaLam.postMedidManga(self.tpl2[0],*self.tpl2[80:82])
+        self.dtaLam.postAnchoCore_TolrLam(self.tpl2[0],*self.tpl2[82:84])
+        self.dtaLam.postDiametro_GrosCore(self.tpl2[0],*self.tpl2[84:86])
+        self.dtaLam.postDiametro_Bob_Tolr(self.tpl2[0],*self.tpl2[86:88])
+
+                        # - Material Impreso -
+        self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[88:90]) 
+        self.dtaLam.postCalibrePelic_Tolr(self.tpl2[0],*self.tpl2[90:92]) 
+        self.dtaLam.postAnchoBob_TolrMtrlr(self.tpl2[0],*self.tpl2[92:94])  
+                        # - Lam #1 -
+        self.dtaLam.postMaterial_Laminar_1(self.tpl2[0],*self.tpl2[94:97])  
+        self.dtaLam.postCalibrePelic_TolrLam1(self.tpl2[0],*self.tpl2[97:99])  
+        self.dtaLam.postAnchoBob_TolrLam1(self.tpl2[0],*self.tpl2[99:101])
+                        # - Lam #2 -
+        self.dtaLam.postMaterial_Laminar_2(self.tpl2[0],*self.tpl2[101:104])  
+        self.dtaLam.postCalibrePelic_TolrLam2(self.tpl2[0],*self.tpl2[104:106])  
+        self.dtaLam.postAnchoBob_TolrLam2(self.tpl2[0],*self.tpl2[106:108])  
+                         # - Lam #3 -
+        self.dtaLam.postMaterial_Laminar_3(self.tpl2[0],*self.tpl2[108:111])  
+        self.dtaLam.postCalibrePelic_TolrLam3(self.tpl2[0],*self.tpl2[111:113])  
+        self.dtaLam.postAnchoBob_TolrLam3(self.tpl2[0],*self.tpl2[113:115])  #'''
+                         # - Lam #4 -
+        self.dtaLam.postMaterial_Laminar_4(self.tpl2[0],*self.tpl2[115:118])  
+        self.dtaLam.postCalibrePelic_TolrLam4(self.tpl2[0],*self.tpl2[118:120])  
+        self.dtaLam.postAnchoBob_TolrLam4(self.tpl2[0],*self.tpl2[120:122])  #'''
+
 
         self.tpl2 = []
 

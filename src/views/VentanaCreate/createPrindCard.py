@@ -755,7 +755,7 @@ class createPrind(UserControl):
                                                 content= self.InptsLam.anchBob_Tol,
                                             ),
 
-                                            Text("Material Impreso"),
+                                            Text("Tipo de tratado"),
                                             self.InptsLam.tipTratado,
 
                                             #DropBox de Inputs
@@ -911,6 +911,10 @@ class createPrind(UserControl):
                                     alignment=alignment.center,
                                     content=Column(
                                         controls=[
+
+                                            Text("Material para Laminar"),
+                                            self.InptsLam.LN1mtrLam,
+
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
@@ -934,8 +938,8 @@ class createPrind(UserControl):
                                             Text("Tipo de Tratado"),
                                             self.InptsLam.LN1tipTratado,
 
-                                            Text("Orientación de Bobina en Tarima"),
-                                            self.InptsLam.LN1orntBobTam,
+                                            Text("Tipo de Laminación"),
+                                            self.InptsLam.LN1tipLam,
                                         ]
                                     ),
                                 )    
@@ -957,6 +961,10 @@ class createPrind(UserControl):
                                     alignment=alignment.center,
                                     content=Column(
                                         controls=[
+
+                                            Text("Material para Laminar"),
+                                            self.InptsLam.LN2mtrLam,
+
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
@@ -980,8 +988,8 @@ class createPrind(UserControl):
                                             Text("Tipo de Tratado"),
                                             self.InptsLam.LN2tipTratado,
 
-                                            Text("Orientación de Bobina en Tarima"),
-                                            self.InptsLam.LN2orntBobTam,
+                                            Text("Tipo de Laminación"),
+                                            self.InptsLam.LN2tipLam,
                                         ]
                                     ),
                                 )    
@@ -1003,6 +1011,10 @@ class createPrind(UserControl):
                                     alignment=alignment.center,
                                     content=Column(
                                         controls=[
+
+                                            Text("Material para Laminar"),
+                                            self.InptsLam.LN3mtrLam,
+
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
@@ -1026,8 +1038,8 @@ class createPrind(UserControl):
                                             Text("Tipo de Tratado"),
                                             self.InptsLam.LN3tipTratado,
 
-                                            Text("Orientación de Bobina en Tarima"),
-                                            self.InptsLam.LN3orntBobTam,
+                                            Text("Tipo de Laminación"),
+                                            self.InptsLam.LN3tipLam,
                                         ]
                                     ),
                                 )    
@@ -1049,6 +1061,10 @@ class createPrind(UserControl):
                                     alignment=alignment.center,
                                     content=Column(
                                         controls=[
+
+                                            Text("Material para Laminar"),
+                                            self.InptsLam.LN4mtrLam,
+
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
@@ -1072,8 +1088,8 @@ class createPrind(UserControl):
                                             Text("Tipo de Tratado"),
                                             self.InptsLam.LN4tipTratado,
 
-                                            Text("Orientación de Bobina en Tarima"),
-                                            self.InptsLam.LN4orntBobTam,
+                                            Text("Tipo de Laminación"),
+                                            self.InptsLam.LN4tipLam,
                                         ]
                                     ),
                                 )    

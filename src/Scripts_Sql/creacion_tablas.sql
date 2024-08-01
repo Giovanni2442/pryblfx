@@ -82,11 +82,10 @@ INSERT INTO vldClr(idCodPrdc,color,tolDelts) VALUES ('E-2121','EW','EW');
 
 INSERT INTO Peso_prom_tarimaImpr(idCodPrdc,pesoNto,tolerancia) VALUES ('E-2335',0,0);
 
-INSERT INTO LAMINADO(idCodPrdc, estructProduct, tipoTratado, maxEmpalmesBob, orientBobRack, tipoEmpaqBob, etiquetado, pesarProduct) 
+INSERT INTO LAMINADO(idCodPrdc, estructProduct, maxEmpalmesBob, orientBobRack, tipoEmpaqBob, etiquetado, pesarProduct) 
 VALUES (
-    'E-2335',          -- idCodPrdc: Debe existir en la tabla FichaTec
+    'qwqw',          -- idCodPrdc: Debe existir en la tabla FichaTec
     'Estructura A',  -- estructProduct: Valor no nulo
-    'Tratado X',     -- tipoTratado: Valor no nulo
     '5',             -- maxEmpalmesBob: Valor no nulo
     'Vertical',      -- orientBobRack: Valor no nulo
     'Empaque A',     -- tipoEmpaqBob: Valor no nulo
@@ -372,12 +371,18 @@ CREATE TABLE FichaTec(
         psoNtoBob  VARCHAR(50) NOT NULL,
 		FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
 	);
+    
+		drop table Material_Impreso;
 		 /*Material Impreso*/
+         SELECT * FROM Material_Impreso;
+         
         CREATE TABLE Material_Impreso(
             idCodPrdc VARCHAR(255),
+            mtrlImprs VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
+			 SELECT * FROM CalibrePelic_Tolr;
 			/*Calibre de pelicula y Tolerancia*/
 			CREATE TABLE CalibrePelic_Tolr(
 				idCodPrdc VARCHAR(255),
@@ -385,7 +390,8 @@ CREATE TABLE FichaTec(
                 tolerancia float NOT NULL,
 				FOREIGN KEY (idCodPrdc) REFERENCES Material_Impreso(idCodPrdc) ON DELETE CASCADE
 			);
-        
+			
+			SELECT * FROM AnchoBob_TolrMtrl;
 			/*Ancho de Bobina y Tolerancia*/
 			CREATE TABLE AnchoBob_TolrMtrl(
 				idCodPrdc VARCHAR(255),
@@ -394,15 +400,14 @@ CREATE TABLE FichaTec(
 				FOREIGN KEY (idCodPrdc) REFERENCES Material_Impreso(idCodPrdc) ON DELETE CASCADE
 			);
             
-		 /*Laminación 1*/
-        
         /*Laminación 1*/
+        SELECT * FROM Material_Laminar_1;
         CREATE TABLE Material_Laminar_1(
 			idCodPrdc VARCHAR(255),
             Material VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
-		    FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
         
 			/*Ancho de Bobina y Tolerancia Laminación 1*/
@@ -413,6 +418,7 @@ CREATE TABLE FichaTec(
 				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_1(idCodPrdc) ON DELETE CASCADE
 			);
             
+            SELECT * FROM AnchoBob_TolrLam1;
             /*Ancho de Bobina y Tolerancia Laminación 1*/
 			CREATE TABLE AnchoBob_TolrLam1(
 				idCodPrdc VARCHAR(255),
@@ -421,91 +427,89 @@ CREATE TABLE FichaTec(
 				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_1(idCodPrdc) ON DELETE CASCADE
 			);
            
+		SELECT * FROM Material_Laminar_2;
 		/*Laminación 2*/
 		 CREATE TABLE Material_Laminar_2(
-			id INT PRIMARY KEY auto_increment,
-            idLam INT,
-            Material  VARCHAR(50) NOT NULL,
+			idCodPrdc VARCHAR(255),
+            Material VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
-			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
         
+			SELECT * FROM CalibrePelic_TolrLam2;
 			/*Ancho de Bobina y Tolerancia Laminación 2*/
 			CREATE TABLE CalibrePelic_TolrLam2(
-				id INT PRIMARY KEY auto_increment,
-				idMtrLam1 INT,  /*foreign key*/
+				idCodPrdc VARCHAR(255),
 				calibre float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrLam1) REFERENCES Material_Laminar_2(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_2(idCodPrdc) ON DELETE CASCADE
 			);
             
+            SELECT * FROM AnchoBob_TolrLam2;
              /*Ancho de Bobina y Tolerancia Laminación 1*/
 			CREATE TABLE AnchoBob_TolrLam2(
-				id INT PRIMARY KEY auto_increment,
-				idMtrLam1 INT,  /*foreign key*/
+				idCodPrdc VARCHAR(255),
 				anchoBob float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrLam1) REFERENCES Material_Laminar_2(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_2(idCodPrdc) ON DELETE CASCADE
 			);
             
+		SELECT * FROM Material_Laminar_3;
 		/*Laminación 3*/
 		 CREATE TABLE Material_Laminar_3(
-			id INT PRIMARY KEY auto_increment,
-            idLam INT,
-            Material  VARCHAR(50) NOT NULL,
+			idCodPrdc VARCHAR(255),
+            Material VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
-			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
         
 			/*Ancho de Bobina y Tolerancia Laminación 2*/
 			CREATE TABLE CalibrePelic_TolrLam3(
-				id INT PRIMARY KEY auto_increment,
-				idMtrLam1 INT,  /*foreign key*/
+				idCodPrdc VARCHAR(255),
 				calibre float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrLam1) REFERENCES Material_Laminar_3(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_3(idCodPrdc) ON DELETE CASCADE
 			);
             
+            SELECT * FROM AnchoBob_TolrLam3;
              /*Ancho de Bobina y Tolerancia Laminación 1*/
 			CREATE TABLE AnchoBob_TolrLam3(
-				id INT PRIMARY KEY auto_increment,
-				idMtrLam1 INT,  /*foreign key*/
+				idCodPrdc VARCHAR(255),
 				anchoBob float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrLam1) REFERENCES Material_Laminar_3(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_3(idCodPrdc) ON DELETE CASCADE
 			);
             
 		/*Laminación 4*/
 		 CREATE TABLE Material_Laminar_4(
-			id INT PRIMARY KEY auto_increment,
-            idLam INT,
-            Material  VARCHAR(50) NOT NULL,
+			idCodPrdc VARCHAR(255),
+            Material VARCHAR(50) NOT NULL,
             tipoTratado VARCHAR(50) NOT NULL,
             tipoLamin VARCHAR(50) NOT NULL,
-			FOREIGN KEY (idLam) REFERENCES LAMINADO(id) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
         
 			/*Ancho de Bobina y Tolerancia Laminación 2*/
 			CREATE TABLE CalibrePelic_TolrLam4(
-				id INT PRIMARY KEY auto_increment,
-				idMtrLam1 INT,  /*foreign key*/
+				idCodPrdc VARCHAR(255),
 				calibre float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrLam1) REFERENCES Material_Laminar_4(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_4(idCodPrdc) ON DELETE CASCADE
 			);
             
              /*Ancho de Bobina y Tolerancia Laminación 1*/
 			CREATE TABLE AnchoBob_TolrLam4(
-				id INT PRIMARY KEY auto_increment,
-				idMtrLam1 INT,  /*foreign key*/
+				idCodPrdc VARCHAR(255),
 				anchoBob float NOT NULL,
                 tolerancia float NOT NULL,
-				FOREIGN KEY (idMtrLam1) REFERENCES Material_Laminar_4(id) ON DELETE CASCADE
+				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_4(idCodPrdc) ON DELETE CASCADE
 			);
             
+	
 		/*Medida de la manga para la Transferencia*/
+        SELECT * FROM MedidManga;
 		CREATE TABLE MedidManga(
             idCodPrdc VARCHAR(255),
             medidaManga float NOT NULL,
@@ -528,7 +532,8 @@ CREATE TABLE FichaTec(
             grosorCore float NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
-
+	
+		SELECT * FROM Diametro_Bob_Tolr;
         /*Diametro de bobina y Tolerancia*/
         CREATE TABLE Diametro_Bob_Tolr(
             idCodPrdc VARCHAR(255),
