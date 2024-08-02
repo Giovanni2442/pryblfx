@@ -14,8 +14,8 @@ from src.views.VentanaCreate.InptsForm.Inpts_ImprDig import Inpst_ImprDig
 from src.views.VentanaCreate.InptsForm.Inpts_Lam import Inpts_Lam
 from src.views.VentanaCreate.InptsForm.Inpts_Refil import Inpts_Refil
 from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
-from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
 from src.views.VentanaCreate.Verificaciones import verificaciones
+from src.Controllers.appInserts import appInserts
 
 class createPrind(UserControl):
     def __init__(self,page):
@@ -32,6 +32,8 @@ class createPrind(UserControl):
         self.InptsConvrs = Inpts_Convrs(page)
 
         self.vrf = verificaciones(page)
+
+        self.appInsert = appInserts(page)
         # Crear pdf prindcard
         #self.crtPdf = CreatePdf()
 
@@ -1286,8 +1288,8 @@ class createPrind(UserControl):
                                             Text("La tarima llevara Emplaye"),
                                             self.InptsRefl.tamEmplaye,
 
-                                            Text("La Tarima sera Refilada"),
-                                            self.InptsRefl.tamEmplaye, 
+                                            Text("La Tarima sera Flejada"),
+                                            self.InptsRefl.tamflejada, 
 
                                         ]
                                     ),
@@ -1352,7 +1354,7 @@ class createPrind(UserControl):
                                             self.InptsConvrs.tipSello,
 
                                             Text("Tipo de Acabado"),
-                                            self.InptsConvrs.tipSello,
+                                            self.InptsConvrs.tipAcbd,
 
                                             Text("El producto llevara Perforaciónes"),
                                             self.InptsConvrs.prdctPerf,
@@ -1463,7 +1465,7 @@ class createPrind(UserControl):
                                             self.InptsConvrs.tamEmply,
 
                                             Text("La tarima sera Refilada"),
-                                            self.InptsConvrs.tamRef
+                                            self.InptsConvrs.tamFlej
                                         ]
                                     ),
                                     
@@ -1521,6 +1523,7 @@ class createPrind(UserControl):
         return cont
      
         #self.id_product.update(
+    
     # Modulo para navergar en el SubMenu de Laminado
     def navLam(self,e):
         id = e.control.text
@@ -1559,12 +1562,15 @@ class createPrind(UserControl):
     def upd(self,e):
         #pr2
         #tplInpts
+        #self.vrf.pru,
         self.vrf.pru(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),
             self.InptsExtrc.tplInptsExtr(),
             self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
             self.InptsLam.tplInptsLam(),
+            #self.InptsRefl.tplInptsRef(),
+            #self.InptsConvrs.tplInptsRef()
             )
         self.update()
   

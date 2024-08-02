@@ -4,11 +4,10 @@ from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
 from src.Controllers.appImpr import appImpr
 from src.Controllers.appLam import appLam
+#from src.Controllers.appRef import appRef
+#from src.Controllers.appConvrs import appConvrs
 
-#from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
-
-# Librerias de Prueba con los inputs 
-#from src.views.VentanaCreate.InptsForm.Inpts_FichaTecVentas import Inpts_FichaTec_Ventas
+from src.Controllers.appInserts import appInserts
 
 # Tareas :               
 # * Implementar las expreciones regulares adecuadas a cada Input * 
@@ -31,10 +30,15 @@ class verificaciones():
         self.dtaExtr = appExtr()
         self.dtaImpr = appImpr()
         self.dtaLam = appLam()
+        #self.dtaRef = appRef()
+        #self.dtaConvrs = appConvrs()
 
         self.tpl = []
         self.tpl2 = []
         self.bnd = 0
+
+        #Inserción de todas las tablas#
+        self.Insrt = appInserts(page)
     
     # Limpiar Labels
     def clean_fields(self,tpl):
@@ -162,12 +166,12 @@ class verificaciones():
                     self.tpl2.append(j.value)
             
         #-- INSERCIÓN --#
-        je = self.tpl2[108:] # Laminación
+        #je = self.tpl2[162:164] # Laminación
         #print(je)
-        #print(self.tpl2)
-        print(je)
+        print(self.tpl2)
+        #print(je)
         
-        #'''        # --- INSERCIÓN POR REBANADAS ---   
+                # --- INSERCIÓN POR REBANADAS ---   
             # --- FICHA --- 
         self.dataTbl.post_data(*self.tpl2[:5])
             # --- VENTAS ---
@@ -213,12 +217,24 @@ class verificaciones():
                          # - Lam #3 -
         self.dtaLam.postMaterial_Laminar_3(self.tpl2[0],*self.tpl2[108:111])  
         self.dtaLam.postCalibrePelic_TolrLam3(self.tpl2[0],*self.tpl2[111:113])  
-        self.dtaLam.postAnchoBob_TolrLam3(self.tpl2[0],*self.tpl2[113:115])  #'''
+        self.dtaLam.postAnchoBob_TolrLam3(self.tpl2[0],*self.tpl2[113:115])  
                          # - Lam #4 -
         self.dtaLam.postMaterial_Laminar_4(self.tpl2[0],*self.tpl2[115:118])  
         self.dtaLam.postCalibrePelic_TolrLam4(self.tpl2[0],*self.tpl2[118:120])  
-        self.dtaLam.postAnchoBob_TolrLam4(self.tpl2[0],*self.tpl2[120:122])  #'''
-
+        self.dtaLam.postAnchoBob_TolrLam4(self.tpl2[0],*self.tpl2[120:122])  
+            # --- REFILADO ---
+        '''self.dtaRef.postRefilado(self.tpl2[0],*self.tpl2[122:135])
+        self.dtaRef.postAnchoFinalBob_TolrRef(self.tpl2[0],*self.tpl2[135:137])
+        self.dtaRef.postMetrosBobRefil_Tolr(self.tpl2[0],*self.tpl2[137:139])
+        self.dtaRef.postDiamBobRefil_Tolr(self.tpl2[0],*self.tpl2[139:141])
+        self.dtaRef.postPesoNet_Prom_Bob(self.tpl2[0],*self.tpl2[141:143])
+        self.dtaRef.postNum_BobCama_CamTamRefil(self.tpl2[0],*self.tpl2[143:145])
+        self.dtaRef.postPeso_prom_tarimaRefil(self.tpl2[0],*self.tpl2[145:147])
+            # --- CONVERSION ---
+        self.dtaConvrs.postConversion(self.tpl2[0],*self.tpl2[147:162]) 
+        self.dtaConvrs.postMedidEmpq(self.tpl2[0],*self.tpl2[162:164]) 
+        self.dtaConvrs.postNumBlts_CajsCmas_CmasTarim(self.tpl2[0],*self.tpl2[164:166])
+        self.dtaConvrs.postNumBlts_CajsTarim(self.tpl2[0],*self.tpl2[166:168]) #'''
 
         self.tpl2 = []
 
@@ -282,7 +298,6 @@ class verificaciones():
         else : 
             return True
         
-        
     def pr3(self,*tpl):
         #b1 = self.vlVoid(tpl)
         #print(b1) <-- bromita de 1 hora XD
@@ -300,6 +315,8 @@ class verificaciones():
                 #values = [field.value for field in tpl[0]]
                 #self.dataTbl.post_data(*values)
                 
+                self.Insrt.pru(tpl)
+
                 ### VALORES DE LOS INPUTS ###
                 #self.crtPdf.Inser(tpl)
                 #############################

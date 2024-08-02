@@ -4,7 +4,9 @@ from src.app.filExcel.filtroExcel import filter
 
 class Inpts_Lam():
     def __init__(self,page):
-        super().__init__()
+
+        self.page = page
+        self.valida = verificaciones(page)
     
     ### INPUTS DE LAS TABLAS DE LAMINADO ###
 
@@ -16,6 +18,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)     
         )
 
         self.medMngTransf = PopupMenuButton(    # GENERAL
@@ -34,6 +37,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)     
                         )
                     ])
                 ),
@@ -47,6 +51,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -69,6 +74,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -82,6 +88,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -104,6 +111,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -117,6 +125,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -139,6 +148,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -152,6 +162,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -165,6 +176,7 @@ class Inpts_Lam():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
 
         self.orntBobRck = TextField(            # GENERAL
@@ -174,6 +186,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
         self.tipEmpqBob = TextField(            # GENERAL
@@ -183,6 +196,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
         self.etiquetado = Dropdown(             # GENERAL
@@ -222,6 +236,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
     ##########################################################
 
@@ -234,6 +249,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
         self.clPlc_Tol = PopupMenuButton(       # MatrImprs
@@ -252,6 +268,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -265,6 +282,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -287,6 +305,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -300,6 +319,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -334,6 +354,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)
         )
 
         self.LN1clbPel_Tol = PopupMenuButton(
@@ -352,6 +373,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -365,6 +387,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -387,6 +410,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -400,6 +424,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -445,6 +470,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)
         )
 
         self.LN2clbPel_Tol = PopupMenuButton(
@@ -463,6 +489,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -476,6 +503,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -498,6 +526,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -511,6 +540,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -554,6 +584,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)
         )
 
         self.LN3clbPel_Tol = PopupMenuButton(
@@ -572,6 +603,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -585,6 +617,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -607,6 +640,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -620,6 +654,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -664,6 +699,7 @@ class Inpts_Lam():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)
         )
 
         self.LN4clbPel_Tol = PopupMenuButton(
@@ -682,6 +718,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -695,6 +732,7 @@ class Inpts_Lam():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -714,7 +752,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -727,7 +765,7 @@ class Inpts_Lam():
                             label="N/A",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
