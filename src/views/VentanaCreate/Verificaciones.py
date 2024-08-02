@@ -4,6 +4,8 @@ from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
 from src.Controllers.appImpr import appImpr
 from src.Controllers.appLam import appLam
+from src.Controllers.appRef import appRef
+from src.Controllers.appConvrs import appConvrs
 
 #from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
@@ -31,6 +33,8 @@ class verificaciones():
         self.dtaExtr = appExtr()
         self.dtaImpr = appImpr()
         self.dtaLam = appLam()
+        self.dtaRef = appRef()
+        self.dtaConvrs = appConvrs()
 
         self.tpl = []
         self.tpl2 = []
@@ -162,12 +166,12 @@ class verificaciones():
                     self.tpl2.append(j.value)
             
         #-- INSERCIÓN --#
-        je = self.tpl2[73:78] # Laminación
+        je = self.tpl2[147:] # Laminación
         #print(je)
         #print(self.tpl2)
         print(je)
-        '''
-                # --- INSERCIÓN POR REBANADAS ---   
+        
+        '''        # --- INSERCIÓN POR REBANADAS ---   
             # --- FICHA --- 
         self.dataTbl.post_data(*self.tpl2[:5])
             # --- VENTAS ---
@@ -192,10 +196,45 @@ class verificaciones():
         self.dtaImpr.postNum_BobCama_CamaTarima(self.tpl2[0],*self.tpl2[69:71])  
         self.dtaImpr.postPeso_prom_tarimaImpr(self.tpl2[0],*self.tpl2[71:73]) 
             # --- LAMINADO ---
-        self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:78])
-        #self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[78:80])'''
+        self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:80])
+        self.dtaLam.postMedidManga(self.tpl2[0],*self.tpl2[80:82])
+        self.dtaLam.postAnchoCore_TolrLam(self.tpl2[0],*self.tpl2[82:84])
+        self.dtaLam.postDiametro_GrosCore(self.tpl2[0],*self.tpl2[84:86])
+        self.dtaLam.postDiametro_Bob_Tolr(self.tpl2[0],*self.tpl2[86:88])
+
+                        # - Material Impreso -
+        self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[88:90]) 
+        self.dtaLam.postCalibrePelic_Tolr(self.tpl2[0],*self.tpl2[90:92]) 
+        self.dtaLam.postAnchoBob_TolrMtrlr(self.tpl2[0],*self.tpl2[92:94])  
+                        # - Lam #1 -
+        self.dtaLam.postMaterial_Laminar_1(self.tpl2[0],*self.tpl2[94:97])  
+        self.dtaLam.postCalibrePelic_TolrLam1(self.tpl2[0],*self.tpl2[97:99])  
+        self.dtaLam.postAnchoBob_TolrLam1(self.tpl2[0],*self.tpl2[99:101])
+                        # - Lam #2 -
+        self.dtaLam.postMaterial_Laminar_2(self.tpl2[0],*self.tpl2[101:104])  
+        self.dtaLam.postCalibrePelic_TolrLam2(self.tpl2[0],*self.tpl2[104:106])  
+        self.dtaLam.postAnchoBob_TolrLam2(self.tpl2[0],*self.tpl2[106:108])  
+                         # - Lam #3 -
+        self.dtaLam.postMaterial_Laminar_3(self.tpl2[0],*self.tpl2[108:111])  
+        self.dtaLam.postCalibrePelic_TolrLam3(self.tpl2[0],*self.tpl2[111:113])  
+        self.dtaLam.postAnchoBob_TolrLam3(self.tpl2[0],*self.tpl2[113:115])  
+                         # - Lam #4 -
+        self.dtaLam.postMaterial_Laminar_4(self.tpl2[0],*self.tpl2[115:118])  
+        self.dtaLam.postCalibrePelic_TolrLam4(self.tpl2[0],*self.tpl2[118:120])  
+        self.dtaLam.postAnchoBob_TolrLam4(self.tpl2[0],*self.tpl2[120:122])  
+            # --- REFILADO ---
+        self.dtaRef.postRefilado(self.tpl2[0],*self.tpl2[122:135])
+        self.dtaRef.postAnchoFinalBob_TolrRef(self.tpl2[0],*self.tpl2[135:137])
+        self.dtaRef.postMetrosBobRefil_Tolr(self.tpl2[0],*self.tpl2[137:139])
+        self.dtaRef.postDiamBobRefil_Tolr(self.tpl2[0],*self.tpl2[139:141])
+        self.dtaRef.postPesoNet_Prom_Bob(self.tpl2[0],*self.tpl2[141:143])
+        self.dtaRef.postNum_BobCama_CamTamRefil(self.tpl2[0],*self.tpl2[143:145])
+        self.dtaRef.postPeso_prom_tarimaRefil(self.tpl2[0],*self.tpl2[145:147])
+            # --- CONVERSION ---
+        self.dtaConvrs.postConversion() #'''
         self.tpl2 = []
 
+        
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
        # tpl = self.tplInpts()
         vlVoid = []      # Recolecta campos vaciós

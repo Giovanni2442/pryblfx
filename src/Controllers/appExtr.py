@@ -79,7 +79,7 @@ class appExtr():
     
      # --- Peso_prom_tarima ---
     def postPeso_prom_tarima(self,*args):
-        query = '''INSERT INTO Peso_prom_tarima(idCodPrdc,peso_neto,tolerancia)
+        query = '''INSERT INTO Peso_prom_tarimaExtr(idCodPrdc,peso_neto,tolerancia)
             VALUES (%s,%s,%s);'''
         cursor = self.connect.cursor()
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))

@@ -19,10 +19,12 @@ class Inpts_Convrs():
                     content= Column(width=200,controls=[
                         Text("Ancho"),
                         TextField(
-                            label="N/A",
+                            label="Ancho",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
+                            value=0,
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
                     ])
@@ -31,9 +33,11 @@ class Inpts_Convrs():
                     content= Column([
                         Text("Alto"),
                         TextField(
-                            label="N/A",
+                            label="Alto",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
+                            value=0,
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
                     ])
@@ -45,6 +49,8 @@ class Inpts_Convrs():
                 label="Tipo de Empaque",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
+                value="N/A",
+                error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
         )
 
@@ -52,6 +58,8 @@ class Inpts_Convrs():
                 label="Tipo de Sello",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
+                value="N/A",
+                error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
         )
 
@@ -59,48 +67,60 @@ class Inpts_Convrs():
                 label="Tipo de Acabado",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
+                value="N/A",
+                error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
         )
 
         self.prdctPerf = Dropdown(
             label="El producto llevara Perforaciónes",
             hint_text="Perforaciónes",
+            value="N/A",
+            error_text = "",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("APLICA"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
         # Validar de tipo String ya que "13 de 8 mm"
         self.cntPerf = TextField(
                 label="Cantidad de Perforaciónes",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
+                value=0,
+                error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
         )
 
         self.prdctSuaje = Dropdown(
             label="El Producto lleva Suaje : ",
             hint_text="Suaje",
+            value="N/A",
+            error_text = "",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("APLICA"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.tipSuaje = TextField(
                 label="Tipo de Suaje",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
+                value="N/A",
+                error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
         )
 
         self.empcdPrdct = Dropdown(
             label="Empacado de Producto",
             hint_text="Empacado",
+            value="N/A",
+            error_text = "",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("KILEADO"),
@@ -108,19 +128,23 @@ class Inpts_Convrs():
                 dropdown.Option("GRANEL"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.cntPzsPacq = TextField(
                 label="Cantidad de Piezas por Paquete",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
+                value=0,
+                error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
         )
 
         self.tipEmblj = Dropdown(
             label="Tipo de Embalaje",
             hint_text="Embalaje",
+            value="N/A",
+            error_text = "",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("BOLSA"),
@@ -134,12 +158,16 @@ class Inpts_Convrs():
             label="Medida del Embalaje",
             border= InputBorder.OUTLINE,
             border_color="Black",
+            value="N/A",
+            error_text = "",
             label_style=TextStyle(color="Black",italic=True),
         )
 
         self.psrPrdct = Dropdown(
             label="Pesar Producto Por :",
             hint_text="Pesar",
+            value="N/A",
+            error_text = "",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("TARIMA"),
@@ -150,28 +178,20 @@ class Inpts_Convrs():
             on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
-        self.psProm = Dropdown(
-            label="Peso Neto Promedio De : ",
-            hint_text="Peso",
-            options=[
-                dropdown.Option("N/A"),
-                dropdown.Option("BULTO"),
-                dropdown.Option("CAJA"),
-                dropdown.Option(
-                    TextField(
-                        label="Cantidad de Piezas por Paquete",
-                        border= InputBorder.OUTLINE,
-                        border_color="Black",
-                        label_style=TextStyle(color="Black",italic=True),
-                    ))
-            ],
-            autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+        self.psProm = TextField(
+            label="Peso neto promedio de bobina",
+            border= InputBorder.OUTLINE,
+            border_color="Black",
+            value=0,
+            error_text = "",
+            label_style=TextStyle(color="Black",italic=True),
         )
 
         self.etiquetado = Dropdown(
             label="Etiquetado",
             hint_text="etiquetado",
+            value="N/A",
+            error_text = "",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("BULTO O CAJA INDIVIDUAL"),
@@ -191,10 +211,12 @@ class Inpts_Convrs():
                     content= Column(width=200,controls=[
                         Text("Num. Bultos / Cajas por Tarima"),
                         TextField(
-                            label="N/A",
+                            label="Bultos",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
+                            value=0,
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
                     ])
@@ -203,9 +225,11 @@ class Inpts_Convrs():
                     content= Column([
                         Text("Camas por Tarima"),
                         TextField(
-                            label="N/A",
+                            label="Camas",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
+                            value=0,
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
                     ])
@@ -222,10 +246,12 @@ class Inpts_Convrs():
                     content= Column(width=200,controls=[
                         Text("Bultos/Cajas"),
                         TextField(
-                            label="N/A",
+                            label="bultos/cajas",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
+                            value=0,
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
                     ])
@@ -234,9 +260,11 @@ class Inpts_Convrs():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
+                            value=0,
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
                     ])
@@ -253,10 +281,12 @@ class Inpts_Convrs():
                     content= Column(width=200,controls=[
                         Text("Peso"),
                         TextField(
-                            label="N/A",
+                            label="Peso",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
+                            value=0,
+                            error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
                     ])
@@ -265,9 +295,11 @@ class Inpts_Convrs():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
+                            value=0,
+                            error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
                     ])
@@ -278,21 +310,28 @@ class Inpts_Convrs():
         self.tamEmply = Dropdown(
             label="La tarima llevara Emplaye",
             hint_text="Emplaye",
+            value="N/A",
+            error_text = "",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("APLICA")
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.tamRef = Dropdown(
             label="La tarima sera Refilada",
             hint_text="Refilada",
+            value="N/A",
+            error_text = "",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("APLICA")
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
+
+    def tplInptsRef(self):
+        return []
