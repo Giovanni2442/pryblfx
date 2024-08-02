@@ -1566,7 +1566,8 @@ class createPrind(UserControl):
             self.InptsExtrc.tplInptsExtr(),
             self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
             self.InptsLam.tplInptsLam(),
-            self.InptsRefl.tplInptsRef()
+            self.InptsRefl.tplInptsRef(),
+            self.InptsConvrs.
             )
         self.update()
   
