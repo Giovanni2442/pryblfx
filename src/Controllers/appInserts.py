@@ -3,26 +3,31 @@ from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
 from src.Controllers.appImpr import appImpr
-#from src.Controllers.appLam import appLam
+from src.Controllers.appLam import appLam
+from src.Controllers.appRef import appRef
+from src.Controllers.appConvrs import appConvrs
 
 class appInserts():
     def __init__(self,page):
         super().__init__()
 
-         #self.page = page
+        #self.page = page
         self.filter = filter().vrfPrintCard
         self.b1 = True
         self.page = page
         self.dataTbl = appFichVent()
         self.dtaExtr = appExtr()
         self.dtaImpr = appImpr()
-        #self.dtaLam = appLam()
+        self.dtaLam = appLam()
+        self.dtaRef = appRef()
+        self.dtaConvrs = appConvrs()
 
         self.tpl = []
         self.tpl2 = []
         self.bnd = 0
 
-    def pru(self,*tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
+    # Ejecuta POST hacia todas las tablas de lo formularios
+    def qryPost(self,tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
         #vle = tpl[2][0].items[0].content.controls[1].value
         for indx,i in enumerate(tpl):       # Recorre las listas de Inputs
             for j in i:                     # Recorre los valores de cada lista
@@ -50,10 +55,10 @@ class appInserts():
         #-- INSERCIÓN --#
         #je = self.tpl2[162:164] # Laminación
         #print(je)
-        print(self.tpl2)
+        #print(self.tpl2)
         #print(je)
         
-                # --- INSERCIÓN POR REBANADAS ---   
+        #'''        # --- INSERCIÓN POR REBANADAS ---   
             # --- FICHA --- 
         self.dataTbl.post_data(*self.tpl2[:5])
             # --- VENTAS ---
@@ -77,7 +82,7 @@ class appInserts():
         self.dtaImpr.postPesoPromBob(self.tpl2[0],*self.tpl2[67:69])  
         self.dtaImpr.postNum_BobCama_CamaTarima(self.tpl2[0],*self.tpl2[69:71])  
         self.dtaImpr.postPeso_prom_tarimaImpr(self.tpl2[0],*self.tpl2[71:73]) 
-        '''    # --- LAMINADO ---
+            # --- LAMINADO ---
         self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:80])
         self.dtaLam.postMedidManga(self.tpl2[0],*self.tpl2[80:82])
         self.dtaLam.postAnchoCore_TolrLam(self.tpl2[0],*self.tpl2[82:84])
@@ -118,5 +123,5 @@ class appInserts():
         self.dtaConvrs.postNumBlts_CajsCmas_CmasTarim(self.tpl2[0],*self.tpl2[164:166])
         self.dtaConvrs.postNumBlts_CajsTarim(self.tpl2[0],*self.tpl2[166:168]) #'''
 
-        self.tpl2 = []
+        return self.tpl2
 
