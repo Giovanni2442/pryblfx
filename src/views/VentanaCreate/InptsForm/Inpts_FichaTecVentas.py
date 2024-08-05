@@ -5,8 +5,7 @@ from src.app.filExcel.filtroExcel import filter
 ### ENTRADAS DE TEXTO Y COMPONENTES PARA LA TABLA FichaTecnica y Ventas ###
 class Inpts_FichaTec_Ventas():  
     def __init__(self,page):
-        super().__init__()
-
+        
         self.page = page
         self.valida = verificaciones(page)
 

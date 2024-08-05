@@ -1,55 +1,52 @@
-from flet import *
 
 class ejemplo():
     def __init__(self):
-        super().__init__(expand=True)
+        pass
 
-        self.cnt1 = Container(
-            bgcolor="Red",
-            width=100,
-            height=100
-        )
+    def pr(self):
 
-    def build(self):
-        return self.cnt1
-
-def main(page: Page):
-    page.theme_mode = ThemeMode.DARK
-    page.add(ejemplo(page))
-
-app(main)
-
-'''def subMnuLam():
-    dic = {
-        "1" : "11",
-        "2" : "22"
-    }
-    print(dic["1"])
-
-def ciclo():
-    for i in range(4):
-        print(i)
-
-
-ciclo()
-#subMnuLam()
-
-# -- CALAR --
-self.psProm = Dropdown(
-            label="Peso Neto Promedio De : ",
-            hint_text="Peso",
-            options=[
-                dropdown.Option("N/A"),
-                dropdown.Option("BULTO"),
-                dropdown.Option("CAJA"),
-                dropdown.Option(
-                    TextField(
-                        label="Cantidad de Piezas por Paquete",
-                        border= InputBorder.OUTLINE,
-                        border_color="Black",
-                        label_style=TextStyle(color="Black",italic=True),
-                    ))
-            ],
-            autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
-        )'''
+        for indx,i in enumerate(tpl):       # Recorre las listas de Inputs
+            for j in i:                     # Recorre los valores de cada lista
+                if isinstance(j, list):     # Verifica si el valor de la lista hay listas, para colocar los valores en la lista padre
+                    for f in j:             # Recorre la sub lista desde el indice
+                        if isinstance( f, PopupMenuButton):
+                            for m in f.items:
+                                txtFld = m.content.controls[1]
+                                if txtFld.value != "":
+                                    if txtfld.error_text !="":
+                                        print(txtfld.label)
+                                        vlErr.append(txtfld.label)       # Captura los campos vacios
+                                    continue
+                                else:
+                                    txtfld.error_text = "Ingrese los valores"
+                                    print(txtfld.label)
+                                    vlVoid.append(txtfld.label)
+                                    m.content.update()
+                    continue
+                else:
+                    if isinstance(j, PopupMenuButton):
+                        for k in j.items:
+                            txtfld =  k.content.controls[1]
+                            if txtfld.value != "":
+                                if txtfld.error_text !="":
+                                    print(txtfld.label)
+                                    vlErr.append(txtfld.label)       # Captura los campos vacios
+                                continue
+                            else:
+                                txtfld.error_text = "Ingrese los valores"
+                                print(txtfld.label)
+                                vlVoid.append(txtfld.label)
+                                k.content.update()
+        
+                            #print(k.content.controls[1].value)
+                    else:
+                        if j.value != "":
+                            #if j.border_color != "red":
+                            if j.error_text != "":
+                                vlErr.append(j.label)       # Captura los campos vacios
+                            continue
+                        else:
+                            j.error_text = "Ingrese los valores"
+                            vlVoid.append(j.label)
+                            j.update()
+    

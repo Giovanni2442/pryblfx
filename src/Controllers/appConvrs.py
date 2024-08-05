@@ -12,3 +12,27 @@ class appConvrs():
         cursor.execute(query,args)
         self.connect.commit()
         return "Insert Ok!"
+    
+    def postMedidEmpq(self,*args):
+        query='''INSERT INTO MedidEmpq(idCodPrdc, ancho, alto)
+            VALUES (%s,%s,%s)'''
+        cursor = self.connect.cursor()
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
+    
+    def postNumBlts_CajsCmas_CmasTarim(self,*args):
+        query='''INSERT INTO NumBlts_CajsCmas_CmasTarim(idCodPrdc,cajasCama,camasTarima)
+            VALUES (%s,%s,%s)'''
+        cursor = self.connect.cursor()
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
+    
+    def postNumBlts_CajsTarim(self,*args):
+        query='''INSERT INTO NumBlts_CajsTarim(idCodPrdc,peso,tolerancia)
+            VALUES (%s,%s,%s)'''
+        cursor = self.connect.cursor()
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"

@@ -1,16 +1,8 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
+from src.Controllers.appInserts import appInserts
 from src.Controllers.appFichVent import appFichVent
-from src.Controllers.appExtr import appExtr
-from src.Controllers.appImpr import appImpr
-from src.Controllers.appLam import appLam
-from src.Controllers.appRef import appRef
-from src.Controllers.appConvrs import appConvrs
-
-#from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
-
-# Librerias de Prueba con los inputs 
-#from src.views.VentanaCreate.InptsForm.Inpts_FichaTecVentas import Inpts_FichaTec_Ventas
+from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 # Tareas :               
 # * Implementar las expreciones regulares adecuadas a cada Input * 
@@ -30,15 +22,14 @@ class verificaciones():
         self.b1 = True
         self.page = page
         self.dataTbl = appFichVent()
-        self.dtaExtr = appExtr()
-        self.dtaImpr = appImpr()
-        self.dtaLam = appLam()
-        self.dtaRef = appRef()
-        self.dtaConvrs = appConvrs()
+        self.crtPdf = CreatePdf()
 
         self.tpl = []
         self.tpl2 = []
         self.bnd = 0
+    
+        #Inserción de todas las tablas#
+        self.Insrt = appInserts(page)
     
     # Limpiar Labels
     def clean_fields(self,tpl):
@@ -117,7 +108,6 @@ class verificaciones():
         #print(tuple(self.tpl))
             
     def dic(self,inx,tpl,j):
-        
         # NOTA : El post solo acepta arreglos NO iteraci+ón
         funciones = {
             0: self.vlMnuPop,
@@ -130,18 +120,15 @@ class verificaciones():
             funcion(inx,tpl,j)
         else:
             print(f"No hay función definida para el índice {inx}")
-    
-    
-    def prImprs(slef,*tpl):
-        for indx,i in enumerate(tpl):
-            for j in i:
-                if isinstance(j, PopupMenuButton):
-                    for k in j.items:
-                        print(k.content.label)
-    
-    # --- MODULARIZAR ESTE METODO --- 
-    def pru(self,*tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
-        #vle = tpl[2][0].items[0].content.controls[1].value
+
+    # Valida cada una de las entradas del formulario
+    def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
+       # tpl = self.tplInpts()
+        vlVoid = []      # Recolecta campos vaciós
+        vlErr = []         
+        sr = None
+        
+        # -- MODULARIZAR --
         for indx,i in enumerate(tpl):       # Recorre las listas de Inputs
             for j in i:                     # Recorre los valores de cada lista
                 if isinstance(j, list):     # Verifica si el valor de la lista hay listas, para colocar los valores en la lista padre
@@ -149,127 +136,44 @@ class verificaciones():
                         if isinstance( f, PopupMenuButton):
                             for m in f.items:
                                 txtFld = m.content.controls[1]
-                                #print("--- **** ", txtFld.label)
-                                self.tpl2.append(txtFld.value)
-                        else:
-                            #print(f" --xx {f.label}")
-                            self.tpl2.append(f.value)
-                        #print("-->" ,f) 
+                                if txtFld.value != "":
+                                    if txtfld.error_text !="":
+                                        print(txtfld.label)
+                                        vlErr.append(txtfld.label)       # Captura los campos vacios
+                                    continue
+                                else:
+                                    txtfld.error_text = "Ingrese los valores"
+                                    print(txtfld.label)
+                                    vlVoid.append(txtfld.label)
+                                    m.content.update()
                     continue
-                if isinstance(j, PopupMenuButton):
-                    for k in j.items:
-                        txtFld = k.content.controls[1]
-                        #print("--- **** ", txtFld.label)
-                        self.tpl2.append(txtFld.value)
                 else:
-                    #print(f" --xx {inx}  : {j.label} : {j.value}")
-                    self.tpl2.append(j.value)
-            
-        #-- INSERCIÓN --#
-        je = self.tpl2[147:] # Laminación
-        #print(je)
-        #print(self.tpl2)
-        print(je)
-        
-        '''        # --- INSERCIÓN POR REBANADAS ---   
-            # --- FICHA --- 
-        self.dataTbl.post_data(*self.tpl2[:5])
-            # --- VENTAS ---
-        self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
-            # --- EXTRUCIÓN ---
-        self.dtaExtr.postExtr(self.tpl2[0],*self.tpl2[10:24])                  # TABLA PADRE EXTEUSIÓN
-        self.dtaExtr.postCalibrePel_Tolr(self.tpl2[0],*self.tpl2[24:26])       # Calibre_Tol
-        self.dtaExtr.postAnchoBob_Tolr(self.tpl2[0],*self.tpl2[26:28])         # Calibre_Tol
-        self.dtaExtr.postAnchoCore_Tolr(self.tpl2[0],*self.tpl2[28:30])        # Calibre_Tol
-        self.dtaExtr.postDiametroBob_Tolr(self.tpl2[0],*self.tpl2[30:32])      # Calibre_Tol
-        self.dtaExtr.postPeso_Prom_Bob(self.tpl2[0],*self.tpl2[32:34])         # Calibre_Tol
-        self.dtaExtr.postNum_BobCama_CamTam(self.tpl2[0],*self.tpl2[34:36])    # Calibre_Tol
-        self.dtaExtr.postPeso_prom_tarima(self.tpl2[0],*self.tpl2[36:38])      # Calibre_Tol
-             # --- IMPRESION ---
-        self.dtaImpr.postImprs(self.tpl2[0],*self.tpl2[38:57])                  # TABLA PADRE IMPRESION
-        self.dtaImpr.postVldClr(self.tpl2[0],*self.tpl2[57:59])  
-        self.dtaImpr.postCalMater_Tolr(self.tpl2[0],*self.tpl2[59:61])  
-        self.dtaImpr.postAnchoBobImpr_Tolr(self.tpl2[0],*self.tpl2[61:63])  
-        self.dtaImpr.postAnchoCore_TolrImpr(self.tpl2[0],*self.tpl2[63:65])  
-        self.dtaImpr.postAnchoDiamBob_Tolr(self.tpl2[0],*self.tpl2[65:67])  
-        self.dtaImpr.postPesoPromBob(self.tpl2[0],*self.tpl2[67:69])  
-        self.dtaImpr.postNum_BobCama_CamaTarima(self.tpl2[0],*self.tpl2[69:71])  
-        self.dtaImpr.postPeso_prom_tarimaImpr(self.tpl2[0],*self.tpl2[71:73]) 
-            # --- LAMINADO ---
-        self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:80])
-        self.dtaLam.postMedidManga(self.tpl2[0],*self.tpl2[80:82])
-        self.dtaLam.postAnchoCore_TolrLam(self.tpl2[0],*self.tpl2[82:84])
-        self.dtaLam.postDiametro_GrosCore(self.tpl2[0],*self.tpl2[84:86])
-        self.dtaLam.postDiametro_Bob_Tolr(self.tpl2[0],*self.tpl2[86:88])
-
-                        # - Material Impreso -
-        self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[88:90]) 
-        self.dtaLam.postCalibrePelic_Tolr(self.tpl2[0],*self.tpl2[90:92]) 
-        self.dtaLam.postAnchoBob_TolrMtrlr(self.tpl2[0],*self.tpl2[92:94])  
-                        # - Lam #1 -
-        self.dtaLam.postMaterial_Laminar_1(self.tpl2[0],*self.tpl2[94:97])  
-        self.dtaLam.postCalibrePelic_TolrLam1(self.tpl2[0],*self.tpl2[97:99])  
-        self.dtaLam.postAnchoBob_TolrLam1(self.tpl2[0],*self.tpl2[99:101])
-                        # - Lam #2 -
-        self.dtaLam.postMaterial_Laminar_2(self.tpl2[0],*self.tpl2[101:104])  
-        self.dtaLam.postCalibrePelic_TolrLam2(self.tpl2[0],*self.tpl2[104:106])  
-        self.dtaLam.postAnchoBob_TolrLam2(self.tpl2[0],*self.tpl2[106:108])  
-                         # - Lam #3 -
-        self.dtaLam.postMaterial_Laminar_3(self.tpl2[0],*self.tpl2[108:111])  
-        self.dtaLam.postCalibrePelic_TolrLam3(self.tpl2[0],*self.tpl2[111:113])  
-        self.dtaLam.postAnchoBob_TolrLam3(self.tpl2[0],*self.tpl2[113:115])  
-                         # - Lam #4 -
-        self.dtaLam.postMaterial_Laminar_4(self.tpl2[0],*self.tpl2[115:118])  
-        self.dtaLam.postCalibrePelic_TolrLam4(self.tpl2[0],*self.tpl2[118:120])  
-        self.dtaLam.postAnchoBob_TolrLam4(self.tpl2[0],*self.tpl2[120:122])  
-            # --- REFILADO ---
-        self.dtaRef.postRefilado(self.tpl2[0],*self.tpl2[122:135])
-        self.dtaRef.postAnchoFinalBob_TolrRef(self.tpl2[0],*self.tpl2[135:137])
-        self.dtaRef.postMetrosBobRefil_Tolr(self.tpl2[0],*self.tpl2[137:139])
-        self.dtaRef.postDiamBobRefil_Tolr(self.tpl2[0],*self.tpl2[139:141])
-        self.dtaRef.postPesoNet_Prom_Bob(self.tpl2[0],*self.tpl2[141:143])
-        self.dtaRef.postNum_BobCama_CamTamRefil(self.tpl2[0],*self.tpl2[143:145])
-        self.dtaRef.postPeso_prom_tarimaRefil(self.tpl2[0],*self.tpl2[145:147])
-            # --- CONVERSION ---
-        self.dtaConvrs.postConversion() #'''
-        self.tpl2 = []
-
-        
-    def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
-       # tpl = self.tplInpts()
-        vlVoid = []      # Recolecta campos vaciós
-        vlErr = []         
-        sr = None
-        
-        for i in tpl:
-            for j in i:
-                if isinstance(j, PopupMenuButton):
-                    for k in j.items:
-                        txtfld =  k.content.controls[1]
-                        if txtfld.value != "":
-                            if txtfld.error_text !="":
+                    if isinstance(j, PopupMenuButton):
+                        for k in j.items:
+                            txtfld =  k.content.controls[1]
+                            if txtfld.value != "":
+                                if txtfld.error_text !="":
+                                    print(txtfld.label)
+                                    vlErr.append(txtfld.label)       # Captura los campos vacios
+                                continue
+                            else:
+                                txtfld.error_text = "Ingrese los valores"
                                 print(txtfld.label)
-                                vlErr.append(txtfld.label)       # Captura los campos vacios
+                                vlVoid.append(txtfld.label)
+                                k.content.update()
+        
+                            #print(k.content.controls[1].value)
+                    else:
+                        if j.value != "":
+                            #if j.border_color != "red":
+                            if j.error_text != "":
+                                vlErr.append(j.label)       # Captura los campos vacios
                             continue
                         else:
-                            txtfld.error_text = "Ingrese los valores"
-                            print(txtfld.label)
-                            vlVoid.append(txtfld.label)
-                            k.content.update()
-    
-                        #print(k.content.controls[1].value)
-                else:
-                    if j.value != "":
-                        #if j.border_color != "red":
-                        if j.error_text != "":
-                            vlErr.append(j.label)       # Captura los campos vacios
-                        continue
-                    else:
-                        j.error_text = "Ingrese los valores"
-                        vlVoid.append(j.label)
-                        j.update()
-     # Recorre el conjunto de tuplas
-                
+                            j.error_text = "Ingrese los valores"
+                            vlVoid.append(j.label)
+                            j.update()
+      
         if len(vlVoid) > 0:
             #mdlVoidVl
             self.mdlVoidVl = AlertDialog(
@@ -294,32 +198,33 @@ class verificaciones():
         else : 
             return True
         
-        
-    def pr3(self,*tpl):
+    # Inserta los datos a la base de datos
+    def insrtFicha(self,*data):
         #b1 = self.vlVoid(tpl)
         #print(b1) <-- bromita de 1 hora XD
 
-        if self.vlVoid(tpl) != False:                   # Si ninguna validación se cumple
+        if self.vlVoid(data) != False:                   # Si ninguna validación se cumple
             contact_exists = False
             for row in self.dataTbl.get_row_Table():    # Recorre la tabla FichaTecnica ya que es la tabla padre       
-                if row[0] == tpl[0][0].value:           # La primera tabla FichaTecnica contiene el ID asi que de la tupa toma el [FichaTec][Id]
+                if row[0] == data[0][0].value:           # La primera tabla FichaTecnica contiene el ID asi que de la tupa toma el [FichaTec][Id]
                     contact_exists = True
                     break
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
-                #self.pru(tpl)
-                #values = [field.value for field in tpl[0]]
-                #self.dataTbl.post_data(*values)
-                
+                #value =  self.Insrt.qryPost(data)        # Insertar en bd
+                #print(value)
+                #self.crtPdf.jer(value) 
+                #value = []
+
                 ### VALORES DE LOS INPUTS ###
-                #self.crtPdf.Inser(tpl)
+                self.crtPdf.Inser(data)         # Crear el prindCard       
                 #############################
-                self.msgDlt = SnackBar(
+                self.msgDlt = SnackBar(         # Insert exitoso!
                     content=Column(
                         controls=[
                             Container(
-                                Text(f"PRODUCTO : {tpl[0][0].value} , INSERTADO CON EXITO!",size=20,color="white"),
+                                Text(f"PRODUCTO : {data[0][0].value} , INSERTADO CON EXITO!",size=20,color="white"),
                                 alignment=alignment.center
                             ),
                         ],
@@ -327,7 +232,8 @@ class verificaciones():
                     bgcolor="#5AE590",
                 )
                 self.open_dialog(self.msgDlt,self.page)
-                self.clean_fields(tpl)
+                lambda _: self.page.go('/cratePrindCard'),
+                #self.clean_fields(data)
             else:
                 self.mdlDplctPrdct = AlertDialog(
                     modal=True,

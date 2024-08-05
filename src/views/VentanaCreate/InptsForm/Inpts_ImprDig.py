@@ -4,7 +4,9 @@ from src.app.filExcel.filtroExcel import filter
 
 class Inpst_ImprDig():
     def __init__(self,page):
-        super().__init__()
+
+        self.page = page
+        self.valida = verificaciones(page)
 
     ### INPUTS DE LA TABLA IMPRECIÓN DIGITAL ###
 
@@ -16,6 +18,7 @@ class Inpst_ImprDig():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)      
         )
 
         self.dnjReq = TextField(
@@ -25,6 +28,8 @@ class Inpst_ImprDig():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)      
+
         )
 
         self.calMtrlImpr_Tol = PopupMenuButton(
@@ -43,6 +48,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)      
                         )
                     ])
                 ),
@@ -56,6 +62,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
                         )
                     ])
                 ),
@@ -78,6 +85,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)      
                         )
                     ])
                 ),
@@ -91,6 +99,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
                         )
                     ])
                 ),
@@ -104,6 +113,7 @@ class Inpst_ImprDig():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
         )
 
         self.anchCore_Tol = PopupMenuButton(
@@ -122,6 +132,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
                         )
                     ])
                 ),
@@ -135,6 +146,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
                         )
                     ])
                 ),
@@ -148,6 +160,7 @@ class Inpst_ImprDig():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
         )
     
         self.repEje = TextField(
@@ -157,6 +170,7 @@ class Inpst_ImprDig():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
         )
 
         self.repDesr = TextField(
@@ -166,6 +180,7 @@ class Inpst_ImprDig():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
         )
     ### SECCIÓN 2 num: 7 ###
 
@@ -177,6 +192,7 @@ class Inpst_ImprDig():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
         )
 
         self.tipImpr = Dropdown(
@@ -200,6 +216,7 @@ class Inpst_ImprDig():
             value="N/A",
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
         )
 
         self.tipBrnzImpr = Dropdown(
@@ -252,6 +269,7 @@ class Inpst_ImprDig():
                             value="N/A",
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
                         )
                     ])
                 ),
@@ -265,6 +283,7 @@ class Inpst_ImprDig():
                             value="N/A",
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
                         )
                     ])
                 ),
@@ -278,6 +297,7 @@ class Inpst_ImprDig():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
         )
 
         self.tipEmpqBob = Dropdown(
@@ -342,6 +362,8 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
+
                         )
                     ])
                 ),
@@ -355,6 +377,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
                         )
                     ])
                 ),
@@ -377,6 +400,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
                         )
                     ])
                 ),
@@ -390,6 +414,8 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
+
                         )
                     ])
                 ),
@@ -426,6 +452,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
                         )
                     ])
                 ),
@@ -439,6 +466,7 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
                         )
                     ])
                 ),
@@ -452,6 +480,7 @@ class Inpst_ImprDig():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
         )
 
         self.psNtPromTam = PopupMenuButton(
@@ -469,6 +498,8 @@ class Inpst_ImprDig():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
+
                         )
                     ])
                 ),

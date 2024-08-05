@@ -27,7 +27,7 @@ class crudPrintCard(UserControl):
         #self.inptTable = InptsTable(page)
         self.dataTbl = appFichVent()  #Accede a la información en la base de datos
         self.InsrtData = CntrlsCreatePrindCard()
-
+        
         self.createPrnt = createPrind(page)
         self.pr = pr(page)
         # --- INPUTS DE BUSQUEDA --- 
@@ -78,7 +78,7 @@ class crudPrintCard(UserControl):
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
             ),
-            #on_click= lambda _: self.page.go('/cratePrindCard'),
+            on_click= lambda _: self.page.go('/cratePrindCard'),
             #on_click= self.inptTable.jer
         )
 
@@ -99,9 +99,11 @@ class crudPrintCard(UserControl):
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
             ),
+                   
             on_click= lambda _: self.page.go('/cratePrindCard'),
-            #on_click= self.btnInsert
+            
         )
+
 
         # --- TABLA ---
             # --- Columnas de la tabla ---

@@ -1037,9 +1037,8 @@ CREATE TABLE FichaTec(
         );
         
 /*------------------------CONVERSION------------------------------*/
-	
+	  
 	CREATE TABLE CONVERSION(
-		id INT PRIMARY KEY auto_increment,
 		idCodPrdc VARCHAR(255),  #foreign key
 		tipo_Empaque VARCHAR(100) NOT NULL,
         tipoSello VARCHAR(50) NOT NULL,
@@ -1061,28 +1060,26 @@ CREATE TABLE FichaTec(
     
 		/*Medida del empaque Ancho/Alto*/
         CREATE TABLE MedidEmpq(
-			id INT PRIMARY KEY auto_increment,
-            idCnvrs INT,		#foreign key
+			idCodPrdc VARCHAR(255),
 			ancho float NOT NULL,
             alto float NOT NULL,
-			FOREIGN KEY (idCnvrs) REFERENCES CONVERSION(id) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES CONVERSION(idCodPrdc) ON DELETE CASCADE
         );
         
         /*Numero de bultos o cajas por camas y camas por tarima*/
         CREATE TABLE NumBlts_CajsCmas_CmasTarim(
-			id INT PRIMARY KEY auto_increment,
-            idCnvrs INT,		#foreign key
+			idCodPrdc VARCHAR(255),
 			cajasCama float NOT NULL,  
             camasTarima float NOT NULL,
-			FOREIGN KEY (idCnvrs) REFERENCES CONVERSION(id) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES CONVERSION(idCodPrdc) ON DELETE CASCADE
         );
-        
+      
+      select * from NumBlts_CajsTarim;
         /*Numero de bultos o cajas por camas y camas por tarima*/
         CREATE TABLE NumBlts_CajsTarim(
-			id INT PRIMARY KEY auto_increment,
-            idCnvrs INT,		#foreign key
+			idCodPrdc VARCHAR(255),
 			peso float NOT NULL,
             tolerancia float NOT NULL,
-			FOREIGN KEY (idCnvrs) REFERENCES CONVERSION(id) ON DELETE CASCADE
+			FOREIGN KEY (idCodPrdc) REFERENCES CONVERSION(idCodPrdc) ON DELETE CASCADE
         );
    

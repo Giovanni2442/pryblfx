@@ -4,7 +4,8 @@ from src.app.filExcel.filtroExcel import filter
 
 class Inpts_Refil():
     def __init__(self,page):
-        super().__init__()
+        self.page = page
+        self.valida = verificaciones(page)
 
     ### INPUTS DE LA TABLA REFILADO ###
 
@@ -40,6 +41,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -53,6 +55,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -89,6 +92,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -102,6 +106,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -115,6 +120,7 @@ class Inpts_Refil():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
     ### SECCIÓN 2 ###
@@ -169,6 +175,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -182,6 +189,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -204,6 +212,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -217,6 +226,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -230,6 +240,7 @@ class Inpts_Refil():
                 value=0,
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
 
     ### SECCIÓN 3 ###
@@ -242,6 +253,7 @@ class Inpts_Refil():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
         self.orntBobTam = Dropdown(
@@ -303,6 +315,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -316,6 +329,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -338,6 +352,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -351,6 +366,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -389,6 +405,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -402,6 +419,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -415,6 +433,7 @@ class Inpts_Refil():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
         self.psPromTam = PopupMenuButton(
@@ -433,6 +452,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -446,6 +466,7 @@ class Inpts_Refil():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),

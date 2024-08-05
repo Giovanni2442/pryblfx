@@ -1,6 +1,7 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.Verificaciones import verificaciones
+from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 #from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 #Notas : para el usuario se puede agregar cerrar su seción, ver su historial de modificaciónes etc..
@@ -14,8 +15,8 @@ from src.views.VentanaCreate.InptsForm.Inpts_ImprDig import Inpst_ImprDig
 from src.views.VentanaCreate.InptsForm.Inpts_Lam import Inpts_Lam
 from src.views.VentanaCreate.InptsForm.Inpts_Refil import Inpts_Refil
 from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
-from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
 from src.views.VentanaCreate.Verificaciones import verificaciones
+from src.Controllers.appInserts import appInserts
 
 class createPrind(UserControl):
     def __init__(self,page):
@@ -30,8 +31,12 @@ class createPrind(UserControl):
         self.InptsLam = Inpts_Lam(page)
         self.InptsRefl = Inpts_Refil(page)
         self.InptsConvrs = Inpts_Convrs(page)
+        #---Pruebas para el prindcard ---#
+        self.prntCrd = CreatePdf()
 
         self.vrf = verificaciones(page)
+
+        self.appInsert = appInserts(page)
         # Crear pdf prindcard
         #self.crtPdf = CreatePdf()
 
@@ -54,7 +59,7 @@ class createPrind(UserControl):
                         },
                     ),
                     #on_click= lambda e: self.Inpts.clean_fields(e), 
-                    on_click= self.upd
+                    on_click= self.eventInsert
         )
 
         # Pestañas
@@ -1352,7 +1357,7 @@ class createPrind(UserControl):
                                             self.InptsConvrs.tipSello,
 
                                             Text("Tipo de Acabado"),
-                                            self.InptsConvrs.tipSello,
+                                            self.InptsConvrs.tipAcbd,
 
                                             Text("El producto llevara Perforaciónes"),
                                             self.InptsConvrs.prdctPerf,
@@ -1463,7 +1468,7 @@ class createPrind(UserControl):
                                             self.InptsConvrs.tamEmply,
 
                                             Text("La tarima sera Refilada"),
-                                            self.InptsConvrs.tamRef
+                                            self.InptsConvrs.tamFlej
                                         ]
                                     ),
                                     
@@ -1506,21 +1511,7 @@ class createPrind(UserControl):
         )
 
 #################### PRUEBAS #######################
-    
-    def ji(self):
-        cont = []
-        for i in range(4):
-            Container( 
-                expand=True,                 # -- Seccion 1 --
-                bgcolor="#458585", 
-                alignment=alignment.center,
-                content=
-                Column([Text("LAMINACIÓN N.1")])
-            ),
-            cont.append(i)
-        return cont
-     
-        #self.id_product.update(
+ 
     # Modulo para navergar en el SubMenu de Laminado
     def navLam(self,e):
         id = e.control.text
@@ -1554,21 +1545,21 @@ class createPrind(UserControl):
 
         self.update()
 
-          # Limpiar Labels
-      
-    def upd(self,e):
-        #pr2
-        #tplInpts
-        self.vrf.pru,
-        self.vrf.pru(
+    # Evento al preciónar el boton crear Ficha
+    def eventInsert(self,e):
+        #self.prntCrd
+        #self.vrf.insrtFicha
+        #jer
+        self.prntCrd
+        self.prntCrd.jer(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),
             self.InptsExtrc.tplInptsExtr(),
             self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
             self.InptsLam.tplInptsLam(),
             self.InptsRefl.tplInptsRef(),
-            self.InptsConvrs.
-            )
+            self.InptsConvrs.tplInptsRef()
+        )
         self.update()
   
     def build(self):

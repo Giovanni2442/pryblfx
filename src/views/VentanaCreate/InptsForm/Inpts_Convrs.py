@@ -4,7 +4,9 @@ from src.app.filExcel.filtroExcel import filter
 
 class Inpts_Convrs():
     def __init__(self,page):
-        super().__init__()
+        
+        self.page = page
+        self.valida = verificaciones(page)
 
     ### INPUTS DE LA TABLA CONVERSIÓN ###
 
@@ -26,6 +28,7 @@ class Inpts_Convrs():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -39,6 +42,7 @@ class Inpts_Convrs():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -52,6 +56,7 @@ class Inpts_Convrs():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
 
         self.tipSello = TextField(
@@ -61,6 +66,7 @@ class Inpts_Convrs():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
 
         self.tipAcbd = TextField(
@@ -70,6 +76,7 @@ class Inpts_Convrs():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
         self.prdctPerf = Dropdown(
@@ -92,6 +99,7 @@ class Inpts_Convrs():
                 value=0,
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
 
         self.prdctSuaje = Dropdown(
@@ -114,6 +122,7 @@ class Inpts_Convrs():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
         self.empcdPrdct = Dropdown(
@@ -138,6 +147,7 @@ class Inpts_Convrs():
                 value=0,
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
 
         self.tipEmblj = Dropdown(
@@ -158,9 +168,10 @@ class Inpts_Convrs():
             label="Medida del Embalaje",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
 
         self.psrPrdct = Dropdown(
@@ -185,6 +196,7 @@ class Inpts_Convrs():
             value=0,
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
         )
 
         self.etiquetado = Dropdown(
@@ -218,6 +230,7 @@ class Inpts_Convrs():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -231,6 +244,7 @@ class Inpts_Convrs():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -253,6 +267,7 @@ class Inpts_Convrs():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -266,6 +281,7 @@ class Inpts_Convrs():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -288,6 +304,7 @@ class Inpts_Convrs():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -301,6 +318,7 @@ class Inpts_Convrs():
                             value=0,
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
+                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
                         )
                     ])
                 ),
@@ -320,9 +338,9 @@ class Inpts_Convrs():
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
-        self.tamRef = Dropdown(
-            label="La tarima sera Refilada",
-            hint_text="Refilada",
+        self.tamFlej = Dropdown(
+            label="La tarima sera Flejada",
+            hint_text="Fleje",
             value="N/A",
             error_text = "",
             options=[
@@ -334,4 +352,24 @@ class Inpts_Convrs():
         )
 
     def tplInptsRef(self):
-        return []
+        return [
+            self.tipEmpq,       # -  Tributos de la tabla padre - #
+            self.tipSello,
+            self.tipAcbd,
+            self.cntPerf,
+            self.prdctSuaje,
+            self.tipSuaje,
+            self.empcdPrdct,
+            self.cntPzsPacq,
+            self.tipEmblj,
+            self.mdEmblj,
+            self.psrPrdct,
+            self.psProm,
+            self.etiquetado,
+            self.tamEmply,
+            self.tamFlej,
+
+            self.medEmpq,
+            self.numBltsCjsCam_CmsTam,
+            self.numBlts_CjsTam,
+        ]
