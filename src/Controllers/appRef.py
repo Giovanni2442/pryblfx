@@ -66,3 +66,12 @@ class appRef():
         cursor.execute(query,args)
         self.connect.commit()
         return "Insert Ok!"
+    
+    def postAnchCre_Tol(self,*args):
+        query='''INSERT INTO anchCre_TolRefil(idCodPrdc,core,tolerancia)
+            VALUES (%s,%s,%s)'''
+        cursor = self.connect.cursor()
+        #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"

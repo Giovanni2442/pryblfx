@@ -1554,14 +1554,14 @@ class createPrind(UserControl):
         self.vrf.insrtFicha(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),
-            #self.InptsExtrc.tplInptsExtr(),
-            #self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
-            #self.InptsLam.tplInptsLam(),
-            #self.InptsRefl.tplInptsRef(),
-            #self.InptsConvrs.tplInptsRef()
+            self.InptsExtrc.tplInptsExtr(),
+            self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
+            self.InptsLam.tplInptsLam(),
+            self.InptsRefl.tplInptsRef(),
+            self.InptsConvrs.tplInptsRef()
         )
         self.update()
-  
+
     def build(self):
         return self.frameMain
 

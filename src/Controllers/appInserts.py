@@ -117,11 +117,13 @@ class appInserts():
         self.dtaRef.postPesoNet_Prom_Bob(self.tpl2[0],*self.tpl2[141:143])
         self.dtaRef.postNum_BobCama_CamTamRefil(self.tpl2[0],*self.tpl2[143:145])
         self.dtaRef.postPeso_prom_tarimaRefil(self.tpl2[0],*self.tpl2[145:147])
+        self.dtaRef.postAnchCre_Tol(self.tpl2[0],*self.tpl2[147:149])       # -- AREGLAR ESTE PEDO, QUE FALTA XD
+
             # --- CONVERSION ---
-        self.dtaConvrs.postConversion(self.tpl2[0],*self.tpl2[147:162]) 
-        self.dtaConvrs.postMedidEmpq(self.tpl2[0],*self.tpl2[162:164]) 
-        self.dtaConvrs.postNumBlts_CajsCmas_CmasTarim(self.tpl2[0],*self.tpl2[164:166])
-        self.dtaConvrs.postNumBlts_CajsTarim(self.tpl2[0],*self.tpl2[166:168]) #'''
+        self.dtaConvrs.postConversion(self.tpl2[0],*self.tpl2[149:164]) 
+        self.dtaConvrs.postMedidEmpq(self.tpl2[0],*self.tpl2[164:166]) 
+        self.dtaConvrs.postNumBlts_CajsCmas_CmasTarim(self.tpl2[0],*self.tpl2[166:168])
+        self.dtaConvrs.postNumBlts_CajsTarim(self.tpl2[0],*self.tpl2[168:170]) #'''
 
         return self.tpl2
 

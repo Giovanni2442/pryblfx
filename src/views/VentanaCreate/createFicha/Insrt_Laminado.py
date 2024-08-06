@@ -4,39 +4,25 @@ class Insrt_Laminado():
         self.clr = (0, 0, 0)
         self.fnt = "Helvetica-Bold"
 
-    def pdfLam(self,page):
+    def pru(self,tpl):
+        print(tpl[4][12][0])
+
+    def pdfLam(self,page,tpl):
 
         # ESTRUCTURA DEL PRODUCTO
         page.insert_text(   
             (555, 177),
-            text= "ESTRUCTURA",
+            text= tpl[4][0].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
         )
+
 
         # --- MATERIAL IMPRESO ---
         page.insert_text(   
             (685, 192),
-            text= "MATERIAL",
-            color=self.clr,
-            fontsize=self.vl,
-            fontname=self.fnt
-        )
-
-        # CALIBRE DE PELÍCULA Y TOLERANCIA
-        page.insert_text(   
-            (685, 206),
-            text= "CALIBRE",
-            color=self.clr,
-            fontsize=self.vl,
-            fontname=self.fnt
-        )
-
-        # ANCHO DE BOBINA Y TOLERANCIA
-        page.insert_text(   
-            (685, 220),
-            text= "ANCHO",
+            text= tpl[4][11][0].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -45,25 +31,16 @@ class Insrt_Laminado():
         # TIPO DE TRATADO: 
         page.insert_text(   
             (685, 234),
-            text= "TRATADO",
+            text= tpl[4][11][1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
         )
 
-        # --- MATERIAL PARA LAMINAR Nº1 ---
+        # CALIBRE DE PELÍCULA Y TOLERANCIA
         page.insert_text(   
-            (685, 248),
-            text= "LAMINAR Nº1",
-            color=self.clr,
-            fontsize=self.vl,
-            fontname=self.fnt
-        )
-
-        # CALIBRE DE LA PELÍCULA Y TOLERANCIA
-        page.insert_text(   
-            (685, 262),
-            text= "CALIBRE",
+            (685, 206),
+            text= tpl[4][11][2].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -71,8 +48,18 @@ class Insrt_Laminado():
 
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
-            (685, 276),
-            text= "ANCHO",
+            (685, 220),
+            text= tpl[4][11][3].items[0].content.controls[1].value,
+            color=self.clr,
+            fontsize=self.vl,
+            fontname=self.fnt
+        )
+
+       
+        # --- MATERIAL PARA LAMINAR Nº1 ---
+        page.insert_text(   
+            (685, 248),
+            text= tpl[4][12][0].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -81,26 +68,16 @@ class Insrt_Laminado():
         # TIPO DE TRATADO:
         page.insert_text(   
             (685, 290),
-            text= "TRATADO",
+            text= tpl[4][12][1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
         )
-
+  
         # TIPO DE LAMINACIÓN 
         page.insert_text(   
             (685, 305),
-            text= "LAMINACIÓN",
-            color=self.clr,
-            fontsize=self.vl,
-            fontname=self.fnt
-        )
-
-
-        # --- MATERIAL PARA LAMINAR Nº2 ---
-        page.insert_text(   
-            (685, 319),
-            text= "LAMINAR Nº2",
+            text= tpl[4][12][2].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -108,8 +85,8 @@ class Insrt_Laminado():
 
         # CALIBRE DE LA PELÍCULA Y TOLERANCIA
         page.insert_text(   
-            (685, 333),
-            text= "CALIBRE",
+            (685, 262),
+            text= tpl[4][12][3].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -117,8 +94,20 @@ class Insrt_Laminado():
 
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
-            (685, 346),
-            text= "ANCHO",
+            (685, 276),
+            text= tpl[4][12][4].items[0].content.controls[1].value,
+            color=self.clr,
+            fontsize=self.vl,
+            fontname=self.fnt
+        )
+
+
+
+
+        # --- MATERIAL PARA LAMINAR Nº2 ---
+        page.insert_text(   
+            (685, 319),
+            text= tpl[4][13][0].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -127,7 +116,7 @@ class Insrt_Laminado():
         # TIPO DE TRATADO:
         page.insert_text(   
             (685, 361),
-            text= "TRATADO",
+            text= tpl[4][13][1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -136,17 +125,7 @@ class Insrt_Laminado():
         # TIPO DE LAMINACIÓN 
         page.insert_text(   
             (685, 375),
-            text= "LAMINACIÓN",
-            color=self.clr,
-            fontsize=self.vl,
-            fontname=self.fnt
-        )
-
-
-        # --- MATERIAL PARA LAMINAR Nº3 ---
-        page.insert_text(   
-            (685, 389),
-            text= "LAMINAR Nº3",
+            text= tpl[4][13][2].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -154,8 +133,8 @@ class Insrt_Laminado():
 
         # CALIBRE DE LA PELÍCULA Y TOLERANCIA
         page.insert_text(   
-            (685, 403),
-            text= "CALIBRE",
+            (685, 333),
+            text= tpl[4][13][3].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -163,8 +142,19 @@ class Insrt_Laminado():
 
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
-            (685, 417),
-            text= "ANCHO",
+            (685, 346),
+            text= tpl[4][13][4].items[0].content.controls[1].value,
+            color=self.clr,
+            fontsize=self.vl,
+            fontname=self.fnt
+        )
+
+
+
+        # --- MATERIAL PARA LAMINAR Nº3 ---
+        page.insert_text(   
+            (685, 389),
+            text= tpl[4][14][0].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -173,7 +163,7 @@ class Insrt_Laminado():
         # TIPO DE TRATADO:
         page.insert_text(   
             (685, 432),
-            text= "TRATADO",
+            text= tpl[4][14][1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -182,16 +172,7 @@ class Insrt_Laminado():
         # TIPO DE LAMINACIÓN 
         page.insert_text(   
             (685, 446),
-            text= "LAMINACIÓN",
-            color=self.clr,
-            fontsize=self.vl,
-            fontname=self.fnt
-        )
-
-        # --- MATERIAL PARA LAMINAR Nº4 ---
-        page.insert_text(   
-            (685, 460),
-            text= "LAMINAR Nº4",
+            text= tpl[4][14][2].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -199,8 +180,8 @@ class Insrt_Laminado():
 
         # CALIBRE DE LA PELÍCULA Y TOLERANCIA
         page.insert_text(   
-            (685, 473),
-            text= "CALIBRE",
+            (685, 403),
+            text= tpl[4][14][3].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -208,8 +189,19 @@ class Insrt_Laminado():
 
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
-            (685, 488),
-            text= "ANCHO",
+            (685, 417),
+            text= tpl[4][14][4].items[0].content.controls[1].value,
+            color=self.clr,
+            fontsize=self.vl,
+            fontname=self.fnt
+        )
+
+        
+
+        # --- MATERIAL PARA LAMINAR Nº4 ---
+        page.insert_text(   
+            (685, 460),
+            text= tpl[4][15][0].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -218,7 +210,7 @@ class Insrt_Laminado():
         # TIPO DE TRATADO:
         page.insert_text(   
             (685, 504),
-            text= "TRATADO",
+            text= tpl[4][15][1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -227,17 +219,36 @@ class Insrt_Laminado():
         # TIPO DE LAMINACIÓN 
         page.insert_text(   
             (685, 518),
-            text= "LAMINACIÓN",
+            text= tpl[4][15][2].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
         )
 
+        # CALIBRE DE LA PELÍCULA Y TOLERANCIA
+        page.insert_text(   
+            (685, 473),
+            text= tpl[4][15][3].items[0].content.controls[1].value,
+            color=self.clr,
+            fontsize=self.vl,
+            fontname=self.fnt
+        )
+
+        # ANCHO DE BOBINA Y TOLERANCIA
+        page.insert_text(   
+            (685, 488),
+            text= tpl[4][15][4].items[0].content.controls[1].value,
+            color=self.clr,
+            fontsize=self.vl,
+            fontname=self.fnt
+        )
+
+
         # --- GENERAL CONTINUACIÓN ---
         # MEDIDA DE LA MANGA PARA TRANSFERENCIA
         page.insert_text(   
             (685, 532),
-            text= "MANGA",
+            text= tpl[4][7].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -246,7 +257,7 @@ class Insrt_Laminado():
         # ANCHO DE CORE Y TOLERANCIA
         page.insert_text(   
             (685, 545),
-            text= "CORE",
+            text= tpl[4][8].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -255,7 +266,7 @@ class Insrt_Laminado():
         # DIÁMETRO Y GROSOR DE CORE
         page.insert_text(   
             (685, 559),
-            text= "DIÁMETRO",
+            text= tpl[4][9].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -264,16 +275,17 @@ class Insrt_Laminado():
         # DIÁMETRO DE BOBINA Y TOLERANCIA
         page.insert_text(   
             (685, 573),
-            text= "BOBINA",
+            text= tpl[4][10].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
         )
 
+
         # MÁXIMO DE EMPALMES POR BOBINA
         page.insert_text(   
             (685, 586),
-            text= "MÁXIMO",
+            text= tpl[4][1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -282,7 +294,7 @@ class Insrt_Laminado():
         # ORIENTACIÓN DE BOBINA EN RACK
         page.insert_text(   
             (685, 602),
-            text= "ORIENTACIÓN",
+            text= tpl[4][2].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -291,7 +303,7 @@ class Insrt_Laminado():
         # TIPO DE EMPAQUE PARA BOBINA
         page.insert_text(   
             (685, 616),
-            text= "EMPAQUE",
+            text= tpl[4][3].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -300,7 +312,7 @@ class Insrt_Laminado():
         # ETIQUETADO
         page.insert_text(   
             (685, 630),
-            text= "ETIQUETADO",
+            text= tpl[4][4].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -309,7 +321,7 @@ class Insrt_Laminado():
         # PESAR PRODUCTO POR: (TARIMA / BOBINA / AMBOS)
         page.insert_text(   
             (685, 644),
-            text= "PESAR",
+            text= tpl[4][5].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -318,7 +330,7 @@ class Insrt_Laminado():
         # PESO NETO PROMEDIO DE BOBINA
         page.insert_text(   
             (685, 658),
-            text= "NETO",
+            text= tpl[4][6].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
