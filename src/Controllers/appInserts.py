@@ -7,7 +7,6 @@ from src.Controllers.appLam import appLam
 from src.Controllers.appRef import appRef
 from src.Controllers.appConvrs import appConvrs
 
-
 class appInserts():
     def __init__(self,page):
         super().__init__()

@@ -157,6 +157,12 @@ WHERE
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 show tables;
 
+/*-----------------------------PRINTD CARD--------------------------------------*/
+CREATE TABLE PrindCard(
+        idCodPrdc VARCHAR(255),
+		prindCrdPdf BLOP NOT NULL,
+        FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
+    );
 
 /*------------------------FICHA TECNICA------------------------------*/
 CREATE TABLE FichaTec(

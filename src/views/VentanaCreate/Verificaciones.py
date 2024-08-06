@@ -212,13 +212,13 @@ class verificaciones():
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
-                #value =  self.Insrt.qryPost(data)        # Insertar en bd
+                #self.Insrt.qryPost(data)        # Insertar en bd
                 #print(value)
                 #self.crtPdf.jer(value) 
                 #value = []
 
                 ### VALORES DE LOS INPUTS ###
-                self.crtPdf.Inser(data)         # Crear el prindCard       
+                self.crtPdf.Insert(data)         # Crear el prindCard       
                 #############################
                 self.msgDlt = SnackBar(         # Insert exitoso!
                     content=Column(

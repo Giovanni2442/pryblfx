@@ -1550,8 +1550,8 @@ class createPrind(UserControl):
         #self.prntCrd
         #self.vrf.insrtFicha
         #jer
-        self.prntCrd
-        self.prntCrd.jer(
+        #self.prntCrd.jer()
+        self.vrf.insrtFicha(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),
             self.InptsExtrc.tplInptsExtr(),
