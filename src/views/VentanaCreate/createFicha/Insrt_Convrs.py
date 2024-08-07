@@ -4,21 +4,22 @@ class Insrt_Convrs():
         self.clr = (0, 0, 0)
         self.fnt = "Helvetica-Bold"
 
-    def pdfConvrs(self,page):
-
+    def pdfConvrs(self,page,tpl):
+        # tpl[5][18].items[0].content.controls[1].value
         # MEDIDA DEL EMPAQUE: (ANCHO Y ALTO) 
         page.insert_text(   
             (1045, 177),
-            text= "MEDIDA",
+            text= tpl[6][16].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
         )
 
+       
         # TIPO DE EMPAQUE
         page.insert_text(   
             (1045, 191),
-            text= "EMPAQUE",
+            text= tpl[6][0].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -27,7 +28,7 @@ class Insrt_Convrs():
         # TIPO DE SELLO
         page.insert_text(   
             (1045, 206),
-            text= "SELLO",
+            text= tpl[6][1].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -36,7 +37,7 @@ class Insrt_Convrs():
         # TIPO DE ACABADO
         page.insert_text(   
             (1045, 220),
-            text= "ACABADO",
+            text= tpl[6][2].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -45,7 +46,7 @@ class Insrt_Convrs():
         # EL PRODUCTO LLEVA PERFORACIÓN: (APLICA / N/A)
         page.insert_text(   
             (1045, 234),
-            text= "PERFORACIÓN",
+            text= tpl[6][3].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -54,7 +55,7 @@ class Insrt_Convrs():
         # CANTIDAD DE  PERFORACIONES
         page.insert_text(   
             (1045, 248),
-            text= "CANTIDAD",
+            text= tpl[6][4].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -63,7 +64,7 @@ class Insrt_Convrs():
         # EL PRODUCTO LLEVA SUAJE: (APLICA / N/A)
         page.insert_text(   
             (1045, 262),
-            text= "SUAJE",
+            text= tpl[6][5].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -72,7 +73,7 @@ class Insrt_Convrs():
         # TIPO DE SUAJE:
         page.insert_text(   
             (1045, 275),
-            text= "TIPO",
+            text= tpl[6][6].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -81,7 +82,7 @@ class Insrt_Convrs():
         # EMPACADO DE PRODUCTO: (KILEADO / PIEZAS / GRANEL)
         page.insert_text(   
             (1045, 290),
-            text= "EMPACADO",
+            text= tpl[6][7].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -90,7 +91,7 @@ class Insrt_Convrs():
         # CANTIDAD DE PIEZAS POR PAQUETE 
         page.insert_text(   
             (1045, 304),
-            text= "PIEZAS",
+            text= tpl[6][8].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -99,7 +100,7 @@ class Insrt_Convrs():
         # TIPO DE EMBALAJE  
         page.insert_text(   
             (1045, 319),
-            text= "EMBALAJE",
+            text= tpl[6][9].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -108,7 +109,7 @@ class Insrt_Convrs():
         # MEDIDA DEL EMBALAJE:  
         page.insert_text(   
             (1045, 334),
-            text= "MEDIDA",
+            text= tpl[6][10].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -117,7 +118,7 @@ class Insrt_Convrs():
          # PESAR PRODUCTO POR: (TARIMA / BULTO / CAJA) 
         page.insert_text(   
             (1045, 350),
-            text= "PESAR",
+            text= tpl[6][11].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -126,7 +127,7 @@ class Insrt_Convrs():
         # PESO NETO PROMEDIO DE: (BULTO / CAJA/ OTRO)  
         page.insert_text(   
             (1045, 363),
-            text= "PROMEDIO",
+            text= tpl[6][12].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -135,7 +136,7 @@ class Insrt_Convrs():
         # ETIQUETADO  
         page.insert_text(   
             (1045, 376),
-            text= "ETIQUETADO",
+            text= tpl[6][13].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -144,7 +145,7 @@ class Insrt_Convrs():
         # NUMERO DE BULTOS O CAJAS POR CAMA Y CAMAS POR TARIMA   (
         page.insert_text(   
             (1045, 391),
-            text= "CAMA",
+            text= tpl[6][17].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -153,25 +154,16 @@ class Insrt_Convrs():
         # NUMERO DE BULTOS O CAJAS POR TARIMA 
         page.insert_text(   
             (1045, 405),
-            text= "BULTOS",
+            text= tpl[6][18].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
         )
-
-        # NUMERO DE BULTOS O CAJAS POR TARIMA 
-        page.insert_text(   
-            (1045, 405),
-            text= "BULTOS",
-            color=self.clr,
-            fontsize=self.vl,
-            fontname=self.fnt
-        ) 
 
         # PESO NETO PROMEDIO POR TARIMA: 
         page.insert_text(   
             (1045, 418),
-            text= "NETO",
+            text= tpl[6][19].items[0].content.controls[1].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -180,7 +172,7 @@ class Insrt_Convrs():
         # LA TARIMA LLEVARA EMPLAYE: (APLICA / N/A) 
         page.insert_text(   
             (1045, 432),
-            text= "EMPLAYE",
+            text= tpl[6][14].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -189,7 +181,7 @@ class Insrt_Convrs():
         # LA TARIMA SERA FLEJADA: (APLICA / N/A) 
         page.insert_text(   
             (1045, 447),
-            text= "FLEJADA",
+            text= tpl[6][15].value.upper(),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt

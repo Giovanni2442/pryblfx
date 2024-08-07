@@ -4,6 +4,7 @@ import os
 
 from src.views.VentanaCreate.createFicha.Insrt_FichaVentas import Insrt_FichaVentas
 from src.views.VentanaCreate.createFicha.Insrt_Extr import Insrt_Extr
+from src.views.VentanaCreate.createFicha.Insrt_Impr import Insrt_Impr
 from src.views.VentanaCreate.createFicha.Insrt_Laminado import Insrt_Laminado
 from src.views.VentanaCreate.createFicha.Insrt_Refilado import Instr_Refilado
 from src.views.VentanaCreate.createFicha.Insrt_Convrs import Insrt_Convrs
@@ -26,7 +27,7 @@ class CreatePdf():
     def __init__(self):
         self.pdfFichVent = Insrt_FichaVentas()
         self.pdfExtr = Insrt_Extr()
-        self.pdfExtr = Insrt_Extr()
+        self.pdfImpr = Insrt_Impr()
         self.pdfLam = Insrt_Laminado()
         self.pdfRef = Instr_Refilado()
         self.pdfCnvrs = Insrt_Convrs()
@@ -43,11 +44,11 @@ class CreatePdf():
                 continue'''
         #txtFld = tpl[4][11].items[0].content.controls[1].label
         txtFld = tpl[4][11][0].label                                # TextField Navegar por las sub listas
-        txtFld2 = tpl[4][11][1].label                               # Dropdown
-        txtFld3 = tpl[4][11][2].items[0].content.controls[1].label  # popoptions
+        txtFld2 = tpl[4][13][2]                               # Dropdown
+        #txtFld3 = tpl[4][13][2].items[0].content.controls[1].label  # popoptions
         #print("--->",txtFld)
         #print("--->",txtFld2)
-        print("-->",tpl[0][0])      
+        print("-->",txtFld2)      
 
     # agregar tpl
     def Insert(self,tpl):
@@ -58,17 +59,18 @@ class CreatePdf():
 
 
         #### -- TABLA EXTRUSIÓN -- #####       
-        #self.pdfFichVent.pdfFichVent(page,tpl)
+        self.pdfFichVent.pdfFichVent(page,tpl)
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfExtr.pdfExtru(page,tpl)
         #### -- TABLA IMPRESION -- #####       
-        #self.pdfExtr.pdfExtru(page)
+        self.pdfImpr.pdfImpr(page,tpl)
         #### -- TABLA LAMINADO -- #####
-        #self.pdfLam.pdfLam(page)
+        self.pdfLam.pdfLam(page,tpl)
+        #self.pdfLam.pru(tpl)
         #### -- TABLA REFILADO -- #####
-        #self.pdfRef.pdfRefil(page)
+        self.pdfRef.pdfRefil(page,tpl)
         #### -- TABLA CONVERSIÓN -- #####
-        #self.pdfCnvrs.pdfConvrs(page)
+        self.pdfCnvrs.pdfConvrs(page)
 
         ################################
 

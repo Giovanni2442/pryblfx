@@ -36,3 +36,11 @@ class appConvrs():
         cursor.execute(query,args)
         self.connect.commit()
         return "Insert Ok!"
+    
+    def postPsPromTam(self,*args):
+        query='''INSERT INTO psPromTam(idCodPrdc,peso,tolerancia)
+            VALUES (%s,%s,%s)'''
+        cursor = self.connect.cursor()
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"

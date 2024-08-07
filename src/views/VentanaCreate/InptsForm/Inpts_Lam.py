@@ -34,7 +34,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)     
@@ -48,7 +48,7 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -71,7 +71,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -85,7 +85,7 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -108,7 +108,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -122,7 +122,7 @@ class Inpts_Lam():
                             label="grosor",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -145,7 +145,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -159,7 +159,7 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -173,7 +173,7 @@ class Inpts_Lam():
             label="Maximo de Empalmes por Bobina",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=0,
+            value='0',
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -265,7 +265,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -279,7 +279,7 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -302,7 +302,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -316,7 +316,7 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -370,7 +370,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -384,7 +384,7 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -407,7 +407,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -421,7 +421,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -486,7 +486,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -500,7 +500,7 @@ class Inpts_Lam():
                             label="N/A",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -523,7 +523,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -537,7 +537,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -600,7 +600,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -614,7 +614,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -637,7 +637,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -651,7 +651,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -715,7 +715,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -729,7 +729,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -748,11 +748,11 @@ class Inpts_Lam():
                     content= Column(width=200,controls=[
                         Text("Ancho Bobina"),
                         TextField(
-                            label="N/A",
+                            label="Ancho",
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -762,10 +762,10 @@ class Inpts_Lam():
                     content= Column([
                         Text("Tolerancia"),
                         TextField(
-                            label="N/A",
+                            label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -848,50 +848,50 @@ class Inpts_Lam():
             self.tipEmpqBob,
             self.etiquetado,
             self.psrPrdct,
-            self.psNtPromBob,
+            self.psNtPromBob, # 6
 
             self.medMngTransf,
             self.anchCore_Tol,
             self.dmtrGrsrCore,
-            self.dmtrBob_Tol,
+            self.dmtrBob_Tol, # 10
 
-            [   # --- MATERIAL IMPRESO --- #
+            [   # --- MATERIAL IMPRESO --- # 11
                 self.mtlImpr,
                 self.tipTratado,
                 self.clPlc_Tol,
-                self.anchBob_Tol,
+                self.anchBob_Tol, # 14
             ],
 
-            [   # --- LAMINAR 1 --- #
+            [   # --- LAMINAR 1 --- #        12
                 self.LN1mtrLam,
                 self.LN1tipTratado,
                 self.LN1tipLam,
                 self.LN1clbPel_Tol,
-                self.LN1anchBob_Tol,
+                self.LN1anchBob_Tol, # 19
             ],
 
-            [   # --- LAMINAR 2 --- #
+            [   # --- LAMINAR 2 --- #          13
                 self.LN2mtrLam,
                 self.LN2tipTratado,
                 self.LN2tipLam,
                 self.LN2clbPel_Tol,
-                self.LN2anchBob_Tol,
+                self.LN2anchBob_Tol, # 24
             ],
 
-            [   # --- LAMINAR 3 --- #
+            [   # --- LAMINAR 3 --- #           14
                 self.LN3mtrLam,
                 self.LN3tipTratado,
                 self.LN3tipLam,
                 self.LN3clbPel_Tol,
-                self.LN3anchBob_Tol,
+                self.LN3anchBob_Tol, # 29
             ],
 
-            [   # --- LAMINAR 4 --- #
+            [   # --- LAMINAR 4 --- #           15
                 self.LN4mtrLam,
                 self.LN4tipTratado,
                 self.LN4tipLam,
                 self.LN4clbPel_Tol,
-                self.LN4anchBob_Tol,
+                self.LN4anchBob_Tol, # 34
             ]
 
         ]

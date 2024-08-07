@@ -1,6 +1,5 @@
 from src.conectDataBase.testConectDb import db
 
-
 # QUERY PARA ALMACENAR LOS PDF
 class appPrindPdf():
     def __init__(self):

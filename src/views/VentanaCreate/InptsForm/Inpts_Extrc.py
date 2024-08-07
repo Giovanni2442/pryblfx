@@ -477,6 +477,8 @@ class InptsExtrc():
             self.numBobTam,
             self.tamEmplaye,
             self.tamRefila,
+            self.numBobTam, # 13
+            
 
             self.calPel_Tol,
             self.anchBob_Tol,   # SECCIÓN 2
@@ -484,5 +486,5 @@ class InptsExtrc():
             self.DimBob_Tol,     # SECCIÓN 3
             self.psPromBob, 
             self.numBobCma_CmaTrm,
-            self.psNtPromTam,
+            self.psNtPromTam, # 20
         ]
