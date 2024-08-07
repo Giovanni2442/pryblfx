@@ -214,7 +214,7 @@ class verificaciones():
             if not contact_exists:
                 self.Insrt.qryPost(data)        # Insertar en bd
                 #print(value)
-                #self.crtPdf.Insert(data) 
+                self.crtPdf.Insert(data) 
                 #value = []
 
                 ### VALORES DE LOS INPUTS ###

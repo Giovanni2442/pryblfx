@@ -476,8 +476,7 @@ class InptsExtrc():
             self.etiquetado,
             self.numBobTam,
             self.tamEmplaye,
-            self.tamRefila,
-            self.numBobTam, # 13
+            self.tamRefila, # 12
             
 
             self.calPel_Tol,

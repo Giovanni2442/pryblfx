@@ -8,7 +8,7 @@ from src.views.VentanaCreate.createFicha.Insrt_Impr import Insrt_Impr
 from src.views.VentanaCreate.createFicha.Insrt_Laminado import Insrt_Laminado
 from src.views.VentanaCreate.createFicha.Insrt_Refilado import Instr_Refilado
 from src.views.VentanaCreate.createFicha.Insrt_Convrs import Insrt_Convrs
-from src.Controllers.appPrindPdf import appPrindPdf
+from src.Controllers.appPrindCard import appPrindCard
 
 #### TAREAS ###
 # * Obtener los datos de la bd
@@ -33,7 +33,7 @@ class CreatePdf():
         self.pdfCnvrs = Insrt_Convrs()
 
         # ADD TO DATABASE
-        self.postpdf = appPrindPdf()
+        self.postpdf = appPrindCard()
 
     def jer(self,tpl):
         '''     
@@ -70,17 +70,25 @@ class CreatePdf():
         #### -- TABLA REFILADO -- #####
         self.pdfRef.pdfRefil(page,tpl)
         #### -- TABLA CONVERSIÓN -- #####
-        self.pdfCnvrs.pdfConvrs(page)
+        self.pdfCnvrs.pdfConvrs(page,tpl)
 
         ################################
 
         # Guarda el nuevo PDF en un archivo temporal
         #temp_filename = "temp_editado.pdf"
-        
+    
         #doc.save(f"Template/{tpl[0][0].value}.pdf")
-        temp_filename = "Template/Template_temp.pdf"
-        doc.save(temp_filename)
 
+        #### INSERTAR EN BD #####
+        pdfBytes = doc.write()
+        namePdf = f"{tpl[0][0].value}.pdf"
+        self.postpdf.postPridCardPdf(tpl[0][0].value,namePdf)
+        #########################
+
+        ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
+        #temp_filename = "Template/Template_temp.pdf"
+        #doc.save(temp_filename)
+        #############################################
 
 #crpdf = CreatePdf()
 #crpdf.Insert()

@@ -7,6 +7,8 @@ class Insrt_Extr():
     # Tabla de Extrusion
     def pdfExtru(self,page,tpl):
         vl = 9
+
+        # Tipo de material a Extruir
         page.insert_text( 
             (320, 271),
             text= tpl[2][0].value.upper(),
@@ -99,7 +101,7 @@ class Insrt_Extr():
         # MÁXIMO DE EMPALMES POR BOBINA
         page.insert_text( 
             (320, 412),
-            text= tpl[2][6].value.upper(),
+            text= tpl[2][6].value,
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -108,7 +110,7 @@ class Insrt_Extr():
         # ORIENTACIÓN DE BOBINA EN TARIMA: (HORIZONTAL/ VERTICAL)
         page.insert_text( 
             (320, 426),
-            text= tpl[2][7].value.upper(),
+            text= tpl[2][7].value,
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -162,7 +164,7 @@ class Insrt_Extr():
         # NUMERO DE BOBINAS EN TARIMA
         page.insert_text( 
             (320, 511),
-            text= tpl[2][11].value.upper(),
+            text= tpl[2][11].value,
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -180,13 +182,22 @@ class Insrt_Extr():
         # LA TARIMA LLEVARA EMPLAYE: (APLICA / N/A)
         page.insert_text( 
             (320, 539),
-            text= tpl[2][12].value.upper(),
+            text= tpl[2][12].value,
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
         )
 
         # LA TARIMA SERA FLEJADA: (APLICA / N/A)
+        page.insert_text( 
+            (320, 553),
+            text= tpl[2][13].value.upper(),
+            color=(0, 0, 0),
+            fontsize=self.vl,
+            fontname="Helvetica-Bold"
+        )
+
+        # Numero de Bobinas en Tarima
         page.insert_text( 
             (320, 553),
             text= tpl[2][13].value.upper(),

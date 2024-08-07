@@ -15,7 +15,6 @@ class Insrt_Convrs():
             fontname=self.fnt
         )
 
-       
         # TIPO DE EMPAQUE
         page.insert_text(   
             (1045, 191),
