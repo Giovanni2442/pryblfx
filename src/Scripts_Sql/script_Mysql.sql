@@ -5,6 +5,7 @@ show databases;
 use dbingbf;
 create database dbingbf;
 
+show tables;
 show databases;
 
 DROP DATABASE dbingbf;
@@ -186,9 +187,8 @@ CREATE TABLE FichaTec(
     );
     
 /*------------------------EXTRUSION------------------------------*/
-                                  drop table EXTRUSION;
-                                  show tables;
-
+	show tables;
+     drop table EXTRUSION;
     CREATE TABLE EXTRUSION(
         idCodPrdc VARCHAR(255),         /*llave foranea*/
         tipo_Material VARCHAR(255) NOT NULL,
@@ -205,9 +205,10 @@ CREATE TABLE FichaTec(
         num_Bob_Tarima INT NOT NULL,
         tarima_Emplaye VARCHAR(25) NOT NULL,
         tarima_flejada VARCHAR(25) NOT NULL,
+        numBobTam int NOT NULL,
         FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
     );
-
+		     
 		/*Calibre de Pelicula y Tolerancia*/
 		CREATE TABLE CalibrePel_Tolr(
             idCodPrdc VARCHAR(255),
@@ -215,7 +216,7 @@ CREATE TABLE FichaTec(
             tolerancia VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
-        
+  
         /*Ancho de Bobina y Tolerancia*/
         CREATE TABLE AnchoBob_Tolr(
             idCodPrdc VARCHAR(255),
@@ -224,7 +225,6 @@ CREATE TABLE FichaTec(
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
                                         
-
         /*Ancho de Core y Tolerancia*/
         drop table AnchoCore_TolrExtr;
         CREATE TABLE AnchoCore_TolrExtr(
@@ -234,7 +234,6 @@ CREATE TABLE FichaTec(
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
 
-
         /*Diametro de Bobina y Tolerancia*/
         CREATE TABLE DiametroBob_Tolr(
             idCodPrdc VARCHAR(255),
@@ -243,7 +242,6 @@ CREATE TABLE FichaTec(
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
 
-  
         /*Peso promedio por bobina*/
         CREATE TABLE Peso_Prom_Bob(
             idCodPrdc VARCHAR(255),
@@ -252,6 +250,7 @@ CREATE TABLE FichaTec(
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
 
+
         /*Numero de bobinas por cama y camas por tarima*/
         CREATE TABLE Num_BobCama_CamTam(
             idCodPrdc VARCHAR(255),
@@ -259,8 +258,18 @@ CREATE TABLE FichaTec(
             camas_Tarima int not null,
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
-
+        
+                                          
         /*peso neto promedio por tarima*/
+        CREATE TABLE Peso_prom_tarimaExtr(
+            idCodPrdc VARCHAR(255),
+            peso_neto float not null,
+            tolerancia float not null,
+			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
+        );
+        
+        /*peso neto promedio por tarima*/
+        select * from Peso_prom_tarimaExtr;
         CREATE TABLE Peso_prom_tarimaExtr(
             idCodPrdc VARCHAR(255),
             peso_neto float not null,
@@ -472,7 +481,9 @@ INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES
 INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
 
 /*--------EXTRUSIÓN--------*/
-INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada) VALUES ('E-2334','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe');
+select * from EXTRUSION;
+INSERT INTO EXTRUSION(idCodPrdc,tipo_Material,dinaje,formula,pigmento_Pelicula,tipo_Bobina,tipo_Tratado,max_Emplm,orient_Bob_Tarima,Tipo_Empq_Bob,pesar_Prdct,etiquetado,num_Bob_Tarima,tarima_Emplaye,tarima_flejada,numBobTam)
+ VALUES ('E-2334','rr','rr','rr','rr','rr','qe',10,'qe','qe','qe','qe',88,'qe','qe',0);
 
 INSERT INTO CalibrePel_Tolr(idCodPrdc,calibre,tolerancia) VALUES  ('E-2334',30,40);
 
@@ -670,9 +681,9 @@ CREATE TABLE FichaTec(
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
         
-        drop table Peso_prom_tarimaImpr;
+        drop table Peso_prom_tarimaExtr;
         /*peso neto promedio por tarima*/
-        CREATE TABLE Peso_prom_tarimaImpr(
+        CREATE TABLE Peso_prom_tarimaExtr(
             idCodPrdc VARCHAR(255),
             peso_neto float not null,
             tolerancia float not null,
@@ -988,6 +999,7 @@ CREATE TABLE FichaTec(
 
 	drop table REFILADO;
     show tables;
+    select * from REFILADO;
 	CREATE TABLE REFILADO(
 		idCodPrdc VARCHAR(255),  #foreign key
 		proceso VARCHAR(50) NOT NULL,
@@ -1008,6 +1020,7 @@ CREATE TABLE FichaTec(
 	);
 		/*Ancho final de bobina al refilarse/Doblarse y Tolerancia*/
         select * from AnchoFinalBob_TolrRef;  
+
 		CREATE TABLE AnchoFinalBob_TolrRef( 
             idCodPrdc VARCHAR(255),
 			anchoFinalBob float NOT NULL,
@@ -1016,7 +1029,6 @@ CREATE TABLE FichaTec(
         );
         
         show tables;
-		drop table AnchoFinalBob_Tolr;
         /*Metros por bobina al refilarse/doblarse y tolerancia*/ 
         CREATE TABLE MetrosBobRefil_Tolr(
 			idCodPrdc VARCHAR(255),
@@ -1024,7 +1036,7 @@ CREATE TABLE FichaTec(
             tolerancia float NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES REFILADO(idCodPrdc) ON DELETE CASCADE
         );
-        
+
         /*Diametro de bobina al refilarse/doblarse y tolerancia*/ 
         CREATE TABLE DiamBobRefil_Tolr( 
 			idCodPrdc VARCHAR(255),
@@ -1032,7 +1044,7 @@ CREATE TABLE FichaTec(
             tolerancia float NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES REFILADO(idCodPrdc) ON DELETE CASCADE
         );
-        
+
          /*Peso neto promedio por bobina */ 
         CREATE TABLE PesoNet_Prom_Bob(
 			idCodPrdc VARCHAR(255),
@@ -1040,7 +1052,7 @@ CREATE TABLE FichaTec(
             tolerancia float NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES REFILADO(idCodPrdc) ON DELETE CASCADE
         );
-        
+
 		/*Numero de bobinas por cama y camas por tarima*/ 
         CREATE TABLE Num_BobCama_CamTamRefil(
 			idCodPrdc VARCHAR(255),
@@ -1048,6 +1060,7 @@ CREATE TABLE FichaTec(
             camas_Tarima float NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES REFILADO(idCodPrdc) ON DELETE CASCADE
         );
+
 	
         /*Peso neto promedio por tarima*/
         CREATE TABLE Peso_prom_tarimaRefil(
@@ -1064,6 +1077,9 @@ CREATE TABLE FichaTec(
             tolerancia float NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES REFILADO(idCodPrdc) ON DELETE CASCADE
         );
+        
+
+	
         
 /*------------------------CONVERSION------------------------------*/
 	
@@ -1108,6 +1124,13 @@ CREATE TABLE FichaTec(
         drop table NumBlts_CajsTarim;
         select * from NumBlts_CajsTarim;
         CREATE TABLE NumBlts_CajsTarim(
+			idCodPrdc VARCHAR(255),
+			peso float NOT NULL,
+            tolerancia float NOT NULL,
+			FOREIGN KEY (idCodPrdc) REFERENCES CONVERSION(idCodPrdc) ON DELETE CASCADE
+        );
+        
+         CREATE TABLE psPromTam(
 			idCodPrdc VARCHAR(255),
 			peso float NOT NULL,
             tolerancia float NOT NULL,

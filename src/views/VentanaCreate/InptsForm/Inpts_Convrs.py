@@ -25,7 +25,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -39,7 +39,7 @@ class Inpts_Convrs():
                             label="Alto",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -96,7 +96,7 @@ class Inpts_Convrs():
                 label="Cantidad de Perforaciónes",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value=0,
+                value='0',
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -144,7 +144,7 @@ class Inpts_Convrs():
                 label="Cantidad de Piezas por Paquete",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value=0,
+                value='0',
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -168,7 +168,7 @@ class Inpts_Convrs():
             label="Medida del Embalaje",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=0,
+            value='0',
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -193,7 +193,7 @@ class Inpts_Convrs():
             label="Peso neto promedio de bobina",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=0,
+            value='0',
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -227,7 +227,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -241,7 +241,7 @@ class Inpts_Convrs():
                             label="Camas",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -264,7 +264,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -278,7 +278,7 @@ class Inpts_Convrs():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -301,7 +301,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -315,7 +315,7 @@ class Inpts_Convrs():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=0,
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -351,11 +351,12 @@ class Inpts_Convrs():
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
-    def tplInptsRef(self):
+    def tplInptsConvrs(self):
         return [
             self.tipEmpq,       # -  Tributos de la tabla padre - #
             self.tipSello,
             self.tipAcbd,
+            self.prdctPerf,
             self.cntPerf,
             self.prdctSuaje,
             self.tipSuaje,
@@ -372,4 +373,5 @@ class Inpts_Convrs():
             self.medEmpq,
             self.numBltsCjsCam_CmsTam,
             self.numBlts_CjsTam,
+            self.psPromTam,
         ]

@@ -5,8 +5,8 @@ class appRef():
         self.connect = db()     #conect to data base
 
     def postRefilado(self,*args):
-        query='''INSERT INTO REFILADO (idCodPrdc, proceso, acabadoBob, grosorCore, figEmbob_impr, bobinaRefilar, maximo_Empal, señalEmpl, orient_Bob_Tarima, tipo_Empaque, pesar_Prdct, etiquetado, tarima_emplaye, tarima_flejada)
-            VALUES (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'''
+        query='''INSERT INTO REFILADO (idCodPrdc, proceso, acabadoBob, grosorCore, figEmbob_impr, bobinaRefilar, maximo_Empal, señalEmpl, orient_Bob_Tarima, tipo_Empaque, pesar_Prdct, etiquetado, tarima_emplaye, tarima_flejada, numBobTam)
+            VALUES (%s, %s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);'''
         cursor = self.connect.cursor()
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
         cursor.execute(query,args)
@@ -69,6 +69,15 @@ class appRef():
     
     def postAnchCre_Tol(self,*args):
         query='''INSERT INTO anchCre_TolRefil(idCodPrdc,core,tolerancia)
+            VALUES (%s,%s,%s)'''
+        cursor = self.connect.cursor()
+        #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Insert Ok!"
+    
+    def postNumBobTam(self,*args):
+        query='''INSERT INTO numBobTam(idCodPrdc,core,tolerancia)
             VALUES (%s,%s,%s)'''
         cursor = self.connect.cursor()
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))

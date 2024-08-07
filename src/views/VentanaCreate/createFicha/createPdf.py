@@ -70,7 +70,7 @@ class CreatePdf():
         #### -- TABLA REFILADO -- #####
         self.pdfRef.pdfRefil(page,tpl)
         #### -- TABLA CONVERSIÓN -- #####
-        #self.pdfCnvrs.pdfConvrs(page)
+        self.pdfCnvrs.pdfConvrs(page)
 
         ################################
 

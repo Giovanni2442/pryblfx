@@ -1551,6 +1551,8 @@ class createPrind(UserControl):
         #self.vrf.insrtFicha
         #jer
         #self.prntCrd.jer()
+        #self.vrf.insrtFicha()
+        #'''
         self.vrf.insrtFicha(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),
@@ -1558,9 +1560,9 @@ class createPrind(UserControl):
             self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
             self.InptsLam.tplInptsLam(),
             self.InptsRefl.tplInptsRef(),
-            self.InptsConvrs.tplInptsRef()
+            self.InptsConvrs.tplInptsConvrs()
         )
-        self.update()
+        self.update()#''
 
     def build(self):
         return self.frameMain
