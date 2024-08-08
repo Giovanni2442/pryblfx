@@ -59,8 +59,8 @@ class appInserts():
         #print(self.tpl2)
         #print(je)
 
-        print("-----------> : " ,self.tpl2[151:166])
-        
+        print("-----------> : " ,self.tpl2[10:24])
+        #'''
                 # --- INSERCIÓN POR REBANADAS ---   
             # --- FICHA --- 
         self.dataTbl.post_data(*self.tpl2[:5])

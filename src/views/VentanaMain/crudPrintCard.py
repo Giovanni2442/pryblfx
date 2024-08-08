@@ -5,7 +5,7 @@ from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
 from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
-
+from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
 
 #  --- TASK --- 
 # * Conectar todas las tablas a la base de datos (Hacer el intento de forma abstracta)
@@ -30,6 +30,9 @@ class crudPrintCard(UserControl):
         
         self.createPrnt = createPrind(page)
         self.pr = pr(page)
+        self.pdf = opnPrindPdf()
+
+
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
         self.InptPrindCard = TextField(
@@ -206,7 +209,7 @@ class crudPrintCard(UserControl):
                         IconButton("NEWSPAPER", # Ficha Tecnica
                             icon_color="yellow",
                             data=row,
-                            #on_click= self.updateButton # --- PROXIMA TAREA ---
+                            on_click= self.pdf.open_pdf # --- PROXIMA TAREA ---
                         )
                     ])
                 )

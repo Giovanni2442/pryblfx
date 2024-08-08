@@ -57,7 +57,6 @@ class CreatePdf():
         page = doc[0]
         vl = 9
 
-
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfFichVent.pdfFichVent(page,tpl)
         #### -- TABLA EXTRUSIÓN -- #####       
@@ -74,21 +73,29 @@ class CreatePdf():
 
         ################################
 
+        
+        #### INSERTAR EN BD #####
+        #pdfBytes = doc.write()
+        #namePdf = f"{tpl[0][0].value}.pdf"
+        #self.postpdf.postPridCardPdf(tpl[0][0].value,namePdf)
+        #########################
+
+        ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
+        temp_filename = "Template/Template_temp.pdf"
+        doc.save(temp_filename)
+        doc.close()
+
+        # Leer el archivo PDF en modo binario
+        with open(temp_filename, "rb") as file:
+            pdf_binary = file.read()
+
+        self.postpdf.postPridCardPdf(tpl[0][0].value,pdf_binary)
+        #############################################
+
         # Guarda el nuevo PDF en un archivo temporal
         #temp_filename = "temp_editado.pdf"
     
         #doc.save(f"Template/{tpl[0][0].value}.pdf")
-
-        #### INSERTAR EN BD #####
-        pdfBytes = doc.write()
-        namePdf = f"{tpl[0][0].value}.pdf"
-        self.postpdf.postPridCardPdf(tpl[0][0].value,namePdf)
-        #########################
-
-        ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
-        #temp_filename = "Template/Template_temp.pdf"
-        #doc.save(temp_filename)
-        #############################################
 
 #crpdf = CreatePdf()
 #crpdf.Insert()

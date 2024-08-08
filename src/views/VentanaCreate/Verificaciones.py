@@ -92,7 +92,7 @@ class verificaciones():
         print("--->",tpl[2][6].items[0].content.controls[1].value)     
    
     def vlMnuPop(self, inx, tpl, j):
-        print(len(tpl))      
+        #print(len(tpl))      
       
         if self.bnd == inx:
             #print(f"id : {self.bnd}  :  {j}")

@@ -1,49 +1,36 @@
 import flet as ft
 import sqlite3
+import webbrowser
 import fitz  # PyMuPDF
-import io
+import os
 
 from src.Controllers.appPrindCard import appPrindCard
 resultado = appPrindCard()
 
-def abrir_pdf(nombre_archivo):
-    pdf_path = resultado.getPridCardPdf(nombre_archivo)
-    
-    if pdf_path:
-        # Decodificar la ruta del PDF de bytes a string
-        ruta_pdf = pdf_path[0].decode('utf-8')
-        print(f"Ruta del PDF: {ruta_pdf}")  # Para depuración
-        
-        return ruta_pdf  # Devolver la ruta del PDF
-    else:
-        print(f"No se encontró el PDF con nombre '{nombre_archivo}'.")
-        return None
-
-def on_button_click(e, page):
-    nombre_archivo = text_field.value
-    if nombre_archivo:
-        pdf_path = abrir_pdf(nombre_archivo)
-        if pdf_path:
-            # Crear un botón de descarga
-            page.add(ft.Image(src=f"file://{pdf_path}"))  # Muestra una vista previa del PDF
-            page.add(ft.CupertinoFilledButton(url=f"file://{pdf_path}", label="Descargar PDF"))
-    else:
-        print("Por favor, introduce un nombre de archivo.")
-
 def main(page: ft.Page):
-    global text_field
+    def open_pdf(e):
+        # Recuperar el archivo PDF de la base de datos
+        pdf_data = resultado.getPridCardPdf("121212")[0]  # Supongamos que queremos el PDF con ID 1
+        if pdf_data:
+            # Guardar temporalmente el PDF en el disco
+            with open("Template/archivo_temporal.pdf", "wb") as file:
+                file.write(pdf_data)
 
-    # Crear un campo de texto para ingresar el nombre del archivo PDF
-    text_field = ft.TextField(label="Nombre del archivo PDF")
+            ruta = "Template/archivo_temporal.pdf"
 
-    # Crear un botón para buscar y abrir el PDF
-    button = ft.CupertinoFilledButton(text="Abrir PDF", on_click=lambda e: on_button_click(e, page))
+            if os.path.exists(ruta):
+                webbrowser.open(f'file://{os.path.abspath(ruta)}')
+            else:
+                print("El archivo no existe.")
+            
+            #webbrowser.open(f'Template/archivo_temporal.pdf')
+            # Abrir el archivo PDF
+            #page.launch_url("C:/Users/gumrt/Desktop/pryblfx/venv/src/FichasTecnicas/D-0392_R-2.pdf")
 
-    # Agregar los componentes a la página
-    page.add(text_field, button)
+    button = ft.ElevatedButton("Abrir PDF", on_click=open_pdf)
+    page.add(button)
 
 # Ejecutar la aplicación
 if __name__ == "__main__":
     ft.app(target=main)
-
 
