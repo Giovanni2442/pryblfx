@@ -1,7 +1,11 @@
+from src.views.VentanaCreate.createFicha.pdfAux import MtdsAuxPdf
 
 class Insrt_Impr():
     def __init__(self):
         self.vl = 7
+
+        # Metodo auxiliar
+        self.aux = MtdsAuxPdf()
     
     # Tabla de Extrusion
     def pdfImpr(self,page,tpl):
@@ -26,7 +30,8 @@ class Insrt_Impr():
         # CALIBRE DEL MATERIAL A IMPRIMIR Y TOLERANCIA
         page.insert_text( 
             (320, 721),
-            text= tpl[3][20].items[0].content.controls[1].value,
+            #text= tpl[3][20].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,3,20,"+","µ"),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -35,7 +40,8 @@ class Insrt_Impr():
         # ANCHO DE BOBINA A IMPRIMIR Y TOLERANCIA 
         page.insert_text( 
             (320, 735),
-            text= tpl[3][21].items[0].content.controls[1].value,
+            #text= tpl[3][21].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,3,21,"+","CM"),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -53,7 +59,8 @@ class Insrt_Impr():
         # ANCHO DE CORE Y TOLERANCIA  
         page.insert_text( 
             (320, 763),
-            text= tpl[3][22].items[0].content.controls[1].value,
+            #text= tpl[3][22].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,3,22,"+","CM"),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -133,7 +140,8 @@ class Insrt_Impr():
         # VALIDACIÓN DE COLOR POR
         page.insert_text( 
             (320, 891),
-            text= tpl[3][19].items[0].content.controls[1].value,
+            #text= tpl[3][19].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,3,19,"±","DELTAS"),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -178,7 +186,8 @@ class Insrt_Impr():
         # DIÁMETRO DE BOBINA Y TOLERANCIA 
         page.insert_text( 
             (320, 962),
-            text= tpl[3][23].items[0].content.controls[1].value,
+            #text= tpl[3][23].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,3,23,"+","CM"),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -189,7 +198,8 @@ class Insrt_Impr():
         # PESO NETO PROMEDIO POR BOBINA
         page.insert_text( 
             (320, 976),
-            text= tpl[3][24].items[0].content.controls[1].value,      
+            #text= tpl[3][24].items[0].content.controls[1].value,      
+            text = self.aux.pru(tpl,3,24,"+","CM"),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -207,7 +217,8 @@ class Insrt_Impr():
         # NUMERO DE BOBINAS POR CAMA Y CAMAS POR TARIMA   
         page.insert_text( 
             (320, 1005),
-            text= tpl[3][25].items[0].content.controls[1].value,
+            #text= tpl[3][25].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,3,25,"X","PZ"),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -225,7 +236,8 @@ class Insrt_Impr():
         # PESO NETO PROMEDIO POR TARIMA   
         page.insert_text( 
             (320, 1032),
-            text= tpl[3][26].items[0].content.controls[1].value,
+            #text= tpl[3][26].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,3,26,"±","KG"),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"

@@ -1,15 +1,21 @@
+from src.views.VentanaCreate.createFicha.pdfAux import MtdsAuxPdf
+
 class Insrt_Convrs():
     def __init__(self) -> None:
         self.vl = 7
         self.clr = (0, 0, 0)
         self.fnt = "Helvetica-Bold"
 
+        #Metodo Auxiliar
+        self.aux = MtdsAuxPdf()
+    
     def pdfConvrs(self,page,tpl):
         # tpl[5][18].items[0].content.controls[1].value
         # MEDIDA DEL EMPAQUE: (ANCHO Y ALTO) 
         page.insert_text(   
             (1045, 177),
-            text= tpl[6][16].items[0].content.controls[1].value,
+            #text= tpl[6][16].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,6,16,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -144,7 +150,8 @@ class Insrt_Convrs():
         # NUMERO DE BULTOS O CAJAS POR CAMA Y CAMAS POR TARIMA   (
         page.insert_text(   
             (1045, 391),
-            text= tpl[6][17].items[0].content.controls[1].value,
+            #text= tpl[6][17].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,6,17,"+","PZ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -153,7 +160,8 @@ class Insrt_Convrs():
         # NUMERO DE BULTOS O CAJAS POR TARIMA 
         page.insert_text(   
             (1045, 405),
-            text= tpl[6][18].items[0].content.controls[1].value,
+            #text= tpl[6][18].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,6,18,"±","PZ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -162,7 +170,8 @@ class Insrt_Convrs():
         # PESO NETO PROMEDIO POR TARIMA: 
         page.insert_text(   
             (1045, 418),
-            text= tpl[6][19].items[0].content.controls[1].value,
+            #text= tpl[6][19].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,6,19,"±","KG"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt

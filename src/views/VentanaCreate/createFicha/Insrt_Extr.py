@@ -1,6 +1,5 @@
 from src.views.VentanaCreate.createFicha.pdfAux import MtdsAuxPdf
 
-
 # Insertar Valores del formulario EXTRUSION al pdf 
 class Insrt_Extr():
     def __init__(self):

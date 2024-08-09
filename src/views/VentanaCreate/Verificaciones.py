@@ -212,7 +212,7 @@ class verificaciones():
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
-                self.Insrt.qryPost(data)        # Insertar en bd
+                #self.Insrt.qryPost(data)        # Insertar en bd
                 #print(value)
                 self.crtPdf.Insert(data) 
                 #value = []

@@ -1,8 +1,13 @@
+from src.views.VentanaCreate.createFicha.pdfAux import MtdsAuxPdf
+
 class Instr_Refilado():
     def __init__(self):
         self.vl = 7
         self.clr = (0, 0, 0)
         self.fnt = "Helvetica-Bold"
+
+        #Metodo Auxiliar
+        self.aux = MtdsAuxPdf()
 
     # Inserción de datos de la tabla Refilado
     def pdfRefil(self,page,tpl):
@@ -19,7 +24,8 @@ class Instr_Refilado():
         # ANCHO FINAL DE BOBINA AL REFILARSE/DOBLARSE Y TOLERANCIA (CM)
         page.insert_text(   
             (685, 840),
-            text= tpl[5][13].items[0].content.controls[1].value,
+            #text= tpl[5][13].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,5,13,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -37,7 +43,8 @@ class Instr_Refilado():
         # ANCHO DE CORE Y TOLERANCIA
         page.insert_text(   
             (685, 869),
-            text= tpl[5][19].items[0].content.controls[1].value,
+            #text= tpl[5][19].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,5,19,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -73,7 +80,8 @@ class Instr_Refilado():
         # METROS POR BOBINA AL REFILARSE/DOBLARSE Y TOLERANCIA
         page.insert_text(   
             (685, 926),
-            text= tpl[5][14].items[0].content.controls[1].value,
+            #text= tpl[5][14].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,5,14,"+","MTRS"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -82,7 +90,8 @@ class Instr_Refilado():
         # DIAMETRO DE BOBINA AL
         page.insert_text(   
             (685, 940),
-            text= tpl[5][15].items[0].content.controls[1].value,
+            #text= tpl[5][15].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,5,15,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -136,7 +145,8 @@ class Instr_Refilado():
         # PESO NETO PROMEDIO DE BOBINA
         page.insert_text(   
             (685, 1025),
-            text= tpl[5][16].items[0].content.controls[1].value,
+            #text= tpl[5][16].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,5,16,"+","KG"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -154,7 +164,8 @@ class Instr_Refilado():
         # NUMERO DE BOBINAS POR CAMA Y CAMAS POR TARIMA
         page.insert_text(   
             (685, 1053),
-            text= tpl[5][17].items[0].content.controls[1].value,
+            #text= tpl[5][17].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,5,17,"X","PZ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -172,7 +183,8 @@ class Instr_Refilado():
         # PESO NETO PROMEDIO POR TARIMA
         page.insert_text(   
             (685, 1082),
-            text= tpl[5][18].items[0].content.controls[1].value,
+            #text= tpl[5][18].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,5,18,"+","KG"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt

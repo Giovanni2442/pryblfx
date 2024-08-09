@@ -1,8 +1,13 @@
+from src.views.VentanaCreate.createFicha.pdfAux import MtdsAuxPdf
+
 class Insrt_Laminado():
     def __init__(self):
         self.vl = 7
         self.clr = (0, 0, 0)
         self.fnt = "Helvetica-Bold"
+
+        # Metodo auxiliar
+        self.aux = MtdsAuxPdf()
 
     def pru(self,tpl):
         print(tpl[4][12][0])
@@ -17,7 +22,6 @@ class Insrt_Laminado():
             fontsize=self.vl,
             fontname=self.fnt
         )
-
 
         # --- MATERIAL IMPRESO ---
         page.insert_text(   
@@ -40,7 +44,9 @@ class Insrt_Laminado():
         # CALIBRE DE PELÍCULA Y TOLERANCIA
         page.insert_text(   
             (685, 206),
-            text= tpl[4][11][2].items[0].content.controls[1].value,
+            #text= tpl[4][11][2].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,11,2,"+","µ"),
+            #text = self.aux.pru(tpl,3,20,"±","µ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -49,7 +55,8 @@ class Insrt_Laminado():
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
             (685, 220),
-            text= tpl[4][11][3].items[0].content.controls[1].value,
+            #text= tpl[4][11][3].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,11,3,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -86,7 +93,8 @@ class Insrt_Laminado():
         # CALIBRE DE LA PELÍCULA Y TOLERANCIA
         page.insert_text(   
             (685, 262),
-            text= tpl[4][12][3].items[0].content.controls[1].value,
+            #text= tpl[4][12][3].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,12,3,"+","µ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -95,7 +103,8 @@ class Insrt_Laminado():
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
             (685, 276),
-            text= tpl[4][12][4].items[0].content.controls[1].value,
+            #text= tpl[4][12][4].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,12,4,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -134,7 +143,8 @@ class Insrt_Laminado():
         # CALIBRE DE LA PELÍCULA Y TOLERANCIA
         page.insert_text(   
             (685, 333),
-            text= tpl[4][13][3].items[0].content.controls[1].value,
+            #text= tpl[4][13][3].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,13,3,"+","µ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -143,7 +153,8 @@ class Insrt_Laminado():
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
             (685, 346),
-            text= tpl[4][13][4].items[0].content.controls[1].value,
+            #text= tpl[4][13][4].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,13,4,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -181,7 +192,8 @@ class Insrt_Laminado():
         # CALIBRE DE LA PELÍCULA Y TOLERANCIA
         page.insert_text(   
             (685, 403),
-            text= tpl[4][14][3].items[0].content.controls[1].value,
+            #text= tpl[4][14][3].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,14,3,"+","µ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -190,7 +202,8 @@ class Insrt_Laminado():
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
             (685, 417),
-            text= tpl[4][14][4].items[0].content.controls[1].value,
+            #text= tpl[4][14][4].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,14,4,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -228,7 +241,8 @@ class Insrt_Laminado():
         # CALIBRE DE LA PELÍCULA Y TOLERANCIA
         page.insert_text(   
             (685, 473),
-            text= tpl[4][15][3].items[0].content.controls[1].value,
+            #text= tpl[4][15][3].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,15,3,"+","µ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -237,7 +251,8 @@ class Insrt_Laminado():
         # ANCHO DE BOBINA Y TOLERANCIA
         page.insert_text(   
             (685, 488),
-            text= tpl[4][15][4].items[0].content.controls[1].value,
+            #text= tpl[4][15][4].items[0].content.controls[1].value,
+            text = self.aux.pruLam(tpl,4,15,4,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -248,7 +263,8 @@ class Insrt_Laminado():
         # MEDIDA DE LA MANGA PARA TRANSFERENCIA
         page.insert_text(   
             (685, 532),
-            text= tpl[4][7].items[0].content.controls[1].value,
+            #text= tpl[4][7].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,4,7,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -257,7 +273,8 @@ class Insrt_Laminado():
         # ANCHO DE CORE Y TOLERANCIA
         page.insert_text(   
             (685, 545),
-            text= tpl[4][8].items[0].content.controls[1].value,
+            #text= tpl[4][8].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,4,8,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -266,7 +283,8 @@ class Insrt_Laminado():
         # DIÁMETRO Y GROSOR DE CORE
         page.insert_text(   
             (685, 559),
-            text= tpl[4][9].items[0].content.controls[1].value,
+            #text= tpl[4][9].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,4,9,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -275,7 +293,8 @@ class Insrt_Laminado():
         # DIÁMETRO DE BOBINA Y TOLERANCIA
         page.insert_text(   
             (685, 573),
-            text= tpl[4][10].items[0].content.controls[1].value,
+            #text= tpl[4][10].items[0].content.controls[1].value,
+            text = self.aux.pru(tpl,4,10,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
