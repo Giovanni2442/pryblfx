@@ -1,36 +1,43 @@
-import flet as ft
-import sqlite3
-import webbrowser
-import fitz  # PyMuPDF
-import os
+##--Draw and drop--##
+from flet import * 
 
-from src.Controllers.appPrindCard import appPrindCard
-resultado = appPrindCard()
+class pr1(UserControl):
+    def __init__(self,page):
+        super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
+    
+        file_picker = FilePicker(on_result=on_file_picked)
 
-def main(page: ft.Page):
-    def open_pdf(e):
-        # Recuperar el archivo PDF de la base de datos
-        pdf_data = resultado.getPridCardPdf("121212")[0]  # Supongamos que queremos el PDF con ID 1
-        if pdf_data:
-            # Guardar temporalmente el PDF en el disco
-            with open("Template/archivo_temporal.pdf", "wb") as file:
-                file.write(pdf_data)
+        self.cnt = Container(
+            bgcolor="blue",
+            width=200,
+            height=500,
+            content= Column([
+                ElevatedButton("Upload",on_click= lambda _:self.PickerFile.)
+            ])
+        )
 
-            ruta = "Template/archivo_temporal.pdf"
+        ## MAIN ##
+        self.frameMain = Container(
+            content=Column(
+                controls=[
+                    #self.dropImg
+                    #self.btnUp
+                    self.cnt
+                ]
+            )
+        )
 
-            if os.path.exists(ruta):
-                webbrowser.open(f'file://{os.path.abspath(ruta)}')
-            else:
-                print("El archivo no existe.")
-            
-            #webbrowser.open(f'Template/archivo_temporal.pdf')
-            # Abrir el archivo PDF
-            #page.launch_url("C:/Users/gumrt/Desktop/pryblfx/venv/src/FichasTecnicas/D-0392_R-2.pdf")
+    
 
-    button = ft.ElevatedButton("Abrir PDF", on_click=open_pdf)
-    page.add(button)
+    def prUpload(e:FilePickerResultEvent):
+            print(e)
+        
+    def build(self):
+        return self.frameMain
+    
+def main(page: Page):
+    page.add(pr1(page))
 
-# Ejecutar la aplicación
-if __name__ == "__main__":
-    ft.app(target=main)
+app(main)
+    
 

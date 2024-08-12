@@ -19,43 +19,155 @@ class InstrImgs():
         self.clr = (0, 0, 0)
         self.fnt = "Helvetica-Bold"
 
-    def pdfImage(self,page):
+    def pdfText(self,page):
+        rect = fitz.Rect(100,50,110,60)
+        borderColor = (0,0,0)
+
+        text = "kiiiiiiiiiiiii"
+        text_color = (0, 1, 0)  # Color del texto (negro)
+        text_size = 12  # Tamaño de la fuente
+
+        text_rect = fitz.Rect(230, 590, 400, 660) # Cuadro de Texto
+        page.draw_rect(text_rect,color=text_color)
+
+        page.insert_textbox(text_rect, text, fontsize=text_size, fontname="helv", color=text_color, align=1)
+
+    def pdfImageExtr(self,page):
         # Ruta de la imagen que deseas insertar
         image_path = "Imagenes/img1.png" 
-        #                x0 : Altura y0 : Ancho x1 : Ancho Figura y1 : Altura Figura
-        rect = fitz.Rect(50, 50, 100, 100)
+     
+        # Crear el nuevo rectángulo en las coordenadas especificadas
+         #                   x0  y0   x1   y1 
+        txt = "Hola xd"
+        text_color = color = (0,1,0)
+        text_size = 12
+        color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
 
-        width = rect.width
-        height = rect.height
+        # Figuras
 
-        # Define la nueva posición para el rectángulo
-        new_x0, new_y0 = 150, 150  # Nuevas coordenadas de la esquina superior izquierda
+        Img_rect = fitz.Rect(70, 587, 180, 660)     # Img. Extrusión
+        text_rect = fitz.Rect(190, 587, 400, 660)   # Txt. Extrusión
+ 
+        page.draw_rect(Img_rect,color=color)
+        page.draw_rect(text_rect,color=color)
+ 
+        # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
+        page.insert_image(Img_rect, filename=image_path)        # Insetar la figura
 
-        # Calcula las nuevas coordenadas de la esquina inferior derecha
-        new_x1 = new_x0 + width
-        new_y1 = new_y0 + height
+    def pdfImageImpr(self,page):
+        # Ruta de la imagen que deseas insertar
+        image_path = "Imagenes/img1.png" 
+     
+        # Crear el nuevo rectángulo en las coordenadas especificadas
+         #                   x0  y0   x1   y1 
+        txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        text_color = color = (0,1,0)
+        text_size = 12
+        color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
 
-        print("-->",new_x1," ","-->",new_y1)
+        # Figuras
+
+        Img_rect = fitz.Rect(70, 1095, 200, 1260)     # Img. Extrusión
+        text_rect = fitz.Rect(208, 1095, 400, 1260)   # Txt. Extrusión
+ 
+        page.draw_rect(Img_rect,color=color)
+        page.draw_rect(text_rect,color=color)
+ 
+        # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
+        page.insert_image(Img_rect, filename=image_path)   
+
+    def pdfImageLam(self,page):
+        # Ruta de la imagen que deseas insertar
+        image_path = "Imagenes/img1.png" 
+     
+        # Crear el nuevo rectángulo en las coordenadas especificadas
+         #                   x0  y0   x1   y1 
+        txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        text_color = color = (0,1,0)
+        text_size = 12
+        color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
+
+        # Figuras
+
+        Img_rect = fitz.Rect(438, 701, 550, 795)     # Img. Extrusión
+        text_rect = fitz.Rect(560, 701, 765, 795)   # Txt. Extrusión
+ 
+        page.draw_rect(Img_rect,color=color)
+        page.draw_rect(text_rect,color=color)
+ 
+        # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
+        page.insert_image(Img_rect, filename=image_path)   
+
+    def pdfImageRef(self,page):
+        # Ruta de la imagen que deseas insertar
+        image_path = "Imagenes/img1.png" 
+     
+        # Crear el nuevo rectángulo en las coordenadas especificadas
+         #                   x0  y0   x1   y1 
+        txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        text_color = color = (0,1,0)
+        text_size = 12
+        color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
+
+        # Figuras
+
+        Img_rect = fitz.Rect(438, 1155, 550, 1267)     # Img. Extrusión
+        text_rect = fitz.Rect(560, 1155, 765, 1267)   # Txt. Extrusión
+ 
+        page.draw_rect(Img_rect,color=color)
+        page.draw_rect(text_rect,color=color)
+ 
+        # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
+        page.insert_image(Img_rect, filename=image_path)
+
+    def pdfImageCnvrs(self,page):
+        # Ruta de la imagen que deseas insertar
+        image_path = "Imagenes/img1.png" 
+     
+        # Crear el nuevo rectángulo en las coordenadas especificadas
+         #                   x0  y0   x1   y1 
+        txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        text_color = color = (0,1,0)
+        text_size = 12
+        color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
+
+        # Figuras
+
+        Img_rect = fitz.Rect(800, 540, 940, 776)     # Img. Extrusión
+        text_rect = fitz.Rect(950, 540, 1125, 776)   # Txt. Extrusión
+ 
+        page.draw_rect(Img_rect,color=color)
+        page.draw_rect(text_rect,color=color)
+ 
+        # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
+        page.insert_image(Img_rect, filename=image_path)   
+
+    def pdfSecuen(self,page):
+        image_path = "Imagenes/img1.png" 
 
         # Crear el nuevo rectángulo en las coordenadas especificadas
          #                   x0  y0   x1   y1 
-        
-        ###### ESTE ES EL CHID0 #######
-        new_rect = fitz.Rect(70, 590, 170, 660) # Figura
-        text_rect = fitz.Rect(170, 590, 270, 660) # Cuadro de Texto
-        ################################
-        # Dibuja un rectángulo con color de fondo
+        txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        text_color = color = (0,1,0)
+        text_size = 12
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
-        
-        #page.draw_rect(rect, color=color, fill_opacity=1)
-        page.draw_rect(new_rect,color=color)
-        page.draw_rect(text_rect,color=color)
 
+        # Figuras
+        Img_rect = fitz.Rect(800, 810, 1125, 1265)     # Img. Extrusión
+ 
+        page.draw_rect(Img_rect,color=color)
+ 
         # Sirve para Ingresar Textos dentro del Rectangulo
-        text_rect = page.insert_textbox(rect, text, fontsize=text_size, fontname="helv", color=text_color, align=1)
-
-
-        # Inserta la imagen en la página
-        #page.insert_image(rect, filename=image_path)
-        page.insert_image(new_rect, filename=image_path)        # Insetar la figura
-        page.insert_image(text_rect)
+        page.insert_image(Img_rect, filename=image_path)
+    def main(self,page):
+        self.pdfImageExtr(page),
+        self.pdfImageImpr(page),
+        self.pdfImageLam(page),
+        self.pdfImageRef(page),
+        self.pdfImageCnvrs(page),
+        self.pdfSecuen(page)

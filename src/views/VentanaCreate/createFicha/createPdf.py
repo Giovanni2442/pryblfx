@@ -79,7 +79,7 @@ class CreatePdf():
         self.pdfCnvrs.pdfConvrs(page,tpl)'''
 
         #### -- PREUBAS PARA IMAGEN -- #####
-        self.pdfImg.pdfImage(page)
+        self.pdfImg.main(page)
         ################################
 
         #### INSERTAR EN BD #####
