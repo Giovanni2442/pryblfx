@@ -57,8 +57,8 @@ class CreatePdf():
         print("-->",txtFld2)      
 
     # agregar tpl
-    #def Insert(self,tpl):
-    def Insert(self):
+    #def Insert(self,tpl,img):
+    def Insert(self,img):
         # Ejemplo: añadir texto en la primera página
         #txtFld = tpl[2][15].items[0].content.controls[1].value
         page = doc[0]
@@ -79,7 +79,7 @@ class CreatePdf():
         self.pdfCnvrs.pdfConvrs(page,tpl)'''
 
         #### -- PREUBAS PARA IMAGEN -- #####
-        self.pdfImg.main(page)
+        self.pdfImg.main(page,img)
         ################################
 
         #### INSERTAR EN BD #####
@@ -116,5 +116,6 @@ class CreatePdf():
 
     def close(self):
         doc.close()
-crpdf = CreatePdf()
-crpdf.Insert()
+        
+#crpdf = CreatePdf()
+#crpdf.Insert()

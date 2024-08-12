@@ -1,7 +1,8 @@
 from flet import * 
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
-
+from src.views.VentanaCreate.Mdls import Mdls
+from src.pruebas.pru2 import FileUploaderApp
 
 class InptsExtrc():
     def __init__(self,page):
@@ -10,8 +11,17 @@ class InptsExtrc():
         self.page = page
         self.valida = verificaciones(page)
 
+        #Abrir y Cerrar Modales
+        self.mdl = Mdls(page)
+
+        #EVENTO PICKER(PARA CARGAR ARCHIVOS)
+        self.Img = FileUploaderApp(page)
+
         ### INPUTS DE TABLA EXTRUCIÓN ###
         # on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+
+        
+        #### INGRESAR IMAGEN Y OBSERVACIÓNES ####
 
         ### SECCIÓN 1 ##
 
@@ -461,6 +471,44 @@ class InptsExtrc():
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
+    def open(self,e):
+        self.mdlObsr = AlertDialog(
+                modal=True,
+                title= Text(f"IMAGEN"),
+                #width=400,  # Ajusta el ancho del diálogo
+                #height=300,  # Ajusta el alto del diálogo
+                content=
+                    Container(
+                        bgcolor="red",
+                        width=500,
+                        height=500,
+                        margin=0,
+                        alignment=alignment.center,
+                        content=Column(
+                            #alignment=MainAxisAlignment.CENTER,  # Centra el contenido dentro de la columna
+                            horizontal_alignment=MainAxisAlignment.CENTER,
+                            controls=[
+                                ElevatedButton(
+                                    text="UPLOAD!",
+                                    on_click=self.Img.select_file
+                                ),
+                                TextField(
+                                    label="Dinaje",                         
+                                    border= InputBorder.OUTLINE,
+                                    border_color="Black",
+                                    value="N/A",
+                                    error_text= "",
+                                    label_style=TextStyle(color="Black",italic=True),
+                                    on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
+                                )
+                            ]),
+                    ),
+                actions=[
+                    TextButton("CERRAR", on_click= lambda e: self.mdl.close_dialog(self.mdlObsr))
+                ]
+            )
+        self.mdl.open_dialog(self.mdlObsr)    #'''
+    
     def tplInptsExtr(self):
         return [
             self.tipMtrlExtr,   # SECCIÓN 1
@@ -478,7 +526,6 @@ class InptsExtrc():
             self.tamEmplaye,
             self.tamRefila, # 12
             
-
             self.calPel_Tol,
             self.anchBob_Tol,   # SECCIÓN 2
             self.anchCore_Tol,

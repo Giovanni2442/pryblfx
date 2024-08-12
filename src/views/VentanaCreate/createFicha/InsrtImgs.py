@@ -32,7 +32,7 @@ class InstrImgs():
 
         page.insert_textbox(text_rect, text, fontsize=text_size, fontname="helv", color=text_color, align=1)
 
-    def pdfImageExtr(self,page):
+    def pdfImageExtr(self,page,img):
         # Ruta de la imagen que deseas insertar
         image_path = "Imagenes/img1.png" 
      
@@ -53,9 +53,9 @@ class InstrImgs():
  
         # Sirve para Ingresar Textos dentro del Rectangulo
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
-        page.insert_image(Img_rect, filename=image_path)        # Insetar la figura
+        page.insert_image(Img_rect, filename=img)        # Insetar la figura
 
-    def pdfImageImpr(self,page):
+    def pdfImageImpr(self,page,img):
         # Ruta de la imagen que deseas insertar
         image_path = "Imagenes/img1.png" 
      
@@ -76,7 +76,7 @@ class InstrImgs():
  
         # Sirve para Ingresar Textos dentro del Rectangulo
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
-        page.insert_image(Img_rect, filename=image_path)   
+        page.insert_image(Img_rect, filename=img)   
 
     def pdfImageLam(self,page):
         # Ruta de la imagen que deseas insertar
@@ -164,10 +164,11 @@ class InstrImgs():
  
         # Sirve para Ingresar Textos dentro del Rectangulo
         page.insert_image(Img_rect, filename=image_path)
-    def main(self,page):
-        self.pdfImageExtr(page),
-        self.pdfImageImpr(page),
-        self.pdfImageLam(page),
-        self.pdfImageRef(page),
-        self.pdfImageCnvrs(page),
-        self.pdfSecuen(page)
+    
+    def main(self,page,img):
+        self.pdfImageExtr(page,img),
+        self.pdfImageImpr(page,img),
+        #self.pdfImageLam(page),
+        #self.pdfImageRef(page),
+        #self.pdfImageCnvrs(page),
+        #self.pdfSecuen(page)

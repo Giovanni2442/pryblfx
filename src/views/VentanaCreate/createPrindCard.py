@@ -42,24 +42,24 @@ class createPrind(UserControl):
 
         # btn Agregar
         self.btn = FilledButton(
-                    text="ADD",
-                    adaptive=True,
-                    style=ButtonStyle(
-                        bgcolor="#21A742",
-                        color={
-                            ControlState.HOVERED: colors.RED,
-                            ControlState.HOVERED: colors.BLACK,
-                        },
-                        overlay_color=colors.TRANSPARENT,
-                        elevation={"pressed": 0, "": 1},
-                        animation_duration=200,
-                        shape={
-                            ControlState.HOVERED: RoundedRectangleBorder(radius=15),
-                            ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
-                        },
-                    ),
-                    #on_click= lambda e: self.Inpts.clean_fields(e), 
-                    on_click= self.eventInsert
+            text="ADD",
+            adaptive=True,
+            style=ButtonStyle(
+                bgcolor="#21A742",
+                color={
+                    ControlState.HOVERED: colors.RED,
+                    ControlState.HOVERED: colors.BLACK,
+                },
+                overlay_color=colors.TRANSPARENT,
+                elevation={"pressed": 0, "": 1},
+                animation_duration=200,
+                shape={
+                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                },
+            ),
+            #on_click= lambda e: self.Inpts.clean_fields(e), 
+            on_click= self.eventInsert
         )
 
         # Pestañas
@@ -76,7 +76,8 @@ class createPrind(UserControl):
                 Tab( text="IMPRESIÓN DIGITAL" ),
                 Tab( text="LAMINADO" ),
                 Tab( text="REFILADO" ),
-                Tab( text="CONVERSION" )
+                Tab( text="CONVERSION" ),
+                Tab( text="IMG" ),
             ]
         )
 
@@ -472,6 +473,11 @@ class createPrind(UserControl):
 
                                             Text("La tarima sera refilada"),
                                             self.InptsExtrc.tamRefila,
+
+                                            ElevatedButton(
+                                                text="IMAGENES",
+                                                on_click= self.InptsExtrc.open
+                                            )
                                         ]
                                     ),
                                     
@@ -1481,6 +1487,24 @@ class createPrind(UserControl):
             ])       
         )
 
+        # IAMGEN DE BOBINA Y OBSERVACIÓNES
+        self.vtnImgs = Container(
+            expand=True,
+            margin=margin.only(top=-5),
+            bgcolor=self.color_teal,
+            padding=5,
+            alignment=alignment.center,
+            content=
+                Column([
+                    Container(    # Tamaño Ficha Tecnica
+                    #expand=True,
+                    #Text("REFILADO",color="white"),
+                    alignment=alignment.center,
+                    bgcolor="#858585",
+                )
+                ])
+        )
+    
         # Contenedor de Boton Agregar a la BD
         self.cntBtn = Container(
             #expand=True,
@@ -1536,7 +1560,8 @@ class createPrind(UserControl):
             self.vtnImprDigtl,
             self.vtnLamGnrl,
             self.vtnRefilado,
-            self.vtnConversión
+            self.vtnConversión,
+            self.vtnImgs
         ]
 
         self.frameMain.content.controls = [self.cntHeader]

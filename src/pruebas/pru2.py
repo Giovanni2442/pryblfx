@@ -1,43 +1,54 @@
 ##--Draw and drop--##
 from flet import * 
 
-class pr1(UserControl):
-    def __init__(self,page):
-        super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
-    
-        file_picker = FilePicker(on_result=on_file_picked)
+from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
-        self.cnt = Container(
-            bgcolor="blue",
-            width=200,
-            height=500,
-            content= Column([
-                ElevatedButton("Upload",on_click= lambda _:self.PickerFile.)
-            ])
-        )
+#SI AL TENER MULTIPLES UPLOADFILE, QUIERO ALMACENAR
+# EN UNA LISTA PARA PASARLA COMO IMAGENES Y AGREGAR EL INDICE QUE CORRECPONDA 
+# ACADA OBSERVACIÓN
 
-        ## MAIN ##
-        self.frameMain = Container(
-            content=Column(
-                controls=[
-                    #self.dropImg
-                    #self.btnUp
-                    self.cnt
-                ]
-            )
-        )
 
-    
-
-    def prUpload(e:FilePickerResultEvent):
-            print(e)
+#TAREAS#
+#Al implementar la imagen y descripci+ón, esto imprimaria crear
+#Una nueva tabla para ello
+class FileUploaderApp:
+    def __init__(self, page: Page):
+        self.page = page
+        self.file_picker = FilePicker(on_result=self.on_file_picked)        # Abre el administrador de busqueda de Windows
+        self.page.overlay.append(self.file_picker) 
         
-    def build(self):
-        return self.frameMain
-    
-def main(page: Page):
-    page.add(pr1(page))
+        self.Img = CreatePdf()                         # Agregar el picker a la aplicación 
+        #Liata de imagenes
+        self.tplImg=[]
 
-app(main)
+    def on_file_picked(self, e: FilePickerResultEvent):                     # Si existe un archivo, muestra los multiples archivos
+        if e.files:     
+            for file in e.files:    # Recorre la lista de la info. de la imagen
+                #self.Img.Insert(file.path)
+                #self.Imge.Insert(file.path)
+                self.tplImg.append(file.path)
+                print(self.tplImg)
+                #self.page.add( Text(f"Archivo seleccionado: {file.name}"))
+
+    def select_file(self, e):       # Función para agregar multiples archivos
+        self.file_picker.pick_files(allow_multiple=False)
+
+    def build(self):
+        return Column(
+            [
+                Text("Subir archivo usando Flet"),
+                ElevatedButton(
+                    "Seleccionar archivo",
+                    on_click=self.select_file,
+                ),
+            ]
+        )
+
+#def main(page: Page):
+#    app = FileUploaderApp(page)
+#    page.add(app.build())
+
+#app(target=main)
+
     
 

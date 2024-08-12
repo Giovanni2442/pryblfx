@@ -3,6 +3,7 @@ from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appInserts import appInserts
 from src.Controllers.appFichVent import appFichVent
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
+from src.views.VentanaCreate.Mdls import Mdls
 
 # Tareas :               
 # * Implementar las expreciones regulares adecuadas a cada Input * 
@@ -30,6 +31,9 @@ class verificaciones():
     
         #Inserción de todas las tablas#
         self.Insrt = appInserts(page)
+
+        #Abrir y Cerrar Modales
+        self.mdl = Mdls(page)
     
     # Limpiar Labels
     def clean_fields(self,tpl):
@@ -64,21 +68,6 @@ class verificaciones():
         inpt.update()  # Actualiza el control para reflejar los cambios
 
 ######################################################
-
-################# MODALES #######################
-
-    # Función para abrir el diálogo
-    def open_dialog(slef,dialog,page):
-        page.overlay.append(dialog)
-        dialog.open = True
-        page.update()
-    # Función para cerrar el diálogo
-    def close_dialog(self,e,dialog,page):
-        dialog.open = False
-        page.update()
-
-#################################################
-
 
 ###### INSERCIÓN A LA BASE DE DATOS ##########################
 
@@ -180,20 +169,21 @@ class verificaciones():
                     modal=True,
                     title= Text(f"Faltan campos por llenar!"),
                     actions=[
-                        TextButton("CERRAR", on_click= lambda e: self.close_dialog(e,self.mdlVoidVl,self.page))
+                        TextButton("CERRAR", on_click= lambda e: self.mdl.close_dialog(self.mdlVoidVl))
                     ]
                 )
-            self.open_dialog(self.mdlVoidVl,self.page)
+            self.mdl.open_dialog(self.mdlVoidVl)
             return False
         elif len(vlErr) > 0:
             self.mdlErrValue = AlertDialog(
                     modal=True,
                     title= Text(f"Los valores en {vlErr} , Son incorrectos!"),
                     actions=[
-                        TextButton("CERRAR", on_click=lambda e: self.close_dialog(e,self.mdlErrValue,self.page))
+                        TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlVoidVl))
                     ]
                 )
-            self.open_dialog(self.mdlErrValue,self.page)
+            self.mdlVoidVl(self.mdlErrValue)
+            #self.open_dialog(self.mdlErrValue,self.page)
             return False
         else : 
             return True
@@ -214,7 +204,7 @@ class verificaciones():
             if not contact_exists:
                 #self.Insrt.qryPost(data)        # Insertar en bd
                 #print(value)
-                self.crtPdf.Insert(data) 
+                #---self.crtPdf.Insert(data)
                 #value = []
 
                 ### VALORES DE LOS INPUTS ###
@@ -231,7 +221,8 @@ class verificaciones():
                     ),
                     bgcolor="#5AE590",
                 )
-                self.open_dialog(self.msgDlt,self.page)
+                self.mdlErrValue(self.msgDlt)
+                #self.open_dialog(self.msgDlt,self.page)
                 lambda _: self.page.go('/cratePrindCard'),
                 #self.clean_fields(data)
             else:
@@ -239,9 +230,10 @@ class verificaciones():
                     modal=True,
                     title= Text(f"El Producto : {row[0]} ya Existe!"),
                     actions=[
-                        TextButton("CERRAR", on_click=lambda e: self.close_dialog(e,self.mdlDplctPrdct,self.page))
+                        TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlVoidVl))
                     ]
                 )
-                self.open_dialog(self.mdlDplctPrdct,self.page)
+                self.msgDlt(self.mdlDplctPrdct)
+                #self.open_dialog(self.mdlDplctPrdct,self.page)
                 return False
                 #print("El contacto ya existe en la base de datos.")
