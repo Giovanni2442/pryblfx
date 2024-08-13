@@ -8,7 +8,6 @@
 * Averiguar como hacer el UPDATE
 * Si no, empezar con el diseño (PRIORIDAD)
 
-
 '''
 
 import fitz  # PyMuPDF
@@ -32,51 +31,61 @@ class InstrImgs():
 
         page.insert_textbox(text_rect, text, fontsize=text_size, fontname="helv", color=text_color, align=1)
 
-    def pdfImageExtr(self,page,img):
+    def pdfImageExtr(self,page):
         # Ruta de la imagen que deseas insertar
         image_path = "Imagenes/img1.png" 
      
         # Crear el nuevo rectángulo en las coordenadas especificadas
          #                   x0  y0   x1   y1 
-        txt = "Hola xd"
-        text_color = color = (0,1,0)
-        text_size = 12
+        txt = "Hola xd"                     # Alimentara mediante un TextField
+        txt_Fig = "FIGURA 3"
+        text_color = color = (0,1,0)        # Color del Recuadro(ELIMINAR)
+        text_size = 12                      # Tamaño de la fuente
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
 
         # Figuras
+        numFic = fitz.Rect(186, 587, 400, 609)      # Num. Fig. Bobina
+        Img_rect = fitz.Rect(70, 587, 180, 659)     # Img. Extrusión
+        text_rect = fitz.Rect(186, 610, 400, 660)   # Txt. Extrusión
 
-        Img_rect = fitz.Rect(70, 587, 180, 660)     # Img. Extrusión
-        text_rect = fitz.Rect(190, 587, 400, 660)   # Txt. Extrusión
- 
+        # --- DIBUJA EL RECTANGULO ---      
+        page.draw_rect(numFic,color=color) 
         page.draw_rect(Img_rect,color=color)
         page.draw_rect(text_rect,color=color)
  
-        # Sirve para Ingresar Textos dentro del Rectangulo
+        # --- AGREGAR TEXTO/IMAGEN AL RECT ---
+        page.insert_textbox(numFic, txt_Fig, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
-        page.insert_image(Img_rect, filename=img)        # Insetar la figura
+        page.insert_image(Img_rect, filename= image_path)        # Insetar la figura PRUEBAS
+        #self.chekKey(page=page,fig=Img_rect,dicImgs=img,key='EXTRC')
 
-    def pdfImageImpr(self,page,img):
+
+    def pdfImageImpr(self,page):
         # Ruta de la imagen que deseas insertar
         image_path = "Imagenes/img1.png" 
      
         # Crear el nuevo rectángulo en las coordenadas especificadas
          #                   x0  y0   x1   y1 
         txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        txt_Fig = "FIGURA 3"
         text_color = color = (0,1,0)
         text_size = 12
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
 
         # Figuras
-
-        Img_rect = fitz.Rect(70, 1095, 200, 1260)     # Img. Extrusión
-        text_rect = fitz.Rect(208, 1095, 400, 1260)   # Txt. Extrusión
+        numFic = fitz.Rect(208, 1095, 400, 1120)      # Num. Fig. Bobina
+        Img_rect = fitz.Rect(70, 1093, 200, 1265)     # Img. Extrusión
+        text_rect = fitz.Rect(208, 1120, 400, 1265)   # Txt. Extrusión
  
+        page.draw_rect(numFic,color=color)
         page.draw_rect(Img_rect,color=color)
         page.draw_rect(text_rect,color=color)
  
         # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(numFic, txt_Fig, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
-        page.insert_image(Img_rect, filename=img)   
+        page.insert_image(Img_rect, filename= image_path)        # Insetar la figura PRUEBAS
+        #self.chekKey(page=page,fig=Img_rect,dicImgs=img,key='IMPRDIG')
 
     def pdfImageLam(self,page):
         # Ruta de la imagen que deseas insertar
@@ -85,42 +94,48 @@ class InstrImgs():
         # Crear el nuevo rectángulo en las coordenadas especificadas
          #                   x0  y0   x1   y1 
         txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        txt_Fig = "FIGURA 3"
         text_color = color = (0,1,0)
         text_size = 12
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
 
         # Figuras
-
+        numFic = fitz.Rect(560, 701, 765, 730)      # Num. Fig. Bobina
         Img_rect = fitz.Rect(438, 701, 550, 795)     # Img. Extrusión
-        text_rect = fitz.Rect(560, 701, 765, 795)   # Txt. Extrusión
+        text_rect = fitz.Rect(560, 730, 765, 795)   # Txt. Extrusión
  
+        page.draw_rect(numFic,color=color)
         page.draw_rect(Img_rect,color=color)
         page.draw_rect(text_rect,color=color)
  
         # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(numFic, txt_Fig, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_image(Img_rect, filename=image_path)   
 
     def pdfImageRef(self,page):
         # Ruta de la imagen que deseas insertar
         image_path = "Imagenes/img1.png" 
-     
+
         # Crear el nuevo rectángulo en las coordenadas especificadas
          #                   x0  y0   x1   y1 
         txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        txt_Fig = "FIGURA 3"
         text_color = color = (0,1,0)
         text_size = 12
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
 
         # Figuras
-
+        numFic = fitz.Rect(560, 1155, 765, 1177)      # Num. Fig. Bobina
         Img_rect = fitz.Rect(438, 1155, 550, 1267)     # Img. Extrusión
-        text_rect = fitz.Rect(560, 1155, 765, 1267)   # Txt. Extrusión
+        text_rect = fitz.Rect(560, 1177, 765, 1267)   # Txt. Extrusión
  
+        page.draw_rect(numFic,color=color)
         page.draw_rect(Img_rect,color=color)
         page.draw_rect(text_rect,color=color)
  
         # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(numFic, txt_Fig, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_image(Img_rect, filename=image_path)
 
@@ -131,19 +146,23 @@ class InstrImgs():
         # Crear el nuevo rectángulo en las coordenadas especificadas
          #                   x0  y0   x1   y1 
         txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
+        txt_Fig = "FIGURA 3"
         text_color = color = (0,1,0)
         text_size = 12
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
 
         # Figuras
-
+        
+        numFic = fitz.Rect(950, 540, 1125, 564)      # Num. Fig. Bobina
         Img_rect = fitz.Rect(800, 540, 940, 776)     # Img. Extrusión
-        text_rect = fitz.Rect(950, 540, 1125, 776)   # Txt. Extrusión
+        text_rect = fitz.Rect(950, 564, 1125, 776)   # Txt. Extrusión
  
+        page.draw_rect(numFic,color=color)
         page.draw_rect(Img_rect,color=color)
         page.draw_rect(text_rect,color=color)
  
         # Sirve para Ingresar Textos dentro del Rectangulo
+        page.insert_textbox(numFic, txt_Fig, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_image(Img_rect, filename=image_path)   
 
@@ -165,10 +184,19 @@ class InstrImgs():
         # Sirve para Ingresar Textos dentro del Rectangulo
         page.insert_image(Img_rect, filename=image_path)
     
-    def main(self,page,img):
-        self.pdfImageExtr(page,img),
-        self.pdfImageImpr(page,img),
-        #self.pdfImageLam(page),
-        #self.pdfImageRef(page),
-        #self.pdfImageCnvrs(page),
-        #self.pdfSecuen(page)
+    # Función para agregar Imagenes y Observaciónes
+    # Ayuda a agregar Imagenes vacias y Observaciónes
+    def chekKey(self,page,fig,dicImgs,key):
+        if key not in dicImgs:
+            #print(' ')
+            return None
+        else:
+            page.insert_image(fig,filename=dicImgs[key]) 
+
+    def main(self,page):
+        self.pdfImageExtr(page),
+        self.pdfImageImpr(page),
+        self.pdfImageLam(page),
+        self.pdfImageRef(page),
+        self.pdfImageCnvrs(page),
+        self.pdfSecuen(page)

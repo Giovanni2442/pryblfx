@@ -7,10 +7,10 @@ from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 # EN UNA LISTA PARA PASARLA COMO IMAGENES Y AGREGAR EL INDICE QUE CORRECPONDA 
 # ACADA OBSERVACIÓN
 
-
 #TAREAS#
 #Al implementar la imagen y descripci+ón, esto imprimaria crear
 #Una nueva tabla para ello
+
 class FileUploaderApp:
     def __init__(self, page: Page):
         self.page = page
@@ -18,20 +18,28 @@ class FileUploaderApp:
         self.page.overlay.append(self.file_picker) 
         
         self.Img = CreatePdf()                         # Agregar el picker a la aplicación 
+        
+        # Id button
+        self.Btnid = None
         #Liata de imagenes
-        self.tplImg=[]
+        self.tplImg={}
 
     def on_file_picked(self, e: FilePickerResultEvent):                     # Si existe un archivo, muestra los multiples archivos
         if e.files:     
             for file in e.files:    # Recorre la lista de la info. de la imagen
-                #self.Img.Insert(file.path)
-                #self.Imge.Insert(file.path)
-                self.tplImg.append(file.path)
-                print(self.tplImg)
+            
+                self.tplImg[self.Btnid] = file.path
+                self.Img.Insert(self.tplImg) 
+                #print(self.tplImg['BTTON 1'])
                 #self.page.add( Text(f"Archivo seleccionado: {file.name}"))
 
-    def select_file(self, e):       # Función para agregar multiples archivos
+    def select_file(self, e, id):       # Función para agregar multiples archivos
+        # ALmacena el Id del bton
+        self.Btnid = id
+        #self.file_picker.pick_files(allow_multiple=False)
         self.file_picker.pick_files(allow_multiple=False)
+
+        #self.on_file_picked(e,label)
 
     def build(self):
         return Column(

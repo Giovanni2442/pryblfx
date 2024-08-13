@@ -17,6 +17,7 @@ from src.views.VentanaCreate.InptsForm.Inpts_Refil import Inpts_Refil
 from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.Controllers.appInserts import appInserts
+from src.views.VentanaCreate.Mdls import opnMdlImg
 
 class createPrind(UserControl):
     def __init__(self,page):
@@ -33,10 +34,13 @@ class createPrind(UserControl):
         self.InptsConvrs = Inpts_Convrs(page)
         #---Pruebas para el prindcard ---#
         self.prntCrd = CreatePdf()
-
+        # Verifica cada una de las entradas
         self.vrf = verificaciones(page)
-
+        # Qry's de la Base de datos
         self.appInsert = appInserts(page)
+        # Modal de Imagenes
+        self.mdlImg = opnMdlImg(page)
+
         # Crear pdf prindcard
         #self.crtPdf = CreatePdf()
 
@@ -476,7 +480,8 @@ class createPrind(UserControl):
 
                                             ElevatedButton(
                                                 text="IMAGENES",
-                                                on_click= self.InptsExtrc.open
+                                                on_click= lambda e: self.mdlImg.open(e,'EXTRC')
+                                                #on_click= self.InptsExtrc.open()
                                             )
                                         ]
                                     ),

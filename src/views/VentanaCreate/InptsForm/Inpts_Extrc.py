@@ -471,12 +471,11 @@ class InptsExtrc():
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
+    # --- Abrir el Modal para agregar la Imagen --- 
     def open(self,e):
         self.mdlObsr = AlertDialog(
                 modal=True,
                 title= Text(f"IMAGEN"),
-                #width=400,  # Ajusta el ancho del diálogo
-                #height=300,  # Ajusta el alto del diálogo
                 content=
                     Container(
                         bgcolor="red",
@@ -490,8 +489,9 @@ class InptsExtrc():
                             controls=[
                                 ElevatedButton(
                                     text="UPLOAD!",
-                                    on_click=self.Img.select_file
+                                    on_click= lambda e: self.Img.select_file(e,"EXTRC")  # Funcion donde contiene el Picker
                                 ),
+                                
                                 TextField(
                                     label="Dinaje",                         
                                     border= InputBorder.OUTLINE,
