@@ -478,7 +478,7 @@ class createPrind(UserControl):
                                             Text("La tarima sera refilada"),
                                             self.InptsExtrc.tamRefila,
 
-                                            ElevatedButton(
+                                            ElevatedButton(         # Agregar Images y Observaciónes
                                                 text="IMAGENES",
                                                 on_click= lambda e: self.mdlImg.open(e,'EXTRC')
                                                 #on_click= self.InptsExtrc.open()

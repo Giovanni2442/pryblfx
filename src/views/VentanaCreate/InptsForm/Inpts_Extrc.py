@@ -470,44 +470,6 @@ class InptsExtrc():
             autofocus=True,
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
-
-    # --- Abrir el Modal para agregar la Imagen --- 
-    def open(self,e):
-        self.mdlObsr = AlertDialog(
-                modal=True,
-                title= Text(f"IMAGEN"),
-                content=
-                    Container(
-                        bgcolor="red",
-                        width=500,
-                        height=500,
-                        margin=0,
-                        alignment=alignment.center,
-                        content=Column(
-                            #alignment=MainAxisAlignment.CENTER,  # Centra el contenido dentro de la columna
-                            horizontal_alignment=MainAxisAlignment.CENTER,
-                            controls=[
-                                ElevatedButton(
-                                    text="UPLOAD!",
-                                    on_click= lambda e: self.Img.select_file(e,"EXTRC")  # Funcion donde contiene el Picker
-                                ),
-                                
-                                TextField(
-                                    label="Dinaje",                         
-                                    border= InputBorder.OUTLINE,
-                                    border_color="Black",
-                                    value="N/A",
-                                    error_text= "",
-                                    label_style=TextStyle(color="Black",italic=True),
-                                    on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
-                                )
-                            ]),
-                    ),
-                actions=[
-                    TextButton("CERRAR", on_click= lambda e: self.mdl.close_dialog(self.mdlObsr))
-                ]
-            )
-        self.mdl.open_dialog(self.mdlObsr)    #'''
     
     def tplInptsExtr(self):
         return [

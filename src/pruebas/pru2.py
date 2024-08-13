@@ -22,24 +22,34 @@ class FileUploaderApp:
         # Id button
         self.Btnid = None
         #Liata de imagenes
-        self.tplImg={}
+        self.tplImg={}              # Guarda las rutas de las imagenes Ingresadas y Las observaciónes
 
     def on_file_picked(self, e: FilePickerResultEvent):                     # Si existe un archivo, muestra los multiples archivos
+        #numFig = self.Btnid[1]
+        #Obsrv = self.Btnid[2]
+        
         if e.files:     
             for file in e.files:    # Recorre la lista de la info. de la imagen
             
-                self.tplImg[self.Btnid] = file.path
-                self.Img.Insert(self.tplImg) 
-                #print(self.tplImg['BTTON 1'])
+                #if len(self.Btnid)
+                #if self.Btnid[0] == "1" : #Banderin confirma si se precióno el boton
+                #   self.tplImg[self.Btnid[1]] = (file.path,) 
+                #self.Img.Insert(self.tplImg) 
+                #print("-- ",self.tplImg)
+                print(file)
+                #print(f"NumFig : {numFig} : Obsrv : {Obsrv}")
                 #self.page.add( Text(f"Archivo seleccionado: {file.name}"))
 
-    def select_file(self, e, id):       # Función para agregar multiples archivos
+    def select_file(self, e, *any):       # Función para agregar multiples archivos
         # ALmacena el Id del bton
-        self.Btnid = id
-        #self.file_picker.pick_files(allow_multiple=False)
+        self.Btnid = self
+        #print(any)
         self.file_picker.pick_files(allow_multiple=False)
 
         #self.on_file_picked(e,label)
+    
+    def jer(self,e,*any):
+        return any
 
     def build(self):
         return Column(

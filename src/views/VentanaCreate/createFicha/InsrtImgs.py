@@ -31,7 +31,7 @@ class InstrImgs():
 
         page.insert_textbox(text_rect, text, fontsize=text_size, fontname="helv", color=text_color, align=1)
 
-    def pdfImageExtr(self,page):
+    def pdfImageExtr(self,page,img):
         # Ruta de la imagen que deseas insertar
         image_path = "Imagenes/img1.png" 
      
@@ -56,11 +56,11 @@ class InstrImgs():
         # --- AGREGAR TEXTO/IMAGEN AL RECT ---
         page.insert_textbox(numFic, txt_Fig, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
-        page.insert_image(Img_rect, filename= image_path)        # Insetar la figura PRUEBAS
-        #self.chekKey(page=page,fig=Img_rect,dicImgs=img,key='EXTRC')
+        #page.insert_image(Img_rect, filename= image_path)        # Insetar la figura PRUEBAS
+        self.chekKey(page=page,fig=Img_rect,dicImgs=img,key='EXTRC')
 
 
-    def pdfImageImpr(self,page):
+    def pdfImageImpr(self,page,img):
         # Ruta de la imagen que deseas insertar
         image_path = "Imagenes/img1.png" 
      
@@ -84,8 +84,8 @@ class InstrImgs():
         # Sirve para Ingresar Textos dentro del Rectangulo
         page.insert_textbox(numFic, txt_Fig, fontsize=text_size, fontname="helv", color=text_color, align=1)
         page.insert_textbox(text_rect, txt, fontsize=text_size, fontname="helv", color=text_color, align=1)
-        page.insert_image(Img_rect, filename= image_path)        # Insetar la figura PRUEBAS
-        #self.chekKey(page=page,fig=Img_rect,dicImgs=img,key='IMPRDIG')
+        #page.insert_image(Img_rect, filename= image_path)        # Insetar la figura PRUEBAS
+        self.chekKey(page=page,fig=Img_rect,dicImgs=img,key='IMPRDIG')
 
     def pdfImageLam(self,page):
         # Ruta de la imagen que deseas insertar
@@ -194,7 +194,7 @@ class InstrImgs():
             page.insert_image(fig,filename=dicImgs[key]) 
 
     def main(self,page):
-        self.pdfImageExtr(page),
+        self.pdfImageExtr(page,),
         self.pdfImageImpr(page),
         self.pdfImageLam(page),
         self.pdfImageRef(page),

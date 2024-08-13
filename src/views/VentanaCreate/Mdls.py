@@ -27,46 +27,128 @@ class opnMdlImg():
         self.Img = FileUploaderApp(page)
 
     def open(self, e, id):
+        txt1 = "",
+        txt2 = "",
+
         self.mdlObsr = AlertDialog(
             modal=True,
-            title=Text(
-                "IMAGEN",
-                color="black",
-                text_align="center"
+            title= Container(
+                #border= border.only(bottom=border.BorderSide(1, "black")),
+                shadow=BoxShadow(
+                    spread_radius=0,
+                    blur_radius=10,
+                    offset=Offset(0, 4),  # Ajusta el desplazamiento de la sombra
+                    color=colors.BLACK12,  # Cambia el color si es necesario
                 ),
+                content= Text(
+                    "INGRESAR IMAGEN",
+                    color="black",
+                    text_align="center",
+                ),
+            ),
+            
             bgcolor="#ddddddcf",  # Color de fondo con transparencia (CC es el valor alfa)
-            content=Container(
-                bgcolor="#f0f0f0",
+            content=
+            Container(
+                #bgcolor="#f0f0f0",
                 width=500,
                 height=250,
                 margin=0,
                 alignment=alignment.center,
                 content=Column(
+                    scroll="auto",          # Scroll
                     alignment=MainAxisAlignment.CENTER,  # Centra verticalmente el contenido dentro de la columna
                     horizontal_alignment=CrossAxisAlignment.CENTER,  # Centra horizontalmente el contenido dentro de la columna
                     controls=[
+                        Text("Agregar Figura : ", color="black", text_align="center"),              # Agregar Imagem                       
                         ElevatedButton(
                             text="UPLOAD!",
-                            on_click=lambda e: self.Img.select_file(e, id)  # Función donde contiene el Picker
+                            #on_click=lambda e: self.Img.select_file(e, id)  # Función donde contiene el Picker
                         ),
+
+                        Text("Ingresar Numero de Figura : ", color="black", text_align="center"),   # Agregar Num. Fig
                         TextField(
-                            label="Dinaje",
+                            label="Figura",
+                            border=InputBorder.OUTLINE,
+                            border_color="Black",
+                            height=100,
+                            value="N/A",
+                            color="black",
+                            error_text="",
+                            label_style=TextStyle(color="Black", italic=True),
+                            #on_change= lambda e: self.Img.select_file(e, e.control.value)
+                        ),
+
+                        Text("Ingresar Observaciónes", color="black", text_align="center"),
+                        TextField(
+                            label="Observaciónes",
                             border=InputBorder.OUTLINE,
                             border_color="Black",
                             multiline=True,
                             height=100,
                             value="N/A",
+                            color="black",
                             error_text="",
-                            label_style=TextStyle(color="Black", italic=True),
-                            # on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
+                            label_style=TextStyle(color="black", italic=True),
+                            #on_change= lambda e: txt1 = e.control.value
+                            
                         )
                     ]
                 ),
             ),
             actions=[
-                TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlObsr))
+                Container(              # CONTENEDOR DE BOTONES
+                    content=Row(
+                        vertical_alignment=CrossAxisAlignment.END,
+                        controls=[
+                        FilledButton("AGREGAR",  # AGREGAR CAMBIOS
+                            adaptive=True,
+                            style=ButtonStyle(
+                                bgcolor="#21A772",
+                                color={
+                                    ControlState.HOVERED: colors.RED,
+                                    ControlState.HOVERED: colors.BLACK,
+                                },
+                                overlay_color=colors.TRANSPARENT,
+                                elevation={"pressed": 0, "": 1},
+                                animation_duration=200,
+                                shape={
+                                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                                },
+                            ),
+                            # TAREA : CONFIRMA LOS CAMBIOS Y CIERRA EL MODAL, AGREGAR UN MENSAJE DE CONFIRMACIÓN!
+                            #on_click= lambda _: print(self.mdlObsr.content.content.controls[3].value)
+                            # jer(event,flag,txt1,txt2)
+                            #on_click= lambda e: self.Img.select_file(e,"1",id,self.mdlObsr.content.content.controls[3].value,self.mdlObsr.content.content.controls[5].value)
+                        ),
+
+                        FilledButton("CERRAR",  # CERRAR MODAL
+                            adaptive=True,
+                            style=ButtonStyle(
+                                bgcolor="#21A772",
+                                color={
+                                    ControlState.HOVERED: colors.RED,
+                                    ControlState.HOVERED: colors.BLACK,
+                                },
+                                overlay_color=colors.TRANSPARENT,
+                                elevation={"pressed": 0, "": 1},
+                                animation_duration=200,
+                                shape={
+                                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                                },
+                            ),
+                            #on_click=lambda e: self.mdl.close_dialog(self.mdlObsr)
+                        )
+                    ])
+                ),
                 ]
             )
+        print("---> ",self.mdlObsr.content.content.controls[3].value)       # TextField Num.Fig
+        print("---> ",self.mdlObsr.content.content.controls[5].value)       # TextField Observaciones
+        print("---> ",self.mdlObsr.content.content.controls[1])       # TextField Observaciones
+
         self.mdl.open_dialog(self.mdlObsr)
 
             
