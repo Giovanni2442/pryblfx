@@ -20,11 +20,6 @@ from src.Controllers.appPrindCard import appPrindCard
 
 # src\views\VentanaCreate\createFicha\Template
 
-#print(doc)
-#tmpl = "Template/Template.pdf"
-tmpl = "Template/Template.pdf"
-doc = fitz.open(tmpl)
-
 class CreatePdf():
     def __init__(self):
         self.pdfFichVent = Insrt_FichaVentas()
@@ -35,13 +30,15 @@ class CreatePdf():
         self.pdfCnvrs = Insrt_Convrs()
         self.pdfImg = InstrImgs()
 
+        tmpl = "Template/Template.pdf"
+        self.doc = fitz.open(tmpl)
+
         # ADD TO DATABASE
         self.postpdf = appPrindCard()
-
+        # PAGINA "0" DEL PDF
+        self.page = self.doc[0]
         
-
     def jer(self,tpl):
-        
         '''     
         for inx,i in enumerate(tpl):
             if isinstance(i, list):
@@ -57,33 +54,34 @@ class CreatePdf():
         print("-->",txtFld2)      
 
     # agregar tpl
-    #def Insert(self,tpl,img):
-    def Insert(self,id,dicImg):
+    def InsertImg(self,id,dicImg):
+        #### -- PREUBAS PARA IMAGEN -- #####
+        self.pdfImg.main(self.page,id,dicImg)
+        
+        ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
+        #temp_filename = "Template/Template_temp.pdf"
+        #self.doc.save(temp_filename)
+        #doc.close()
+
+    def InsertTxt(self,tpl):
     #def Insert(self):
         # Ejemplo: añadir texto en la primera página
-        #txtFld = tpl[2][15].items[0].content.controls[1].value
-        page = doc[0]
-        vl = 9
-        '''
+        #txtFld = tpl[2][15]items[0].content.controls[1].value
+     
+        #'''
         #### -- TABLA EXTRUSIÓN -- #####       
-        self.pdfFichVent.pdfFichVent(page,tpl)
+        self.pdfFichVent.pdfFichVent(self.page,tpl)
         #### -- TABLA EXTRUSIÓN -- #####       
-        self.pdfExtr.pdfExtru(page,tpl)
+        self.pdfExtr.pdfExtru(self.page,tpl)
         #### -- TABLA IMPRESION -- #####       
-        self.pdfImpr.pdfImpr(page,tpl)
+        self.pdfImpr.pdfImpr(self.page,tpl)
         #### -- TABLA LAMINADO -- #####
-        self.pdfLam.pdfLam(page,tpl)
+        self.pdfLam.pdfLam(self.page,tpl)
         #self.pdfLam.pru(tpl)
         #### -- TABLA REFILADO -- #####
-        self.pdfRef.pdfRefil(page,tpl)
+        self.pdfRef.pdfRefil(self.page,tpl)
         #### -- TABLA CONVERSIÓN -- #####
-        self.pdfCnvrs.pdfConvrs(page,tpl)'''
-
-        #### -- PREUBAS PARA IMAGEN -- #####
-        self.pdfImg.main(id,dicImg)
-        #self.pdfImg.main(page)
-        #self.pdfImg.chekKey(dicImg)
-        ################################
+        self.pdfCnvrs.pdfConvrs(self.page,tpl)#'''
 
         #### INSERTAR EN BD #####
         #pdfBytes = doc.write()
@@ -92,33 +90,11 @@ class CreatePdf():
         #########################
 
         ####Prueba sin archivos Temporales####
-        #pdf_buffer = io.BytesIO()
-        #doc.save(pdf_buffer)
-        #pdf_binary = pdf_buffer.getvalue()     # Archivo Binario
-        #self.postpdf.postPridCardPdf(tpl[0][0].value,pdf_binary)
-        #doc.close()
-        
-        #doc.close()
-        #on_click= self.pdf.opnPdfBffer
-        ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
-        temp_filename = "Template/Template_temp.pdf"
-        doc.save(temp_filename)
-        #doc.close()
-        # Leer el archivo PDF en modo binario
-        #with open(temp_filename, "rb") as file:
-        #    pdf_binary = file.read()
-        
-        #self.postpdf.postPridCardPdf(tpl[0][0].value,pdf_binary)
-        
-        #############################################
+        pdf_buffer = io.BytesIO()               # Transforma el archivo en Bytes
+        self.doc.save(pdf_buffer)
+        pdf_binary = pdf_buffer.getvalue()      # Archivo Binario
+        self.postpdf.postPridCardPdf(tpl[0][0].value,pdf_binary)
+        self.doc.close()
 
-        # Guarda el nuevo PDF en un archivo temporal
-        #temp_filename = "temp_editado.pdf"
-    
-        #doc.save(f"Template/{tpl[0][0].value}.pdf")
-
-    def close(self):
-        doc.close()
-        
 #crpdf = CreatePdf()
 #crpdf.Insert()

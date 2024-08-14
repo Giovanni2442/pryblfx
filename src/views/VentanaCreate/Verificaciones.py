@@ -174,16 +174,17 @@ class verificaciones():
                 )
             self.mdl.open_dialog(self.mdlVoidVl)
             return False
+        
         elif len(vlErr) > 0:
             self.mdlErrValue = AlertDialog(
                     modal=True,
                     title= Text(f"Los valores en {vlErr} , Son incorrectos!"),
                     actions=[
-                        TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlVoidVl))
+                        TextButton("CERRAR", on_click=lambda _: self.mdl.close_dialog(self.mdlErrValue))
                     ]
                 )
-            self.mdlVoidVl(self.mdlErrValue)
-            #self.open_dialog(self.mdlErrValue,self.page)
+            #self.mdlVoidVl(self.mdlErrValue)
+            self.mdl.open_dialog(self.mdlErrValue)
             return False
         else : 
             return True
@@ -202,15 +203,18 @@ class verificaciones():
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
             if not contact_exists:
-                #self.Insrt.qryPost(data)        # Insertar en bd
-                #print(value)
-                self.crtPdf.Insert(data)
+                # INSERTAR EN DB
+                self.Insrt.qryPost(data)       
+                # INSERTAR VALORES AL PDF
+                self.crtPdf.InsertTxt(data)
+                # INGRESAR IMAGENES AL PDF
+                #self.crtPdf
                 #value = []
 
                 ### VALORES DE LOS INPUTS ###
                 #self.crtPdf.Insert(data)         # Crear el prindCard       
                 #############################
-                self.msgDlt = SnackBar(         # Insert exitoso!
+                self.msgInsrt = SnackBar(         # Insert exitoso!
                     content=Column(
                         controls=[
                             Container(
@@ -221,19 +225,19 @@ class verificaciones():
                     ),
                     bgcolor="#5AE590",
                 )
-                self.mdlErrValue(self.msgDlt)
-                #self.open_dialog(self.msgDlt,self.page)
-                lambda _: self.page.go('/cratePrindCard'),
+                #self.mdlErrValue(self.msgDlt)
+                self.mdl.open_dialog(self.msgInsrt)
+                #lambda _: self.page.go('/cratePrindCard'),
                 #self.clean_fields(data)
             else:
-                self.mdlDplctPrdct = AlertDialog(
+                self.mdlDplctPrdct = AlertDialog(   # MODAL PRODUCTO DUPLICADO
                     modal=True,
                     title= Text(f"El Producto : {row[0]} ya Existe!"),
                     actions=[
-                        TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlVoidVl))
+                        TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlDplctPrdct))
                     ]
                 )
-                self.msgDlt(self.mdlDplctPrdct)
-                #self.open_dialog(self.mdlDplctPrdct,self.page)
+                #self.msgDlt(self.mdlDplctPrdct)
+                self.mdl.open_dialog(self.mdlDplctPrdct)
                 return False
                 #print("El contacto ya existe en la base de datos.")

@@ -23,7 +23,7 @@ class FileUploaderApp:
         self.pru = None
         # Id button
         self.Btnid = None
-        #Liata de imagenes
+        #Lista de imagenes
         self.tplImg={}              # Guarda las rutas de las imagenes Ingresadas y Las observaciónes
 
     def on_file_picked(self, e: FilePickerResultEvent):                     # Si existe un archivo, muestra los multiples archivos
@@ -59,9 +59,7 @@ class FileUploaderApp:
         numFig = self.Btnid[1]
         Obsrv = self.Btnid[2]
         self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)
-        #print(self.Btnid[0])
-        self.Img.Insert(id,self.tplImg)  # INSERTAR ELEMENTOS
-        #print(self.tplImg["EXTRC"][0])
+        self.Img.InsertImg(id,self.tplImg)  # INSERTAR ELEMENTOS
 
     def build(self):
         return Column(

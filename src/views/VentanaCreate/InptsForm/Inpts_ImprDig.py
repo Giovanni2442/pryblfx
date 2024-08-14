@@ -266,7 +266,7 @@ class Inpst_ImprDig():
                             label="Color",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
@@ -280,7 +280,7 @@ class Inpst_ImprDig():
                             label="Tol. Deltas",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value="N/A",
+                            value='0',
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 

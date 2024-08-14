@@ -32,7 +32,6 @@ class crudPrintCard(UserControl):
         self.pr = pr(page)
         self.pdf = opnPrindPdf(page)
 
-
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
         self.InptPrindCard = TextField(
@@ -185,6 +184,7 @@ class crudPrintCard(UserControl):
         # -----------------------------
 
      # --- Filas de la tabla ---
+    
     def dataRows(self,row):
         self.rows = DataRow(
             cells=[
