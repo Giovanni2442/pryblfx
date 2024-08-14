@@ -19,6 +19,8 @@ class FileUploaderApp:
         
         self.Img = CreatePdf()                         # Agregar el picker a la aplicación 
         
+
+        self.pru = None
         # Id button
         self.Btnid = None
         #Liata de imagenes
@@ -34,22 +36,32 @@ class FileUploaderApp:
                 #if len(self.Btnid)
                 #if self.Btnid[0] == "1" : #Banderin confirma si se precióno el boton
                 #   self.tplImg[self.Btnid[1]] = (file.path,) 
-                #self.Img.Insert(self.tplImg) 
+                
                 #print("-- ",self.tplImg)
-                print(file)
+                
+                #self.Btnid = file.path
+                self.pru = file.path
+                #self.jer(txt)
+                #print(self.Btnid)
                 #print(f"NumFig : {numFig} : Obsrv : {Obsrv}")
                 #self.page.add( Text(f"Archivo seleccionado: {file.name}"))
 
-    def select_file(self, e, *any):       # Función para agregar multiples archivos
+    def select_file(self, e):       # Función para agregar multiples archivos
         # ALmacena el Id del bton
-        self.Btnid = self
         #print(any)
         self.file_picker.pick_files(allow_multiple=False)
 
         #self.on_file_picked(e,label)
     
-    def jer(self,e,*any):
-        return any
+    def jer(self,*any):     # Inserción al PDF y a la base de datos (PROXIMAMENTE!)
+        self.Btnid = any
+        id = self.Btnid[0]
+        numFig = self.Btnid[1]
+        Obsrv = self.Btnid[2]
+        self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)
+        #print(self.Btnid[0])
+        self.Img.Insert(id,self.tplImg)  # INSERTAR ELEMENTOS
+        #print(self.tplImg["EXTRC"][0])
 
     def build(self):
         return Column(

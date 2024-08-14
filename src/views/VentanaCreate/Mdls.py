@@ -6,7 +6,6 @@ class Mdls():
     def __init__(self,page):
         self.page = page
         
-
         # Función para abrir el diálogo
     def open_dialog(self,dialog):
         self.page.overlay.append(dialog)
@@ -26,10 +25,7 @@ class opnMdlImg():
         #EVENTO PICKER(PARA CARGAR ARCHIVOS)
         self.Img = FileUploaderApp(page)
 
-    def open(self, e, id):
-        txt1 = "",
-        txt2 = "",
-
+    def open(self,id):
         self.mdlObsr = AlertDialog(
             modal=True,
             title= Container(
@@ -63,7 +59,7 @@ class opnMdlImg():
                         Text("Agregar Figura : ", color="black", text_align="center"),              # Agregar Imagem                       
                         ElevatedButton(
                             text="UPLOAD!",
-                            #on_click=lambda e: self.Img.select_file(e, id)  # Función donde contiene el Picker
+                            on_click= self.Img.select_file # Función donde contiene el Picker
                         ),
 
                         Text("Ingresar Numero de Figura : ", color="black", text_align="center"),   # Agregar Num. Fig
@@ -101,6 +97,7 @@ class opnMdlImg():
                     content=Row(
                         vertical_alignment=CrossAxisAlignment.END,
                         controls=[
+                        # ABRIR MODAL
                         FilledButton("AGREGAR",  # AGREGAR CAMBIOS
                             adaptive=True,
                             style=ButtonStyle(
@@ -120,9 +117,9 @@ class opnMdlImg():
                             # TAREA : CONFIRMA LOS CAMBIOS Y CIERRA EL MODAL, AGREGAR UN MENSAJE DE CONFIRMACIÓN!
                             #on_click= lambda _: print(self.mdlObsr.content.content.controls[3].value)
                             # jer(event,flag,txt1,txt2)
-                            #on_click= lambda e: self.Img.select_file(e,"1",id,self.mdlObsr.content.content.controls[3].value,self.mdlObsr.content.content.controls[5].value)
+                            on_click= lambda _: self.Img.jer(id,self.mdlObsr.content.content.controls[3].value,self.mdlObsr.content.content.controls[5].value)
                         ),
-
+                        # CERRAR MODAL
                         FilledButton("CERRAR",  # CERRAR MODAL
                             adaptive=True,
                             style=ButtonStyle(
@@ -139,7 +136,7 @@ class opnMdlImg():
                                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                                 },
                             ),
-                            #on_click=lambda e: self.mdl.close_dialog(self.mdlObsr)
+                            on_click=lambda e: self.mdl.close_dialog(self.mdlObsr)
                         )
                     ])
                 ),

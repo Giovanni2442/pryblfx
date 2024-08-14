@@ -480,7 +480,7 @@ class createPrind(UserControl):
 
                                             ElevatedButton(         # Agregar Images y Observaciónes
                                                 text="IMAGENES",
-                                                on_click= lambda e: self.mdlImg.open(e,'EXTRC')
+                                                on_click= lambda _: self.mdlImg.open('EXTRC')
                                                 #on_click= self.InptsExtrc.open()
                                             )
                                         ]
@@ -704,6 +704,12 @@ class createPrind(UserControl):
 
                                             Text("La Tarima llevara Empalye"),
                                             self.InptsImpDig.tamEmply,
+                                        
+                                            ElevatedButton(         # Agregar Images y Observaciónes
+                                                text="IMAGENES",
+                                                on_click= lambda _: self.mdlImg.open('IMPRC')
+                                                #on_click= self.InptsExtrc.open()
+                                            )
                                         ]
                                     ),
                                     
@@ -854,7 +860,13 @@ class createPrind(UserControl):
                                             self.InptsLam.psNtPromBob,
 
                                             Text("Peso Neto Promedio de Bobina"),
-                                            self.InptsLam.psNtPromBob
+                                            self.InptsLam.psNtPromBob,
+                                        
+                                            ElevatedButton(         # Agregar Images y Observaciónes
+                                                text="IMAGENES",
+                                                on_click= lambda _: self.mdlImg.open('LMNSN')
+                                                #on_click= self.InptsExtrc.open()
+                                            )
                                         ]
                                     ),       
                                 ) 
@@ -1305,6 +1317,11 @@ class createPrind(UserControl):
                                             Text("La Tarima sera Flejada"),
                                             self.InptsRefl.tamflejada, 
 
+                                            ElevatedButton(         # Agregar Images y Observaciónes
+                                                text="IMAGENES",
+                                                on_click= lambda _: self.mdlImg.open('RFLD')
+                                                #on_click= self.InptsExtrc.open()
+                                            )
                                         ]
                                     ),
                                     
@@ -1479,7 +1496,13 @@ class createPrind(UserControl):
                                             self.InptsConvrs.tamEmply,
 
                                             Text("La tarima sera Refilada"),
-                                            self.InptsConvrs.tamFlej
+                                            self.InptsConvrs.tamFlej,
+                                        
+                                            ElevatedButton(         # Agregar Images y Observaciónes
+                                                text="IMAGENES",
+                                                on_click= lambda _: self.mdlImg.open('CNVRSN')
+                                                
+                                            )
                                         ]
                                     ),
                                     

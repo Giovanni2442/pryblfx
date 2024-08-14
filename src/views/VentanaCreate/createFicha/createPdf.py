@@ -58,7 +58,7 @@ class CreatePdf():
 
     # agregar tpl
     #def Insert(self,tpl,img):
-    def Insert(self,dicImg):
+    def Insert(self,id,dicImg):
     #def Insert(self):
         # Ejemplo: añadir texto en la primera página
         #txtFld = tpl[2][15].items[0].content.controls[1].value
@@ -80,7 +80,7 @@ class CreatePdf():
         self.pdfCnvrs.pdfConvrs(page,tpl)'''
 
         #### -- PREUBAS PARA IMAGEN -- #####
-        self.pdfImg.main(page,dicImg)
+        self.pdfImg.main(id,dicImg)
         #self.pdfImg.main(page)
         #self.pdfImg.chekKey(dicImg)
         ################################
@@ -103,7 +103,7 @@ class CreatePdf():
         ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
         temp_filename = "Template/Template_temp.pdf"
         doc.save(temp_filename)
-        doc.close()
+        #doc.close()
         # Leer el archivo PDF en modo binario
         #with open(temp_filename, "rb") as file:
         #    pdf_binary = file.read()
