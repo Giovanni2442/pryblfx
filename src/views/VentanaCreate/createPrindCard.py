@@ -15,7 +15,7 @@ from src.views.VentanaCreate.InptsForm.Inpts_ImprDig import Inpst_ImprDig
 from src.views.VentanaCreate.InptsForm.Inpts_Lam import Inpts_Lam
 from src.views.VentanaCreate.InptsForm.Inpts_Refil import Inpts_Refil
 from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
-from src.views.VentanaCreate.Verificaciones import verificaciones
+from src.views.VentanaCreate.Verificaciones import verificaciones      # <---- DESCOMENTAR ESTO
 from src.Controllers.appInserts import appInserts
 from src.views.VentanaCreate.Mdls import opnMdlImg
 
@@ -31,20 +31,18 @@ class createPrind(UserControl):
         self.InptsImpDig = Inpst_ImprDig(page)      # Inputs Impresión Digital
         self.InptsLam = Inpts_Lam(page)
         self.InptsRefl = Inpts_Refil(page)
-        self.InptsConvrs = Inpts_Convrs(page)
+        self.InptsConvrs = Inpts_Convrs(page)      # <--- DESCOMENTAR ESTO!!!!!!!!!
+
         #---Pruebas para el prindcard ---#
         self.prntCrd = CreatePdf()
         # Verifica cada una de las entradas
-        self.vrf = verificaciones(page)
+        self.vrf = verificaciones(page)            #<---- DESCOMENTAR ESTO!!!!!!!!!
         # Qry's de la Base de datos
         self.appInsert = appInserts(page)
         # Modal de Imagenes
         self.mdlImg = opnMdlImg(page)
 
-        # Crear pdf prindcard
-        #self.crtPdf = CreatePdf()
-
-        # btn Agregar
+        # BOTON AGREGAR
         self.btn = FilledButton(
             text="ADD",
             adaptive=True,
@@ -66,11 +64,11 @@ class createPrind(UserControl):
             on_click= self.eventInsert
         )
 
-        # Pestañas
+        # PESTAÑAS
         self.Pestañas = Tabs(
-            label_color="red",
-            indicator_color="Red",
-            indicator_border_radius=60,
+            label_color="#45484b",
+            indicator_color="#acdbdf",
+            indicator_border_radius=30,
             divider_color="#fc4795",
             on_change=self.navTabs,
             tab_alignment=TabAlignment.CENTER,
@@ -122,32 +120,38 @@ class createPrind(UserControl):
                 ])
         )
 
-        self.headerLam = Container(    # CONTENEDOR PARA EL ENCABEZADO        
+        # CONTENEDOR PARA EL ENCABEZADO LAMINACIÓN
+        self.headerLam = Container(           
             bgcolor=self.color_teal,
+            padding=0,
             content = 
                 Column([
                     #expand=True,
                     Container(
                         Text("LAMINACIÓN",color="white"),
                         alignment=alignment.center,
-                        bgcolor="#858585",
+                        bgcolor="white",
+                        margin=margin.only(bottom=4),
                     ),
                     self.subMenuLam
-                    ]),
+                ]),
         )
 
-        # Header
+        # HEADER 
         self.cntHeader = Container(
             #expand=True,
-            bgcolor=self.color_teal,
+            bgcolor="white",
+            padding=0,
             #height=80,
-            padding=5,
+            #padding=5,
             content= Column(
                 controls=[
-                    Container(      #-- Contenedor de Inicio y Usuario --
+                    Container(      #-- CONTENEDOR INICIO Y USUARIO --
                         #expand=True,
                         #height=100,
-                        bgcolor="green",
+                        bgcolor="white",
+                        border=border.only(bottom=border.BorderSide(1, "#858585")),
+                        #margin=margin.only(bottom=3,left=0,right=0,top=0),
                         alignment=alignment.center,
                         content= Row(
                             alignment=MainAxisAlignment.SPACE_BETWEEN,
@@ -167,9 +171,17 @@ class createPrind(UserControl):
                             ]
                         )
                     ),
-                    Container(      # Contenedor para las Pestañas
+                    Container(      # -- CONTENEDOR MENU PRINCIPAL --
                         #height=100,
-                        bgcolor="green",
+                        bgcolor="e5e5e5cd",
+                        border=border.only(bottom=border.BorderSide(1, "#858585")),
+                        margin=margin.only(bottom=3,left=0,right=0,top=0),
+                        shadow=BoxShadow(
+                            spread_radius=5,   # No se expande hacia dentro ni hacia afuera
+                            blur_radius=5,    # Incrementa el desenfoque para suavizar la sombra
+                            offset=Offset(1, 4),  # Desplaza la sombra más hacia abajo
+                            color=colors.BLACK26 
+                        ),
                         content= Row(
                             alignment=MainAxisAlignment.CENTER,
                             controls=[
@@ -711,10 +723,8 @@ class createPrind(UserControl):
                                                 #on_click= self.InptsExtrc.open()
                                             )
                                         ]
-                                    ),
-                                    
-                                )
-                                
+                                    ),  
+                                ) 
                             ]
                         )
                     )
@@ -1551,8 +1561,8 @@ class createPrind(UserControl):
 
         # Frame Main
         self.frameMain = Container(
-            bgcolor="#737373",
-            padding=2,
+            bgcolor="white",
+            padding=0,
             content=Column(
                 controls=[
                     self.cntHeader,
@@ -1615,13 +1625,14 @@ class createPrind(UserControl):
             self.InptsRefl.tplInptsRef(),
             self.InptsConvrs.tplInptsConvrs()
         )
-        self.update()#''
+        self.update()#'''
 
     def build(self):
         return self.frameMain
 
 def main(page: Page):
     page.theme_mode = ThemeMode.DARK
+    page.padding = 0
     page.add(createPrind(page))
     #margin=margin.only(top=-5)
 

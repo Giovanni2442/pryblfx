@@ -17,9 +17,8 @@ class FileUploaderApp:
         self.file_picker = FilePicker(on_result=self.on_file_picked)        # Abre el administrador de busqueda de Windows
         self.page.overlay.append(self.file_picker) 
         
-        self.Img = CreatePdf()                         # Agregar el picker a la aplicación 
-        
-
+        self.crtPdf = CreatePdf()                         # Agregar el picker a la aplicación 
+    
         self.pru = None
         # Id button
         self.Btnid = None
@@ -59,7 +58,10 @@ class FileUploaderApp:
         numFig = self.Btnid[1]
         Obsrv = self.Btnid[2]
         self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)
-        self.Img.InsertImg(id,self.tplImg)  # INSERTAR ELEMENTOS
+        #print(any)
+        self.crtPdf.InsertImg(id,self.tplImg)
+        #self.crtPdf.jir(self.tplImg)
+        #self.Img.InsertImg(id,self.tplImg)  # INSERTAR ELEMENTOS
 
     def build(self):
         return Column(

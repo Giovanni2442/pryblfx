@@ -33,6 +33,11 @@ class CreatePdf():
         tmpl = "Template/Template.pdf"
         self.doc = fitz.open(tmpl)
 
+        # -- ELEMENTOS DE PRUEBA --
+        self.tplImg={} 
+        self.Btnid = None
+        ########################### 
+
         # ADD TO DATABASE
         self.postpdf = appPrindCard()
         # PAGINA "0" DEL PDF
@@ -53,11 +58,19 @@ class CreatePdf():
         #print("--->",txtFld2)
         print("-->",txtFld2)      
 
+    def jir(self):
+        #print(self.)
+        pass
+
     # agregar tpl
     def InsertImg(self,id,dicImg):
         #### -- PREUBAS PARA IMAGEN -- #####
         self.pdfImg.main(self.page,id,dicImg)
-        
+        self.Btnid = dicImg
+        print(self.Btnid)
+        temp_filename = "Template/Template_temp.pdf"
+        self.doc.save(temp_filename)
+        #self.doc.save()
         ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
         #temp_filename = "Template/Template_temp.pdf"
         #self.doc.save(temp_filename)
@@ -67,7 +80,9 @@ class CreatePdf():
     #def Insert(self):
         # Ejemplo: añadir texto en la primera página
         #txtFld = tpl[2][15]items[0].content.controls[1].value
-     
+
+        #print(self.Btnid)
+
         #'''
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfFichVent.pdfFichVent(self.page,tpl)
@@ -88,13 +103,21 @@ class CreatePdf():
         #namePdf = f"{tpl[0][0].value}.pdf"
         #self.postpdf.postPridCardPdf(tpl[0][0].value,namePdf)
         #########################
+        #print("--",self.Btnid)
 
+        #temp_filename = "Template/Template_temp.pdf"
+        #self.doc.save(temp_filename)
+        #self.doc.close()
+
+        '''
         ####Prueba sin archivos Temporales####
         pdf_buffer = io.BytesIO()               # Transforma el archivo en Bytes
         self.doc.save(pdf_buffer)
         pdf_binary = pdf_buffer.getvalue()      # Archivo Binario
         self.postpdf.postPridCardPdf(tpl[0][0].value,pdf_binary)
-        self.doc.close()
+        self.doc.close()'''
+
+    
 
 #crpdf = CreatePdf()
 #crpdf.Insert()

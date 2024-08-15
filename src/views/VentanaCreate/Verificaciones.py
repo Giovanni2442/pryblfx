@@ -4,6 +4,7 @@ from src.Controllers.appInserts import appInserts
 from src.Controllers.appFichVent import appFichVent
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 from src.views.VentanaCreate.Mdls import Mdls
+from src.pruebas.pru2 import FileUploaderApp
 
 # Tareas :               
 # * Implementar las expreciones regulares adecuadas a cada Input * 
@@ -29,6 +30,9 @@ class verificaciones():
         self.tpl2 = []
         self.bnd = 0
     
+        self.Bnd = None
+        self.Img = FileUploaderApp(page)
+
         #Inserción de todas las tablas#
         self.Insrt = appInserts(page)
 
@@ -204,9 +208,14 @@ class verificaciones():
 
             if not contact_exists:
                 # INSERTAR EN DB
-                self.Insrt.qryPost(data)       
+                #self.Insrt.qryPost(data)       
                 # INSERTAR VALORES AL PDF
+                #self.crtPdf.jir("1","hola")
+
                 self.crtPdf.InsertTxt(data)
+                print(self.Img.tplImg)
+                
+                #self.crtPdf.InsertTxt()
                 # INGRESAR IMAGENES AL PDF
                 #self.crtPdf
                 #value = []
