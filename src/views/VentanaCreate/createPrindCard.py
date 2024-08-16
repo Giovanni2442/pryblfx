@@ -47,12 +47,12 @@ class createPrind(UserControl):
             text="ADD",
             adaptive=True,
             style=ButtonStyle(
-                bgcolor="#21A742",
+                bgcolor="#761010",
                 color={
-                    ControlState.HOVERED: colors.RED,
+                    ControlState.DEFAULT: colors.WHITE,
                     ControlState.HOVERED: colors.BLACK,
                 },
-                overlay_color=colors.TRANSPARENT,
+                overlay_color=colors.RED_300,
                 elevation={"pressed": 0, "": 1},
                 animation_duration=200,
                 shape={
@@ -66,14 +66,20 @@ class createPrind(UserControl):
 
         # PESTAÑAS
         self.Pestañas = Tabs(
-            label_color="#45484b",
-            indicator_color="#acdbdf",
+            label_color="#761010", #45484b
+            animation_duration=200,
+            indicator_color="#761010",
             indicator_border_radius=30,
-            divider_color="#fc4795",
+            divider_color="#761010",
+            scrollable = True,
+            unselected_label_color = "black" ,
             on_change=self.navTabs,
-            tab_alignment=TabAlignment.CENTER,
+            overlay_color={
+                MaterialState.FOCUSED:colors.with_opacity(0.3,colors.YELLOW),
+                MaterialState.DEFAULT:colors.with_opacity(0.3,colors.RED)
+            },
 
-            tabs=[ Tab( text="FICHA / VENTAS" ),
+            tabs=[Tab( text="FICHA / VENTAS", ),
                 Tab( text="EXTRUSIÓN" ),
                 Tab( text="IMPRESIÓN DIGITAL" ),
                 Tab( text="LAMINADO" ),
@@ -150,8 +156,9 @@ class createPrind(UserControl):
                         #expand=True,
                         #height=100,
                         bgcolor="white",
-                        border=border.only(bottom=border.BorderSide(1, "#858585")),
-                        #margin=margin.only(bottom=3,left=0,right=0,top=0),
+                        #border=border.only(bottom=border.BorderSide(1, "#858585")),
+                        margin=margin.only(bottom=-6,left=0,right=0,top=0),
+                    
                         alignment=alignment.center,
                         content= Row(
                             alignment=MainAxisAlignment.SPACE_BETWEEN,
@@ -173,17 +180,21 @@ class createPrind(UserControl):
                     ),
                     Container(      # -- CONTENEDOR MENU PRINCIPAL --
                         #height=100,
-                        bgcolor="e5e5e5cd",
+                        #width=500,
+                        bgcolor="858585cd",
+                        border_radius=border_radius.only(bottom_left=20,bottom_right=20),
                         border=border.only(bottom=border.BorderSide(1, "#858585")),
                         margin=margin.only(bottom=3,left=0,right=0,top=0),
                         shadow=BoxShadow(
-                            spread_radius=5,   # No se expande hacia dentro ni hacia afuera
-                            blur_radius=5,    # Incrementa el desenfoque para suavizar la sombra
-                            offset=Offset(1, 4),  # Desplaza la sombra más hacia abajo
-                            color=colors.BLACK26 
+                            spread_radius=-20,   # No se expande hacia dentro ni hacia afuera
+                            blur_radius=35,    # Incrementa el desenfoque para suavizar la sombra
+                            offset=Offset(0,40),  # Desplaza la sombra más hacia abajo
+                            color="#9c0606",
+                            blur_style=ShadowBlurStyle.NORMAL
                         ),
                         content= Row(
                             alignment=MainAxisAlignment.CENTER,
+                            #scroll=True,
                             controls=[
                                 self.Pestañas # Añadir las pestañas
                             ]
@@ -197,26 +208,39 @@ class createPrind(UserControl):
         # FICHA / VENTAS
         self.vtnFicha_Ventas = Container(
             expand=True,
-            margin=margin.only(top=-5),
-            bgcolor=self.color_teal,
+            #margin=margin.only(top=-5),
+            margin= margin.only(left=0,right=0,top=-5,bottom=0),
+            #border_radius=border_radius.only(top_left=15,top_right=15),
+            border_radius=15,
+            bgcolor=colors.WHITE,
             padding=5,
             content=
             Column([
                 Container(
-                    bgcolor=self.color_teal,
+                    bgcolor=colors.WHITE,
+                    margin= margin.only(left=0,right=0,top=0,bottom=0),
                     content=
                         Row([       # --- ENCABEZADOS DE LAS TABLAS --- #
                             Container(    # Tamaño Ficha Tecnica
-                                Text("FICHA TECNICA",color="white"),
+                                Text("FICHA TECNICA",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL),
                                 expand=True,
                                 alignment=alignment.center,
-                                bgcolor="#858585",
+                                padding=5,
+                                margin= margin.only(left=0,right=-5,top=0,bottom=0),
+                                border=border.only(
+                                    right=border.BorderSide(1, "#858585"),
+                                    bottom=border.BorderSide(1, colors.BLACK87)),
+                                bgcolor=colors.WHITE,
                             ),
                             Container(    # Tamaño Ficha Tecnica
-                                Text("VENTAS",color="white"),
+                                Text("VENTAS",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL),
                                 expand=True,
+                                padding=5,
                                 alignment=alignment.center,
-                                bgcolor="#858585",
+                                margin= margin.only(left=-5,right=0,top=0,bottom=0),
+                                border=border.only(
+                                    bottom=border.BorderSide(1, colors.BLACK87)),
+                                bgcolor=colors.WHITE,
                             ),
                         ])
                 ),
@@ -225,8 +249,9 @@ class createPrind(UserControl):
                     controls=[
                         Container(                  # -- Seccion 1 Ficha Tecnica--
                             expand=True,
-                            bgcolor="#858585", 
-                            margin=0,
+                            bgcolor=colors.WHITE, 
+                            margin=margin.only(top=-10,right=-5),
+                            border=border.only(right=border.BorderSide(1, "#858585")),
                             padding=15,
                             alignment=alignment.center,
                             content= Column(
@@ -259,8 +284,9 @@ class createPrind(UserControl):
                         ),
                         Container(                  # -- Seccion 2 VENTAS --     
                             expand=True,
-                            bgcolor="#858585", 
-                            margin=0,
+                            bgcolor=colors.WHITE,
+                            margin=margin.only(left=-5), 
+                            #margin=0,
                             padding=15,
                             alignment=alignment.center,
                             content= Column(    # Formulario
@@ -298,24 +324,33 @@ class createPrind(UserControl):
         # EXTRUSIÓN
         self.vtnExtr = Container(
             expand=True,
-            margin=margin.only(top=-5),
-            bgcolor=self.color_teal,
+            #margin=margin.only(top=-5),
+            margin= margin.only(left=0,right=0,top=-5,bottom=0),
+            #border_radius=border_radius.only(top_left=15,top_right=15),
+            border_radius=15,
+            bgcolor=colors.WHITE,
             padding=5,
             content=
             Column([
                 Container(   
                     #expand=True,
-                    Text("EXTRUSIÓN",color="white"),
+                    Text("EXTRUSIÓN",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL),
                     alignment=alignment.center,
-                    bgcolor="#858585",
+                    padding=5,
+                    margin= margin.only(left=0,right=-5,top=0,bottom=0),
+                    border=border.only(
+                        right=border.BorderSide(1, "#858585"),
+                        bottom=border.BorderSide(1, colors.BLACK87)),
+                    bgcolor=colors.WHITE,
                 ),
                 Row(                    # --- Contenedor EXTRUSIÓN ---
                     expand=True,
                     controls=[
                     Container(                  # -- Seccion 1 --
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -369,9 +404,11 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 2 --     
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
+                        alignment=alignment.center,
                         #alignment=alignment.center,
                         content= Column(
                             expand=True,
@@ -438,8 +475,9 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 3 --   
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -510,25 +548,33 @@ class createPrind(UserControl):
         # IMPRECIÓN DIGITAL
         self.vtnImprDigtl = Container(
             expand=True,
-            margin=margin.only(top=-5),
-            bgcolor=self.color_teal,
+            #margin=margin.only(top=-5),
+            margin= margin.only(left=0,right=0,top=-5,bottom=0),
+            #border_radius=border_radius.only(top_left=15,top_right=15),
+            border_radius=15,
+            bgcolor=colors.WHITE,
             padding=5,
-            alignment=alignment.center,
             content=
             Column([
                 Container(    # Tamaño Ficha Tecnica
                     #expand=True,
-                    Text("IMPRESIÓN DIGITAL",color="white"),
+                    Text("IMPRESIÓN DIGITAL",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL),
                     alignment=alignment.center,
-                    bgcolor="#858585",
+                    padding=5,
+                    margin= margin.only(left=0,right=-5,top=0,bottom=0),
+                    border=border.only(
+                        right=border.BorderSide(1, "#858585"),
+                        bottom=border.BorderSide(1, colors.BLACK87)),
+                    bgcolor=colors.WHITE,
                 ),
                 Row(                    # --- Contenedor EXTRUSIÓN ---
                     expand=True,
                     controls=[
                     Container(                  # -- Seccion 1 --
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -597,9 +643,11 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 2 --     
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
+                        alignment=alignment.center,
                         #alignment=alignment.center,
                         content= Column(
                             expand=True,
@@ -652,9 +700,9 @@ class createPrind(UserControl):
                         )
                     ),
                     Container(                  # -- Seccion 3 --   
-                        expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -1546,7 +1594,8 @@ class createPrind(UserControl):
         # Contenedor de Boton Agregar a la BD
         self.cntBtn = Container(
             #expand=True,
-            bgcolor=self.color_teal,
+            bgcolor=colors.WHITE,
+            #margin=margin.only(top=-5),
             padding=5,
             border_radius=5,
             content= Row(
@@ -1631,7 +1680,7 @@ class createPrind(UserControl):
         return self.frameMain
 
 def main(page: Page):
-    page.theme_mode = ThemeMode.DARK
+    page.theme_mode = ThemeMode.LIGHT
     page.padding = 0
     page.add(createPrind(page))
     #margin=margin.only(top=-5)

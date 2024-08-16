@@ -16,7 +16,7 @@ def main(page: Page):
 
     page.window_min_height = 102
     page.window_min_width = 102
-    page.theme_mode = ThemeMode.DARK
+    page.theme_mode = ThemeMode.LIGHT
     page.padding = 0
 
 app(target=main)
