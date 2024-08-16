@@ -33,7 +33,7 @@ class Inpst_ImprDig():
         )
 
         self.calMtrlImpr_Tol = PopupMenuButton(
-            Text("Calibre de Material a Imprimir y Tolerancia"),
+            Text("Calibre de Material a Imprimir y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -70,7 +70,7 @@ class Inpst_ImprDig():
         )
 
         self.anchBobImpr_Tol = PopupMenuButton( 
-            Text("Ancho de Bobina a Imprimir y Tolerancia"),
+            Text("Ancho de Bobina a Imprimir y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -117,7 +117,7 @@ class Inpst_ImprDig():
         )
 
         self.anchCore_Tol = PopupMenuButton(
-            Text("Ancho de Core y Tolerancia"),
+            Text("Ancho de Core y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -255,7 +255,7 @@ class Inpst_ImprDig():
 
         # --- REVISAR ESTA ENTRADA --
         self.vldClr = PopupMenuButton(
-            Text("Validación de Color"),
+            Text("Validación de Color",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -347,7 +347,7 @@ class Inpst_ImprDig():
         )
 
         self.dimtrBob_Tol = PopupMenuButton(
-            Text("Diametro de Bobina y Tolerancia"),
+            Text("Diametro de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -385,7 +385,7 @@ class Inpst_ImprDig():
         )
 
         self.psPromBob = PopupMenuButton(
-            Text("Peso Neto Promedio de Bobina"),
+            Text("Peso Neto Promedio de Bobina",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -438,7 +438,7 @@ class Inpst_ImprDig():
         )
 
         self.numBobCam_CamTam = PopupMenuButton(
-            Text("Numero de Bobinas por Camas y Camas por Tarima"),
+            Text("Numero de Bobinas por Camas y Camas por Tarima",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -484,7 +484,7 @@ class Inpst_ImprDig():
         )
 
         self.psNtPromTam = PopupMenuButton(
-            Text("Peso Neto Promedio por Tarima"),
+            Text("Peso Neto Promedio por Tarima",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 

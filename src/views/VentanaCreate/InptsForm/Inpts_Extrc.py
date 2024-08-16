@@ -83,8 +83,9 @@ class InptsExtrc():
         )
 
         self.calPel_Tol = PopupMenuButton(         # Calibre de pelicula y tolerancia
-            Text("Calibre de pelicula y tolerancia"),
-            bgcolor="red",
+            Text("Calibre de pelicula y tolerancia",color=colors.WHITE),
+            #bgcolor="red",
+            bgcolor="#ddddddcf",
             #padding=10,
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -141,7 +142,7 @@ class InptsExtrc():
         #GestureDetector(),
         ### SECCION 2 ###
         self.anchBob_Tol = PopupMenuButton(         # Ancho de Bobina y Tolerancia
-            Text("Ancho de Bobina y Tolerancia!"),
+            Text("Ancho de Bobina y Tolerancia!",color=colors.WHITE),
             bgcolor="red",
             #padding=10,
             menu_position=PopupMenuPosition.OVER,
@@ -180,7 +181,7 @@ class InptsExtrc():
         )
 
         self.anchCore_Tol = PopupMenuButton(        # Ancho de core y Tolerancia
-            Text("Ancho de Core y Tolerancia"),
+            Text("Ancho de Core y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -270,7 +271,7 @@ class InptsExtrc():
         )
     
         self.psPromBob = PopupMenuButton(           # Peso neto promedio de bobina
-            Text("Peso neto Promedio de Bobina"),
+            Text("Peso neto Promedio de Bobina",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -310,7 +311,7 @@ class InptsExtrc():
     
         ### SECCIÓN 3 ###
         self.DimBob_Tol = PopupMenuButton(          # Diametro de Bobina y Tolerancia
-            Text("Diametro de Bobina y Tolerancia"),
+            Text("Diametro de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -362,7 +363,7 @@ class InptsExtrc():
         )
 
         self.numBobCma_CmaTrm = PopupMenuButton(    # Num bob X cama y cama X Tam
-            Text("Numero de Bobinas por Cama y Camas por Tarima"),
+            Text("Numero de Bobinas por Cama y Camas por Tarima",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -409,7 +410,7 @@ class InptsExtrc():
         )
 
         self.psNtPromTam = PopupMenuButton(         # Peso neto Promedio por Tarima
-            Text("Peso neto Promedio por Tarima"),  
+            Text("Peso neto Promedio por Tarima",color=colors.WHITE),  
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 

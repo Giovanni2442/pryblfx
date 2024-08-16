@@ -92,54 +92,93 @@ class createPrind(UserControl):
         # SUBMENU LAMINASIÓN
         self.subMenuLam = Container(   # Contenedor SUBMENU
             #expand=True,
-            bgcolor="yellow",
-            padding=3,
+            #bgcolor=colors.WHITE38,
+            bgcolor=colors.WHITE,
+            margin= margin.only(left=0,right=0,top=-10,bottom=0),
+            padding=0,
             content= 
                 Row([           # --- SUBMENU PARA SECCIÓNAR LAS LAMINACIÓNES --- #
-                    FilledButton(
+                    
+                    Container(                  # BUTTON GENERAL
                         expand=True,
-                        height=20,
-                        text = "Texto 1",
-                        style = ButtonStyle(
-                            #bgcolor="#616F67",
-                            shape={
-                            #ControlState.HOVERED: RoundedRectangleBorder(radius=15),
-                            ControlState.DEFAULT: RoundedRectangleBorder(radius=2)
-                            },
+                        padding=0,
+                        margin=margin.only(right=-5),
+                        border=border.only(right=border.BorderSide(0.5, colors.BLACK87)),
+                        content=ElevatedButton(     
+                            expand=True,
+                            height=20,
+                            text = "GENERAL",
+                            #margin=margin.only(right=-5),
+                            adaptive=True,
+                            #border=border.only(bottom=border.BorderSide(0.5, colors.BLACK87)),
+                            style=ButtonStyle(
+                                bgcolor="#bcebba",
+                                #margin=margin.only(right=-5),
+                                color={
+                                    ControlState.DEFAULT: colors.BLACK,
+                                    ControlState.HOVERED: colors.WHITE,
+                                },
+                                overlay_color="#256222",
+                                elevation={"pressed": 0, "": 1},
+                                animation_duration=200,
+                                shape={
+                                    ControlState.HOVERED: RoundedRectangleBorder(radius=3), # # 1f8119
+                                    ControlState.DEFAULT: RoundedRectangleBorder(radius=1),
+                                },
+                            ),
+                            on_click= self.navLam
                         ),
-                        on_click= self.navLam
                     ),
-                    FilledButton(
+                    
+                    Container(                  # BUTTON LAMINACIÓNES
                         expand=True,
-                        #border_radius=0,
-                        height=20,
-                        text = "Texto 2",
-                        style = ButtonStyle(
-                            #bgcolor="#616F67",
-                            shape={
-                            #ControlState.HOVERED: RoundedRectangleBorder(radius=15),
-                            ControlState.DEFAULT: RoundedRectangleBorder(radius=2)
-                            },
+                        padding=0,
+                        margin=margin.only(left=-5),
+                        content=ElevatedButton(                       #
+                            expand=True,
+                            height=20,
+                            text = "LAMINACIÓNES",
+                            #margin=margin.only(right=-5),
+                            adaptive=True,
+                            #border=border.only(bottom=border.BorderSide(0.5, colors.BLACK87)),
+                            style=ButtonStyle(
+                                bgcolor="#bcebba",
+                                #margin=margin.only(right=-5),
+                                color={
+                                    ControlState.DEFAULT: colors.BLACK,
+                                    ControlState.HOVERED: colors.WHITE,
+                                },
+                                overlay_color="#256222",
+                                elevation={"pressed": 0, "": 1},
+                                animation_duration=200,
+                                shape={
+                                    ControlState.HOVERED: RoundedRectangleBorder(radius=3), # # 1f8119
+                                    ControlState.DEFAULT: RoundedRectangleBorder(radius=1),
+                                },
+                            ),
+                            on_click= self.navLam
                         ),
-                        on_click= self.navLam
-                    )        
+                    ),       
                 ])
         )
 
         # CONTENEDOR PARA EL ENCABEZADO LAMINACIÓN
         self.headerLam = Container(           
-            bgcolor=self.color_teal,
+            bgcolor=colors.WHITE,
             padding=0,
             content = 
                 Column([
                     #expand=True,
                     Container(
-                        Text("LAMINACIÓN",color="white"),
+                        Text("LAMINACIÓN",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL),
                         alignment=alignment.center,
-                        bgcolor="white",
-                        margin=margin.only(bottom=4),
-                    ),
-                    self.subMenuLam
+                        padding=5,
+                        margin= margin.only(left=0,right=-5,top=0,bottom=0),
+                        border=border.only(
+                            bottom=border.BorderSide(1, colors.BLACK87)),
+                        bgcolor=colors.WHITE,
+                        ),
+                        self.subMenuLam
                 ]),
         )
 
@@ -339,7 +378,6 @@ class createPrind(UserControl):
                     padding=5,
                     margin= margin.only(left=0,right=-5,top=0,bottom=0),
                     border=border.only(
-                        right=border.BorderSide(1, "#858585"),
                         bottom=border.BorderSide(1, colors.BLACK87)),
                     bgcolor=colors.WHITE,
                 ),
@@ -376,17 +414,11 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
-                                                shadow=BoxShadow(
-                                                    spread_radius=1,
-                                                    blur_radius=15,
-                                                    color=colors.AMBER_400,
-                                                    offset=Offset(0, 0),
-                                                    blur_style=ShadowBlurStyle.OUTER,
-                                                ),
-                                                content= self.InptsExtrc.calPel_Tol
+                                                on_hover=self.on_hover,
+                                                content= self.InptsExtrc.calPel_Tol,                                                 
                                             ),
                                             
                                             Text("Tipo de Bobina"),
@@ -421,26 +453,21 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
-                                                shadow=BoxShadow(
-                                                    spread_radius=1,
-                                                    blur_radius=15,
-                                                    color=colors.AMBER_400,
-                                                    offset=Offset(0, 0),
-                                                    blur_style=ShadowBlurStyle.OUTER,
-                                                ),
+                                                on_hover=self.on_hover,
                                                 content= self.InptsExtrc.anchBob_Tol
                                             ),
 
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsExtrc.anchCore_Tol
                                             ),
 
@@ -459,10 +486,11 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsExtrc.psPromBob
                                             ),
                                         ]
@@ -477,7 +505,6 @@ class createPrind(UserControl):
                         expand=True,
                         bgcolor=colors.WHITE, 
                         margin=margin.only(top=-10,right=-5),
-                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -491,10 +518,11 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsExtrc.DimBob_Tol
                                             ),
 
@@ -503,10 +531,11 @@ class createPrind(UserControl):
 
                                             #DropBox de Inputs
                                             Container(
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsExtrc.numBobCma_CmaTrm
                                             ),
 
@@ -515,10 +544,11 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsExtrc.psNtPromTam
                                             ),
 
@@ -563,7 +593,6 @@ class createPrind(UserControl):
                     padding=5,
                     margin= margin.only(left=0,right=-5,top=0,bottom=0),
                     border=border.only(
-                        right=border.BorderSide(1, "#858585"),
                         bottom=border.BorderSide(1, colors.BLACK87)),
                     bgcolor=colors.WHITE,
                 ),
@@ -595,20 +624,22 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsImpDig.calMtrlImpr_Tol,
                                             ),
 
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsImpDig.anchBobImpr_Tol,
                                             ),
 
@@ -618,10 +649,11 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,    
                                                 content= self.InptsImpDig.anchCore_Tol,
                                             ),
 
@@ -675,10 +707,11 @@ class createPrind(UserControl):
 
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsImpDig.vldClr,
                                             ),
 
@@ -700,9 +733,9 @@ class createPrind(UserControl):
                         )
                     ),
                     Container(                  # -- Seccion 3 --   
+                        expand=True,
                         bgcolor=colors.WHITE, 
                         margin=margin.only(top=-10,right=-5),
-                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -719,19 +752,21 @@ class createPrind(UserControl):
 
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsImpDig.dimtrBob_Tol,
                                             ),
 
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsImpDig.psPromBob,
                                             ),
 
@@ -740,10 +775,11 @@ class createPrind(UserControl):
 
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsImpDig.numBobCam_CamTam,
                                             ),
 
@@ -752,10 +788,11 @@ class createPrind(UserControl):
                                             
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsImpDig.psNtPromTam,
                                             ),
 
@@ -783,8 +820,11 @@ class createPrind(UserControl):
         # LAMINACIÓN GENERAL VTN 1
         self.vtnLamGnrl = Container(
             expand=True,
-            margin=margin.only(top=-5),
-            bgcolor=self.color_teal,
+            #margin=margin.only(top=-5),
+            margin= margin.only(left=0,right=0,top=-5,bottom=0),
+            #border_radius=border_radius.only(top_left=15,top_right=15),
+            border_radius=15,
+            bgcolor=colors.WHITE,
             padding=5,
             content=
             Column([
@@ -794,8 +834,9 @@ class createPrind(UserControl):
                     controls=[
                     Container(                  # -- Seccion 1 --
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -878,8 +919,8 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 2 --     
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -938,8 +979,11 @@ class createPrind(UserControl):
         # LAMINASIÓNES      VTN 2
         self.vtnLaminas = Container(
             expand=True,
-            margin=margin.only(top=-5),
-            bgcolor=self.color_teal,
+            #margin=margin.only(top=-5),
+            margin= margin.only(left=0,right=0,top=-5,bottom=0),
+            #border_radius=border_radius.only(top_left=15,top_right=15),
+            border_radius=15,
+            bgcolor=colors.WHITE,
             padding=5,
             content=
             Column([
@@ -949,31 +993,42 @@ class createPrind(UserControl):
                     controls=[
                         Container( 
                             expand=True,                 # -- Seccion 1 --
-                            bgcolor="#458585", 
+                            bgcolor=colors.WHITE, 
                             alignment=alignment.center,
+                            margin=margin.only(top=-5),
+                            border=border.only(bottom=border.BorderSide(0.5, colors.BLACK87)),
                             content=
-                            Column([Text("LAMINACIÓN N.1")])
+                            Column([Text("LAMINACIÓN N.1",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL)])
                         ),
                         Container( 
                             expand=True,                 # -- Seccion 1 --
-                            bgcolor="#458585", 
+                            bgcolor=colors.WHITE, 
                             alignment=alignment.center,
+                            margin=margin.only(top=-5),
+                            border=border.only(
+                                bottom=border.BorderSide(0.5, colors.BLACK87)),
                             content=
-                            Column([Text("LAMINACIÓN N.2")])
+                            Column([Text("LAMINACIÓN N.2",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL)])
                         ),
                         Container( 
                             expand=True,                 # -- Seccion 1 --
-                            bgcolor="#458585", 
+                            bgcolor=colors.WHITE, 
                             alignment=alignment.center,
+                            margin=margin.only(top=-5),
+                            border=border.only(
+                                bottom=border.BorderSide(0.5, colors.BLACK87)),
                             content=
-                            Column([Text("LAMINACIÓN N.3")])
+                            Column([Text("LAMINACIÓN N.3",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL)])
                         ),
                         Container( 
                             expand=True,                 # -- Seccion 1 --
-                            bgcolor="#458585", 
+                            bgcolor=colors.WHITE, 
                             alignment=alignment.center,
+                            margin=margin.only(top=-5),
+                            border=border.only(
+                                bottom=border.BorderSide(0.5, colors.BLACK87)),
                             content=
-                            Column([Text("LAMINACIÓN N.4")])
+                            Column([Text("LAMINACIÓN N.4",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL)])
                         ),
                         #self.ji()
                 ]),
@@ -983,8 +1038,9 @@ class createPrind(UserControl):
                     controls=[
                     Container(                  # -- Seccion 1 --
                         expand=True,
-                        bgcolor="#458585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content=
@@ -1034,8 +1090,9 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 2 --
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -1083,9 +1140,10 @@ class createPrind(UserControl):
                         )
                     ),
                     Container(                  # -- Seccion 3 --
-                        expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        expand=True,                
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -1134,10 +1192,9 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 4 --
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
                         padding=15,
-                        alignment=alignment.center,
                         content= Column(
                             alignment=MainAxisAlignment.SPACE_BETWEEN,
                             expand=True,
@@ -1189,25 +1246,32 @@ class createPrind(UserControl):
         # REFILADO
         self.vtnRefilado = Container(
             expand=True,
-            margin=margin.only(top=-5),
-            bgcolor=self.color_teal,
+            #margin=margin.only(top=-5),
+            margin= margin.only(left=0,right=0,top=-5,bottom=0),
+            #border_radius=border_radius.only(top_left=15,top_right=15),
+            border_radius=15,
+            bgcolor=colors.WHITE,
             padding=5,
-            alignment=alignment.center,
             content=
             Column([
                 Container(    # Tamaño Ficha Tecnica
                     #expand=True,
-                    Text("REFILADO",color="white"),
+                    Text("REFILADO",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL),
                     alignment=alignment.center,
-                    bgcolor="#858585",
+                    padding=5,
+                    margin= margin.only(left=0,right=-5,top=0,bottom=0),
+                    border=border.only(
+                        bottom=border.BorderSide(1, colors.BLACK87)),
+                    bgcolor=colors.WHITE,
                 ),
                 Row(                    # --- Contenedor EXTRUSIÓN ---
                     expand=True,
                     controls=[
                     Container(                  # -- Seccion 1 --
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -1265,8 +1329,9 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 2 --     
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         #alignment=alignment.center,
                         content= Column(
@@ -1321,8 +1386,8 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 3 --   
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -1395,25 +1460,32 @@ class createPrind(UserControl):
         # CONVERSIÓN
         self.vtnConversión = Container(
             expand=True,
-            margin=margin.only(top=-5),
-            bgcolor=self.color_teal,
+            #margin=margin.only(top=-5),
+            margin= margin.only(left=0,right=0,top=-5,bottom=0),
+            #border_radius=border_radius.only(top_left=15,top_right=15),
+            border_radius=15,
+            bgcolor=colors.WHITE,
             padding=5,
-            alignment=alignment.center,
             content=
             Column([
                 Container(    # Tamaño Ficha Tecnica
                     #expand=True,
-                    Text("REFILADO",color="white"),
+                    Text("CONVERSION",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL),
                     alignment=alignment.center,
-                    bgcolor="#858585",
+                    padding=5,
+                    margin= margin.only(left=0,right=-5,top=0,bottom=0),
+                    border=border.only(
+                        bottom=border.BorderSide(1, colors.BLACK87)),
+                    bgcolor=colors.WHITE,
                 ),
                 Row(                    # --- Contenedor EXTRUSIÓN ---
                     expand=True,
                     controls=[
                     Container(                  # -- Seccion 1 --
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -1460,9 +1532,11 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 2 --     
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
+                        border=border.only(right=border.BorderSide(1, "#858585")),
                         padding=15,
+                        alignment=alignment.center,
                         #alignment=alignment.center,
                         content= Column(
                             expand=True,
@@ -1501,8 +1575,8 @@ class createPrind(UserControl):
                     ),
                     Container(                  # -- Seccion 3 --   
                         expand=True,
-                        bgcolor="#858585", 
-                        margin=0,
+                        bgcolor=colors.WHITE, 
+                        margin=margin.only(top=-10,right=-5),
                         padding=15,
                         alignment=alignment.center,
                         content= Column(
@@ -1595,9 +1669,11 @@ class createPrind(UserControl):
         self.cntBtn = Container(
             #expand=True,
             bgcolor=colors.WHITE,
+            border_radius=border_radius.only(top_left=5,top_right=5),
+            border=border.only(top=border.BorderSide(1, "#858585")),
             #margin=margin.only(top=-5),
             padding=5,
-            border_radius=5,
+            #border_radius=5,
             content= Row(
                 alignment=MainAxisAlignment.END,
                 controls=[
@@ -1623,12 +1699,23 @@ class createPrind(UserControl):
 
 #################### PRUEBAS #######################
  
+    # PRUEBA PARA EFECTO HOVER
+    def on_hover(slef,e):
+        if e.data == "true":
+            e.control.bgcolor =  "#256222"
+            e.control.padding = 7
+        else:
+            e.control.bgcolor = "#3b7a32"
+            e.control.padding = 5
+        e.control.update()
+       # print(e.data)
+
     # Modulo para navergar en el SubMenu de Laminado
     def navLam(self,e):
         id = e.control.text
         dic = {
-            "Texto 1" : self.vtnLamGnrl,
-            "Texto 2" : self.vtnLaminas
+            "GENERAL" : self.vtnLamGnrl,
+            "LAMINACIÓNES" : self.vtnLaminas
         }
 
         self.frameMain.content.controls = [self.cntHeader]
