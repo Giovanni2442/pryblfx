@@ -222,18 +222,11 @@ class verificaciones():
 
             if not contact_exists:
                 # INSERTAR EN DB
-                #self.Insrt.qryPost(data)       
+                self.Insrt.qryPost(data)       
                 # INSERTAR VALORES AL PDF
-                self.crtPdf.save("hola")
-
-                #self.crtPdf.InsertTxt(data)
-                #print(self.Img.tplImg)
-                
-                #self.crtPdf.InsertTxt()
-                # INGRESAR IMAGENES AL PDF
-                #self.crtPdf
-                #value = []
-
+                #self.crtPdf.save(1,"hola")
+                self.crtPdf.InsertTxt(data)
+       
                 ### VALORES DE LOS INPUTS ###
                 #self.crtPdf.Insert(data)         # Crear el prindCard       
                 #############################

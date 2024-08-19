@@ -5,6 +5,15 @@ from src.views.VentanaMain.vtnMain import pr
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 # retorna mi conjunto de rutas para el manejo de vistas 
+def pru(page,id):
+    return View(
+            route='/cratePrindCard',
+            controls=[
+                createPrind(page,id)
+            ]
+    )
+
+
 def getViews(page):
     
     return {
@@ -21,12 +30,8 @@ def getViews(page):
                 createPrind(page)
             ]
         ),
-        '/prueba':View(
-            route='/prueba',
-            controls=[
-                pr(page)
-            ]
-        ),
+        '/prueba':pru,
     }
+
 
     

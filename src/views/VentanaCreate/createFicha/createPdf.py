@@ -30,12 +30,16 @@ class CreatePdf():
         self.pdfCnvrs = Insrt_Convrs()
         self.pdfImg = InstrImgs()
 
-        tmpl = "Template/Template.pdf"
-        self.doc = fitz.open(tmpl)
+        self.tmpl = "Template/Template.pdf"
+        self.doc = fitz.open(self.tmpl)
 
         # -- ELEMENTOS DE PRUEBA --
         self.tplImg={} 
-        self.Btnid = None
+        self.Btnid = []
+
+
+        self.uno = None
+        self.dos = None
         ########################### 
 
         # ADD TO DATABASE
@@ -58,18 +62,23 @@ class CreatePdf():
         #print("--->",txtFld2)
         print("-->",txtFld2)      
 
-    def jir(self,**key):
-        print()
-        pass
+    def jir1(self,*key):
+        self.uno = key
+        print(self.uno)
+        
+    def jir2(self,*arg):
+        self.dos = arg
+        print(self.uno,self.dos)
 
     # agregar tpl
     def InsertImg(self,id,dicImg):
+        print(dicImg)
         #### -- PREUBAS PARA IMAGEN -- #####
         self.pdfImg.main(self.page,id,dicImg)
-        self.Btnid = dicImg
-        print(self.Btnid)
-        temp_filename = "Template/Template_temp.pdf"
-        self.doc.save(temp_filename)
+        #self.Btnid = dicImg
+        #print(self.Btnid)
+        #self.temp_filename = "Template/Template_temp.pdf"
+        #self.doc.save(self.temp_filename)
         #self.doc.save()
         ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
         #temp_filename = "Template/Template_temp.pdf"
@@ -80,9 +89,7 @@ class CreatePdf():
     #def Insert(self):
         # Ejemplo: añadir texto en la primera página
         #txtFld = tpl[2][15]items[0].content.controls[1].value
-
-        #print(self.Btnid)
-
+        print(self.Btnid)
         #'''
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfFichVent.pdfFichVent(self.page,tpl)
@@ -97,9 +104,12 @@ class CreatePdf():
         self.pdfRef.pdfRefil(self.page,tpl)
         #### -- TABLA CONVERSIÓN -- #####
         self.pdfCnvrs.pdfConvrs(self.page,tpl)#'''
-
-        temp_filename = "Template/Template_temp.pdf"
-        self.doc.save(temp_filename)
+        #self.pdfImg.main(self.page,id,dicImg)
+        
+        #self.pdfImg.main(self.page,tpl)
+        self.temp_filename = "Template/Template_temp.pdf"
+        self.doc.save(self.temp_filename)
+        
         #### INSERTAR EN BD #####
         #pdfBytes = doc.write()
         #namePdf = f"{tpl[0][0].value}.pdf"
@@ -119,8 +129,15 @@ class CreatePdf():
         self.doc.close()'''
 
     def save(self,*tpl):
-        print(len(tpl))
-        print(tpl)
+        jer1,jer2 = "",""
+        if tpl[0] == 1:
+            jer1 = tpl[1]
+        elif tpl[0] == 2:
+            jer2 = tpl[1]
+        else:
+            print(None)
+
+        print("--1",jer1,"--2",jer2)
     
 
 #crpdf = CreatePdf()

@@ -111,13 +111,13 @@ class crudPrintCard(UserControl):
         self.Table = DataTable(
             border= border.all(2,"purple"),
             border_radius=5,
-            vertical_lines= BorderSide(1,"whithe"),
+            vertical_lines= BorderSide(1,color=colors.WHITE),
             columns=[
-                DataColumn(Text("ID_PRODUCTO",color="whithe",weight="bold")),
-                DataColumn(Text("CLIENTE",color="whithe",weight="bold")),
-                DataColumn(Text("PRODUCTO",color="whithe",weight="bold")),
-                DataColumn(Text("FECHA",color="whithe",weight="bold")),
-                DataColumn(Text("HERRAMIENTAS",color="whithe",weight="bold"))
+                DataColumn(Text("ID_PRODUCTO",color=colors.WHITE,weight="bold")),
+                DataColumn(Text("CLIENTE",color=colors.WHITE,weight="bold")),
+                DataColumn(Text("PRODUCTO",color=colors.WHITE,weight="bold")),
+                DataColumn(Text("FECHA",color=colors.WHITE,weight="bold")),
+                DataColumn(Text("HERRAMIENTAS",color=colors.WHITE,weight="bold"))
             ],
         )
         # row table
@@ -147,15 +147,15 @@ class crudPrintCard(UserControl):
         ##### QUERYS ########
         # -- Query Update
     def updateButton(self,e):
-        self.frameMain.content.controls.append(self.createPrnt)
-
-        #self.page.go('/prueba')
+        #self.frameMain.content.controls.append(self.createPrnt)
+        self.page.go('/cratePrindCard')
         #self.update()
         #self.pr.update(e.control.data[0])
-        self.update()
+        self.page.update()
         #self.pr.qt = e.control.data[0]
         
         # -- Query Modal Delete --
+    
     def queryDlt(self,bnd,id):
         if not bnd:
             self.mdlDlt.open = False
@@ -188,10 +188,10 @@ class crudPrintCard(UserControl):
     def dataRows(self,row):
         self.rows = DataRow(
             cells=[
-                DataCell(Text((row[0]))),
-                DataCell(Text(row[1])),
-                DataCell(Text(row[3])),
-                DataCell(Text(row[2])),
+                DataCell(Text(row[0],color="white")),
+                DataCell(Text(row[1],color="white")),
+                DataCell(Text(row[3],color="white")),
+                DataCell(Text(row[2],color="white")),
                 DataCell(
                     Row([
                         IconButton("delete",

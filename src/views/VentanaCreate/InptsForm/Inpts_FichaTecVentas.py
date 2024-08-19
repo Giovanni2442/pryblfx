@@ -1,6 +1,7 @@
 from flet import *
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 
 ### ENTRADAS DE TEXTO Y COMPONENTES PARA LA TABLA FichaTecnica y Ventas ###
 class Inpts_FichaTec_Ventas():  
@@ -8,13 +9,14 @@ class Inpts_FichaTec_Ventas():
         
         self.page = page
         self.valida = verificaciones(page)
-
+        self.prUpdt = InptsAux()
         
     ### INPUTS DE TABLA FichaTecnica ###
         self.id_product = TextField(
             label="PrindCard",
             border= InputBorder.OUTLINE,
             border_color="Black",
+            value = self.prUpdt.pruUpdate(),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfPrintCard)       # Traba con la expreción regular del input
         )
@@ -25,6 +27,7 @@ class Inpts_FichaTec_Ventas():
             #value="N/A",
             error_text="",
             border_color="Black",
+            value = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfCliente)
         )

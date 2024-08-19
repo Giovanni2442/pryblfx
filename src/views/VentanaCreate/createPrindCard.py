@@ -559,8 +559,8 @@ class createPrind(UserControl):
 
                                             ElevatedButton(         # Agregar Images y Observaciónes
                                                 text="IMAGENES",
-                                                on_click= lambda _: self.mdlImg.open('EXTRC')
-                                                #on_click= self.InptsExtrc.open()
+                                                #on_click= lambda _: self.mdlImg.open('EXTRC')
+                                                on_click= lambda _: self.mdlImg.opn2('EXTRC')
                                             )
                                         ]
                                     ),
@@ -1732,6 +1732,7 @@ class createPrind(UserControl):
     # Modulo para navegar en el Menu Pricipal
     def navTabs(self,e):
         id = e.control.selected_index
+    
         #print(id)
         dic = [
             self.vtnFicha_Ventas,

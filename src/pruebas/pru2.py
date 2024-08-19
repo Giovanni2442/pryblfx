@@ -53,15 +53,17 @@ class FileUploaderApp:
         #self.on_file_picked(e,label)
     
     def jer(self,*any):     # Inserción al PDF y a la base de datos (PROXIMAMENTE!)
+        self.crtPdf.jir1(any)
         self.Btnid = any
         id = self.Btnid[0]
         numFig = self.Btnid[1]
         Obsrv = self.Btnid[2]
         self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)
         #print(any)
-        self.crtPdf.save(id,self.tplImg)
-        #self.crtPdf.jir(self.tplImg)
-        #self.Img.InsertImg(id,self.tplImg)  # INSERTAR ELEMENTOS
+        #self.crtPdf.InsertImg(id,self.tplImg)
+        
+    def hi(self):
+        print(self.tplImg)
 
     def build(self):
         return Column(
