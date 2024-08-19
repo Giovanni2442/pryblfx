@@ -7,6 +7,11 @@ class Mdls():
     def __init__(self,page):
         self.page = page
         
+    def open_Cntndr(self,cnt):
+        self.page.overlay.append(cnt)
+        cnt.visible = True
+        self.page.update()
+
         # Función para abrir el diálogo
     def open_dialog(self,dialog):
         self.page.overlay.append(dialog)

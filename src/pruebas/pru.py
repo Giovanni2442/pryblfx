@@ -1,46 +1,74 @@
-from flet import * 
-
-class FileUploaderApp:
-    def __init__(self, page: Page):
-        self.page = page
-        self.file_picker = FilePicker(on_result=self.on_file_picked)
-        self.page.overlay.append(self.file_picker)
-
-        # Diccionario para almacenar las rutas de los archivos con el identificador del botón
-        self.tplImg = {}
-
-        # Variable Temporal
-        self.current_button_id = None
-
-    def on_file_picked(self, e: FilePickerResultEvent):  # Agrega un parámetro para el ID del botón
-        if e.files:
-            for file in e.files:
-                # Almacena el nombre del archivo y su ruta en el diccionario
-                #self.tplImg[button_id] = {'name': file.name, 'path': file.path}
-                print(self.current_button_id,file.path)
-
-    def select_file(self, e, button_id):
-        
-        self.current_button_id = button_id
-        
-        # Pasa el ID del botón a la función que maneja el resultado del picker
-        self.file_picker.pick_files(allow_multiple=False)
-
-
-    def build(self):
-        return Column(
-            [
-                Text("Subir archivo usando Flet"),
-                ElevatedButton(
-                    "Seleccionar archivo",
-                    on_click=lambda e: self.select_file(e,"HOLA XD"),
-                ),
-            ]
-        )
-
-def main(page: Page):
-    app = FileUploaderApp(page)
-    page.add(app.build())
-
-# Ejemplo de uso
+from flet import *
+ 
+ 
+def main(page:Page):
+	# REMOVE SPACING IN PAGE 
+	page.padding = 0
+	page.spacing = 0
+ 
+	def shownav(e):
+		# THIS SCRIPT IS SHOW YOU SIDEMENU 
+		# WHEN BUTTON IS CLICK
+		sidemenu.offset=transform.Offset(0,0)
+		page.update()
+ 
+	def hidenav(e):
+		# THIS SCRIPT IS HIDE AGAIN IF
+		# BUTTON IS CLICK THEN SLIDE LEFT 
+		# THE SIDE MENU OK
+		sidemenu.offset=transform.Offset(-5,0)
+		page.update()
+ 
+	# CREATE SIDE MENU
+ 
+	sidemenu = Container(
+		content=Text("hello"),
+		padding=10,
+		bgcolor="yellow",
+		# CREATE SIZE WIDTH AND HEIGHT SIDEMENU
+		width=page.window_width/4,
+		# AND HEIGHT IS FULL HEIGHT 
+		height=page.window_height,
+ 
+		# AND HIDE THE SIDE MENU OFFSET
+		offset= transform.Offset(-5,0),
+		animate_offset=animation.Animation(500)
+		# 500 IS DURATION SIDEMENU WHEN OPEN
+ 
+		)
+ 
+	# CREATE LAYER
+	layer = Container(
+		width=page.window_width,
+		height=page.window_height,
+		on_click=lambda e: hidenav(e),
+		content=Column([
+			Container(
+			bgcolor="blue",
+			content=Row([
+			IconButton(
+			icon="menu",
+			icon_color="white",
+			on_click=shownav),
+ 
+			# TITLE APPBAR
+			Text("my Pets",size=30,
+				color="White")
+ 
+				])
+ 
+				)
+ 
+			])
+		)
+ 
+ 
+ 
+	page.add(
+		Stack([
+			layer,
+			sidemenu 
+			])
+		)
+ 
 app(target=main)

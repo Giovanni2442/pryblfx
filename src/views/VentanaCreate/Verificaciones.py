@@ -171,7 +171,21 @@ class verificaciones():
             #mdlVoidVl
             self.mdlVoidVl = AlertDialog(
                     modal=True,
-                    title= Text(f"Faltan campos por llenar!"),
+                    title= Container(
+                        #border= border.only(bottom=border.BorderSide(1, "black")),
+                        shadow=BoxShadow(
+                            spread_radius=0,
+                            blur_radius=10,
+                            offset=Offset(0, 4),  # Ajusta el desplazamiento de la sombra
+                            color=colors.BLACK12,  # Cambia el color si es necesario
+                        ),
+                        content= Text(
+                            "FALTAN CAMPOS POR LLENAR!",
+                            color="black",
+                            text_align="center",
+                        ),
+                    ),
+                    bgcolor="ddddddcf",
                     actions=[
                         TextButton("CERRAR", on_click= lambda e: self.mdl.close_dialog(self.mdlVoidVl))
                     ]
@@ -187,12 +201,12 @@ class verificaciones():
                         TextButton("CERRAR", on_click=lambda _: self.mdl.close_dialog(self.mdlErrValue))
                     ]
                 )
-            #self.mdlVoidVl(self.mdlErrValue)
+            #self.mdl.open_Cntndr(self.cnt)
             self.mdl.open_dialog(self.mdlErrValue)
             return False
         else : 
             return True
-        
+    
     # Inserta los datos a la base de datos
     def insrtFicha(self,*data):
         #b1 = self.vlVoid(tpl)
@@ -210,10 +224,10 @@ class verificaciones():
                 # INSERTAR EN DB
                 #self.Insrt.qryPost(data)       
                 # INSERTAR VALORES AL PDF
-                #self.crtPdf.jir("1","hola")
+                self.crtPdf.save("hola")
 
-                self.crtPdf.InsertTxt(data)
-                print(self.Img.tplImg)
+                #self.crtPdf.InsertTxt(data)
+                #print(self.Img.tplImg)
                 
                 #self.crtPdf.InsertTxt()
                 # INGRESAR IMAGENES AL PDF

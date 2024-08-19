@@ -59,7 +59,7 @@ class FileUploaderApp:
         Obsrv = self.Btnid[2]
         self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)
         #print(any)
-        self.crtPdf.InsertImg(id,self.tplImg)
+        self.crtPdf.save(id,self.tplImg)
         #self.crtPdf.jir(self.tplImg)
         #self.Img.InsertImg(id,self.tplImg)  # INSERTAR ELEMENTOS
 

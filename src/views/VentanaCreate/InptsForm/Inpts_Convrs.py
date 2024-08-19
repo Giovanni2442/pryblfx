@@ -13,7 +13,7 @@ class Inpts_Convrs():
     ### SESSIÓN 1 ###
 
         self.medEmpq = PopupMenuButton(
-            Text("Medida del Empaque"),
+            Text("Medida del Empaque",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -215,7 +215,7 @@ class Inpts_Convrs():
         )
 
         self.numBltsCjsCam_CmsTam = PopupMenuButton(
-            Text("Numero de Bultos / Cajas por Cama y Camas por Tarima"),
+            Text("Numero de Bultos / Cajas por Cama y Camas por Tarima",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -252,7 +252,7 @@ class Inpts_Convrs():
         )
 
         self.numBlts_CjsTam = PopupMenuButton(
-            Text("Numero de Bultos ó Cajas por Tarima"),
+            Text("Numero de Bultos ó Cajas por Tarima",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -289,7 +289,7 @@ class Inpts_Convrs():
         )
        
         self.psPromTam = PopupMenuButton(
-            Text("Peso neto Promedio por Tarima"),
+            Text("Peso neto Promedio por Tarima",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 

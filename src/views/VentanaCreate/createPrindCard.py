@@ -85,7 +85,6 @@ class createPrind(UserControl):
                 Tab( text="LAMINADO" ),
                 Tab( text="REFILADO" ),
                 Tab( text="CONVERSION" ),
-                Tab( text="IMG" ),
             ]
         )
 
@@ -101,7 +100,7 @@ class createPrind(UserControl):
                     
                     Container(                  # BUTTON GENERAL
                         expand=True,
-                        padding=0,
+                        padding=padding.only(top=3,bottom=5),
                         margin=margin.only(right=-5),
                         border=border.only(right=border.BorderSide(0.5, colors.BLACK87)),
                         content=ElevatedButton(     
@@ -132,7 +131,7 @@ class createPrind(UserControl):
                     
                     Container(                  # BUTTON LAMINACIÓNES
                         expand=True,
-                        padding=0,
+                        padding=padding.only(top=3,bottom=5),
                         margin=margin.only(left=-5),
                         content=ElevatedButton(                       #
                             expand=True,
@@ -858,10 +857,11 @@ class createPrind(UserControl):
                                             Container(
                                                 #Text("Ingresar !"),
                                                 margin=5,
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.clPlc_Tol,
                                             ),
 
@@ -869,10 +869,11 @@ class createPrind(UserControl):
                                             Container(
                                                 #Text("Ingresar !"),
                                                 margin=5,
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.anchBob_Tol,
                                             ),
 
@@ -883,10 +884,11 @@ class createPrind(UserControl):
                                             Container(
                                                 #Text("Ingresar !"),
                                                 margin=5,
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.medMngTransf,
                                             ),
 
@@ -894,10 +896,11 @@ class createPrind(UserControl):
                                             Container(
                                                 #Text("Ingresar !"),
                                                 margin=5,
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.anchCore_Tol,
                                             ),
 
@@ -905,10 +908,11 @@ class createPrind(UserControl):
                                             Container(
                                                 #Text("Ingresar !"),
                                                 margin=5,
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.dmtrGrsrCore,
                                             ),
                                         ]
@@ -936,10 +940,11 @@ class createPrind(UserControl):
                                             Container(
                                                 #Text("Ingresar !"),
                                                 margin=5,
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.dmtrBob_Tol,
                                             ),
 
@@ -1060,20 +1065,22 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.LN1clbPel_Tol
                                             ),
 
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.LN1anchBob_Tol
                                             ),
 
@@ -1111,20 +1118,22 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.LN2clbPel_Tol
                                             ),
 
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.LN2anchBob_Tol
                                             ),
 
@@ -1162,20 +1171,22 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.LN3clbPel_Tol
                                             ),
 
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.LN3anchBob_Tol
                                             ),
 
@@ -1211,20 +1222,22 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.LN4clbPel_Tol
                                             ),
 
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 alignment=alignment.center,
                                                 border_radius=5,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsLam.LN4anchBob_Tol
                                             ),
 
@@ -1291,10 +1304,11 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsRefl.anchBobRefDbl,
                                             ),
 
@@ -1304,10 +1318,11 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsRefl.anchCre_Tol,
                                             ),
 
@@ -1346,20 +1361,22 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsRefl.mtrBobRefl,
                                             ),
                                             
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsRefl.dmtrBob_Tol,
                                             ),
 
@@ -1401,10 +1418,11 @@ class createPrind(UserControl):
                                              #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsRefl.psPromBob,
                                             ),
 
@@ -1414,10 +1432,11 @@ class createPrind(UserControl):
                                              #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsRefl.numBobCma_CmsTam,
                                             ), 
 
@@ -1427,10 +1446,11 @@ class createPrind(UserControl):
                                              #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsRefl.psPromTam,
                                             ),
 
@@ -1478,10 +1498,10 @@ class createPrind(UserControl):
                         bottom=border.BorderSide(1, colors.BLACK87)),
                     bgcolor=colors.WHITE,
                 ),
-                Row(                    # --- Contenedor EXTRUSIÓN ---
+                Row(                    # --- CONTENEDOR CONVERSIÓN ---
                     expand=True,
                     controls=[
-                    Container(                  # -- Seccion 1 --
+                    Container(                  # -- SECCIÓN 1 --
                         expand=True,
                         bgcolor=colors.WHITE, 
                         margin=margin.only(top=-10,right=-5),
@@ -1501,10 +1521,11 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsConvrs.medEmpq,
                                             ),
 
@@ -1597,30 +1618,33 @@ class createPrind(UserControl):
                                             #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsConvrs.numBltsCjsCam_CmsTam,
                                             ),
 
                                              #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsConvrs.numBlts_CjsTam,
                                             ),
 
                                              #DropBox de Inputs
                                             Container(
                                                 #Text("Ingresar !"),
-                                                bgcolor="#B6DE3A",
+                                                bgcolor="#256222",
                                                 border_radius=5,
                                                 alignment=alignment.center,
                                                 padding=5,
+                                                on_hover=self.on_hover,
                                                 content= self.InptsConvrs.psPromTam,
                                             ),
 
@@ -1647,24 +1671,6 @@ class createPrind(UserControl):
             ])       
         )
 
-        # IAMGEN DE BOBINA Y OBSERVACIÓNES
-        self.vtnImgs = Container(
-            expand=True,
-            margin=margin.only(top=-5),
-            bgcolor=self.color_teal,
-            padding=5,
-            alignment=alignment.center,
-            content=
-                Column([
-                    Container(    # Tamaño Ficha Tecnica
-                    #expand=True,
-                    #Text("REFILADO",color="white"),
-                    alignment=alignment.center,
-                    bgcolor="#858585",
-                )
-                ])
-        )
-    
         # Contenedor de Boton Agregar a la BD
         self.cntBtn = Container(
             #expand=True,
@@ -1698,14 +1704,13 @@ class createPrind(UserControl):
         )
 
 #################### PRUEBAS #######################
- 
-    # PRUEBA PARA EFECTO HOVER
+    # EFECTO HOVER CONTENEDORES
     def on_hover(slef,e):
-        if e.data == "true":
-            e.control.bgcolor =  "#256222"
+        if e.data == "true":        # RETORNA TRUE O FALSE AL SELECCIÓNAR BTN
+            e.control.bgcolor =  "#3b7a32"
             e.control.padding = 7
         else:
-            e.control.bgcolor = "#3b7a32"
+            e.control.bgcolor = "#256222"
             e.control.padding = 5
         e.control.update()
        # print(e.data)
@@ -1734,8 +1739,7 @@ class createPrind(UserControl):
             self.vtnImprDigtl,
             self.vtnLamGnrl,
             self.vtnRefilado,
-            self.vtnConversión,
-            self.vtnImgs
+            self.vtnConversión
         ]
 
         self.frameMain.content.controls = [self.cntHeader]

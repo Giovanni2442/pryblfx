@@ -26,7 +26,7 @@ class Inpts_Refil():
         )
 
         self.anchBobRefDbl = PopupMenuButton(
-            Text("Ancho Final de Bobina al Refilarse/Doblarse"),
+            Text("Ancho Final de Bobina al Refilarse/Doblarse",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -77,7 +77,7 @@ class Inpts_Refil():
         )
         
         self.anchCre_Tol = PopupMenuButton(
-            Text("Ancho de Core y Tolerancia"),
+            Text("Ancho de Core y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -160,7 +160,7 @@ class Inpts_Refil():
         )
 
         self.mtrBobRefl = PopupMenuButton(
-            Text("Metros de bobina al Refilarse"),
+            Text("Metros de bobina al Refilarse",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -197,7 +197,7 @@ class Inpts_Refil():
         )
 
         self.dmtrBob_Tol = PopupMenuButton(
-            Text("Diametro de Bobina y Tolerancia"),
+            Text("Diametro de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -300,7 +300,7 @@ class Inpts_Refil():
         )
 
         self.psPromBob = PopupMenuButton(
-            Text("Peso neto Promedio de Bobina"),
+            Text("Peso neto Promedio de Bobina",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -337,7 +337,7 @@ class Inpts_Refil():
         )
 
         self.anchFnlBob_Tol = PopupMenuButton(
-            Text("Ancho final de Bobina y Tol."),
+            Text("Ancho final de Bobina y Tol.",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -390,7 +390,7 @@ class Inpts_Refil():
         )
 
         self.numBobCma_CmsTam = PopupMenuButton(
-            Text("Numero de bobinas por cama y Camas por tarima"),
+            Text("Numero de bobinas por cama y Camas por tarima",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -437,7 +437,7 @@ class Inpts_Refil():
         )
 
         self.psPromTam = PopupMenuButton(
-            Text("Peso neto promedio por tarima"),
+            Text("Peso neto promedio por tarima",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 

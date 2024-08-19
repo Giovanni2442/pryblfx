@@ -58,8 +58,8 @@ class CreatePdf():
         #print("--->",txtFld2)
         print("-->",txtFld2)      
 
-    def jir(self):
-        #print(self.)
+    def jir(self,**key):
+        print()
         pass
 
     # agregar tpl
@@ -98,15 +98,16 @@ class CreatePdf():
         #### -- TABLA CONVERSIÓN -- #####
         self.pdfCnvrs.pdfConvrs(self.page,tpl)#'''
 
+        temp_filename = "Template/Template_temp.pdf"
+        self.doc.save(temp_filename)
         #### INSERTAR EN BD #####
         #pdfBytes = doc.write()
         #namePdf = f"{tpl[0][0].value}.pdf"
         #self.postpdf.postPridCardPdf(tpl[0][0].value,namePdf)
         #########################
         #print("--",self.Btnid)
-
-        #temp_filename = "Template/Template_temp.pdf"
-        #self.doc.save(temp_filename)
+        #self.save()
+        
         #self.doc.close()
 
         '''
@@ -117,6 +118,9 @@ class CreatePdf():
         self.postpdf.postPridCardPdf(tpl[0][0].value,pdf_binary)
         self.doc.close()'''
 
+    def save(self,*tpl):
+        print(len(tpl))
+        print(tpl)
     
 
 #crpdf = CreatePdf()

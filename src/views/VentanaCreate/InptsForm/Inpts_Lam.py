@@ -22,7 +22,7 @@ class Inpts_Lam():
         )
 
         self.medMngTransf = PopupMenuButton(    # GENERAL
-            Text("Medida de la Manga para Transferencia"),
+            Text("Medida de la Manga para Transferencia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -59,7 +59,7 @@ class Inpts_Lam():
         )
 
         self.anchCore_Tol = PopupMenuButton(    # GENERAL
-            Text("Ancho de Core y Tolerancia"),
+            Text("Ancho de Core y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -96,7 +96,7 @@ class Inpts_Lam():
         )
 
         self.dmtrGrsrCore = PopupMenuButton(    # GENERAL
-            Text("Diametro y Grosor de Core"),
+            Text("Diametro y Grosor de Core",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -133,7 +133,7 @@ class Inpts_Lam():
         )
 
         self.dmtrBob_Tol = PopupMenuButton(     # GENERAL
-            Text("Diametro de Bobina y Tolerancia"),
+            Text("Diametro de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -253,7 +253,7 @@ class Inpts_Lam():
         )
 
         self.clPlc_Tol = PopupMenuButton(       # MatrImprs
-            Text("Calibre de Pelicula y Tolerancia"),
+            Text("Calibre de Pelicula y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -290,7 +290,7 @@ class Inpts_Lam():
         )
 
         self.anchBob_Tol = PopupMenuButton(       # MatrImprs
-            Text("Ancho de Bobina y Tolerancia"),
+            Text("Ancho de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -358,7 +358,7 @@ class Inpts_Lam():
         )
 
         self.LN1clbPel_Tol = PopupMenuButton(
-            Text("Calibre de Pelicula y Tolerancia"),
+            Text("Calibre de Pelicula y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -395,7 +395,7 @@ class Inpts_Lam():
         )
 
         self.LN1anchBob_Tol = PopupMenuButton(
-            Text("Ancho de Bobina y Tolerancia"),
+            Text("Ancho de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -474,7 +474,7 @@ class Inpts_Lam():
         )
 
         self.LN2clbPel_Tol = PopupMenuButton(
-            Text("Calibre de Pelicula y Tolerancia"),
+            Text("Calibre de Pelicula y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -511,7 +511,7 @@ class Inpts_Lam():
         )
 
         self.LN2anchBob_Tol = PopupMenuButton(
-            Text("Ancho de Bobina y Tolerancia"),
+            Text("Ancho de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -588,7 +588,7 @@ class Inpts_Lam():
         )
 
         self.LN3clbPel_Tol = PopupMenuButton(
-            Text("Calibre de Pelicula y Tolerancia"),
+            Text("Calibre de Pelicula y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -625,7 +625,7 @@ class Inpts_Lam():
         )
 
         self.LN3anchBob_Tol = PopupMenuButton(
-            Text("Ancho de Bobina y Tolerancia"),
+            Text("Ancho de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -703,7 +703,7 @@ class Inpts_Lam():
         )
 
         self.LN4clbPel_Tol = PopupMenuButton(
-            Text("Calibre de Pelicula y Tolerancia"),
+            Text("Calibre de Pelicula y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
@@ -740,7 +740,7 @@ class Inpts_Lam():
         )
 
         self.LN4anchBob_Tol = PopupMenuButton(
-            Text("Ancho de Bobina y Tolerancia"),
+            Text("Ancho de Bobina y Tolerancia",color=colors.WHITE),
             bgcolor="white",
             menu_position=PopupMenuPosition.OVER,
             items=[ 
