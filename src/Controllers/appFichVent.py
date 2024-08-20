@@ -4,7 +4,7 @@ class appFichVent():
     def __init__(self):
         self.connect = db()
 
-    # --- Tabla Ficha Tecnica TABLA PADRE ----
+            # --- FICHA TECNICA TABLA PADRE ----
 
     # --- METHOD GET ----
     # Show all products
@@ -16,7 +16,7 @@ class appFichVent():
         return result
     
     # SHOW WITH ID
-    def get_row_Id(self,id):
+    def getFicha(self,id):
         query = 'SELECT * FROM FichaTec WHERE id_codProduct = %s;'
         cursor = self.connect.cursor()
         cursor.execute(query,(id,))
@@ -24,7 +24,6 @@ class appFichVent():
         return result
     # ----------------------------
         
-    
     # --- METHOD POST ----
     # Insert in table FichaTecnica 
     def post_data(self,*args):
@@ -37,11 +36,10 @@ class appFichVent():
         return "Insert Ok!"
     # -----------------------
 
-    
     # --- METHOD PUT -------
     # edit any product select in the row
-    def putFichaTec(self,id,*args):
-        query = '''
+    def putFichaTec(self,*args):
+        query = '''         
             UPDATE FichaTec SET
                 cliente=%s,
                 fecha_Elav=%s,
@@ -50,13 +48,12 @@ class appFichVent():
             WHERE id_codProduct = %s;
         '''
         cursor = self.connect.cursor()
-        cursor.execute(query,(id,))
+        cursor.execute(query,args)
         self.connect.commit()
         return "Update Ok!"
-
+    
     # ----------------------
 
-    
     # --- METHOD DELETE ----
     # Delete any product select in the row
     def delete_row_Table(self,id):
@@ -67,15 +64,22 @@ class appFichVent():
         return "Delete Ok!"
     # ----------------------
     
+     # --- METHOD PRUEBAS ----
+    # Delete any product select in the row
+    def mtdPru(self,id,*args):
+        print(id,args)
+    # ----------------------
     
-    
-    # --- Tabla Ventas ---
+            # --- TABLA VENTAS ---
     
     # --- METHOD GET -------
-    # edit any product select in the row
-    def put_row_Table(self):
-        pass
-
+     # SHOW WITH ID
+    def get_Ventas(self,id):
+        query = 'select * from VENTAS WHERE idCodPrdc = %s;'
+        cursor = self.connect.cursor()
+        cursor.execute(query,(id,))
+        result = cursor.fetchall()
+        return result
     # ----------------------
 
     # --- METHOD POST -------
@@ -93,18 +97,21 @@ class appFichVent():
 
     # --- METHOD PUT -------
     # edit any product select in the row
-    def put_row_Table(self):
-        pass
-
-    # ----------------------
-
-    # --- METHOD DELETE -------
-    # edit any product select in the row
-    def put_row_Table(self):
-        pass
-
-    # ----------------------
-    
+    def putFichaTec(self,*args):
+        query = '''         
+            UPDATE VENTAS SET
+                asesor=%s,
+                tipo_Empaque=%s,
+                product_Laminado=%s,
+                estruct_Product=%s,
+                empaca=%s
+            WHERE idCodPrdc = %s;
+        '''
+        cursor = self.connect.cursor()
+        cursor.execute(query,args)
+        self.connect.commit()
+        return "Update Ok!"
+    # ----------------------    
     
     #### QUERY´S DE PRUEBA ####
 

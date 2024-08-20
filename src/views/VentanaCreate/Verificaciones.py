@@ -218,44 +218,64 @@ class verificaciones():
                     break
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
-            if not contact_exists:
-                # INSERTAR EN DB
-                if self.aux.changeBtn(self.page.client_storage.get("id")) == "Ingresar":
+            if self.aux.changeBtn(self.page.client_storage.get("id")) == "Ingresar":
+                if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
+                    # INSERTAR EN DB
                     self.Insrt.qryPost(data)
-                else :
+        
+                    self.msgInsrt = SnackBar(         # Insert exitoso!
+                        content=Column(
+                            controls=[
+                                Container(
+                                    Text(f"PRODUCTO : {data[0][0].value} , INSERTADO CON EXITO!",size=20,color="white"),
+                                    alignment=alignment.center
+                                ),
+                            ],
+                        ),
+                        bgcolor="#5AE590",
+                    )
+                    #self.mdlErrValue(self.msgDlt)
+                    self.mdl.open_dialog(self.msgInsrt)
+                    #lambda _: self.page.go('/cratePrindCard'),
+                    #self.clean_fields(data)
+                else:  # YA EXISTE! EVITA REGISTROS DUPLICADOS
+                    self.mdlDplctPrdct = AlertDialog(   # MODAL PRODUCTO DUPLICADO
+                        modal=True,
+                        title= Text(f"El Producto : {row[0]} ya Existe!"),
+                        actions=[
+                            TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlDplctPrdct))
+                        ]
+                    )
+                    #self.msgDlt(self.mdlDplctPrdct)
+                    self.mdl.open_dialog(self.mdlDplctPrdct)
+                    return False
+                
+            else: # UPDATE
+                if not contact_exists: 
+                    self.mdlDplctPrdct = AlertDialog(   # MODAL PRODUCTO DUPLICADO
+                        modal=True,
+                        title= Text(f"El Producto : {row[0]} No Existe!"),
+                        actions=[
+                            TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlDplctPrdct))
+                        ]
+                    )
+                    #self.msgDlt(self.mdlDplctPrdct)
+                    self.mdl.open_dialog(self.mdlDplctPrdct)
+                    return False
+                else:
+                    # UPDATE IN DB
                     self.Update.qryUpdate(data)
 
-                # INSERTAR VALORES AL PDF
-                #self.crtPdf.save(1,"hola")
-                self.crtPdf.InsertTxt(data)
-       
-                ### VALORES DE LOS INPUTS ###
-                #self.crtPdf.Insert(data)         # Crear el prindCard       
-                #############################
-                self.msgInsrt = SnackBar(         # Insert exitoso!
-                    content=Column(
-                        controls=[
-                            Container(
-                                Text(f"PRODUCTO : {data[0][0].value} , INSERTADO CON EXITO!",size=20,color="white"),
-                                alignment=alignment.center
-                            ),
-                        ],
-                    ),
-                    bgcolor="#5AE590",
-                )
-                #self.mdlErrValue(self.msgDlt)
-                self.mdl.open_dialog(self.msgInsrt)
-                #lambda _: self.page.go('/cratePrindCard'),
-                #self.clean_fields(data)
-            else:
-                self.mdlDplctPrdct = AlertDialog(   # MODAL PRODUCTO DUPLICADO
-                    modal=True,
-                    title= Text(f"El Producto : {row[0]} ya Existe!"),
-                    actions=[
-                        TextButton("CERRAR", on_click=lambda e: self.mdl.close_dialog(self.mdlDplctPrdct))
-                    ]
-                )
-                #self.msgDlt(self.mdlDplctPrdct)
-                self.mdl.open_dialog(self.mdlDplctPrdct)
-                return False
-                #print("El contacto ya existe en la base de datos.")
+                    self.msgInsrt = SnackBar(         # Insert exitoso!
+                        content=Column(
+                            controls=[
+                                Container(
+                                    Text(f"PRODUCTO : {data[0][0].value} , ACTUALIZADO CON EXITO!",size=20,color="white"),
+                                    alignment=alignment.center
+                                ),
+                            ],
+                        ),
+                        bgcolor="#5AE590",
+                    )
+                    #self.mdlErrValue(self.msgDlt)
+                    self.mdl.open_dialog(self.msgInsrt)

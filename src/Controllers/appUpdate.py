@@ -7,6 +7,8 @@ class appUpdate():
         self.dataTbl = appFichVent()
         self.auxList = []
 
+        self.connect = db()
+
         # RECOLECTOR DE DATOS PARA CADA ENTRADA
     def qryUpdate(self,tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
         #vle = tpl[2][0].items[0].content.controls[1].value
@@ -33,6 +35,11 @@ class appUpdate():
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
                     self.auxList.append(j.value)
 
-        print(self.auxList[:5])
+        print(self.auxList[1:5],self.auxList[0])
 
-        self.dataTbl.putFichaTec()
+            # --- FICHA ---
+        self.dataTbl.putFichaTec(*self.auxList[1:5],self.auxList[0])
+        
+        cursor = self.connect.cursor()
+        cursor.close()
+        self.connect.close()

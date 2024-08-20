@@ -43,6 +43,26 @@ show tables;
 						/*------ INSERCIÓNES A LA BASE DE DATOS ----------*/
                         
 /*--------FichaTec--------*/
+select * from FichaTec WHERE id_codProduct = "232321";
+select * from VENTAS WHERE idCodPrdc = "14141414";
+
+UPDATE FichaTec SET
+	cliente="HOLA",
+	fecha_Elav="RERERER",
+	fecha_Rev="IJIJI",
+	producto="HOLA"
+WHERE id_codProduct = "454545";
+
+INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
+
+UPDATE VENTAS SET
+	asesor="HOLA",
+	tipo_Empaque="HOLA",
+	product_Laminado="HOLA",
+	estruct_Product="HOLA",
+    empaca="HOLA"
+WHERE idCodPrdc = '14141414';
+
 select * from FichaTec;
 INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('2323','Reyma','Envaces desechables','03/07/2024','03/07/2024');
 INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2335','Fresno','granos','03/07/2024','SS');
@@ -162,9 +182,10 @@ show tables;
 
 /*-----------------------------PRINTD CARD--------------------------------------*/
 select * from PrindCard;
+drop table PrindCard;
 CREATE TABLE PrindCard(
         idCodPrdc VARCHAR(255),
-		prindCrdPdf BLOB NOT NULL,
+		prindCrdPdf LONGBLOB NOT NULL,
         FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
 );
 

@@ -23,7 +23,7 @@ class crudPrintCard(UserControl):
         self.dataTbl = appFichVent()  #Accede a la información en la base de datos
         self.InsrtData = CntrlsCreatePrindCard()
         
-        self.createPrnt = createPrind(page,"id")
+        self.createPrnt = createPrind(page,"Insert")
         self.pr = pr(page)
         self.pdf = opnPrindPdf(page)
 
@@ -98,13 +98,8 @@ class crudPrintCard(UserControl):
                     ControlState.HOVERED: RoundedRectangleBorder(radius=15),
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
-            ),
-                   
+            ),     
             #on_click= lambda _: self.page.go('/cratePrindCard'),
-            on_click= lambda _: (
-                self.page.client_storage.set("id", "1erere"),
-                self.page.go('/cratePrindCard'),
-            ),
         )
 
         # --- TABLA ---
@@ -146,12 +141,7 @@ class crudPrintCard(UserControl):
         # ----
 
         ##### QUERYS ########
-        # -- Query Update
-    def updateButton(self,e):
-
-        self.page.go('/cratePrindCard')
-        
-
+    
         # -- Query Modal Delete --
     
     def queryDlt(self,bnd,id):
@@ -202,7 +192,6 @@ class crudPrintCard(UserControl):
                             icon_color="green",
                             data=row,
                             on_click= lambda e: (
-                                #print(e.control.data[0])
                                 self.page.client_storage.set("id",e.control.data[0]),
                                 self.page.go('/cratePrindCard'),
                             ),
