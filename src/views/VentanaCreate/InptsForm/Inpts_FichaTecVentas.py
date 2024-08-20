@@ -2,6 +2,8 @@ from flet import *
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+
 
 ### ENTRADAS DE TEXTO Y COMPONENTES PARA LA TABLA FichaTecnica y Ventas ###
 class Inpts_FichaTec_Ventas():  
@@ -9,14 +11,16 @@ class Inpts_FichaTec_Ventas():
         
         self.page = page
         self.valida = verificaciones(page)
-        self.prUpdt = InptsAux()
+        
+        # -- ACTUALIZA SI ES INSERT O UPDATE --#
+        self.aux = InptsAux()
         
     ### INPUTS DE TABLA FichaTecnica ###
         self.id_product = TextField(
             label="PrindCard",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = self.prUpdt.pruUpdate(),
+            value = self.getData("",0)[0],
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfPrintCard)       # Traba con la expreción regular del input
         )
@@ -27,7 +31,7 @@ class Inpts_FichaTec_Ventas():
             #value="N/A",
             error_text="",
             border_color="Black",
-            value = "",
+            value = self.getData("",1)[0],
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfCliente)
         )
@@ -36,6 +40,7 @@ class Inpts_FichaTec_Ventas():
             label="dd/MM/YYYY",
             border= InputBorder.OUTLINE,
             border_color="Black",
+            value = self.getData("",3)[0],
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
@@ -45,6 +50,7 @@ class Inpts_FichaTec_Ventas():
             #label_style=,
             border= InputBorder.OUTLINE,
             border_color="Black",
+            value=self.getData("",4)[0],
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
@@ -53,6 +59,7 @@ class Inpts_FichaTec_Ventas():
             label="Producto",
             border= InputBorder.OUTLINE,       
             border_color="Black",
+            value= self.getData("",2)[0],
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
         )
@@ -103,6 +110,10 @@ class Inpts_FichaTec_Ventas():
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
+
+    def getData(self,vlDlfd,id):
+        return self.aux.pruUpdate(self.page.client_storage.get("id"),vlDlfd)[id],
+        
     
     def tplInptsFichTec(self):
         return [

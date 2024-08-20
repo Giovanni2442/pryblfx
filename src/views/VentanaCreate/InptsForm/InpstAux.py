@@ -1,10 +1,18 @@
+from src.Controllers.appFichVent import appFichVent
+
 class InptsAux():
     def __init__(self):
-        pass
+        self.appFicha = appFichVent()
 
-    def pruUpdate(self,id):
-        if id == 1:
-            pass
+    def changeBtn(self,id):
+        if id == "Insert":
+            return "Ingresar"
         else:
-            pass
+            return "Update"
+
+    def pruUpdate(self,id,default_value):
+        if id != "Insert":
+            return self.appFicha.get_row_Id(id)[0]
+        else:
+            return default_value
 

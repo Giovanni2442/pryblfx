@@ -6,6 +6,7 @@ class appFichVent():
 
     # --- Tabla Ficha Tecnica TABLA PADRE ----
 
+    # --- METHOD GET ----
     # Show all products
     def get_row_Table(self):
         query = 'SELECT * FROM FichaTec;'
@@ -13,20 +14,19 @@ class appFichVent():
         cursor.execute(query)
         result = cursor.fetchall()
         return result
-        
-    # edit any product select in the row
-    def put_row_Table(self):
-        pass
-
-    # Delete any product select in the row
-    def delete_row_Table(self,id):
-        query = 'DELETE FROM FichaTec WHERE id_codProduct = %s'
+    
+    # SHOW WITH ID
+    def get_row_Id(self,id):
+        query = 'SELECT * FROM FichaTec WHERE id_codProduct = %s;'
         cursor = self.connect.cursor()
         cursor.execute(query,(id,))
-        self.connect.commit()
-        return "Delete Ok!"
+        result = cursor.fetchall()
+        return result
+    # ----------------------------
+        
     
-    # Test Insert in table FichaTecnica 
+    # --- METHOD POST ----
+    # Insert in table FichaTecnica 
     def post_data(self,*args):
         # INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES ('E-2335','Fresno','granos','03/07/2024','SS');
         query = 'INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES (%s,%s,%s,%s,%s);'
@@ -35,9 +35,50 @@ class appFichVent():
         cursor.execute(query,args)
         self.connect.commit()
         return "Insert Ok!"
+    # -----------------------
+
+    
+    # --- METHOD PUT -------
+    # edit any product select in the row
+    def putFichaTec(self,id,*args):
+        query = '''
+            UPDATE FichaTec SET
+                cliente=%s,
+                fecha_Elav=%s,
+                fecha_Rev=%s,
+                producto=%s
+            WHERE id_codProduct = %s;
+        '''
+        cursor = self.connect.cursor()
+        cursor.execute(query,(id,))
+        self.connect.commit()
+        return "Update Ok!"
+
+    # ----------------------
+
+    
+    # --- METHOD DELETE ----
+    # Delete any product select in the row
+    def delete_row_Table(self,id):
+        query = 'DELETE FROM FichaTec WHERE id_codProduct = %s'
+        cursor = self.connect.cursor()
+        cursor.execute(query,(id,))
+        self.connect.commit()
+        return "Delete Ok!"
+    # ----------------------
+    
+    
     
     # --- Tabla Ventas ---
     
+    # --- METHOD GET -------
+    # edit any product select in the row
+    def put_row_Table(self):
+        pass
+
+    # ----------------------
+
+    # --- METHOD POST -------
     # Test Insert in table FichaTecnica 
     def post_dataVentas(self,*args):
         # INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES ('E-2334','rr','rr','rr','rr','rr');
@@ -48,6 +89,23 @@ class appFichVent():
         self.connect.commit()
         return "Insert Ok!"
 
+    # ----------------------
+
+    # --- METHOD PUT -------
+    # edit any product select in the row
+    def put_row_Table(self):
+        pass
+
+    # ----------------------
+
+    # --- METHOD DELETE -------
+    # edit any product select in the row
+    def put_row_Table(self):
+        pass
+
+    # ----------------------
+    
+    
     #### QUERY´S DE PRUEBA ####
 
     def getFichaVentas(self):

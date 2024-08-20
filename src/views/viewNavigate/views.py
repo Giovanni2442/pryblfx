@@ -15,7 +15,7 @@ def pru(page,id):
 
 
 def getViews(page):
-    
+    id = page.client_storage.get("id") or "id"
     return {
         # CRUD de Productos
         '/':View(
@@ -27,7 +27,7 @@ def getViews(page):
         '/cratePrindCard':View(
             route='/cratePrindCard',
             controls=[
-                createPrind(page)
+                createPrind(page,id)
             ]
         ),
         '/prueba':pru,

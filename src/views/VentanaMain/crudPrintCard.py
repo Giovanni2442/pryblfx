@@ -7,11 +7,6 @@ from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
 from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
 
-#  --- TASK --- 
-# * Conectar todas las tablas a la base de datos (Hacer el intento de forma abstracta)
-# * Empezar a hacer un prototipo de insersión al pdf 
-# * Conectar sus respectivas verificaciónes
-
 def pru():
     db = appFichVent().get_row_Table()
     print(db)
@@ -28,7 +23,7 @@ class crudPrintCard(UserControl):
         self.dataTbl = appFichVent()  #Accede a la información en la base de datos
         self.InsrtData = CntrlsCreatePrindCard()
         
-        self.createPrnt = createPrind(page)
+        self.createPrnt = createPrind(page,"id")
         self.pr = pr(page)
         self.pdf = opnPrindPdf(page)
 
@@ -80,7 +75,10 @@ class crudPrintCard(UserControl):
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
             ),
-            on_click= lambda _: self.page.go('/cratePrindCard'),
+            on_click= lambda _: (
+                page.client_storage.set("id", "Insert"),
+                self.page.go('/cratePrindCard'),
+            ),
             #on_click= self.inptTable.jer
         )
 
@@ -102,8 +100,11 @@ class crudPrintCard(UserControl):
                 },
             ),
                    
-            on_click= lambda _: self.page.go('/cratePrindCard'),
-            
+            #on_click= lambda _: self.page.go('/cratePrindCard'),
+            on_click= lambda _: (
+                self.page.client_storage.set("id", "1erere"),
+                self.page.go('/cratePrindCard'),
+            ),
         )
 
         # --- TABLA ---
@@ -147,13 +148,10 @@ class crudPrintCard(UserControl):
         ##### QUERYS ########
         # -- Query Update
     def updateButton(self,e):
-        #self.frameMain.content.controls.append(self.createPrnt)
+
         self.page.go('/cratePrindCard')
-        #self.update()
-        #self.pr.update(e.control.data[0])
-        self.page.update()
-        #self.pr.qt = e.control.data[0]
         
+
         # -- Query Modal Delete --
     
     def queryDlt(self,bnd,id):
@@ -203,7 +201,11 @@ class crudPrintCard(UserControl):
                         IconButton("edit",
                             icon_color="green",
                             data=row,
-                            on_click= self.updateButton # --- PROXIMA TAREA ---
+                            on_click= lambda e: (
+                                #print(e.control.data[0])
+                                self.page.client_storage.set("id",e.control.data[0]),
+                                self.page.go('/cratePrindCard'),
+                            ),
                         ),
                         IconButton("NEWSPAPER", # Ficha Tecnica
                             icon_color="yellow",

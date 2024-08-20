@@ -18,21 +18,25 @@ from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
 from src.views.VentanaCreate.Verificaciones import verificaciones      # <---- DESCOMENTAR ESTO
 from src.Controllers.appInserts import appInserts
 from src.views.VentanaCreate.Mdls import opnMdlImg
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 
 class createPrind(UserControl):
-    def __init__(self,page):
-        super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
+    def __init__(self,page,id):
+        super().__init__(expand=True)      
 
         self.color_teal = "teal"
         self.page = page
 
+        # -- ACTUALIZA SI ES INSERT O UPDATE --#
+        self.aux = InptsAux()
+  
         self.Inpts = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
         self.InptsExtrc = InptsExtrc(page)          # Inputs Extrusión
         self.InptsImpDig = Inpst_ImprDig(page)      # Inputs Impresión Digital
         self.InptsLam = Inpts_Lam(page)
         self.InptsRefl = Inpts_Refil(page)
         self.InptsConvrs = Inpts_Convrs(page)      # <--- DESCOMENTAR ESTO!!!!!!!!!
-
+        
         #---Pruebas para el prindcard ---#
         self.prntCrd = CreatePdf()
         # Verifica cada una de las entradas
@@ -44,7 +48,7 @@ class createPrind(UserControl):
 
         # BOTON AGREGAR
         self.btn = FilledButton(
-            text="ADD",
+            text= self.aux.changeBtn(self.page.client_storage.get("id")),
             adaptive=True,
             style=ButtonStyle(
                 bgcolor="#761010",
@@ -62,6 +66,7 @@ class createPrind(UserControl):
             ),
             #on_click= lambda e: self.Inpts.clean_fields(e), 
             on_click= self.eventInsert
+            #on_click= lambda _: print(self.page.client_storage.get("id"))
         )
 
         # PESTAÑAS
@@ -1704,6 +1709,8 @@ class createPrind(UserControl):
         )
 
 #################### PRUEBAS #######################
+
+
     # EFECTO HOVER CONTENEDORES
     def on_hover(slef,e):
         if e.data == "true":        # RETORNA TRUE O FALSE AL SELECCIÓNAR BTN
@@ -1751,12 +1758,6 @@ class createPrind(UserControl):
 
     # Evento al preciónar el boton crear Ficha
     def eventInsert(self,e):
-        #self.prntCrd
-        #self.vrf.insrtFicha
-        #jer
-        #self.prntCrd.jer()
-        #self.vrf.insrtFicha()
-        #'''
         self.vrf.insrtFicha(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),

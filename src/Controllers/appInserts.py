@@ -30,7 +30,7 @@ class appInserts():
         self.bnd = 0
 
 
-    # Ejecuta POST hacia todas las tablas de lo formularios
+    # RECOLECTOR DE DATOS PARA CADA ENTRADA
     def qryPost(self,tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
         #vle = tpl[2][0].items[0].content.controls[1].value
         for indx,i in enumerate(tpl):       # Recorre las listas de Inputs

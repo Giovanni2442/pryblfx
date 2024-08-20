@@ -1,24 +1,17 @@
 from flet import *
 from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appInserts import appInserts
+from src.Controllers.appUpdate import appUpdate
 from src.Controllers.appFichVent import appFichVent
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 from src.views.VentanaCreate.Mdls import Mdls
 from src.pruebas.pru2 import FileUploaderApp
-
-# Tareas :               
-# * Implementar las expreciones regulares adecuadas a cada Input * 
-# * Implementar el boton de edicción * 
-# * Hacer sus respetivas conexiónes y controllers a la base de datos *
-# * Modularizarlo
-# * Hacer un prototipo para Editar el PDF de la ficha tecnica
-# * Hacer la tabla de de para guardar los PDF
-# * Implementar las OBSERVACIÓNES donde se pueda colocar Imagenes, sus comentarios y la secuencia de procesos de igual forma su Tabla en la bd
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 
 class verificaciones():
     def __init__(self,page):
         super().__init__()
-
+    
         #self.page = page
         self.filter = filter().vrfPrintCard
         self.b1 = True
@@ -29,12 +22,17 @@ class verificaciones():
         self.tpl = []
         self.tpl2 = []
         self.bnd = 0
+
+        # BTN LABEL INSRT / UPDATE
+        self.aux = InptsAux()
     
         self.Bnd = None
         self.Img = FileUploaderApp(page)
 
         #Inserción de todas las tablas#
         self.Insrt = appInserts(page)
+        # UPDATE DE LAS TABLAS#
+        self.Update = appUpdate()
 
         #Abrir y Cerrar Modales
         self.mdl = Mdls(page)
@@ -222,7 +220,11 @@ class verificaciones():
 
             if not contact_exists:
                 # INSERTAR EN DB
-                self.Insrt.qryPost(data)       
+                if self.aux.changeBtn(self.page.client_storage.get("id")) == "Ingresar":
+                    self.Insrt.qryPost(data)
+                else :
+                    self.Update.qryUpdate(data)
+
                 # INSERTAR VALORES AL PDF
                 #self.crtPdf.save(1,"hola")
                 self.crtPdf.InsertTxt(data)
