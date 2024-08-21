@@ -102,120 +102,16 @@ class appExtr():
         self.connect.commit()
         return "Insert Ok!"
     
+        # -- METHOD INSERT -- #
+    # --- TRANSACCIÓN INSERT --- #
+    def transctInsertExtrs(self,*args):
+        cursor = self.connect.cursor()
+        cursor.callproc('InsertExtr',(args))
+        self.connect.commit()
+    
         # -- METHOD PUT -- #
-
-    def putExtr(self,*args):
-        query='''
-            UPDATE EXTRUSION
-            SET tipo_Material = %s,
-                dinaje = %s,
-                formula = %s,
-                pigmento_Pelicula = %s,
-                tipo_Bobina = %s,
-                tipo_Tratado = '%s,
-                max_Emplm = %s,
-                orient_Bob_Tarima = %s,
-                Tipo_Empq_Bob = %s,
-                pesar_Prdct = %s,
-                etiquetado = %s,
-                num_Bob_Tarima = %s,
-                tarima_Emplaye = %s,
-                tarima_flejada = %s,
-                numBobTam = %s
-            WHERE idCodPrdc = %s;
-        '''
+    # --- TRANSACCIÓN UPDATE --- #
+    def transctUpdateExtrs(self,*args):
         cursor = self.connect.cursor()
-        cursor.execute(query,args)
+        cursor.callproc('UpdateExtr',(args))
         self.connect.commit()
-        return "Update Ok!"
-    
-     # --- CalibrePel_Tolr ---
-    def putCalibrePel_Tolr(self,*args):
-        query = '''
-            UPDATE CalibrePel_Tolr
-            SET calibre = %s,
-                tolerancia = %s
-            WHERE idCodPrdc = %s
-        '''
-        cursor = self.connect.cursor()
-        cursor.execute(query,args)
-        self.connect.commit()
-        return "Update Ok!"
-    
-     # --- AnchoBob_Tolr ---
-    def putAnchoBob_Tolr(self,*args):
-        query = '''
-            UPDATE AnchoBob_TolrExtr
-            SET anchoBob = %s,
-                tolerancia = %s
-            WHERE idCodPrdc = %s;
-        '''
-        cursor = self.connect.cursor()
-        cursor.execute(query,args)
-        self.connect.commit()
-        return "Insert Ok!"
-    
-   # --- AnchoCore_Tolr ---
-    def putAnchoCore_Tolr(self,*args):
-        query = '''
-            UPDATE AnchoCore_TolrExtr
-            SET anchoCore = %s,
-                tolerancia = %s
-            WHERE idCodPrdc = %s;
-        '''
-        cursor = self.connect.cursor()
-        cursor.execute(query,args)
-        self.connect.commit()
-        return "Insert Ok!"
-    
-    # --- DiametroBob_Tolr ---
-    def putDiametroBob_Tolr(self,*args):
-        query = '''
-            UPDATE DiametroBob_Tolr
-            SET diamBob = %s,
-                tolerancia = %s
-            WHERE idCodPrdc = %s;
-        '''
-        cursor = self.connect.cursor()
-        cursor.execute(query,args)
-        self.connect.commit()
-        return "Insert Ok!"
-    
-     # --- Peso_Prom_Bob ---
-    def putPeso_Prom_Bob(self,*args):
-        query = '''
-            UPDATE Peso_Prom_Bob
-            SET pesoBob = %s,
-                tolerancia = %s
-            WHERE idCodPrdc = %s;
-        '''
-        cursor = self.connect.cursor()
-        cursor.execute(query,args)
-        self.connect.commit()
-        return "Insert Ok!"
-    
-     # --- Num_BobCama_CamTam ---
-    def putNum_BobCama_CamTam(self,*args):
-        query = '''
-            UPDATE Num_BobCama_CamTam
-            SET num_Bob_Cama = %s,
-                camas_Tarima = %s
-            WHERE idCodPrdc = %s;
-        '''
-        cursor = self.connect.cursor()
-        cursor.execute(query,args)
-        self.connect.commit()
-        return "Insert Ok!"
-    
-     # --- Peso_prom_tarima ---
-    def putPeso_prom_tarima(self,*args):
-        query = '''
-            UPDATE Peso_prom_tarimaExtr
-            SET peso_neto = %s,
-                tolerancia = %s
-            WHERE idCodPrdc = %s;
-        '''
-        cursor = self.connect.cursor()
-        cursor.execute(query,args)
-        self.connect.commit()
-        return "Insert Ok!"

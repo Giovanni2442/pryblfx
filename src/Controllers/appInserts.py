@@ -124,7 +124,7 @@ class appInserts():
         self.dtaRef.postNum_BobCama_CamTamRefil(self.tpl2[0],*self.tpl2[144:146])
         self.dtaRef.postPeso_prom_tarimaRefil(self.tpl2[0],*self.tpl2[146:148])
         self.dtaRef.postAnchCre_Tol(self.tpl2[0],*self.tpl2[148:150])       # -- AREGLAR ESTE PEDO, QUE FALTA XD
-        
+    
             # --- CONVERSION ---
         self.dtaConvrs.postConversion(self.tpl2[0],*self.tpl2[150:166]) 
         self.dtaConvrs.postMedidEmpq(self.tpl2[0],*self.tpl2[166:168]) 

@@ -47,17 +47,16 @@ class appUpdate():
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
                     self.auxList.append(j.value)
 
-        print(self.auxList[1:6],self.auxList[0])
+        print(self.auxList[10:26],self.auxList[0])
 
             # --- FICHA ---
         self.dataTbl.putFichaTec(*self.auxList[1:5],self.auxList[0])
             # --- VENTAS ---
         self.dataTbl.putVentas(*self.auxList[5:10],self.auxList[0])
             # --- EXTRUSION ---
-        self.dtaExtr.putExtr(*self.auxList[10:24],self.auxList[0])
-
-        #self.dtaExtr.getExtr('')
-
+        #self.dtaExtr.putExtr(*self.auxList[10:24],self.auxList[0])
+        self.dtaExtr.trnPruExtr(*self.auxList[10:38],self.auxList[0])
+        
         cursor = self.connect.cursor()
         cursor.close()
         self.connect.close()
