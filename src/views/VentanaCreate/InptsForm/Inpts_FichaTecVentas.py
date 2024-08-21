@@ -24,7 +24,7 @@ class Inpts_FichaTec_Ventas():
             value=self.aux.getData(self.id,'FICHA',0,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfPrintCard),       # Traba con la expreción regular del input
-            disabled= lambda _: self.edit()
+            #disabled= lambda _: self.edit()
         )
 
         self.cliente = TextField(
@@ -41,7 +41,7 @@ class Inpts_FichaTec_Ventas():
             label="dd/MM/YYYY",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = self.aux.getData(self.id,'FICHA',2,""),
+            value = self.aux.getData(self.id,'FICHA',3,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
@@ -51,7 +51,7 @@ class Inpts_FichaTec_Ventas():
             #label_style=,
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=self.aux.getData(self.id,'FICHA',3,""),
+            value=self.aux.getData(self.id,'FICHA',4,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
@@ -60,17 +60,17 @@ class Inpts_FichaTec_Ventas():
             label="Producto",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value= self.aux.getData(self.id,'FICHA',4,""),
+            value= self.aux.getData(self.id,'FICHA',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
         )
-
 
     ### --- INPUTS DE TABLA VENTAS --- ###
         self.AsesorCmrcl = TextField(
             label="Asesor Comercial",
             border= InputBorder.OUTLINE,       
             border_color="Black",
+            value= self.aux.getData(self.id,'VENTAS',1,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
@@ -79,6 +79,7 @@ class Inpts_FichaTec_Ventas():
             label="Tipo de Empaque",
             border= InputBorder.OUTLINE,       
             border_color="Black",
+            value= self.aux.getData(self.id,'VENTAS',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
@@ -86,7 +87,8 @@ class Inpts_FichaTec_Ventas():
         self.prdcLam = Dropdown(
             label="Laminado",
             hint_text="Producto Laminado",
-            value="N/A",
+            #value="N/A",
+            value= self.aux.getData(self.id,'VENTAS',3,"N/A"),
             error_text="",
             options=[
                 dropdown.Option("N/A"),
@@ -100,6 +102,7 @@ class Inpts_FichaTec_Ventas():
             label="Estructura del Producto",
             border= InputBorder.OUTLINE,       
             border_color="Black",
+            value= self.aux.getData(self.id,'VENTAS',4,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd) # change it
         )
@@ -108,6 +111,7 @@ class Inpts_FichaTec_Ventas():
             label="Producto que se empaca",
             border= InputBorder.OUTLINE,       
             border_color="Black",
+            value= self.aux.getData(self.id,'VENTAS',5,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
@@ -120,8 +124,6 @@ class Inpts_FichaTec_Ventas():
             return False
 
     # OBTIENE DATOS POR MEDIO DE SU ID
-    def data(self,tbl,indx,vlDlfd):
-        return self.aux.getData(self.id,tbl,indx,vlDlfd)
     
     def tplInptsFichTec(self):
         return [

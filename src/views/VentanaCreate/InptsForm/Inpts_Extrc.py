@@ -1,7 +1,7 @@
 from flet import * 
 from src.views.VentanaCreate.Verificaciones import verificaciones
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 from src.app.filExcel.filtroExcel import filter
-from src.views.VentanaCreate.Mdls import Mdls
 from src.pruebas.pru2 import FileUploaderApp
 
 class InptsExtrc():
@@ -11,16 +11,11 @@ class InptsExtrc():
         self.page = page
         self.valida = verificaciones(page)
 
-        #Abrir y Cerrar Modales
-        self.mdl = Mdls(page)
-
-        #EVENTO PICKER(PARA CARGAR ARCHIVOS)
-        self.Img = FileUploaderApp(page)
-
-        ### INPUTS DE TABLA EXTRUCIÓN ###
-        # on_change= lambda e: print(e.control.value)  # Imprimir el resultado
-
-        
+        # -- ACTUALIZA SI ES INSERT O UPDATE --#
+        self.aux = InptsAux()
+        # IDENTIFICADOR DE INSERT Y UPDATE
+        self.id = self.page.client_storage.get("id")
+    
         #### INGRESAR IMAGEN Y OBSERVACIÓNES ####
 
         ### SECCIÓN 1 ##
@@ -28,7 +23,7 @@ class InptsExtrc():
         self.tipMtrlExtr = Dropdown(               # Tipo de material a Extruir
             label="Material a Extruir",
             hint_text="Producto Laminado",
-            value="N/A",
+            value= self.aux.getData(self.id,'EXTRS',1,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -42,7 +37,7 @@ class InptsExtrc():
             label="Dinaje",                         
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            value= self.aux.getData(self.id,'EXTRS',2,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)

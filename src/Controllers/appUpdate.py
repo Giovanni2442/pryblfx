@@ -1,12 +1,24 @@
 from flet import *
 from src.conectDataBase.testConectDb import db
+from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appFichVent import appFichVent
+from src.Controllers.appExtr import appExtr
+from src.Controllers.appImpr import appImpr
+from src.Controllers.appLam import appLam
+from src.Controllers.appRef import appRef
+from src.Controllers.appConvrs import appConvrs
 
 class appUpdate():
     def __init__(self):
-        self.dataTbl = appFichVent()
-        self.auxList = []
 
+        self.dataTbl = appFichVent()
+        self.dtaExtr = appExtr()
+        self.dtaImpr = appImpr()
+        self.dtaLam = appLam()
+        self.dtaRef = appRef()
+        self.dtaConvrs = appConvrs()
+
+        self.auxList = []
         self.connect = db()
 
         # RECOLECTOR DE DATOS PARA CADA ENTRADA
@@ -35,11 +47,17 @@ class appUpdate():
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
                     self.auxList.append(j.value)
 
-        print(self.auxList[1:5],self.auxList[0])
+        print(self.auxList[1:6],self.auxList[0])
 
             # --- FICHA ---
         self.dataTbl.putFichaTec(*self.auxList[1:5],self.auxList[0])
-        
+            # --- VENTAS ---
+        self.dataTbl.putVentas(*self.auxList[5:10],self.auxList[0])
+            # --- EXTRUSION ---
+        self.dtaExtr.putExtr(*self.auxList[10:24],self.auxList[0])
+
+        #self.dtaExtr.getExtr('')
+
         cursor = self.connect.cursor()
         cursor.close()
         self.connect.close()

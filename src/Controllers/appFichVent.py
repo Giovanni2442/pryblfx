@@ -97,7 +97,7 @@ class appFichVent():
 
     # --- METHOD PUT -------
     # edit any product select in the row
-    def putFichaTec(self,*args):
+    def putVentas(self,*args):
         query = '''         
             UPDATE VENTAS SET
                 asesor=%s,
@@ -113,6 +113,12 @@ class appFichVent():
         return "Update Ok!"
     # ----------------------    
     
+    # PRUEBAS ALV #
+    def pruMtd(self,*args):
+        print(args)
+        
+    ###############
+
     #### QUERY´S DE PRUEBA ####
 
     def getFichaVentas(self):
