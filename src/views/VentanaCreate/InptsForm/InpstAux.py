@@ -47,7 +47,7 @@ class InptsAux():
             #cursor = self.connect.cursor()
             #cursor.close()
             #self.connect.close()
-            return dic[tabla][Indice]
+            #return dic[tabla][Indice]
 
         else:
             return default_value
