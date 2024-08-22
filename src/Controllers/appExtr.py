@@ -1,8 +1,14 @@
+from src.conectDataBase.testConectDb import dbPoll
 from src.conectDataBase.testConectDb import db
 
 class appExtr():
     def __init__(self):
+
         self.connect = db()
+
+        self.connectPool = dbPoll()
+        self.conex = self.connectPool.get_connection()
+        self.cursor = self.conex.cursor()
 
         # -- METHOD GET -- #
     def getExtr(self,id):
@@ -21,16 +27,28 @@ class appExtr():
         result = cursor.fetchall()
         return result
     
-        # -- METHOD INSERT -- #
+        # -- METHOD GET -- #
+    # --- TRANSACCIÓN GET --- #
+    def transactGetExtrs(self,id):
+        self.cursor.callproc('getExtrs',[id])
+        
+        # Recuperar los resultados
+        for result in self.cursor.stored_results():
+            data = result.fetchall()
+
+        self.cursor.close()
+        self.conex.close()
+        return data
+    
     # --- TRANSACCIÓN INSERT --- #
     def transctInsertExtrs(self,*args):
-        cursor = self.connect.cursor()
-        cursor.callproc('InsertExtr',(args))
-        self.connect.commit()
-    
+        self.cursor.callproc('InsertExtr',(args))
+        self.conex.commit()
+
         # -- METHOD PUT -- #
     # --- TRANSACCIÓN UPDATE --- #
     def transctUpdateExtrs(self,*args):
-        cursor = self.connect.cursor()
-        cursor.callproc('UpdateExtr',(args))
-        self.connect.commit()
+        self.cursor.callproc('UpdateEtrs',(args))
+        self.conex.commit()
+
+

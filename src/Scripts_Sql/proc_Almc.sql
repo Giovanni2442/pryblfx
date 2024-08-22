@@ -4,12 +4,46 @@ use dbingbf;
 show tables;
 show databases;
 
+
+			############## GET ###################
+
+			-- *** EXTRUSIÓN ***
+SELECT * FROM EXTRUSION;
+DELIMITER $$
+	CREATE PROCEDURE getExtrs(
+		IN id_idCodPrdct VARCHAR(255)
+	)
+	BEGIN 
+		-- Iniciar la transacción
+		START TRANSACTION;
+
+		SELECT * FROM EXTRUSION extr
+	        INNER JOIN CalibrePel_Tolr cltr ON extr.idCodPrdc = cltr.idCodPrdc
+            INNER JOIN AnchoBob_TolrExtr anchBob ON extr.idCodPrdc = anchBob.idCodPrdc
+            INNER JOIN AnchoCore_TolrExtr anchCor ON extr.idCodPrdc = anchCor.idCodPrdc
+            INNER JOIN DiametroBob_Tolr didmBob ON extr.idCodPrdc = didmBob.idCodPrdc
+            INNER JOIN Peso_Prom_Bob psPrmBob ON extr.idCodPrdc = psPrmBob.idCodPrdc
+            INNER JOIN Num_BobCama_CamTam numBobCam ON extr.idCodPrdc = numBobCam.idCodPrdc
+            INNER JOIN Peso_prom_tarimaExtr psPrmTrm ON extr.idCodPrdc = psPrmTrm.idCodPrdc
+        WHERE extr.idCodPrdc = id_idCodPrdct;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+    
+CALL getExtrs(
+	'23232'
+)
+
 			############## INSERT ###################
 
 SELECT * FROM FICHATEC;
 
 SELECT * FROM IMPRESION;
-		--*** EXTRUCIÓN ***
+	-- *** EXTRUCIÓN ***
+        
+ DROP PROCEDURE IF EXISTS InsertImprs;
 
 DELIMITER $$
 	CREATE PROCEDURE InsertExtr(
@@ -196,7 +230,7 @@ SET SQL_SAFE_UPDATES = 0;
 
 SELECT * FROM EXTRUSION;
 DELIMITER $$
-	CREATE PROCEDURE UpdateExtr(
+	CREATE PROCEDURE UpdateEtrs(
 		IN tipo_Material VARCHAR(255),				/*EXTRUCIÓN*/
 		IN dinaje VARCHAR(255),
 		IN formula VARCHAR(255),
@@ -418,6 +452,3 @@ DELIMITER $$
 		COMMIT;
 	END$$
 	DELIMITER ;
-
-
-

@@ -1,5 +1,4 @@
 from flet import *
-from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 #from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
@@ -66,7 +65,7 @@ class createPrind(UserControl):
             ),
             #on_click= lambda e: self.Inpts.clean_fields(e), 
             on_click= self.eventInsert
-            #on_click= lambda _: print(self.aux.getData2(self.page.client_storage.get("id"),"")) # <-- PRUEBAS DE METODO 
+            #on_click= lambda _: print(self.aux.getData2(self.page.client_storage.get("id"),"EXTRS","")) # <-- PRUEBAS DE METODO 
         )
 
         # PESTAÑAS

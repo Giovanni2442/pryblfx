@@ -1,5 +1,5 @@
 from flet import *
-from src.conectDataBase.testConectDb import db
+from src.conectDataBase.testConectDb import dbPoll
 from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
@@ -12,7 +12,9 @@ class appInserts():
     def __init__(self,page):
         super().__init__()
 
-        self.connect = db()
+        self.connectPool = dbPoll()
+        self.conex = self.connectPool.get_connection()
+        self.cursor = self.conex.cursor()
 
         #self.page = page
         self.filter = filter().vrfPrintCard
@@ -63,66 +65,69 @@ class appInserts():
         #print(je)
 
         print("-----------> : " ,self.tpl2[10:24])
-        '''
+
+        #'''
                 # --- INSERCIÓN POR REBANADAS ---   
-            # --- FICHA --- 
-        self.dataTbl.post_data(*self.tpl2[:5])
-            # --- VENTAS ---
-        self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
-            # --- EXTRUCIÓN ---
+        try:
+                # --- FICHA --- 
+            self.dataTbl.post_data(*self.tpl2[:5])
 
-        self.dtaExtr.transctInsertExtrs(self.tpl2[0],*self.tpl2[10:38])
-             # --- IMPRESION ---
+                # --- VENTAS ---
+            self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
+               
+                # --- EXTRUCIÓN ---
+            self.dtaExtr.transctInsertExtrs(self.tpl2[0],*self.tpl2[10:38])
+            
+                # --- IMPRESION ---
+            self.dtaImpr.transIsertImprs(self.tpl2[0],*self.tpl2[38:73]) #'''
         
-            # --- IMPRESION ---
-        self.dtaImpr.transIsertImprs(self.tpl2[0],*self.tpl2[38:73])
+            '''    # --- LAMINADO ---
+            self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:80])
+            self.dtaLam.postMedidManga(self.tpl2[0],*self.tpl2[80:82])
+            self.dtaLam.postAnchoCore_TolrLam(self.tpl2[0],*self.tpl2[82:84])
+            self.dtaLam.postDiametro_GrosCore(self.tpl2[0],*self.tpl2[84:86])
+            self.dtaLam.postDiametro_Bob_Tolr(self.tpl2[0],*self.tpl2[86:88])
 
-            # --- LAMINADO ---
-        self.dtaLam.postLam(self.tpl2[0],*self.tpl2[73:80])
-        self.dtaLam.postMedidManga(self.tpl2[0],*self.tpl2[80:82])
-        self.dtaLam.postAnchoCore_TolrLam(self.tpl2[0],*self.tpl2[82:84])
-        self.dtaLam.postDiametro_GrosCore(self.tpl2[0],*self.tpl2[84:86])
-        self.dtaLam.postDiametro_Bob_Tolr(self.tpl2[0],*self.tpl2[86:88])
-
-                        # - Material Impreso -
-        self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[88:90]) 
-        self.dtaLam.postCalibrePelic_Tolr(self.tpl2[0],*self.tpl2[90:92]) 
-        self.dtaLam.postAnchoBob_TolrMtrlr(self.tpl2[0],*self.tpl2[92:94])  
-                        # - Lam #1 -
-        self.dtaLam.postMaterial_Laminar_1(self.tpl2[0],*self.tpl2[94:97])  
-        self.dtaLam.postCalibrePelic_TolrLam1(self.tpl2[0],*self.tpl2[97:99])  
-        self.dtaLam.postAnchoBob_TolrLam1(self.tpl2[0],*self.tpl2[99:101])
-                        # - Lam #2 -
-        self.dtaLam.postMaterial_Laminar_2(self.tpl2[0],*self.tpl2[101:104])  
-        self.dtaLam.postCalibrePelic_TolrLam2(self.tpl2[0],*self.tpl2[104:106])  
-        self.dtaLam.postAnchoBob_TolrLam2(self.tpl2[0],*self.tpl2[106:108])  
-                         # - Lam #3 -
-        self.dtaLam.postMaterial_Laminar_3(self.tpl2[0],*self.tpl2[108:111])  
-        self.dtaLam.postCalibrePelic_TolrLam3(self.tpl2[0],*self.tpl2[111:113])  
-        self.dtaLam.postAnchoBob_TolrLam3(self.tpl2[0],*self.tpl2[113:115])  
-                         # - Lam #4 -
-        self.dtaLam.postMaterial_Laminar_4(self.tpl2[0],*self.tpl2[115:118])  
-        self.dtaLam.postCalibrePelic_TolrLam4(self.tpl2[0],*self.tpl2[118:120])  
-        self.dtaLam.postAnchoBob_TolrLam4(self.tpl2[0],*self.tpl2[120:122])  
-            # --- REFILADO ---
-        self.dtaRef.postRefilado(self.tpl2[0],*self.tpl2[122:136])
-        self.dtaRef.postAnchoFinalBob_TolrRef(self.tpl2[0],*self.tpl2[136:138])
-        self.dtaRef.postMetrosBobRefil_Tolr(self.tpl2[0],*self.tpl2[138:140])
-        self.dtaRef.postDiamBobRefil_Tolr(self.tpl2[0],*self.tpl2[140:142])
-        self.dtaRef.postPesoNet_Prom_Bob(self.tpl2[0],*self.tpl2[142:144])
-        self.dtaRef.postNum_BobCama_CamTamRefil(self.tpl2[0],*self.tpl2[144:146])
-        self.dtaRef.postPeso_prom_tarimaRefil(self.tpl2[0],*self.tpl2[146:148])
-        self.dtaRef.postAnchCre_Tol(self.tpl2[0],*self.tpl2[148:150])       # -- AREGLAR ESTE PEDO, QUE FALTA XD
-    
-            # --- CONVERSION ---
-        self.dtaConvrs.postConversion(self.tpl2[0],*self.tpl2[150:166]) 
-        self.dtaConvrs.postMedidEmpq(self.tpl2[0],*self.tpl2[166:168]) 
-        self.dtaConvrs.postNumBlts_CajsCmas_CmasTarim(self.tpl2[0],*self.tpl2[168:170])
-        self.dtaConvrs.postNumBlts_CajsTarim(self.tpl2[0],*self.tpl2[170:172]) 
-        self.dtaConvrs.postPsPromTam(self.tpl2[0],*self.tpl2[172:174]) #'''
-
-        cursor = self.connect.cursor()
-        cursor.close()
-        self.connect.close()
-        return self.tpl2
+                            # - Material Impreso -
+            self.dtaLam.postMaterial_Impreso(self.tpl2[0],*self.tpl2[88:90]) 
+            self.dtaLam.postCalibrePelic_Tolr(self.tpl2[0],*self.tpl2[90:92]) 
+            self.dtaLam.postAnchoBob_TolrMtrlr(self.tpl2[0],*self.tpl2[92:94])  
+                            # - Lam #1 -
+            self.dtaLam.postMaterial_Laminar_1(self.tpl2[0],*self.tpl2[94:97])  
+            self.dtaLam.postCalibrePelic_TolrLam1(self.tpl2[0],*self.tpl2[97:99])  
+            self.dtaLam.postAnchoBob_TolrLam1(self.tpl2[0],*self.tpl2[99:101])
+                            # - Lam #2 -
+            self.dtaLam.postMaterial_Laminar_2(self.tpl2[0],*self.tpl2[101:104])  
+            self.dtaLam.postCalibrePelic_TolrLam2(self.tpl2[0],*self.tpl2[104:106])  
+            self.dtaLam.postAnchoBob_TolrLam2(self.tpl2[0],*self.tpl2[106:108])  
+                            # - Lam #3 -
+            self.dtaLam.postMaterial_Laminar_3(self.tpl2[0],*self.tpl2[108:111])  
+            self.dtaLam.postCalibrePelic_TolrLam3(self.tpl2[0],*self.tpl2[111:113])  
+            self.dtaLam.postAnchoBob_TolrLam3(self.tpl2[0],*self.tpl2[113:115])  
+                            # - Lam #4 -
+            self.dtaLam.postMaterial_Laminar_4(self.tpl2[0],*self.tpl2[115:118])  
+            self.dtaLam.postCalibrePelic_TolrLam4(self.tpl2[0],*self.tpl2[118:120])  
+            self.dtaLam.postAnchoBob_TolrLam4(self.tpl2[0],*self.tpl2[120:122])  
+                # --- REFILADO ---
+            self.dtaRef.postRefilado(self.tpl2[0],*self.tpl2[122:136])
+            self.dtaRef.postAnchoFinalBob_TolrRef(self.tpl2[0],*self.tpl2[136:138])
+            self.dtaRef.postMetrosBobRefil_Tolr(self.tpl2[0],*self.tpl2[138:140])
+            self.dtaRef.postDiamBobRefil_Tolr(self.tpl2[0],*self.tpl2[140:142])
+            self.dtaRef.postPesoNet_Prom_Bob(self.tpl2[0],*self.tpl2[142:144])
+            self.dtaRef.postNum_BobCama_CamTamRefil(self.tpl2[0],*self.tpl2[144:146])
+            self.dtaRef.postPeso_prom_tarimaRefil(self.tpl2[0],*self.tpl2[146:148])
+            self.dtaRef.postAnchCre_Tol(self.tpl2[0],*self.tpl2[148:150])       # -- AREGLAR ESTE PEDO, QUE FALTA XD
+        
+                # --- CONVERSION ---
+            self.dtaConvrs.postConversion(self.tpl2[0],*self.tpl2[150:166]) 
+            self.dtaConvrs.postMedidEmpq(self.tpl2[0],*self.tpl2[166:168]) 
+            self.dtaConvrs.postNumBlts_CajsCmas_CmasTarim(self.tpl2[0],*self.tpl2[168:170])
+            self.dtaConvrs.postNumBlts_CajsTarim(self.tpl2[0],*self.tpl2[170:172]) 
+            self.dtaConvrs.postPsPromTam(self.tpl2[0],*self.tpl2[172:174]) #'''
+            
+        finally:
+            self.cursor.close()
+            self.conex.close()
+            #print("Conexión devuelta al pool.")
+            return self.tpl2
 

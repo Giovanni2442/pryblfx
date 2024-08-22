@@ -42,26 +42,23 @@ class InptsAux():
                 'FICHA':self.dtaFichVent.getFicha(id)[0],
                 'VENTAS':self.dtaFichVent.get_Ventas(id)[0],
                 'EXTRS': self.dtaExtr.getExtr(id)[0],
+                #'IMPR' : self.dtaImpr.
             }
 
-            #cursor = self.connect.cursor()
-            #cursor.close()
-            #self.connect.close()
-            #return dic[tabla][Indice]
-
+            return dic[tabla][Indice]
         else:
             return default_value
             #return None
 
-    def getData2(self,id,default_value):
+    def getData2(self,id,tabla,default_value):
         if id != "Insert":           
             dic =  {                  
                 'FICHA':self.dtaFichVent.getFicha(id)[0],
                 'VENTAS':self.dtaFichVent.get_Ventas(id)[0],
-                'EXTRS': self.dtaExtr.getExtr(id)[0],
+                'EXTRS': self.dtaExtr.transactGetExtrs(id)[0],
             }
 
-            return dic
+            return dic[tabla]
             #return dic[tabla][Indice]
 
         else:

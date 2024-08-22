@@ -1,8 +1,11 @@
 from src.conectDataBase.testConectDb import db
+from src.conectDataBase.testConectDb import dbPoll
 
 class appFichVent():
     def __init__(self):
         self.connect = db()
+
+        self.connectPool = dbPoll()
 
             # --- FICHA TECNICA TABLA PADRE ----
 

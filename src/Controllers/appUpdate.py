@@ -1,7 +1,5 @@
 from flet import *
-import mysql.connector
-from src.conectDataBase.testConectDb import db
-from src.app.filExcel.filtroExcel import filter
+from src.conectDataBase.testConectDb import dbPoll
 from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
 from src.Controllers.appImpr import appImpr
@@ -20,9 +18,9 @@ class appUpdate():
         self.dtaConvrs = appConvrs()
 
         self.auxList = []
-        self.connect = db()
-
-        
+        self.connectPool = dbPoll()
+        self.conex = self.connectPool.get_connection()
+        self.cursor = self.conex.cursor()
 
         # RECOLECTOR DE DATOS PARA CADA ENTRADA
     def qryUpdate(self,tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
@@ -52,69 +50,26 @@ class appUpdate():
 
         print(self.auxList[10:26],self.auxList[0])
 
-
-        conectionPool = mysql.connector.pooling.MySQLConnectionPool(
-            pool_name="poolUpdate",
-            pool_size=5,
-            **dbconfig
-        )
-
-        cnex = conectionPool.get_connection()
-        cursor = cnex.cursor()
-
           # --- FICHA ---
+
         try:
+        
             self.dataTbl.putFichaTec(*self.auxList[1:5], self.auxList[0])
-            cnex.commit()  # Confirmar la transacción
-        except Error as e:
-            print(f"Error en putFichaTec: {e}")
-            self.cnex.rollback()  # Deshacer la transacción en caso de error
 
-        # --- VENTAS ---
-        try:
+            # --- VENTAS ---
             self.dataTbl.putVentas(*self.auxList[5:10], self.auxList[0])
-            cnex.commit()  # Confirmar la transacción
-        except Error as e:
-            print(f"Error en putVentas: {e}")
-            cnex.rollback()  # Deshacer la transacción en caso de error
-
-        # --- EXTRUSION ---
-        try:
-            self.dtaExtr.transctInsertExtrs(self.auxList[0], *self.auxList[10:38])
-            cnex.commit()  # Confirmar la transacción
-        except Error as e:
-            print(f"Error en transctInsertExtrs: {e}")
-            cnex.rollback()  # Deshacer la transacción en caso de error
-
-        try:
+        
+            # --- EXTRUSION ---
+            #self.dtaExtr.transctInsertExtrs(self.auxList[0], *self.auxList[10:38])
+                #--UPDATE--#
             self.dtaExtr.transctUpdateExtrs(*self.auxList[10:38], self.auxList[0])
-            cnex.commit()  # Confirmar la transacción
-        except Error as e:
-            print(f"Error en transctUpdateExtrs: {e}")
-            cnex.rollback()  # Deshacer la transacción en caso de error
-
-        # --- IMPRESION ---
-        try:
+            
+            # --- IMPRESION ---
             self.dtaImpr.transctUpdateImprs(*self.auxList[38:73], self.auxList[0])
-            cnex.commit()  # Confirmar la transacción
-        except Error as e:
-            print(f"Error en transctUpdateImprs: {e}")
-            cnex.rollback()  # Deshacer la transacción en caso de error
+        
+        finally:
+            if self.conex.is_connected():
+                self.cursor.close()
+                self.conex.close()
+                print("Conexión devuelta al pool.")
 
-    finally:
-    # Devolver la conexión al pool en lugar de cerrarla
-    if finally:
-    # Devolver la conexión al pool en lugar de cerrarla
-    if cnex.is_connected():
-        cursor.close()
-        connection.close()
-        print("Conexión devuelta al pool.")
-
-except Error as e:
-    print(f"Error al crear el pool de conexiones: {e}").is_connected():
-        cursor.close()
-        connection.close()
-        print("Conexión devuelta al pool.")
-
-    except Error as e:
-        print(f"Error al crear el pool de conexiones: {e}")

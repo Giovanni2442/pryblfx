@@ -47,7 +47,8 @@ class InptsExtrc():
             label="Formula Extrusión",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            #value="N/A",
+            value= self.aux.getData(self.id,'EXTRS',3,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFrml)
@@ -57,7 +58,8 @@ class InptsExtrc():
             label="Pigmento",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            #value="N/A",
+            value= self.aux.getData(self.id,'EXTRS',4,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -66,7 +68,8 @@ class InptsExtrc():
         self.tipBob = Dropdown(                     # Tipo de Bobina
             label="Tipo de bobina",
             hint_text="Producto Laminado",
-            value="N/A",
+            #value="N/A",
+            value= self.aux.getData(self.id,'EXTRS',5,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -92,7 +95,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = '0',
+                            #value = '0',
+                            #value= self.aux.getData(self.id,'EXTRS',4,"0"),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -106,11 +110,11 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = '0',
+                            #value = '0',
+                            #value= self.aux.getData(self.id,'EXTRS',5,"0"),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
-
                         )
                     ])
                 ),
@@ -121,7 +125,8 @@ class InptsExtrc():
             label="Tipo de tratado",
             hint_text="Producto Laminado",
             error_text = "",
-            value="N/A",
+            #value="N/A",
+            value= self.aux.getData(self.id,'EXTRS',6,"N/A"),
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Seccionado"),
@@ -216,7 +221,8 @@ class InptsExtrc():
             label="Empalmes",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = '0',
+            #value = '0',
+            value= self.aux.getData(self.id,'EXTRS',7,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -225,7 +231,8 @@ class InptsExtrc():
         self.orntBobTam = Dropdown(                 # Orientación de bobina en tarima 
             label="Orientación",
             hint_text="Orientación de Bobina",
-            value = "N/A",
+            #value = "N/A",
+            value= self.aux.getData(self.id,'EXTRS',8,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -239,7 +246,8 @@ class InptsExtrc():
         self.tipEmpqBob = Dropdown(                 # Tipo de empaque para bobina
             label="Empaque",
             hint_text="Tipo de Empaque",
-            value = "N/A",
+            #value = "N/A",
+            value= self.aux.getData(self.id,'EXTRS',9,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -253,7 +261,8 @@ class InptsExtrc():
         self.psrPrdct = Dropdown(                   # Pesar producto por
             label="Pesar por..",
             hint_text="Pesar producto",
-            value = "N/A",
+            #value = "N/A",
+            value= self.aux.getData(self.id,'EXTRS',10,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -345,7 +354,8 @@ class InptsExtrc():
         self.etiquetado = Dropdown(                 # Etiquetado
             label="etiquetado",
             hint_text="etiquetado",
-            value= "N/A",
+            #value= "N/A",
+            value= self.aux.getData(self.id,'EXTRS',11,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -398,7 +408,8 @@ class InptsExtrc():
             label="Ingresar Numero de Bobinas",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = '0',
+            #value = '0',
+            value= self.aux.getData(self.id,'EXTRS',12,"0"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -444,7 +455,8 @@ class InptsExtrc():
         self.tamEmplaye = Dropdown(                 # LA TARIMA LLEVARA EMPLAYE
             label="Lleva Emplaye : ",
             hint_text="Emplaye",
-            value = "N/A",
+            #value = "N/A",
+            value= self.aux.getData(self.id,'EXTRS',13,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -457,7 +469,8 @@ class InptsExtrc():
         self.tamRefila = Dropdown(                  # LA TARIMA SERA FLEJADA
             label="Sera refilada : ",
             hint_text="Refilado",
-            value = "N/A",
+            #value = "N/A",
+            value= self.aux.getData(self.id,'EXTRS',14,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),

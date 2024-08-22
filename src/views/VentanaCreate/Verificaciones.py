@@ -221,7 +221,7 @@ class verificaciones():
             if self.aux.changeBtn(self.page.client_storage.get("id")) == "Ingresar":
                 if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
                     # INSERTAR EN DB
-                    #self.Insrt.qryPost(data)
+                    self.Insrt.qryPost(data)
         
                     self.msgInsrt = SnackBar(         # Insert exitoso!
                         content=Column(
@@ -264,7 +264,7 @@ class verificaciones():
                     return False
                 else:
                     # UPDATE IN DB
-                    #self.Update.qryUpdate(data)
+                    self.Update.qryUpdate(data)
 
                     self.msgInsrt = SnackBar(         # Insert exitoso!
                         content=Column(
