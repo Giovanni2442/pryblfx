@@ -39,9 +39,9 @@ class InptsAux():
     def getData(self,id,tabla,Indice,default_value):
         if id != "Insert":           
             dic =  {                  
-                'FICHA':self.dtaFichVent.getFicha(id)[0],
-                'VENTAS':self.dtaFichVent.get_Ventas(id)[0],
-                'EXTRS': self.dtaExtr.getExtr(id)[0],
+                'FICHA':self.dtaFichVent.getFicha(id),
+                'VENTAS':self.dtaFichVent.get_Ventas(id),
+                'EXTRS': self.dtaExtr.getExtr(id),
                 #'IMPR' : self.dtaImpr.
             }
 
@@ -53,9 +53,9 @@ class InptsAux():
     def getData2(self,id,tabla,default_value):
         if id != "Insert":           
             dic =  {                  
-                'FICHA':self.dtaFichVent.getFicha(id)[0],
-                'VENTAS':self.dtaFichVent.get_Ventas(id)[0],
-                'EXTRS': self.dtaExtr.transactGetExtrs(id)[0],
+                'FICHA':self.dtaFichVent.getFicha(id),
+                'VENTAS':self.dtaFichVent.get_Ventas(id),
+                'EXTRS': self.dtaExtr.transactGetExtrs(id),
             }
 
             return dic[tabla]

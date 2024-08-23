@@ -4,11 +4,11 @@ use dbingbf;
 show tables;
 show databases;
 
-
 			############## GET ###################
 
 			-- *** EXTRUSIÓN ***
-SELECT * FROM EXTRUSION;
+SELECT * FROM fichatec;
+
 DELIMITER $$
 	CREATE PROCEDURE getExtrs(
 		IN id_idCodPrdct VARCHAR(255)
@@ -33,18 +33,43 @@ DELIMITER $$
 	DELIMITER ;
     
 CALL getExtrs(
-	'23232'
+	'1111'
 )
 
-			############## INSERT ###################
+			-- ############## INSERT ###################
 
-SELECT * FROM FICHATEC;
+DELETE FROM FichaTec WHERE id_codProduct = '2424';
 
-SELECT * FROM IMPRESION;
-	-- *** EXTRUCIÓN ***
-        
- DROP PROCEDURE IF EXISTS InsertImprs;
+SELECT * FROM impresion;
+DROP PROCEDURE IF EXISTS InsertImprs;
 
+	-- *** FICHA / VENTAS ***
+    
+DELIMITER $$
+	CREATE PROCEDURE InsertFichaVentas(
+		IN id_idCodPrdct VARCHAR(255),
+		IN cliente VARCHAR(255),
+		IN producto VARCHAR(255),
+		IN fecha_Elav VARCHAR(255),
+		IN fecha_Rev VARCHAR(255),
+		IN asesor VARCHAR(255),
+		IN tipo_Empaque VARCHAR(255),
+		IN product_Laminado VARCHAR(255),
+		IN estruct_Product VARCHAR(255),
+		IN empaca VARCHAR(255)
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+			# INSER FICHA
+			INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES (id_codProduct,cliente,fecha_Elav,fecha_Rev,producto);
+            # INSERT VENTAS
+            INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES (id_codProduct,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca);
+		COMMIT;
+	END$$
+	DELIMITER ;
+    
+	-- *** EXTRUCIÓN ***	
 DELIMITER $$
 	CREATE PROCEDURE InsertExtr(
 		IN idCodPrdc INT,
@@ -121,7 +146,7 @@ DELIMITER $$
     # --- USO DEL PRODECIMIENTO ALMACENADO ---- # 
 CALL InsertExtr(
 
-	66666,                  -- idCodPrdc
+	1111,                  -- idCodPrdc
     'PPPPPPPPP',          -- tipo_Material
     'DinajeY',            -- dinaje
     'FormulaZ',           -- formula
@@ -152,8 +177,10 @@ CALL InsertExtr(
     15.0                 -- tol_peso_neto
 );
 		        
-		--**** IMPRESIÓN ****
+	-- **** IMPRESIÓN ****
 
+ DROP PROCEDURE IF EXISTS InsertImprs;
+ 
 DELIMITER $$
 	CREATE PROCEDURE InsertImprs(
 		IN idCodPrdc INT,
@@ -175,7 +202,23 @@ DELIMITER $$
 		IN etiquetado VARCHAR(255),
 		IN Num_bob_tarima INT,
 		IN tarima_Emplaye VARCHAR(255),
-		IN tarima_Flejada VARCHAR(255)
+		IN tarima_Flejada VARCHAR(255),
+		IN color VARCHAR(255),
+		IN tolDelts VARCHAR(255),
+		IN calibre VARCHAR(255),
+		IN tol_cal VARCHAR(255),
+		IN ancho VARCHAR(255),
+		IN tol_ancho VARCHAR(255),
+		IN ancho_Core VARCHAR(255),
+		IN tol_anchCore VARCHAR(255),
+		IN diametro VARCHAR(255),
+		IN tol_dim VARCHAR(255),
+		IN peso VARCHAR(255),
+		IN tol_pso VARCHAR(255),
+		IN numBobCama VARCHAR(255),
+		IN camaTam VARCHAR(255),
+		IN pesoNto VARCHAR(255),
+		IN tol_psoNto VARCHAR(255)
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
 		-- Iniciar la transacción

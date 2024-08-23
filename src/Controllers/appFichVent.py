@@ -6,6 +6,8 @@ class appFichVent():
         self.connect = db()
 
         self.connectPool = dbPoll()
+        self.conex = self.connectPool.get_connection()
+        self.cursor = self.conex.cursor()
 
             # --- FICHA TECNICA TABLA PADRE ----
 
@@ -16,6 +18,8 @@ class appFichVent():
         cursor = self.connect.cursor()
         cursor.execute(query)
         result = cursor.fetchall()
+        cursor.close()
+        #self.connect.close()
         return result
     
     # SHOW WITH ID
@@ -23,7 +27,9 @@ class appFichVent():
         query = 'SELECT * FROM FichaTec WHERE id_codProduct = %s;'
         cursor = self.connect.cursor()
         cursor.execute(query,(id,))
-        result = cursor.fetchall()
+        result = cursor.fetchone()
+        cursor.close()
+        self.connect.close()
         return result
     # ----------------------------
         
@@ -36,7 +42,9 @@ class appFichVent():
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
         cursor.execute(query,args)
         self.connect.commit()
-        return "Insert Ok!"
+        cursor.close()
+        #self.connect.close()
+        #return "Insert Ok!"
     # -----------------------
 
     # --- METHOD PUT -------
@@ -81,7 +89,9 @@ class appFichVent():
         query = 'select * from VENTAS WHERE idCodPrdc = %s;'
         cursor = self.connect.cursor()
         cursor.execute(query,(id,))
-        result = cursor.fetchall()
+        result = cursor.fetchone()
+        cursor.close()
+        self.connect.close()
         return result
     # ----------------------
 
@@ -94,6 +104,8 @@ class appFichVent():
         #cursor.execute(query,(id,cln,fch1,fch2,prdct,))
         cursor.execute(query,args)
         self.connect.commit()
+        cursor.close()
+        #self.connect.close()
         return "Insert Ok!"
 
     # ----------------------
@@ -113,16 +125,19 @@ class appFichVent():
         cursor = self.connect.cursor()
         cursor.execute(query,args)
         self.connect.commit()
+        cursor.close()
+        self.connect.close()
         return "Update Ok!"
     # ----------------------    
     
-    # PRUEBAS ALV #
-    def pruMtd(self,*args):
-        print(args)
-        
-    ###############
-
     #### QUERY´S DE PRUEBA ####
+
+    def transactInsrtFichVents(self,*args):
+        self.cursor.callproc('InsertFichaVentas',(args))
+        self.conex.commit()
+        self.cursor.close()
+        self.conex.close()
+        print("ACTUALIZADO")
 
     def getFichaVentas(self):
         query = '''

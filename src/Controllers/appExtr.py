@@ -5,7 +5,6 @@ class appExtr():
     def __init__(self):
 
         self.connect = db()
-
         self.connectPool = dbPoll()
         self.conex = self.connectPool.get_connection()
         self.cursor = self.conex.cursor()
@@ -24,7 +23,7 @@ class appExtr():
         WHERE extr.idCodPrdc = %s;'''
         cursor = self.connect.cursor()
         cursor.execute(query,(id,))
-        result = cursor.fetchall()
+        result = cursor.fetchone()
         return result
     
         # -- METHOD GET -- #
@@ -34,8 +33,7 @@ class appExtr():
         
         # Recuperar los resultados
         for result in self.cursor.stored_results():
-            data = result.fetchall()
-
+            data = result.fetchone()
         self.cursor.close()
         self.conex.close()
         return data
@@ -44,11 +42,17 @@ class appExtr():
     def transctInsertExtrs(self,*args):
         self.cursor.callproc('InsertExtr',(args))
         self.conex.commit()
+        self.cursor.close()
+        self.conex.close()
+        print("INSERTADO")
 
         # -- METHOD PUT -- #
     # --- TRANSACCIÓN UPDATE --- #
     def transctUpdateExtrs(self,*args):
         self.cursor.callproc('UpdateEtrs',(args))
         self.conex.commit()
+        self.cursor.close()
+        self.conex.close()
+        print("ACTUALIZADO")
 
 

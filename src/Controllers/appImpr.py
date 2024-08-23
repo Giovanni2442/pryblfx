@@ -13,10 +13,14 @@ class appImpr():
     def transIsertImprs(self,*args):
         self.cursor.callproc('InsertImprs',(args))
         self.conex.commit()
+        self.cursor.close()
+        self.conex.close()
 
             # -- METHOD PUT -- #
     # --- TRANSACCIÓN UPDATE --- #
     def transctUpdateImprs(self,*args):
         self.cursor.callproc('UpdateImpr',(args))
         self.conex.commit()
+        self.cursor.close()
+        self.conex.close()
 

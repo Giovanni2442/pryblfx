@@ -96,7 +96,7 @@ class InptsExtrc():
                             #width=100,
                             border_color="black",
                             #value = '0',
-                            #value= self.aux.getData(self.id,'EXTRS',4,"0"),
+                                value= self.aux.getData(self.id,'EXTRS',4,"0"),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -111,7 +111,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value = '0',
-                            #value= self.aux.getData(self.id,'EXTRS',5,"0"),
+                                value= self.aux.getData(self.id,'EXTRS',5,"0"),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -222,7 +222,7 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             #value = '0',
-            value= self.aux.getData(self.id,'EXTRS',7,"N/A"),
+            value= self.aux.getData(self.id,'EXTRS',7,"0"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -247,7 +247,7 @@ class InptsExtrc():
             label="Empaque",
             hint_text="Tipo de Empaque",
             #value = "N/A",
-            value= self.aux.getData(self.id,'EXTRS',9,"N/A"),
+                value= self.aux.getData(self.id,'EXTRS',9,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),

@@ -52,24 +52,13 @@ class appUpdate():
 
           # --- FICHA ---
 
-        try:
-        
-            self.dataTbl.putFichaTec(*self.auxList[1:5], self.auxList[0])
+            #--UPDATE--#
+        self.dataTbl.putFichaTec(*self.auxList[1:5], self.auxList[0])
+        # --- VENTAS ---
+        self.dataTbl.putVentas(*self.auxList[5:10], self.auxList[0])
+        # --- EXTRUSION ---
+        self.dtaExtr.transctUpdateExtrs(*self.auxList[10:38], self.auxList[0]) 
+        # --- IMPRESION ---
+        self.dtaImpr.transctUpdateImprs(*self.auxList[38:73], self.auxList[0])
 
-            # --- VENTAS ---
-            self.dataTbl.putVentas(*self.auxList[5:10], self.auxList[0])
-        
-            # --- EXTRUSION ---
-            #self.dtaExtr.transctInsertExtrs(self.auxList[0], *self.auxList[10:38])
-                #--UPDATE--#
-            self.dtaExtr.transctUpdateExtrs(*self.auxList[10:38], self.auxList[0])
-            
-            # --- IMPRESION ---
-            self.dtaImpr.transctUpdateImprs(*self.auxList[38:73], self.auxList[0])
-        
-        finally:
-            if self.conex.is_connected():
-                self.cursor.close()
-                self.conex.close()
-                print("Conexión devuelta al pool.")
 
