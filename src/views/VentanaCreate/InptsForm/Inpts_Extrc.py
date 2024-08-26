@@ -23,7 +23,7 @@ class InptsExtrc():
         self.tipMtrlExtr = Dropdown(               # Tipo de material a Extruir
             label="Material a Extruir",
             hint_text="Producto Laminado",
-            value= self.aux.getData(self.id,'EXTRS',1,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',1,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -37,7 +37,7 @@ class InptsExtrc():
             label="Dinaje",                         
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value= self.aux.getData(self.id,'EXTRS',2,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',2,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -48,7 +48,7 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             #value="N/A",
-            value= self.aux.getData(self.id,'EXTRS',3,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',3,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFrml)
@@ -59,7 +59,7 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             #value="N/A",
-            value= self.aux.getData(self.id,'EXTRS',4,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',4,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -69,7 +69,7 @@ class InptsExtrc():
             label="Tipo de bobina",
             hint_text="Producto Laminado",
             #value="N/A",
-            value= self.aux.getData(self.id,'EXTRS',5,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',5,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -96,7 +96,7 @@ class InptsExtrc():
                             #width=100,
                             border_color="black",
                             #value = '0',
-                                value= self.aux.getData(self.id,'EXTRS',4,"0"),
+                                #value= self.aux.getData(self.id,'EXTRS',4,"0"),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -111,7 +111,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value = '0',
-                                value= self.aux.getData(self.id,'EXTRS',5,"0"),
+                                #value= self.aux.getData(self.id,'EXTRS',5,"0"),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -126,7 +126,7 @@ class InptsExtrc():
             hint_text="Producto Laminado",
             error_text = "",
             #value="N/A",
-            value= self.aux.getData(self.id,'EXTRS',6,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',6,"N/A"),
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("Seccionado"),
@@ -222,7 +222,7 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             #value = '0',
-            value= self.aux.getData(self.id,'EXTRS',7,"0"),
+            #value= self.aux.getData(self.id,'EXTRS',7,"0"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -232,7 +232,7 @@ class InptsExtrc():
             label="Orientación",
             hint_text="Orientación de Bobina",
             #value = "N/A",
-            value= self.aux.getData(self.id,'EXTRS',8,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',8,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -247,7 +247,7 @@ class InptsExtrc():
             label="Empaque",
             hint_text="Tipo de Empaque",
             #value = "N/A",
-                value= self.aux.getData(self.id,'EXTRS',9,"N/A"),
+                #value= self.aux.getData(self.id,'EXTRS',9,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -262,7 +262,7 @@ class InptsExtrc():
             label="Pesar por..",
             hint_text="Pesar producto",
             #value = "N/A",
-            value= self.aux.getData(self.id,'EXTRS',10,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',10,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -355,7 +355,7 @@ class InptsExtrc():
             label="etiquetado",
             hint_text="etiquetado",
             #value= "N/A",
-            value= self.aux.getData(self.id,'EXTRS',11,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',11,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -409,7 +409,7 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             #value = '0',
-            value= self.aux.getData(self.id,'EXTRS',12,"0"),
+            #value= self.aux.getData(self.id,'EXTRS',12,"0"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -456,7 +456,7 @@ class InptsExtrc():
             label="Lleva Emplaye : ",
             hint_text="Emplaye",
             #value = "N/A",
-            value= self.aux.getData(self.id,'EXTRS',13,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',13,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -470,7 +470,7 @@ class InptsExtrc():
             label="Sera refilada : ",
             hint_text="Refilado",
             #value = "N/A",
-            value= self.aux.getData(self.id,'EXTRS',14,"N/A"),
+            #value= self.aux.getData(self.id,'EXTRS',14,"N/A"),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),

@@ -1,26 +1,52 @@
-from src.conectDataBase.testConectDb import dbPoll
+from src.Controllers.appdb import appDb
 
 # --- QUERY´S IMPRESIÓN DIGITAL ---
 class appImpr():
     def __init__(self):
-        
-        self.connectPool = dbPoll()
-        self.conex = self.connectPool.get_connection()
-        self.cursor = self.conex.cursor()
 
+        self.dtaPool = appDb().conexPool
+        self.conectPool = self.dtaPool.get_connection()
+        self.cursorPool =  self.conectPool.cursor()
+    
+        # -- METHOD GET -- #
+    #'''
+    # --- TRANSACCIÓN GET --- #
+    def transGetImprs(self,id):
+        try:
+            self.cursorPool.callproc('getImprs',[id])
+            # Recuperar los resultados
+            for result in self.cursorPool.stored_results():
+                data = result.fetchone()
+            return data
+        except:
+            print("ERROR AL TRAER DATOS!")
+        finally:
+            self.cursorPool.close()
+
+
+    
         # -- METHOD INSERT -- #
     # --- TRANSACCIÓN INSERT --- # 
     def transIsertImprs(self,*args):
-        self.cursor.callproc('InsertImprs',(args))
-        self.conex.commit()
-        self.cursor.close()
-        self.conex.close()
+        try:
+            self.cursorPool.callproc('InsertImprs',(args))
+            self.conectPool.commit()
+            print("INSERTADO") 
+        except:
+            print("ERROR AL INSERTAR!")
+        finally:
+            self.cursorPool.close()
+            print("Conexión cerrada!")
 
             # -- METHOD PUT -- #
     # --- TRANSACCIÓN UPDATE --- #
     def transctUpdateImprs(self,*args):
-        self.cursor.callproc('UpdateImpr',(args))
-        self.conex.commit()
-        self.cursor.close()
-        self.conex.close()
-
+        try:
+            self.cursorPool.callproc('UpdateImpr',(args))
+            self.conectPool.commit()
+        except:
+            print("ERROR UPDATE")
+        finally:
+            self.cursorPool.close()
+            print("Conexión cerrada!")
+#'''

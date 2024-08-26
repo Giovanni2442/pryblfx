@@ -1,31 +1,31 @@
 from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
+#from src.Controllers.appdb import appDb
 from src.Controllers.appFichVent import appFichVent
-from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
+#from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
 from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
-from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
-
-def pru():
-    db = appFichVent().get_row_Table()
-    print(db)
-    #pass
+#from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
 
 class crudPrintCard(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
-
+        self.color_teal = "teal"
+        #'''
     # ########## COMPONENTES ############################
         self.page = page  
-        self.color_teal = "teal"
-        #self.inptTable = InptsTable(page)
-        self.dataTbl = appFichVent()  #Accede a la información en la base de datos
-        self.InsrtData = CntrlsCreatePrindCard()
         
-        self.createPrnt = createPrind(page,"Insert")
+
+        #self.dataTbl = appDb()      # Interface de Conexiónes
+
+        #self.inptTable = InptsTable(page)
+        self.dataTbl = appFichVent  #Accede a la información en la base de datos
+        #self.InsrtData = CntrlsCreatePrindCard()
+        
+        self.createPrnt = createPrind(page)
         self.pr = pr(page)
-        self.pdf = opnPrindPdf(page)
+        #self.pdf = opnPrindPdf(page)'''
 
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
@@ -99,7 +99,7 @@ class crudPrintCard(UserControl):
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
             ),     
-            #on_click= lambda _: self.page.go('/cratePrindCard'),
+            on_click= lambda _: self.page.go('/prueba'),
         )
 
         # --- TABLA ---
@@ -148,7 +148,8 @@ class crudPrintCard(UserControl):
         if not bnd:
             self.mdlDlt.open = False
         else:
-            self.dataTbl.delete_row_Table(id=id) 
+            self.dataTbl().delete_row_Table(id)
+            #self.dataTbl.delete_row_Table(id=id) 
             self.mdlDlt.open = False
             # -- Limpia y Actualiza la tabla -- 
             self.Table.rows.clear() 
@@ -199,8 +200,8 @@ class crudPrintCard(UserControl):
                         IconButton("NEWSPAPER", # Ficha Tecnica
                             icon_color="yellow",
                             data=row,
-                            #on_click= self.pdf.open_pdf # --- PROXIMA TAREA ---
-                            on_click= self.pdf.opnPdfBffer
+                            #on_click= #self.pdf.open_pdf # --- PROXIMA TAREA ---
+                            #on_click= #self.pdf.opnPdfBffer
                         )
                     ])
                 )
@@ -214,8 +215,8 @@ class crudPrintCard(UserControl):
         # i     : El atributo de la tabla donde buscara i = 0 : id_pridcard ; i = 1 : cliente
     def searchInput(self,e,i):
         srchInpt = e.control.value.lower()  # Convierte a minuscula la enrada de Texto
-        #print(srchInpt)
-        filterId = list(filter(lambda x: srchInpt in x[i].lower(), self.dataTbl.get_row_Table()))       # Toma la tabla padre FichaTecnica
+        #print( e.control.value.lower())
+        filterId = list(filter(lambda x: srchInpt in x[i].lower(), self.dataTbl().get_row_Table()))       # Toma la tabla padre FichaTecnica
         #print("you find : ",filterId)
         self.Table.rows = []
 
@@ -244,15 +245,18 @@ class crudPrintCard(UserControl):
                 weight="bold",
                 size=20
             )
-
+        
+    #''' <-- DESCOMENTAR -->
     # Muestra los datos de la base de datos
     def showData(self):
+        #'''
         self.Table.rows = []
-        for row in self.dataTbl.get_row_Table():    # Accede a la variable de la conexión
+        for row in self.dataTbl().get_row_Table():    # Accede a la variable de la conexión
             self.Table.rows.append(
                 self.dataRows(row)
             )
-        self.update()
+        self.update()#'''
+        #pass
         
     #######################################################
 
@@ -375,7 +379,7 @@ class crudPrintCard(UserControl):
     # IMPORTANTE : Retorna todos los Gidwts del promama
     def build(self):    
         return self.container
-
+'''
 def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicación
     page.window_min_height = 200
     page.window_min_width = 200
@@ -384,5 +388,5 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.add(crudPrintCard(page))
 
 
-#app(main)
+app(main)
 #pru()'''

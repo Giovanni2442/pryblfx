@@ -1,12 +1,20 @@
 from flet import * 
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 
 class Inpst_ImprDig():
     def __init__(self,page):
 
         self.page = page
         self.valida = verificaciones(page)
+
+        # -- ACTUALIZA SI ES INSERT O UPDATE --#
+        self.aux = InptsAux()
+
+        # ID PRODUCT UPDATE 
+        self.id = self.page.client_storage.get("id")
+
 
     ### INPUTS DE LA TABLA IMPRECIÓN DIGITAL ###
 
@@ -16,6 +24,7 @@ class Inpst_ImprDig():
             border= InputBorder.OUTLINE,
             border_color="Black",
             value="N/A",
+            #value=self.aux.getData(self.id,"IMPR",1,"N/A"),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)      

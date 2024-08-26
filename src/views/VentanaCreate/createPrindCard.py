@@ -15,20 +15,20 @@ from src.views.VentanaCreate.InptsForm.Inpts_Lam import Inpts_Lam
 from src.views.VentanaCreate.InptsForm.Inpts_Refil import Inpts_Refil
 from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
 from src.views.VentanaCreate.Verificaciones import verificaciones      # <---- DESCOMENTAR ESTO
-from src.Controllers.appInserts import appInserts
+#from src.Controllers.appInserts import appInserts
 from src.views.VentanaCreate.Mdls import opnMdlImg
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 
 class createPrind(UserControl):
-    def __init__(self,page,id):
+    def __init__(self,page):
         super().__init__(expand=True)      
 
         self.color_teal = "teal"
         self.page = page
 
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
-        self.aux = InptsAux()
-  
+        self.aux = InptsAux
+        self.ji = Inpts_Convrs
         self.Inpts = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
         self.InptsExtrc = InptsExtrc(page)          # Inputs Extrusión
         self.InptsImpDig = Inpst_ImprDig(page)      # Inputs Impresión Digital
@@ -41,13 +41,13 @@ class createPrind(UserControl):
         # Verifica cada una de las entradas
         self.vrf = verificaciones(page)            #<---- DESCOMENTAR ESTO!!!!!!!!!
         # Qry's de la Base de datos
-        self.appInsert = appInserts(page)
+        #self.appInsert = appInserts(page)
         # Modal de Imagenes
         self.mdlImg = opnMdlImg(page)
 
         # BOTON AGREGAR
         self.btn = FilledButton(
-            text= self.aux.changeBtn(self.page.client_storage.get("id")),
+            text= self.aux().changeBtn(self.page.client_storage.get("id")),
             adaptive=True,
             style=ButtonStyle(
                 bgcolor="#761010",
@@ -65,7 +65,7 @@ class createPrind(UserControl):
             ),
             #on_click= lambda e: self.Inpts.clean_fields(e), 
             on_click= self.eventInsert
-            #on_click= lambda _: print(self.aux.getData2(self.page.client_storage.get("id"),"EXTRS","")) # <-- PRUEBAS DE METODO 
+            #on_click= lambda _: print(self.aux.getData2(self.page.client_storage.get("id"),"IMPR","")) # <-- PRUEBAS DE METODO 
         )
 
         # PESTAÑAS
@@ -214,7 +214,7 @@ class createPrind(UserControl):
                                 Container(
                                     IconButton(icon=icons.ACCOUNT_CIRCLE,
                                                icon_color="violet",
-                                               on_click=  lambda _: self.page.go('/')), #Agregar el registro de usuarios
+                                               on_click=  lambda _: self.page.go('/prueba')), #Agregar el registro de usuarios
                                     #bgcolor="RED",
                                 ),             
                             ]
@@ -1709,7 +1709,6 @@ class createPrind(UserControl):
 
 #################### PRUEBAS #######################
 
-
     # EFECTO HOVER CONTENEDORES
     def on_hover(slef,e):
         if e.data == "true":        # RETORNA TRUE O FALSE AL SELECCIÓNAR BTN
@@ -1754,27 +1753,29 @@ class createPrind(UserControl):
         self.frameMain.content.controls.append(self.cntBtn)
 
         self.update()
-
+    
     # Evento al preciónar el boton crear Ficha
+    #'''
     def eventInsert(self,e):
         self.vrf.insrtFicha(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),
             self.InptsExtrc.tplInptsExtr(),
             self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
-            self.InptsLam.tplInptsLam(),
-            self.InptsRefl.tplInptsRef(),
-            self.InptsConvrs.tplInptsConvrs()
+            #self.InptsLam.tplInptsLam(),
+            #self.InptsRefl.tplInptsRef(),
+            #self.InptsConvrs.tplInptsConvrs()
         )
         self.update()#'''
 
     def build(self):
         return self.frameMain
 
+'''
 def main(page: Page):
     page.theme_mode = ThemeMode.LIGHT
     page.padding = 0
     page.add(createPrind(page))
     #margin=margin.only(top=-5)
     
-#app(main)
+app(main)'''

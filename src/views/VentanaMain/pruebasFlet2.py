@@ -1,4 +1,4 @@
-from typing import Any, List
+'''from typing import Any, List
 import flet as ft
 from flet import *                                      # Se importa todos los componentes de la Libreria "flet"
 from src.views.VentanaMain.cmntsTbl import cntTable     # Componentes para el frame de la Tabla
@@ -153,4 +153,4 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.add(ui)
     page.update()
 ft.app(main)
-#pru()
+#pru()'''

@@ -1,31 +1,35 @@
 from flet import *
-from src.conectDataBase.testConectDb import dbPoll
+#from src.Controllers.appdb import appDb
+#'''
+#from src.conectDataBase.testConectDb import dbpool
 from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
 from src.Controllers.appImpr import appImpr
 from src.Controllers.appLam import appLam
 from src.Controllers.appRef import appRef
-from src.Controllers.appConvrs import appConvrs
+from src.Controllers.appConvrs import appConvrs#'''
 
 class appInserts():
     def __init__(self,page):
         super().__init__()
 
-        self.connectPool = dbPoll()
-        self.conex = self.connectPool.get_connection()
-        self.cursor = self.conex.cursor()
+        #self.data = appDb()
+
+        #self.connectPool = dbpool()
+        #self.conex = self.connectPool.get_connection()
+        #self.cursor = self.conex.cursor()
 
         #self.page = page
         self.filter = filter().vrfPrintCard
         self.b1 = True
         self.page = page
-        self.dataTbl = appFichVent()
-        self.dtaExtr = appExtr()
-        self.dtaImpr = appImpr()
-        self.dtaLam = appLam()
-        self.dtaRef = appRef()
-        self.dtaConvrs = appConvrs()
+        self.dataTbl = appFichVent
+        self.dtaExtr = appExtr
+        self.dtaImpr = appImpr
+        #self.dtaLam = appLam()
+        #self.dtaRef = appRef()
+        #self.dtaConvrs = appConvrs()
 
         self.tpl = []
         self.tpl2 = []
@@ -74,14 +78,14 @@ class appInserts():
 
             # --- VENTAS ---
         #self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
-
+        #self.data.dtaFichVen.transactInsrtFichVents(*self.tpl2[:10])
             # --- PRUEBAS FICHA / VENTAS  
-        self.dataTbl.transactInsrtFichVents(*self.tpl2[:10])
+        self.dataTbl().transactInsrtFichVents(*self.tpl2[:10])
         
             # --- EXTRUCIÓN ---
-        self.dtaExtr.transctInsertExtrs(self.tpl2[0],*self.tpl2[10:38])
+        self.dtaExtr().transctInsertExtrs(self.tpl2[0],*self.tpl2[10:38])
         
             # --- IMPRESION ---
-        self.dtaImpr.transIsertImprs(self.tpl2[0],*self.tpl2[38:73]) #'''
+        self.dtaImpr().transIsertImprs(self.tpl2[0],*self.tpl2[38:73]) #'''
          
 

@@ -1,7 +1,7 @@
-# --- SE FILTRAN LAS TABLAS POR EXPRECIÓNES REGULARES ---
+'''# --- SE FILTRAN LAS TABLAS POR EXPRECIÓNES REGULARES ---
 #from filtroExcel import filter
-from filExcel.filtroExcel import filter
-from filExcel.tableAtributes import *      #Acceder a los tributos de cada Tabla
+#from filExcel.filtroExcel import filter
+#from filExcel.tableAtributes import *      #Acceder a los tributos de cada Tabla
 
 class tableFilt():
     errArr = ""                 # tupla de errores que retorna la función
@@ -83,5 +83,5 @@ class tableFilt():
 #-----------------------------------------
 
 clase = tableFilt
-clase.pr1()
+clase.pr1()'''
 

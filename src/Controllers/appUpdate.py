@@ -1,27 +1,26 @@
 from flet import *
-from src.conectDataBase.testConectDb import dbPoll
+#'''
+#from src.conectDataBase.testConectDb import dbpool
 from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
 from src.Controllers.appImpr import appImpr
 from src.Controllers.appLam import appLam
 from src.Controllers.appRef import appRef
-from src.Controllers.appConvrs import appConvrs
+from src.Controllers.appConvrs import appConvrs #'''
 
 class appUpdate():
     def __init__(self):
 
-        self.dataTbl = appFichVent()
-        self.dtaExtr = appExtr()
-        self.dtaImpr = appImpr()
-        self.dtaLam = appLam()
-        self.dtaRef = appRef()
-        self.dtaConvrs = appConvrs()
+        #'''
+        self.dataTbl = appFichVent
+        self.dtaExtr = appExtr
+        self.dtaImpr = appImpr
+        #self.dtaLam = appLam
+        #self.dtaRef = appRef
+        #self.dtaConvrs = appConvrs #'''
 
         self.auxList = []
-        self.connectPool = dbPoll()
-        self.conex = self.connectPool.get_connection()
-        self.cursor = self.conex.cursor()
-
+      
         # RECOLECTOR DE DATOS PARA CADA ENTRADA
     def qryUpdate(self,tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
         #vle = tpl[2][0].items[0].content.controls[1].value
@@ -50,15 +49,18 @@ class appUpdate():
 
         print(self.auxList[10:26],self.auxList[0])
 
+
+        #'''
           # --- FICHA ---
 
             #--UPDATE--#
-        self.dataTbl.putFichaTec(*self.auxList[1:5], self.auxList[0])
+        #self.dataTbl.putFichaTec(*self.auxList[1:5], self.auxList[0])
         # --- VENTAS ---
-        self.dataTbl.putVentas(*self.auxList[5:10], self.auxList[0])
+        #self.dataTbl.putVentas(*self.auxList[5:10], self.auxList[0])
+        # --- FICHA / VENTAS ---
+        self.dataTbl().transactUpdateFichaVents(*self.auxList[1:10],self.auxList[0])
         # --- EXTRUSION ---
-        self.dtaExtr.transctUpdateExtrs(*self.auxList[10:38], self.auxList[0]) 
+        self.dtaExtr().transctUpdateExtrs(*self.auxList[10:38], self.auxList[0]) 
         # --- IMPRESION ---
-        self.dtaImpr.transctUpdateImprs(*self.auxList[38:73], self.auxList[0])
-
+        self.dtaImpr().transctUpdateImprs(*self.auxList[38:73], self.auxList[0])#'''
 

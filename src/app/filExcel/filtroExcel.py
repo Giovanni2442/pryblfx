@@ -1,3 +1,4 @@
+#'''
 #import pandas as pd
 import re 
 
@@ -68,3 +69,4 @@ pr = filter
 pr.pru()
     #   ----------------------------------
     #Tabla Ficha Tecnica    
+#'''

@@ -1,4 +1,4 @@
-from typing import Any, List
+'''from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
 from src.Controllers.appTable import Controllers
@@ -305,4 +305,4 @@ def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicació
     page.add(UI(page))
 
 ft.app(main)
-#pru()
+#pru()'''

@@ -1,3 +1,5 @@
+
+'''
 class atrFichTec:
     def __init__(self,fila):
         self.codPrintCrd = fila['CODIGO PRINT CARD']
@@ -265,4 +267,4 @@ class pruebas:
     def atrFichTec(this):
         #this.fecha = str(this.fechaElav.strftime('%d/%m/%y'))
         return str(this.codPrintCrd[0]),this.cliente[0],this.fecha[0],this.product[0]
-#---------------------------------------------------
+#---------------------------------------------------'''

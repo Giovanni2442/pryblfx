@@ -1,5 +1,4 @@
-from flet import *
-from src.Controllers.appTable import Controllers
+'''from flet import *
 #from src.views.VentanaMain.pruebasFlet2 import UI
 
 class cntTable(UserControl):
@@ -109,7 +108,7 @@ class cntTable(UserControl):
             )
             self.update()
         self.page.update()
-
+'''
         
 
 

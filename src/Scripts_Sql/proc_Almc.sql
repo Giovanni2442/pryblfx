@@ -4,10 +4,28 @@ use dbingbf;
 show tables;
 show databases;
 
+DELETE FROM FichaTec WHERE id_codProduct = "232323";
+
+select * from impresion;
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.PROCESSLIST
+SHOW PROCESSLIST;
+KILL 2310;
+
+SELECT CONCAT('KILL ', id, ';') 
+FROM information_schema.processlist 
+WHERE user = 'root' 
+AND id <> 210;
+
+
+
+
+KILL CONNECTION 1559;
+
 			############## GET ###################
 
 			-- *** EXTRUSIÓN ***
-SELECT * FROM fichatec;
+SELECT * FROM extrusion;
+DELETE FROM FichaTec WHERE id_codProduct = "232323";
 
 DELIMITER $$
 	CREATE PROCEDURE getExtrs(
@@ -36,12 +54,41 @@ CALL getExtrs(
 	'1111'
 )
 
+			-- *** IMPRESIÓN ***
+SELECT * FROM IMPRESION
+  DROP PROCEDURE IF EXISTS getImprs;
+DELIMITER $$
+	CREATE PROCEDURE getImprs(
+		IN id_idCodPrdct VARCHAR(255)
+	)
+	BEGIN 
+		-- Iniciar la transacción
+		START TRANSACTION;
+
+		SELECT * FROM IMPRESION imprs
+	        INNER JOIN vldClr vlcl ON imprs.idCodPrdc = vlcl.idCodPrdc
+            INNER JOIN CalMater_Tolr clMtr ON imprs.idCodPrdc = clMtr.idCodPrdc
+            INNER JOIN AnchoBobImpr_Tolr anchBob ON imprs.idCodPrdc = anchBob.idCodPrdc
+            INNER JOIN AnchoCore_TolrImpr anchCr ON imprs.idCodPrdc = anchCr.idCodPrdc
+            INNER JOIN DiamBob_Tolr dmBob ON imprs.idCodPrdc = dmBob.idCodPrdc
+            INNER JOIN PesoPromBob psPrmB ON imprs.idCodPrdc = psPrmB.idCodPrdc
+            INNER JOIN Num_BobCama_CamaTarima numCm ON imprs.idCodPrdc = numCm.idCodPrdc
+			INNER JOIN Peso_prom_tarimaImpr psPrmT ON imprs.idCodPrdc = psPrmT.idCodPrdc
+		WHERE imprs.idCodPrdc = id_idCodPrdct;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+
 			-- ############## INSERT ###################
 
 DELETE FROM FichaTec WHERE id_codProduct = '2424';
-
-SELECT * FROM impresion;
-DROP PROCEDURE IF EXISTS InsertImprs;
+select * from fichatec;
+SELECT * FROM extrusion;
+SELECT * FROM ventas;
+DROP PROCEDURE IF EXISTS InsertExtr;
 
 	-- *** FICHA / VENTAS ***
     
@@ -62,9 +109,9 @@ DELIMITER $$
 		-- Iniciar la transacción
 		START TRANSACTION;
 			# INSER FICHA
-			INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES (id_codProduct,cliente,fecha_Elav,fecha_Rev,producto);
+			INSERT INTO FichaTec(id_codProduct,cliente,fecha_Elav,fecha_Rev,producto) VALUES (id_idCodPrdct,cliente,fecha_Elav,fecha_Rev,producto);
             # INSERT VENTAS
-            INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES (id_codProduct,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca);
+            INSERT INTO VENTAS(idCodPrdc,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca) VALUES (id_idCodPrdct,asesor,tipo_Empaque,product_Laminado,estruct_Product,empaca);
 		COMMIT;
 	END$$
 	DELIMITER ;
@@ -146,7 +193,7 @@ DELIMITER $$
     # --- USO DEL PRODECIMIENTO ALMACENADO ---- # 
 CALL InsertExtr(
 
-	1111,                  -- idCodPrdc
+	2323,                  -- idCodPrdc
     'PPPPPPPPP',          -- tipo_Material
     'DinajeY',            -- dinaje
     'FormulaZ',           -- formula
@@ -180,7 +227,7 @@ CALL InsertExtr(
 	-- **** IMPRESIÓN ****
 
  DROP PROCEDURE IF EXISTS InsertImprs;
- 
+ SELECT * FROM IMPRESION;
 DELIMITER $$
 	CREATE PROCEDURE InsertImprs(
 		IN idCodPrdc INT,
@@ -267,6 +314,47 @@ DELIMITER $$
 
 			
 			############ UPDATES ###################
+            
+            
+# --- UPDATE FICHA / VENTAS ---
+
+DELIMITER $$
+	CREATE PROCEDURE UpdateFichaVentas(
+		IN cliente VARCHAR(255),
+		IN producto VARCHAR(255),
+		IN fecha_Elav VARCHAR(255),
+		IN fecha_Rev VARCHAR(255),
+		IN asesor VARCHAR(255),
+		IN tipo_Empaque VARCHAR(255),
+		IN product_Laminado VARCHAR(255),
+		IN estruct_Product VARCHAR(255),
+		IN empaca VARCHAR(255),
+        IN id_idCodPrdct VARCHAR(255)
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+        
+			# UPDATE FICHA
+			UPDATE FichaTec SET
+                cliente=cliente,
+                fecha_Elav=fecha_Elav,
+                fecha_Rev=fecha_Rev,
+                producto=producto
+            WHERE id_codProduct = id_idCodPrdct;
+            
+            # UPDATE VENTAS
+            UPDATE VENTAS SET
+                asesor=asesor,
+                tipo_Empaque=tipo_Empaque,
+                product_Laminado=product_Laminado,
+                estruct_Product=estruct_Product,
+                empaca=empaca
+            WHERE idCodPrdc = id_idCodPrdct;
+		COMMIT;
+	END$$
+	DELIMITER ;        
+            
 # --- TRANSACCIÓN EXTRUCIÓN ---
  DROP PROCEDURE IF EXISTS UpdateImpr;
 SET SQL_SAFE_UPDATES = 0;

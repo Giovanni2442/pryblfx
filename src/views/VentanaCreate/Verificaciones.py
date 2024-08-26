@@ -1,4 +1,6 @@
 from flet import *
+#from src.Controllers.appdb import appDb
+
 from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appInserts import appInserts
 from src.Controllers.appUpdate import appUpdate
@@ -11,20 +13,23 @@ from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 class verificaciones():
     def __init__(self,page):
         super().__init__()
-    
+
+        #self.data = appDb()
+        #pass
+        #'''
         #self.page = page
         self.filter = filter().vrfPrintCard
         self.b1 = True
         self.page = page
-        self.dataTbl = appFichVent()
-        self.crtPdf = CreatePdf()
+        self.dataTbl = appFichVent
+        self.crtPdf = CreatePdf
 
         self.tpl = []
         self.tpl2 = []
         self.bnd = 0
 
         # BTN LABEL INSRT / UPDATE
-        self.aux = InptsAux()
+        self.aux = InptsAux
     
         self.Bnd = None
         self.Img = FileUploaderApp(page)
@@ -44,7 +49,7 @@ class verificaciones():
             for j in i:
                 j.value = ""
                 j.update()
-        self.page.update()
+        self.page.update()#'''
 
 
 ###### PRUEBAS PARA FILTRADO ###########
@@ -65,15 +70,18 @@ class verificaciones():
         else:
             #e.control.border_color="red"
             inpt.error_text="Favor de ingresar un valor!"
+            self.page.update()
             print("Campo Vacio")
 
         inpt.update()  # Actualiza el control para reflejar los cambios
-
+        #'''
 ######################################################
 
 ###### INSERCIÓN A LA BASE DE DATOS ##########################
 
     def prTpl(self,*tpl):
+        pass
+        '''
         print(tpl[2][6].items[0].content.controls)
         print(tpl[2][6].items[0].content.controls[0])
         # Obtener el valor de un PopupMenuItem HACERLO UNA FUNCIÓN
@@ -81,8 +89,11 @@ class verificaciones():
         # tpl[tbl][atr]     : [tbl] : la tabla que se va ha obtener ; [atr] : El atributo de la tabla
         # items[n]          : Agregar el Item que se desea Obtener 
         print("--->",tpl[2][6].items[0].content.controls[1].value)     
-   
+        '''
+
     def vlMnuPop(self, inx, tpl, j):
+        pass
+        '''
         #print(len(tpl))      
       
         if self.bnd == inx:
@@ -96,24 +107,12 @@ class verificaciones():
                 #self.tpl2 = []
             self.bnd = inx
     
-        #print(tuple(self.tpl))
+        #print(tuple(self.tpl))'''
             
-    def dic(self,inx,tpl,j):
-        # NOTA : El post solo acepta arreglos NO iteraci+ón
-        funciones = {
-            0: self.vlMnuPop,
-            1: self.vlMnuPop,
-            2: self.vlMnuPop,
-           # 3: self.vlMnuPop, # Elemento NO funcional por bug
-        }
-        funcion = funciones.get(inx)
-        if funcion:
-            funcion(inx,tpl,j)
-        else:
-            print(f"No hay función definida para el índice {inx}")
-
     # Valida cada una de las entradas del formulario
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios
+        #pass
+        #'''
        # tpl = self.tplInpts()
         vlVoid = []      # Recolecta campos vaciós
         vlErr = []         
@@ -152,7 +151,6 @@ class verificaciones():
                                 print(txtfld.label)
                                 vlVoid.append(txtfld.label)
                                 k.content.update()
-        
                             #print(k.content.controls[1].value)
                     else:
                         if j.value != "":
@@ -163,7 +161,7 @@ class verificaciones():
                         else:
                             j.error_text = "Ingrese los valores"
                             vlVoid.append(j.label)
-                            j.update()
+                        j.update()
       
         if len(vlVoid) > 0:
             #mdlVoidVl
@@ -204,21 +202,23 @@ class verificaciones():
             return False
         else : 
             return True
-    
+        #'''
+
     # Inserta los datos a la base de datos
     def insrtFicha(self,*data):
         #b1 = self.vlVoid(tpl)
         #print(b1) <-- bromita de 1 hora XD
-
+        #pass
+        #'''
         if self.vlVoid(data) != False:                   # Si ninguna validación se cumple
             contact_exists = False
-            for row in self.dataTbl.get_row_Table():    # Recorre la tabla FichaTecnica ya que es la tabla padre       
+            for row in self.dataTbl().get_row_Table():    # Recorre la tabla FichaTecnica ya que es la tabla padre       
                 if row[0] == data[0][0].value:           # La primera tabla FichaTecnica contiene el ID asi que de la tupa toma el [FichaTec][Id]
                     contact_exists = True
                     break
                 #### ARREGLAR ESTE PINCHE DESMADRE ####
 
-            if self.aux.changeBtn(self.page.client_storage.get("id")) == "Ingresar":
+            if self.aux().changeBtn(self.page.client_storage.get("id")) == "Ingresar":
                 if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
                     # INSERTAR EN DB
                     self.Insrt.qryPost(data)
@@ -278,4 +278,4 @@ class verificaciones():
                         bgcolor="#5AE590",
                     )
                     #self.mdlErrValue(self.msgDlt)
-                    self.mdl.open_dialog(self.msgInsrt)
+                    self.mdl.open_dialog(self.msgInsrt)#'''

@@ -1,4 +1,5 @@
 from flet import *
+import asyncio
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
@@ -11,7 +12,7 @@ class Inpts_FichaTec_Ventas():
         self.valida = verificaciones(page)
         
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
-        self.aux = InptsAux()
+        self.aux = InptsAux
         # IDENTIFICADOR DE INSERT Y UPDATE
         self.id = self.page.client_storage.get("id")
         
@@ -20,8 +21,7 @@ class Inpts_FichaTec_Ventas():
             label="PrindCard",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            #value = self.aux.pruUpdate(self.id ,"",0),
-            value=self.aux.getData(self.id,'FICHA',0,""),
+            value=self.aux().getData(self.id,'FICHA',0,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfPrintCard),       # Traba con la expreción regular del input
             #disabled= lambda _: self.edit()
@@ -32,7 +32,7 @@ class Inpts_FichaTec_Ventas():
             border= InputBorder.OUTLINE,
             error_text="",
             border_color="Black",
-            value = self.aux.getData(self.id,'FICHA',1,""),
+            value=self.aux().getData(self.id,'FICHA',1,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfCliente)
         )
@@ -41,7 +41,7 @@ class Inpts_FichaTec_Ventas():
             label="dd/MM/YYYY",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = self.aux.getData(self.id,'FICHA',3,""),
+            value=self.aux().getData(self.id,'FICHA',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
@@ -51,7 +51,7 @@ class Inpts_FichaTec_Ventas():
             #label_style=,
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=self.aux.getData(self.id,'FICHA',4,""),
+            value=self.aux().getData(self.id,'FICHA',3,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
@@ -60,7 +60,7 @@ class Inpts_FichaTec_Ventas():
             label="Producto",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value= self.aux.getData(self.id,'FICHA',2,""),
+            value=self.aux().getData(self.id,'FICHA',4,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
         )
@@ -70,7 +70,7 @@ class Inpts_FichaTec_Ventas():
             label="Asesor Comercial",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value= self.aux.getData(self.id,'VENTAS',1,""),
+            value=self.aux().getData(self.id,'VENTAS',3,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
@@ -79,7 +79,7 @@ class Inpts_FichaTec_Ventas():
             label="Tipo de Empaque",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value= self.aux.getData(self.id,'VENTAS',2,""),
+            value=self.aux().getData(self.id,'VENTAS',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
@@ -88,7 +88,7 @@ class Inpts_FichaTec_Ventas():
             label="Laminado",
             hint_text="Producto Laminado",
             #value="N/A",
-            value= self.aux.getData(self.id,'VENTAS',3,"N/A"),
+            value=self.aux().getData(self.id,'VENTAS',3,"N/A"),
             error_text="",
             options=[
                 dropdown.Option("N/A"),
@@ -102,7 +102,7 @@ class Inpts_FichaTec_Ventas():
             label="Estructura del Producto",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value= self.aux.getData(self.id,'VENTAS',4,""),
+            value=self.aux().getData(self.id,'VENTAS',4,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd) # change it
         )
@@ -111,14 +111,17 @@ class Inpts_FichaTec_Ventas():
             label="Producto que se empaca",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value= self.aux.getData(self.id,'VENTAS',5,""),
+            value=self.aux().getData(self.id,'VENTAS',4,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
 
+    async def dataAsync(self):
+        return await self.aux().getData(self.id,'FICHA',0,"")
+
     # DESACTIVAR EDICIÓN
     def edit(self):
-        if  self.aux.changeBtn(self.page.client_storage.get("id")) != "Insert":
+        if  self.aux().changeBtn(self.page.client_storage.get("id")) != "Insert":
             return True
         else:
             return False

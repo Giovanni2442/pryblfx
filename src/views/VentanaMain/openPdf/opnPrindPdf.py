@@ -4,20 +4,24 @@ import flet as ft
 import fitz
 import webbrowser
 import os
-from src.Controllers.appPrindCard import appPrindCard
+#from src.Controllers.appPrindCard import appPrindCard
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 class opnPrindPdf():
     def __init__(self,page):
         super().__init__()
 
+        pass
+    '''
         # Instancia hacia los qury's para el PDF
         self.qryPrndCrd = appPrindCard()
         self.page = page
 
-        self.crtPdf = CreatePdf()
+        self.crtPdf = CreatePdf()'''
 
     def opnPdfBffer(self,e):
+        pass
+        '''
         idPrind = e.control.data[0]
         getPdf = self.qryPrndCrd.getPridCardPdf(idPrind)[0]
      
@@ -40,9 +44,11 @@ class opnPrindPdf():
             else:
                 print("El archivo no existe.")
 
-        self.page.update()
+        self.page.update()'''
         
     def open_pdf(self,e):
+        pass
+        '''
         idPrind = e.control.data[0] # Obtiene el id del formulario
         getPdf = self.qryPrndCrd.getPridCardPdf(idPrind)[0]
         # Recuperar el archivo PDF de la base de datos
@@ -56,5 +62,5 @@ class opnPrindPdf():
             if os.path.exists(ruta):
                 webbrowser.open(f'file://{os.path.abspath(ruta)}')
             else:
-                print("El archivo no existe.")
+                print("El archivo no existe.")'''
             
