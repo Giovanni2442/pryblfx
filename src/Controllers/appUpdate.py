@@ -1,6 +1,5 @@
 from flet import *
 #'''
-#from src.conectDataBase.testConectDb import dbpool
 from src.Controllers.appFichVent import appFichVent
 from src.Controllers.appExtr import appExtr
 from src.Controllers.appImpr import appImpr

@@ -2,6 +2,7 @@ from flet import *
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+from src.Controllers.appImpr import appImpr
 
 class Inpst_ImprDig():
     def __init__(self,page):
@@ -10,10 +11,14 @@ class Inpst_ImprDig():
         self.valida = verificaciones(page)
 
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
-        self.aux = InptsAux()
-
+        self.aux = InptsAux
+        self.dtaImprs = appImpr
+    
         # ID PRODUCT UPDATE 
         self.id = self.page.client_storage.get("id")
+
+        # QURY DATA FORM #
+        self.dta = self.dtaImprs().transGetImprs(self.id)
 
 
     ### INPUTS DE LA TABLA IMPRECIÓN DIGITAL ###
@@ -23,7 +28,7 @@ class Inpst_ImprDig():
             label="Material Imprimir",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            value=self.dataImprs("N/A",1),
             #value=self.aux.getData(self.id,"IMPR",1,"N/A"),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
@@ -34,7 +39,7 @@ class Inpst_ImprDig():
             label="Dinaje Requerido",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            value=self.dataImprs("N/A",2),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)      
@@ -54,7 +59,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataImprs('0',22),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)      
@@ -68,7 +73,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',23),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -91,7 +96,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataImprs('0',24),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)      
@@ -105,7 +110,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',25),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -119,7 +124,7 @@ class Inpst_ImprDig():
             label="Grosor de Core",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataImprs('0',3),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -138,7 +143,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataImprs('0',26),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -152,7 +157,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',27),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -166,7 +171,7 @@ class Inpst_ImprDig():
             label="Desarrollo a Imprimir",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataImprs('0',4),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -176,7 +181,7 @@ class Inpst_ImprDig():
             label="Repeticiónes al Eje",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataImprs('0',5),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -186,7 +191,7 @@ class Inpst_ImprDig():
             label="Repeticiónes al Desarrollo",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataImprs('0',6),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -198,7 +203,7 @@ class Inpst_ImprDig():
             label="Cantidad de Tintas a Imprimir",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataImprs('0',7),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -207,7 +212,7 @@ class Inpst_ImprDig():
         self.tipImpr = Dropdown(
             label="Tipo de Impresión",
             hint_text="Tipo",
-            value="N/A",
+            value=self.dataImprs('N/A',8),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -222,7 +227,7 @@ class Inpst_ImprDig():
             label="Tipo de Tinta a Utilizar",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            value=self.dataImprs('N/A',9),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
@@ -231,7 +236,7 @@ class Inpst_ImprDig():
         self.tipBrnzImpr = Dropdown(
             label="Tipo de Barniz",
             hint_text="Barniz",
-            value="N/A",
+            value=self.dataImprs('N/A',10),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -245,7 +250,7 @@ class Inpst_ImprDig():
         self.figEmbImpr = Dropdown(
             label="Figura de Embobinado",
             hint_text="Figura",
-            value='0',
+            value=self.dataImprs('0',11),
             error_text = "",
             options=[
                 dropdown.Option(0),
@@ -275,7 +280,7 @@ class Inpst_ImprDig():
                             label="Color",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',20),                            
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
@@ -289,7 +294,7 @@ class Inpst_ImprDig():
                             label="Tol. Deltas",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',21),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
@@ -303,7 +308,7 @@ class Inpst_ImprDig():
             label="Maximo Emplames por Bobina",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataImprs('0',12),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -312,7 +317,7 @@ class Inpst_ImprDig():
         self.tipEmpqBob = Dropdown(
             label="Tipo de Barniz",
             hint_text="Barniz",
-            value="N/A",
+            value=self.dataImprs('N/A',13),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -326,7 +331,7 @@ class Inpst_ImprDig():
         self.orntBobTam = Dropdown(
             label="Tipo de Barniz",
             hint_text="Barniz",
-            value="N/A",
+            value=self.dataImprs('N/A',14),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -343,7 +348,7 @@ class Inpst_ImprDig():
         self.psrPrdct = Dropdown(
             label="Tipo de Barniz",
             hint_text="Barniz",
-            value="N/A",
+            value=self.dataImprs('N/A',15),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -368,7 +373,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataImprs('0',28),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -383,7 +388,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',29),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -406,7 +411,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataImprs('0',30),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -420,7 +425,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',31),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -434,7 +439,7 @@ class Inpst_ImprDig():
         self.etiquetado = Dropdown(
             label="Etiquetado",
             hint_text="Etiquetado",
-            value="N/A",
+            value=self.dataImprs('N/A',16),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -458,7 +463,7 @@ class Inpst_ImprDig():
                             label="Bob. cama",
                             border= InputBorder.OUTLINE,
                             border_color="black",
-                            value='0',
+                            value=self.dataImprs('0',32),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -472,7 +477,7 @@ class Inpst_ImprDig():
                             label="Camas Bob.",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',33),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -486,7 +491,7 @@ class Inpst_ImprDig():
             label="Numero de Bobinas en Tarima",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataImprs('0',17),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -504,7 +509,7 @@ class Inpst_ImprDig():
                             label="Peso",
                             border= InputBorder.OUTLINE,
                             border_color="black",
-                            value='0',
+                            value=self.dataImprs('0',34),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -519,7 +524,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataImprs('0',35),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -531,7 +536,7 @@ class Inpst_ImprDig():
         self.tamEmply = Dropdown(
             label="La tarima llevara emplaye",
             hint_text="Emplaye",
-            value="N/A",
+            value=self.dataImprs('N/A',18),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -544,7 +549,7 @@ class Inpst_ImprDig():
         self.tamFlej = Dropdown(
             label="La tarima sera flejada",
             hint_text="Fleje",
-            value="N/A",
+            value=self.dataImprs('N/A',19),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -553,6 +558,13 @@ class Inpst_ImprDig():
             autofocus=True,
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
+
+    # GET IMPRS
+    def dataImprs(self,default_value,Indx):
+        if self.id != "Insert":                  
+            return self.dta[Indx]
+        else:
+            return default_value
 
     def tplInptsImprDig(self):
         return [

@@ -2,6 +2,7 @@ from flet import *
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 from src.app.filExcel.filtroExcel import filter
+from src.Controllers.appExtr import appExtr
 from src.pruebas.pru2 import FileUploaderApp
 
 class InptsExtrc():
@@ -11,11 +12,15 @@ class InptsExtrc():
         self.page = page
         self.valida = verificaciones(page)
 
+        self.dtaExtr = appExtr
+
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
         self.aux = InptsAux()
         # IDENTIFICADOR DE INSERT Y UPDATE
         self.id = self.page.client_storage.get("id")
-    
+
+        # QURY DATA FORM#
+        self.dta = self.dtaExtr().transactGetExtrs(self.id)
         #### INGRESAR IMAGEN Y OBSERVACIÓNES ####
 
         ### SECCIÓN 1 ##
@@ -23,6 +28,7 @@ class InptsExtrc():
         self.tipMtrlExtr = Dropdown(               # Tipo de material a Extruir
             label="Material a Extruir",
             hint_text="Producto Laminado",
+            value= self.dataExtrs("N/A",1),
             #value= self.aux.getData(self.id,'EXTRS',1,"N/A"),
             error_text = "",
             options=[
@@ -37,6 +43,7 @@ class InptsExtrc():
             label="Dinaje",                         
             border= InputBorder.OUTLINE,
             border_color="Black",
+            value= self.dataExtrs("N/A",2),
             #value= self.aux.getData(self.id,'EXTRS',2,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
@@ -48,6 +55,7 @@ class InptsExtrc():
             border= InputBorder.OUTLINE,
             border_color="Black",
             #value="N/A",
+            value= self.dataExtrs("N/A",3),
             #value= self.aux.getData(self.id,'EXTRS',3,"N/A"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
@@ -60,6 +68,7 @@ class InptsExtrc():
             border_color="Black",
             #value="N/A",
             #value= self.aux.getData(self.id,'EXTRS',4,"N/A"),
+            value= self.dataExtrs("N/A",4),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -69,6 +78,7 @@ class InptsExtrc():
             label="Tipo de bobina",
             hint_text="Producto Laminado",
             #value="N/A",
+            value= self.dataExtrs("N/A",5),
             #value= self.aux.getData(self.id,'EXTRS',5,"N/A"),
             error_text = "",
             options=[
@@ -95,7 +105,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            #value = '0',
+                            #value= self.dataExtrs('0',6),
+                            value = self.dataExtrs('0',14),
                                 #value= self.aux.getData(self.id,'EXTRS',4,"0"),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
@@ -110,6 +121,7 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
+                            value = self.dataExtrs('0',15),
                             #value = '0',
                                 #value= self.aux.getData(self.id,'EXTRS',5,"0"),
                             error_text= "",
@@ -126,6 +138,7 @@ class InptsExtrc():
             hint_text="Producto Laminado",
             error_text = "",
             #value="N/A",
+            value= self.dataExtrs('0',6),
             #value= self.aux.getData(self.id,'EXTRS',6,"N/A"),
             options=[
                 dropdown.Option("N/A"),
@@ -155,7 +168,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "0",
+                            #value = "0",
+                            value= self.dataExtrs('0',16),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -169,7 +183,8 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "0",
+                            #value = "0",
+                            value= self.dataExtrs('0',17),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -193,7 +208,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "0",
+                            #value = "0",
+                            value= self.dataExtrs('0',18),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -207,7 +223,8 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "0",
+                            #value = "0",
+                            value = self.dataExtrs('0',19),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -221,7 +238,7 @@ class InptsExtrc():
             label="Empalmes",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            #value = '0',
+            value = self.dataExtrs('0',7),
             #value= self.aux.getData(self.id,'EXTRS',7,"0"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
@@ -231,7 +248,7 @@ class InptsExtrc():
         self.orntBobTam = Dropdown(                 # Orientación de bobina en tarima 
             label="Orientación",
             hint_text="Orientación de Bobina",
-            #value = "N/A",
+            value = self.dataExtrs('N/A',8),
             #value= self.aux.getData(self.id,'EXTRS',8,"N/A"),
             error_text = "",
             options=[
@@ -246,7 +263,7 @@ class InptsExtrc():
         self.tipEmpqBob = Dropdown(                 # Tipo de empaque para bobina
             label="Empaque",
             hint_text="Tipo de Empaque",
-            #value = "N/A",
+            value = self.dataExtrs('N/A',9),
                 #value= self.aux.getData(self.id,'EXTRS',9,"N/A"),
             error_text = "",
             options=[
@@ -261,7 +278,7 @@ class InptsExtrc():
         self.psrPrdct = Dropdown(                   # Pesar producto por
             label="Pesar por..",
             hint_text="Pesar producto",
-            #value = "N/A",
+            value = self.dataExtrs('N/A',10),
             #value= self.aux.getData(self.id,'EXTRS',10,"N/A"),
             error_text = "",
             options=[
@@ -287,7 +304,8 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "0",
+                            #value = "0",
+                            value = self.dataExtrs('0',20),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -301,7 +319,8 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "0",
+                            #value = "0",
+                            value = self.dataExtrs('0',21),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -327,7 +346,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "0",
+                            value = self.dataExtrs('0',22),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -341,7 +360,7 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "0",
+                            value = self.dataExtrs('0',23),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -354,7 +373,7 @@ class InptsExtrc():
         self.etiquetado = Dropdown(                 # Etiquetado
             label="etiquetado",
             hint_text="etiquetado",
-            #value= "N/A",
+            value = self.dataExtrs('N/A',11),
             #value= self.aux.getData(self.id,'EXTRS',11,"N/A"),
             error_text = "",
             options=[
@@ -380,7 +399,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "0",
+                            value = self.dataExtrs('0',24),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -394,7 +413,7 @@ class InptsExtrc():
                             label="CamasBobina",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "0",
+                            value = self.dataExtrs('0',25),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -408,7 +427,8 @@ class InptsExtrc():
             label="Ingresar Numero de Bobinas",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            #value = '0',
+            value = self.dataExtrs('0',12),
+            
             #value= self.aux.getData(self.id,'EXTRS',12,"0"),
             error_text= "",
             label_style=TextStyle(color="Black",italic=True),
@@ -428,7 +448,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = "0",
+                            value = self.dataExtrs('0',26),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -442,7 +462,7 @@ class InptsExtrc():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = "0",
+                            value = self.dataExtrs('0',27),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -455,7 +475,7 @@ class InptsExtrc():
         self.tamEmplaye = Dropdown(                 # LA TARIMA LLEVARA EMPLAYE
             label="Lleva Emplaye : ",
             hint_text="Emplaye",
-            #value = "N/A",
+            value = self.dataExtrs('N/A',13),
             #value= self.aux.getData(self.id,'EXTRS',13,"N/A"),
             error_text = "",
             options=[
@@ -469,7 +489,7 @@ class InptsExtrc():
         self.tamRefila = Dropdown(                  # LA TARIMA SERA FLEJADA
             label="Sera refilada : ",
             hint_text="Refilado",
-            #value = "N/A",
+            value = self.dataExtrs('N/A',14),
             #value= self.aux.getData(self.id,'EXTRS',14,"N/A"),
             error_text = "",
             options=[
@@ -479,6 +499,13 @@ class InptsExtrc():
             autofocus=True,
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
+
+    # GET EXTRS
+    def dataExtrs(self,default_value,Indx):
+        if self.id != "Insert":                  
+            return self.dta[Indx]
+        else:
+            return default_value
     
     def tplInptsExtr(self):
         return [

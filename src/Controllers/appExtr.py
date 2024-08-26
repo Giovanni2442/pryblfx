@@ -1,4 +1,5 @@
 from src.Controllers.appdb import appDb
+import mysql.connector
 
 class appExtr():
     def __init__(self):
@@ -17,8 +18,8 @@ class appExtr():
             for result in self.cursorPool.stored_results():
                 data = result.fetchone()
             return data
-        except:
-            print("ERROR AL INSERTAR")
+        except mysql.connector.Error as err:
+            print("ERROR EN GET EXTR",err)
         finally:
             self.cursorPool.close() 
     
@@ -28,8 +29,8 @@ class appExtr():
             self.cursorPool.callproc('InsertExtr',(args))
             self.conectPool.commit()
             print("INSERTADO")
-        except:
-            print("ERROR AL INSERTAR")
+        except mysql.connector.Error as err:
+            print("ERROR AL INSERTAR EXTRS",err)
         finally:
             self.cursorPool.close()
             print("Conexión cerrada!")
@@ -41,8 +42,8 @@ class appExtr():
             self.cursorPool.callproc('UpdateEtrs',(args))
             self.conectPool.commit()
             print("ACTUALIZADO")
-        except:
-            print("ERROR UPDATE")
+        except mysql.connector.Error as err:
+            print("ERROR UPDATE EXTRS : ", err)
         finally:
             self.cursorPool.close()#'''
             

@@ -4,9 +4,15 @@ use dbingbf;
 show tables;
 show databases;
 
-DELETE FROM FichaTec WHERE id_codProduct = "232323";
+SELECT * FROM FICHATEC;
+SELECT * FROM VENTAS;
+SELECT * FROM EXTRUSION;
+SELECT * FROM IMPRESION;
+
+DELETE FROM FichaTec WHERE id_codProduct = "2323";
 
 select * from impresion;
+select * from extrusion;
 SELECT COUNT(*) FROM INFORMATION_SCHEMA.PROCESSLIST
 SHOW PROCESSLIST;
 KILL 2310;
@@ -23,6 +29,8 @@ KILL CONNECTION 1559;
 
 			############## GET ###################
 
+DROP PROCEDURE IF EXISTS getExtrs;
+
 			-- *** EXTRUSIÓN ***
 SELECT * FROM extrusion;
 DELETE FROM FichaTec WHERE id_codProduct = "232323";
@@ -35,7 +43,7 @@ DELIMITER $$
 		-- Iniciar la transacción
 		START TRANSACTION;
 
-		SELECT * FROM EXTRUSION extr
+		SELECT * FROM  extr
 	        INNER JOIN CalibrePel_Tolr cltr ON extr.idCodPrdc = cltr.idCodPrdc
             INNER JOIN AnchoBob_TolrExtr anchBob ON extr.idCodPrdc = anchBob.idCodPrdc
             INNER JOIN AnchoCore_TolrExtr anchCor ON extr.idCodPrdc = anchCor.idCodPrdc
@@ -51,12 +59,16 @@ DELIMITER $$
 	DELIMITER ;
     
 CALL getExtrs(
-	'1111'
+	'22323'
 )
 
 			-- *** IMPRESIÓN ***
 SELECT * FROM IMPRESION
-  DROP PROCEDURE IF EXISTS getImprs;
+DROP PROCEDURE IF EXISTS getImprs;
+select * from impresion;
+CALL getImprs(
+	'3434'
+)
 DELIMITER $$
 	CREATE PROCEDURE getImprs(
 		IN id_idCodPrdct VARCHAR(255)
@@ -87,8 +99,9 @@ DELIMITER $$
 DELETE FROM FichaTec WHERE id_codProduct = '2424';
 select * from fichatec;
 SELECT * FROM extrusion;
+SELECT * FROM impresion;
 SELECT * FROM ventas;
-DROP PROCEDURE IF EXISTS InsertExtr;
+DROP PROCEDURE IF EXISTS InsertFichaVentas;
 
 	-- *** FICHA / VENTAS ***
     
@@ -356,7 +369,7 @@ DELIMITER $$
 	DELIMITER ;        
             
 # --- TRANSACCIÓN EXTRUCIÓN ---
- DROP PROCEDURE IF EXISTS UpdateImpr;
+ DROP PROCEDURE IF EXISTS UpdateEtrs;
 SET SQL_SAFE_UPDATES = 0;
 
 SELECT * FROM EXTRUSION;

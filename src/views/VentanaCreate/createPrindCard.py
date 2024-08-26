@@ -65,8 +65,10 @@ class createPrind(UserControl):
             ),
             #on_click= lambda e: self.Inpts.clean_fields(e), 
             on_click= self.eventInsert
-            #on_click= lambda _: print(self.aux.getData2(self.page.client_storage.get("id"),"IMPR","")) # <-- PRUEBAS DE METODO 
+            #on_click= lambda _: print(self.aux.getData(self.page.client_storage.get("id"),"EXTRS")) # <-- PRUEBAS DE METODO 
+            #on_click= lambda _: print(self.aux().getData2(self.page.client_storage.get("id")) # <-- PRUEBAS DE METODO 
         )
+        
 
         # PESTAÑAS
         self.Pestañas = Tabs(

@@ -41,8 +41,8 @@ class InptsAux():
             return default_value
             #return None'''
 
-    def getData(self,id,tabla,Indice,default_value):
-        
+    #def getData(self,id,tabla,Indice,default_value):
+    def getData(self,id,tabla):
         #pass
         #'''
         if id != "Insert":           
@@ -53,25 +53,17 @@ class InptsAux():
                 'IMPR' : self.dtaImpr().transGetImprs(id)
             }
 
-            return dic[tabla][Indice]
+            return "SI"
+            #return dic[tabla][Indice]
         else:
-            return default_value
+            return None
             #return None'''
 
-    def getData2(self,id,tabla,default_value):
-        pass
-        '''
+    def getData2(self,id):
         if id != "Insert":           
-            dic =  {                  
-                'FICHA':self.dtaFichVent.getFicha(id),
-                'VENTAS':self.dtaFichVent.get_Ventas(id),
-                'EXTRS': self.dtaExtr.transactGetExtrs(id),
-                'IMPR' : self.dtaImpr.transGetImprs(id)
-            }
-
-            return dic[tabla]
-            #return dic[tabla][Indice]
-
+           
+            #return "SI"
+            return self.dtaExtr().transactGetExtrs(id)
         else:
-            return default_value'''
+            return None
 

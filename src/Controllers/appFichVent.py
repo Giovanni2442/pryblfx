@@ -44,7 +44,7 @@ class appFichVent():
             result = self.cur.fetchone()
             return result
         except:
-            print("ERROR AL OBTENER DATOS!")
+            print("ERROR AL OBTENER DATOS EN FICHA!")
         finally:
             self.cur.close()
             self.dtaDb.close()
@@ -94,8 +94,8 @@ class appFichVent():
             self.cursorPool.callproc('InsertFichaVentas',(args))
             self.conectPool.commit()
             print("INSERTADO!")
-        except:
-            print("ERROR AL INSERTAR!")
+        except mysql.connector.Error as err:
+            print("ERROR AL INSERTAR EN FICHA!",err)
         finally:
             self.cursorPool.close()
             #self.conectPool.close()#'''
@@ -105,8 +105,8 @@ class appFichVent():
             try:
                 self.cursorPool.callproc('UpdateFichaVentas',(args))
                 self.conectPool.commit()
-            except:
-                print("ERROR GET")
+            except mysql.connector.Error as err:
+                print("ERROR GET FICHA",err)
             finally:
                 self.cursorPool.close()#'''
 

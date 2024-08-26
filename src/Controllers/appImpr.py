@@ -1,4 +1,5 @@
 from src.Controllers.appdb import appDb
+import mysql.connector
 
 # --- QUERY´S IMPRESIÓN DIGITAL ---
 class appImpr():
@@ -18,8 +19,8 @@ class appImpr():
             for result in self.cursorPool.stored_results():
                 data = result.fetchone()
             return data
-        except:
-            print("ERROR AL TRAER DATOS!")
+        except mysql.connector.Error as err:
+            print("ERROR AL TRAER DATOS IMPRS! : ",err)
         finally:
             self.cursorPool.close()
 

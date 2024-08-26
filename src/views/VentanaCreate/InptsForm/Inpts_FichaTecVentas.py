@@ -1,8 +1,9 @@
 from flet import *
-import asyncio
+#import asyncio
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+from src.Controllers.appFichVent import appFichVent
 
 ### ENTRADAS DE TEXTO Y COMPONENTES PARA LA TABLA FichaTecnica y Ventas ###
 class Inpts_FichaTec_Ventas():  
@@ -10,18 +11,25 @@ class Inpts_FichaTec_Ventas():
         
         self.page = page
         self.valida = verificaciones(page)
+
+        # PRUEBA DE OPTIMIZACIÓN
+        self.dtaFich = appFichVent
         
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
         self.aux = InptsAux
         # IDENTIFICADOR DE INSERT Y UPDATE
         self.id = self.page.client_storage.get("id")
+
+        self.dta = self.dtaFich().getFicha(self.id)
+        self.dtaVnts = self.dtaFich().get_Ventas(self.id)
         
     ### INPUTS DE TABLA FichaTecnica ###
         self.id_product = TextField(
             label="PrindCard",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=self.aux().getData(self.id,'FICHA',0,""),
+            #value=self.aux().getData(self.id,'FICHA',0,""),
+            value=self.data("",0),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfPrintCard),       # Traba con la expreción regular del input
             #disabled= lambda _: self.edit()
@@ -32,7 +40,8 @@ class Inpts_FichaTec_Ventas():
             border= InputBorder.OUTLINE,
             error_text="",
             border_color="Black",
-            value=self.aux().getData(self.id,'FICHA',1,""),
+            value=self.data("",1),
+            #value=self.aux().getData(self.id,'FICHA',1,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfCliente)
         )
@@ -41,7 +50,8 @@ class Inpts_FichaTec_Ventas():
             label="dd/MM/YYYY",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=self.aux().getData(self.id,'FICHA',2,""),
+            value=self.data("",2),
+            #value=self.aux().getData(self.id,'FICHA',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
@@ -51,7 +61,8 @@ class Inpts_FichaTec_Ventas():
             #label_style=,
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=self.aux().getData(self.id,'FICHA',3,""),
+            value=self.data("",3),
+            #value=self.aux().getData(self.id,'FICHA',3,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
@@ -60,7 +71,8 @@ class Inpts_FichaTec_Ventas():
             label="Producto",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value=self.aux().getData(self.id,'FICHA',4,""),
+            value=self.data("",4),
+            #value=self.aux().getData(self.id,'FICHA',4,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
         )
@@ -70,7 +82,8 @@ class Inpts_FichaTec_Ventas():
             label="Asesor Comercial",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value=self.aux().getData(self.id,'VENTAS',3,""),
+            value=self.dataVentas("",1),
+            #value=self.aux().getData(self.id,'VENTAS',3,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
@@ -79,7 +92,8 @@ class Inpts_FichaTec_Ventas():
             label="Tipo de Empaque",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value=self.aux().getData(self.id,'VENTAS',2,""),
+            value=self.dataVentas("",2),
+            #value=self.aux().getData(self.id,'VENTAS',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
@@ -88,7 +102,8 @@ class Inpts_FichaTec_Ventas():
             label="Laminado",
             hint_text="Producto Laminado",
             #value="N/A",
-            value=self.aux().getData(self.id,'VENTAS',3,"N/A"),
+            value=self.dataVentas("",3),
+            #value=self.aux().getData(self.id,'VENTAS',3,"N/A"),
             error_text="",
             options=[
                 dropdown.Option("N/A"),
@@ -102,7 +117,9 @@ class Inpts_FichaTec_Ventas():
             label="Estructura del Producto",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value=self.aux().getData(self.id,'VENTAS',4,""),
+            value=self.dataVentas("",4),
+            #value=self.aux().getData(self.id,'VENTAS',4,""),
+            #value=self.data(""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd) # change it
         )
@@ -111,13 +128,29 @@ class Inpts_FichaTec_Ventas():
             label="Producto que se empaca",
             border= InputBorder.OUTLINE,       
             border_color="Black",
-            value=self.aux().getData(self.id,'VENTAS',4,""),
+            #value=self.aux().getData(self.id,'VENTAS',4,""),
+            value=self.dataVentas("",5),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
 
-    async def dataAsync(self):
-        return await self.aux().getData(self.id,'FICHA',0,"")
+    # GET FICHA
+    def data(self,default_value,Indx):
+        if self.id != "Insert":           
+            #print(self.dtaFich().getFicha(self.id))
+            #return self.dtaFich().getFicha(self.id)[Indx]
+            return self.dta[Indx]
+            #return "simon"
+        else:
+            return default_value
+            #return None'''
+
+    # GET VENTAS
+    def dataVentas(self,default_value,Indx):
+        if self.id != "Insert":   
+            return self.dtaVnts[Indx]
+        else:
+            return default_value
 
     # DESACTIVAR EDICIÓN
     def edit(self):
@@ -127,6 +160,7 @@ class Inpts_FichaTec_Ventas():
             return False
 
     # OBTIENE DATOS POR MEDIO DE SU ID
+
     
     def tplInptsFichTec(self):
         return [
