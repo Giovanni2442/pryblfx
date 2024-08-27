@@ -27,7 +27,7 @@ class appInserts():
         self.dataTbl = appFichVent
         self.dtaExtr = appExtr
         self.dtaImpr = appImpr
-        #self.dtaLam = appLam()
+        self.dtaLam = appLam
         #self.dtaRef = appRef()
         #self.dtaConvrs = appConvrs()
 
@@ -86,6 +86,13 @@ class appInserts():
         self.dtaExtr().transctInsertExtrs(self.tpl2[0],*self.tpl2[10:38])
         
             # --- IMPRESION ---
-        self.dtaImpr().transIsertImprs(self.tpl2[0],*self.tpl2[38:73]) #'''
+        self.dtaImpr().transIsertImprs(self.tpl2[0],*self.tpl2[38:73])
+        
+            # --- LAMINACIÓN ---
+
+        self.dtaLam().transctInsertLam(self.tpl2[0],*self.tpl2[73:94])
+        self.dtaLam().transctInsertLmns(self.tpl2[0],*self.tpl2[94:122])
+
+         #'''
          
 

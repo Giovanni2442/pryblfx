@@ -967,7 +967,7 @@ class createPrind(UserControl):
                                             self.InptsLam.etiquetado,
 
                                             Text("Pesar Producto Por : "),
-                                            self.InptsLam.psNtPromBob,
+                                            self.InptsLam.psrPrdct,
 
                                             Text("Peso Neto Promedio de Bobina"),
                                             self.InptsLam.psNtPromBob,
@@ -1764,7 +1764,7 @@ class createPrind(UserControl):
             self.Inpts.tplInptsVentas(),
             self.InptsExtrc.tplInptsExtr(),
             self.InptsImpDig.tplInptsImprDig(), # Arreglar el bug, ya que no acepta el ultimo conjunto
-            #self.InptsLam.tplInptsLam(),
+            self.InptsLam.tplInptsLam(),
             #self.InptsRefl.tplInptsRef(),
             #self.InptsConvrs.tplInptsConvrs()
         )

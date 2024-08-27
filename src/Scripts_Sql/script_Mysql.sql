@@ -851,7 +851,6 @@ CREATE TABLE FichaTec(
 				FOREIGN KEY (idCodPrdc) REFERENCES Material_Impreso(idCodPrdc) ON DELETE CASCADE
 			);
 			
-
 			SELECT * FROM AnchoBob_TolrMtrl;
 			/*Ancho de Bobina y Tolerancia*/
 			CREATE TABLE AnchoBob_TolrMtrl(
@@ -863,7 +862,6 @@ CREATE TABLE FichaTec(
             
         /*Laminación 1*/
         SELECT * FROM Material_Laminar_1;
-
         CREATE TABLE Material_Laminar_1(
 			idCodPrdc VARCHAR(255),
             Material VARCHAR(50) NOT NULL,
@@ -911,6 +909,7 @@ CREATE TABLE FichaTec(
             
             #SELECT * FROM AnchoBob_TolrLam2;
              /*Ancho de Bobina y Tolerancia Laminación 1*/
+
 			CREATE TABLE AnchoBob_TolrLam2(
 				idCodPrdc VARCHAR(255),
 				anchoBob float NOT NULL,
@@ -920,6 +919,7 @@ CREATE TABLE FichaTec(
             
 		SELECT * FROM Material_Laminar_3;
 		/*Laminación 3*/
+        drop table Material_Laminar_3;
 		 CREATE TABLE Material_Laminar_3(
 			idCodPrdc VARCHAR(255),
             Material VARCHAR(50) NOT NULL,
@@ -929,6 +929,7 @@ CREATE TABLE FichaTec(
         );
         
 			/*Ancho de Bobina y Tolerancia Laminación 2*/
+			drop table CalibrePelic_TolrLam3;
 			CREATE TABLE CalibrePelic_TolrLam3(
 				idCodPrdc VARCHAR(255),
 				calibre float NOT NULL,
@@ -938,6 +939,7 @@ CREATE TABLE FichaTec(
             
             SELECT * FROM AnchoBob_TolrLam3;
              /*Ancho de Bobina y Tolerancia Laminación 1*/
+             drop table AnchoBob_TolrLam3;
 			CREATE TABLE AnchoBob_TolrLam3(
 				idCodPrdc VARCHAR(255),
 				anchoBob float NOT NULL,
@@ -953,7 +955,6 @@ CREATE TABLE FichaTec(
             tipoLamin VARCHAR(50) NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
-        
 			/*Ancho de Bobina y Tolerancia Laminación 2*/
             select * from CalibrePelic_TolrLam4;
 			CREATE TABLE CalibrePelic_TolrLam4(
@@ -963,18 +964,15 @@ CREATE TABLE FichaTec(
 				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_4(idCodPrdc) ON DELETE CASCADE
 			);
             
-            drop table AnchoBob_TolrLam4;
-            
              /*Ancho de Bobina y Tolerancia Laminación 1*/
-             
 			CREATE TABLE AnchoBob_TolrLam4(
 				idCodPrdc VARCHAR(255),
 				anchoBob float NOT NULL,
                 tolerancia float NOT NULL,
 				FOREIGN KEY (idCodPrdc) REFERENCES Material_Laminar_4(idCodPrdc) ON DELETE CASCADE
 			);
-            INSERT INTO AnchoBob_TolrLam4(idCodPrdc,anchoBob,tolerancia) VALUES ('E-2334',0,0);
-	
+            
+            	
 		/*Medida de la manga para la Transferencia*/
         SELECT * FROM MedidManga;
 		CREATE TABLE MedidManga(
@@ -1008,6 +1006,7 @@ CREATE TABLE FichaTec(
             tolerancia float NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES LAMINADO(idCodPrdc) ON DELETE CASCADE
         );
+
 /*------------------------REFILADO------------------------------*/
 
 

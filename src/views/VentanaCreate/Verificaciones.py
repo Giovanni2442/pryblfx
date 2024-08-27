@@ -78,36 +78,6 @@ class verificaciones():
 ######################################################
 
 ###### INSERCIÓN A LA BASE DE DATOS ##########################
-
-    def prTpl(self,*tpl):
-        pass
-        '''
-        print(tpl[2][6].items[0].content.controls)
-        print(tpl[2][6].items[0].content.controls[0])
-        # Obtener el valor de un PopupMenuItem HACERLO UNA FUNCIÓN
-        # NOTAS : 
-        # tpl[tbl][atr]     : [tbl] : la tabla que se va ha obtener ; [atr] : El atributo de la tabla
-        # items[n]          : Agregar el Item que se desea Obtener 
-        print("--->",tpl[2][6].items[0].content.controls[1].value)     
-        '''
-
-    def vlMnuPop(self, inx, tpl, j):
-        pass
-        '''
-        #print(len(tpl))      
-      
-        if self.bnd == inx:
-            #print(f"id : {self.bnd}  :  {j}")
-            self.tpl2.append(self.bnd)
-        else:
-              # Añade el último conjunto antes de vaciar self.tpl2 y cambiar self.bnd
-            if self.tpl2:
-                print(self.tpl2)
-                #tpl.append(tuple(self.tpl2))
-                #self.tpl2 = []
-            self.bnd = inx
-    
-        #print(tuple(self.tpl))'''
             
     # Valida cada una de las entradas del formulario
     def vlVoid(self,tpl):           # Función que verifica si al Inicio del Fromulario los campos estan vaciós para evitar inserción de campos vacios

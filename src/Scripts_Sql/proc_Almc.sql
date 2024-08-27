@@ -4,18 +4,36 @@ use dbingbf;
 show tables;
 show databases;
 
+
+# ------------------------------------- MUESTRAS DE CONTENIDO --------------------------------------------------
 SELECT * FROM FICHATEC;
 SELECT * FROM VENTAS;
 SELECT * FROM EXTRUSION;
 SELECT * FROM IMPRESION;
+SELECT * FROM LAMINADO;
+	SELECT * FROM Material_Impreso;
+	SELECT * FROM Material_Laminar_1;
+		SELECT * FROM AnchoBob_TolrLam1;
+    SELECT * FROM Material_Laminar_2;
+		SELECT * FROM AnchoBob_TolrLam2;
+    SELECT * FROM Material_Laminar_3;
+		SELECT * FROM AnchoBob_TolrLam3;
+    SELECT * FROM Material_Laminar_4;
+		SELECT * FROM AnchoBob_TolrLam4;
+	
 
+#  ------------------------------------------------------------------------------------------------------------------ #
 DELETE FROM FichaTec WHERE id_codProduct = "2323";
 
+
+# --------------------------------------------- NUMERO DE PROCESOS -----------------------------------------------------
 select * from impresion;
 select * from extrusion;
 SELECT COUNT(*) FROM INFORMATION_SCHEMA.PROCESSLIST
 SHOW PROCESSLIST;
 KILL 2310;
+
+# ------------------------------------------------------------------------------------------------------------------------
 
 SELECT CONCAT('KILL ', id, ';') 
 FROM information_schema.processlist 
@@ -24,13 +42,18 @@ AND id <> 210;
 
 KILL CONNECTION 1559;
 
-			############## GET ###################
+# ---------------------------------------------  GET --------------------------------------------------------  #
 
 DROP PROCEDURE IF EXISTS getExtrs;
 
-			-- *** EXTRUSIÓN ***
+            -- * --------------------- EXTRUSIÓN  ------------------- *
 SELECT * FROM extrusion;
 DELETE FROM FichaTec WHERE id_codProduct = "232323";
+SELECT * FROM FICHATEC;
+
+CALL getExtrs(
+	'3333'
+)
 
 DELIMITER $$
 	CREATE PROCEDURE getExtrs(
@@ -55,17 +78,11 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
     
-CALL getExtrs(
-	'3333'
-)
-SELECT * FROM FICHATEC;
-			-- *** IMPRESIÓN ***
-SELECT * FROM extrusion;
-DROP PROCEDURE IF EXISTS getImprs;
-select * from impresion;
+			-- * --------------------- IMPRESIÓN  ------------------- *
 CALL getImprs(
 	'4444'
 )
+
 DELIMITER $$
 	CREATE PROCEDURE getImprs(
 		IN id_idCodPrdct VARCHAR(255)
@@ -89,10 +106,83 @@ DELIMITER $$
 		COMMIT;
 	END$$
 	DELIMITER ;
+    
+    
+			-- * --------------------- LAMINACIÓN  ------------------- *	
+		
+		-- LAMINACION GENERAL / MATERIAL IMPRIMIR
+        
+SELECT * FROM AnchoBob_TolrLam4;
+CALL getLmns(
+	'4545'
+)
+
+DELIMITER $$
+	CREATE PROCEDURE getLamGen(
+		IN id_idCodPrdct VARCHAR(255)
+	)
+	BEGIN 
+		-- Iniciar la transacción
+		START TRANSACTION;
+
+		SELECT * FROM LAMINADO lam
+	        INNER JOIN MedidManga medM ON lam.idCodPrdc = medM.idCodPrdc
+            INNER JOIN AnchoCore_TolrLam anchCr ON lam.idCodPrdc = anchCr.idCodPrdc
+            INNER JOIN Diametro_GrosCore dimGrs ON lam.idCodPrdc = dimGrs.idCodPrdc
+			INNER JOIN Diametro_Bob_Tolr dimBob ON lam.idCodPrdc = dimBob.idCodPrdc
+
+			-- MATERIAL IMPRS
+			INNER JOIN Material_Impreso mtlImp ON lam.idCodPrdc = mtlImp.idCodPrdc
+			INNER JOIN CalibrePelic_Tolr clTol ON lam.idCodPrdc = clTol.idCodPrdc
+			INNER JOIN AnchoBob_TolrMtrl anchBob ON lam.idCodPrdc = anchBob.idCodPrdc
+
+		WHERE lam.idCodPrdc = id_idCodPrdct;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+DROP PROCEDURE IF EXISTS getLmns;
+
+		-- LAMINACIÓNES
+DELIMITER $$
+	CREATE PROCEDURE getLmns(
+		IN id_idCodPrdct VARCHAR(255)
+	)
+	BEGIN 
+		-- Iniciar la transacción
+		START TRANSACTION;
+			-- LAM 1
+		SELECT * FROM Material_Laminar_1 mtrl1
+	        INNER JOIN CalibrePelic_TolrLam1 clMt_1 ON mtrl1.idCodPrdc = clMt_1.idCodPrdc
+            INNER JOIN AnchoBob_TolrLam1 anchMt_1 ON mtrl1.idCodPrdc = anchMt_1.idCodPrdc
+            -- LAM 2
+			INNER JOIN Material_Laminar_2 mtrl2 ON mtrl1.idCodPrdc = mtrl2.idCodPrdc
+			INNER JOIN CalibrePelic_TolrLam2 clMt_2 ON mtrl1.idCodPrdc = clMt_2.idCodPrdc
+            INNER JOIN AnchoBob_TolrLam2 anchMt_2 ON mtrl1.idCodPrdc = anchMt_2.idCodPrdc
+			-- LAM 3
+			INNER JOIN Material_Laminar_3 mtrl3 ON mtrl1.idCodPrdc = mtrl3.idCodPrdc
+			INNER JOIN CalibrePelic_TolrLam3 clMt_3 ON mtrl1.idCodPrdc = clMt_3.idCodPrdc
+            INNER JOIN AnchoBob_TolrLam3 anchMt_3 ON mtrl1.idCodPrdc = anchMt_3.idCodPrdc
+            -- LAM 4
+			INNER JOIN Material_Laminar_4 mtrl4 ON mtrl1.idCodPrdc = mtrl4.idCodPrdc
+			INNER JOIN CalibrePelic_TolrLam4 clMt_4 ON mtrl1.idCodPrdc = clMt_4.idCodPrdc
+            INNER JOIN AnchoBob_TolrLam4 anchMt_4 ON mtrl1.idCodPrdc = anchMt_4.idCodPrdc
+
+			
+		WHERE mtrl1.idCodPrdc = id_idCodPrdct;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+# ------------------------------------------------------------------------------------------------------------  #
 
 
-			-- ############## INSERT ###################
 
+# ---------------------------------------------  INSERCIÓNES --------------------------------------------------------  #
 DELETE FROM FichaTec WHERE id_codProduct = '2424';
 select * from fichatec;
 SELECT * FROM extrusion;
@@ -100,7 +190,7 @@ SELECT * FROM impresion;
 SELECT * FROM ventas;
 DROP PROCEDURE IF EXISTS InsertExtr;
 
-	-- *** FICHA / VENTAS ***
+	-- * --- FICHA / VENTAS ----* 
     
 DELIMITER $$
 	CREATE PROCEDURE InsertFichaVentas(
@@ -130,7 +220,7 @@ DELIMITER $$
 DELIMITER $$
 	CREATE PROCEDURE InsertExtr(
 		IN idCodPrdc INT,
-		IN tipo_Material VARCHAR(255),				/*EXTRUCIÓN*/
+		IN tipo_Material VARCHAR(255),				
 		IN dinaje VARCHAR(255),
 		IN formula VARCHAR(255),
 		IN pigmento_Pelicula VARCHAR(255),
@@ -235,9 +325,9 @@ CALL InsertExtr(
 );
 		        
 	-- **** IMPRESIÓN ****
-
- DROP PROCEDURE IF EXISTS InsertImprs;
+ DROP PROCEDURE IF EXISTS InsertLmns;
  SELECT * FROM IMPRESION;
+ 
 DELIMITER $$
 	CREATE PROCEDURE InsertImprs(
 		IN idCodPrdc INT,
@@ -322,10 +412,141 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
 
+-- * ---- LAMINACIÓN ---- * 
+
+		-- LAMINACION GENERAL / MATERIAL IMPRIMIR
+DELIMITER $$
+	CREATE PROCEDURE InsertLam(
+		IN idCodPrdc INT,					-- LAMINACIÓN GENERAL
+		IN estructProduct VARCHAR(255),
+		IN maxEmpalmesBob INT,
+		IN orientBobRack VARCHAR(255),
+		IN tipoEmpaqBob VARCHAR(255),
+		IN etiquetado VARCHAR(255),
+		IN pesarProduct VARCHAR(255),
+		IN psoNtoBob VARCHAR(255),
+		IN medidaManga DECIMAL(10,2),
+		IN tol_Mng DECIMAL(10,2),
+		IN anchoCore DECIMAL(10,2),
+		IN tol_anchCore DECIMAL(10,2),
+		IN diametro DECIMAL(10,2),
+		IN grosorCore DECIMAL(10,2),
+		IN diametroBob DECIMAL(10,2),
+		IN tol_diamBob DECIMAL(10,2),	-- 15
+
+		IN mtrlImprs VARCHAR(255),			-- MATERIAL IMPRESO
+		IN tipoTratado VARCHAR(255),
+
+			IN calibre DECIMAL(10,2),		-- Calibre de pelicula y Tolerancia	
+			IN tol_cal  DECIMAL(10,2),
+	
+			IN anchoBob  DECIMAL(10,2),		-- Ancho de Bobina y Tolerancia
+			IN tol_bob  DECIMAL(10,2)
+
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+
+		-- LAMINADO GENERAL
+		INSERT INTO LAMINADO(idCodPrdc, estructProduct, maxEmpalmesBob, orientBobRack, tipoEmpaqBob, etiquetado, pesarProduct,psoNtoBob)
+		VALUES (idCodPrdc,estructProduct,maxEmpalmesBob,orientBobRack,tipoEmpaqBob,etiquetado,pesarProduct,psoNtoBob);
+
+		INSERT INTO MedidManga(idCodPrdc,medidaManga,tolerancia)VALUES(idCodPrdc,medidaManga,tol_Mng);
+		INSERT INTO AnchoCore_TolrLam(idCodPrdc,anchoCore,tolerancia)VALUES(idCodPrdc,anchoCore,tol_anchCore);
+		INSERT INTO Diametro_GrosCore(idCodPrdc,diametro,grosorCore)VALUES(idCodPrdc,diametro,grosorCore);
+		INSERT INTO Diametro_Bob_Tolr(idCodPrdc,diametroBob,tolerancia)VALUES(idCodPrdc,diametroBob,tol_diamBob);
+
+		-- MATERIAL IMPRESO
+		INSERT INTO Material_Impreso(idCodPrdc,mtrlImprs,tipoTratado)VALUES(idCodPrdc,mtrlImprs,tipoTratado);
+		INSERT INTO CalibrePelic_Tolr(idCodPrdc,calibre,tolerancia)VALUES(idCodPrdc,calibre,tol_cal);
+		INSERT INTO AnchoBob_TolrMtrl(idCodPrdc,anchoBob,tolerancia)VALUES(idCodPrdc,anchoBob,tol_bob);
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+		-- LAMINACIÓNES
+DELIMITER $$
+	CREATE PROCEDURE InsertLmns(
+		IN idCodPrdc INT,					-- Material_Laminar_1
+		IN Mtrl_1 VARCHAR(255),
+		IN tipoTratado_1 VARCHAR(255),
+		IN tipoLamin_1 VARCHAR(255),
+
+			IN cal_1 DECIMAL(10,2),
+			IN tol_cal_1 DECIMAL(10,2),
+
+			IN anchoBob_1 DECIMAL(10,2),
+			IN tol_bob_1 DECIMAL(10,2),
+
+		IN Mtrl_2 VARCHAR(255),			-- Material_Laminar_2
+		IN tipoTratado_2 VARCHAR(255),
+		IN tipoLamin_2 VARCHAR(255),
+
+			IN cal_2 DECIMAL(10,2),
+			IN tol_cal_2 DECIMAL(10,2),
+
+			IN anchoBob_2 DECIMAL(10,2),
+			IN tol_bob_2 DECIMAL(10,2),
+
+		IN Mtrl_3 VARCHAR(255),			-- Material_Laminar_3
+		IN tipoTratado_3 VARCHAR(255),
+		IN tipoLamin_3 VARCHAR(255),
+
+			IN cal_3 DECIMAL(10,2),
+			IN tol_cal_3 DECIMAL(10,2),
+
+			IN anchoBob_3 DECIMAL(10,2),
+			IN tol_bob_3 DECIMAL(10,2),
+
+		IN Mtrl_4 VARCHAR(255),			-- Material_Laminar_4
+		IN tipoTratado_4 VARCHAR(255),
+		IN tipoLamin_4 VARCHAR(255),
+
+			IN cal_4 DECIMAL(10,2),
+			IN tol_cal_4 DECIMAL(10,2),
+
+			IN anchoBob_4 DECIMAL(10,2),
+			IN tol_bob_4 DECIMAL(10,2)
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+		
+		-- Material_Laminar_1
+		INSERT INTO Material_Laminar_1(idCodPrdc,Material,tipoTratado,tipoLamin)VALUES(idCodPrdc,Mtrl_1,tipoTratado_1,tipoLamin_1);
+		INSERT INTO CalibrePelic_TolrLam1(idCodPrdc,calibre,tolerancia)VALUES(idCodPrdc,cal_1,tol_cal_1);
+		INSERT INTO AnchoBob_TolrLam1(idCodPrdc,anchoBob,tolerancia)VALUES(idCodPrdc,anchoBob_1,tol_bob_1);
+
+		-- Material_Laminar_2
+		INSERT INTO Material_Laminar_2(idCodPrdc,Material,tipoTratado,tipoLamin)VALUES(idCodPrdc,Mtrl_2,tipoTratado_2,tipoLamin_2);
+		INSERT INTO CalibrePelic_TolrLam2(idCodPrdc,calibre,tolerancia)VALUES(idCodPrdc,cal_2,tol_cal_2);
+		INSERT INTO AnchoBob_TolrLam2(idCodPrdc,anchoBob,tolerancia)VALUES(idCodPrdc,anchoBob_2,tol_bob_2);
+
+		-- Material_Laminar_3
+		INSERT INTO Material_Laminar_3(idCodPrdc,Material,tipoTratado,tipoLamin)VALUES(idCodPrdc,Mtrl_3,tipoTratado_3,tipoLamin_3);
+		INSERT INTO CalibrePelic_TolrLam3(idCodPrdc,calibre,tolerancia)VALUES(idCodPrdc,cal_3,tol_cal_3);
+		INSERT INTO AnchoBob_TolrLam3(idCodPrdc,anchoBob,tolerancia)VALUES(idCodPrdc,anchoBob_3,tol_bob_3);
+
+		-- Material_Laminar_4
+		INSERT INTO Material_Laminar_4(idCodPrdc,Material,tipoTratado,tipoLamin)VALUES(idCodPrdc,Mtrl_4,tipoTratado_4,tipoLamin_4);
+		INSERT INTO CalibrePelic_TolrLam4(idCodPrdc,calibre,tolerancia)VALUES(idCodPrdc,cal_4,tol_cal_4);
+		INSERT INTO AnchoBob_TolrLam4(idCodPrdc,anchoBob,tolerancia)VALUES(idCodPrdc,anchoBob_4,tol_bob_4);
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+# -------------------------------------------------------------------------------------------------------------  #
+
+
+
 			
-			############ UPDATES ###################
-            
-            
+# ---------------------------------------------  UPDATE --------------------------------------------------------  #
+
 # --- UPDATE FICHA / VENTAS ---
 
 DELIMITER $$
