@@ -22,9 +22,6 @@ FROM information_schema.processlist
 WHERE user = 'root' 
 AND id <> 210;
 
-
-
-
 KILL CONNECTION 1559;
 
 			############## GET ###################
@@ -59,15 +56,15 @@ DELIMITER $$
 	DELIMITER ;
     
 CALL getExtrs(
-	'22323'
+	'3333'
 )
-
+SELECT * FROM FICHATEC;
 			-- *** IMPRESIÓN ***
-SELECT * FROM IMPRESION
+SELECT * FROM extrusion;
 DROP PROCEDURE IF EXISTS getImprs;
 select * from impresion;
 CALL getImprs(
-	'3434'
+	'4444'
 )
 DELIMITER $$
 	CREATE PROCEDURE getImprs(
@@ -101,7 +98,7 @@ select * from fichatec;
 SELECT * FROM extrusion;
 SELECT * FROM impresion;
 SELECT * FROM ventas;
-DROP PROCEDURE IF EXISTS InsertFichaVentas;
+DROP PROCEDURE IF EXISTS InsertExtr;
 
 	-- *** FICHA / VENTAS ***
     
@@ -172,23 +169,23 @@ DELIMITER $$
 
 		-- INSERTA CalibrePel_Tolr
 		INSERT INTO CalibrePel_Tolr(idCodPrdc,calibre,tolerancia)
-            VALUES (idCodPrdc,calibre,tolerancia);
+            VALUES (idCodPrdc,calibre,tol_calibre);
 
 		-- INSERTA AnchoBob_Tolr
 		INSERT INTO AnchoBob_TolrExtr(idCodPrdc,anchoBob,tolerancia)
-            VALUES (idCodPrdc,anchoBob,tolerancia);
+            VALUES (idCodPrdc,anchoBob,tol_anchoBob);
 
 		-- INSERTA AnchoCore_Tolr
 		INSERT INTO AnchoCore_TolrExtr(idCodPrdc,anchoCore,tolerancia)
-            VALUES (idCodPrdc,anchoCore,tolerancia);
+            VALUES (idCodPrdc,anchoCore,tol_anchoCore);
 
 		-- INSERTA DiametroBob_Tolr
 		INSERT INTO DiametroBob_Tolr(idCodPrdc,diamBob,tolerancia)
-            VALUES (idCodPrdc,diamBob,tolerancia);
+            VALUES (idCodPrdc,diamBob,tol_diamBob);
 
 		-- INSERTA Peso_Prom_Bob
 		INSERT INTO Peso_Prom_Bob(idCodPrdc,pesoBob,tolerancia)
-            VALUES (idCodPrdc,pesoBob,tolerancia);
+            VALUES (idCodPrdc,pesoBob,tol_pesoBob);
         
 		-- INSERTA Num_BobCama_CamTam
 		INSERT INTO Num_BobCama_CamTam(idCodPrdc,num_Bob_Cama,camas_Tarima)
@@ -196,7 +193,7 @@ DELIMITER $$
 
 		-- INSERTA la tabla Peso_prom_tarima
 		INSERT INTO Peso_prom_tarimaExtr(idCodPrdc,peso_neto,tolerancia)
-            VALUES (idCodPrdc,peso_neto,tolerancia);
+            VALUES (idCodPrdc,peso_neto,tol_peso_neto);
         
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
@@ -294,23 +291,23 @@ DELIMITER $$
 
 		-- INSERTA CALIBRE_MATERIAL_TOL
 		INSERT INTO CalMater_Tolr(idCodPrdc,calibre,tolerancia)
-                VALUES (idCodPrdc,calibre,tolerancia);
+                VALUES (idCodPrdc,calibre,tol_cal);
 
 		-- INSERTA ANCHOBOB_TOL
 		INSERT INTO AnchoBobImpr_Tolr(idCodPrdc,ancho,tolerancia)
-                VALUES (idCodPrdc,ancho,tolerancia);
+                VALUES (idCodPrdc,ancho,tol_ancho);
 
 		-- INSERTA ANCHO_CORE_TOL
 		INSERT INTO AnchoCore_TolrImpr(idCodPrdc,ancho_Core,tolerancia)
-                VALUES (idCodPrdc,ancho_Core,tolerancia);
+                VALUES (idCodPrdc,ancho_Core,tol_anchCore);
 
 		-- INSERTA Peso_Prom_Bob
 		INSERT INTO DiamBob_Tolr(idCodPrdc,diametro,tolerancia)
-                VALUES (idCodPrdc,diametro,tolerancia);
+                VALUES (idCodPrdc,diametro,tol_dim);
         
 		-- INSERTA Num_BobCama_CamTam
 		INSERT INTO PesoPromBob(idCodPrdc,peso,tolerancia)
-                VALUES (idCodPrdc,peso,tolerancia);
+                VALUES (idCodPrdc,peso,tol_pso);
 
 		-- INSERTA la tabla Peso_prom_tarima
 		INSERT INTO Num_BobCama_CamaTarima(idCodPrdc,numBobCama,camaTam)
@@ -318,7 +315,7 @@ DELIMITER $$
 
 		-- INSERTA PESO_PROM_TARIMAimpr
 		INSERT INTO Peso_prom_tarimaImpr(idCodPrdc,pesoNto,tolerancia)
-                VALUES (idCodPrdc,pesoNto,tolerancia);
+                VALUES (idCodPrdc,pesoNto,tol_psoNto);
         
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;

@@ -102,7 +102,7 @@ class Inpts_FichaTec_Ventas():
             label="Laminado",
             hint_text="Producto Laminado",
             #value="N/A",
-            value=self.dataVentas("",3),
+            value=self.dataVentas("N/A",3),
             #value=self.aux().getData(self.id,'VENTAS',3,"N/A"),
             error_text="",
             options=[
@@ -149,6 +149,7 @@ class Inpts_FichaTec_Ventas():
     def dataVentas(self,default_value,Indx):
         if self.id != "Insert":   
             return self.dtaVnts[Indx]
+            #return "SINCH0"
         else:
             return default_value
 
