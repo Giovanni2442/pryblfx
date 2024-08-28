@@ -89,10 +89,9 @@ class appInserts():
         self.dtaImpr().transIsertImprs(self.tpl2[0],*self.tpl2[38:73])
         
             # --- LAMINACIÓN ---
-
         self.dtaLam().transctInsertLam(self.tpl2[0],*self.tpl2[73:94])
         self.dtaLam().transctInsertLmns(self.tpl2[0],*self.tpl2[94:122])
 
-         #'''
+        #'''
          
 

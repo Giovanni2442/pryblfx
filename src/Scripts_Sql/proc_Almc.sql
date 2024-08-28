@@ -117,6 +117,11 @@ CALL getLmns(
 	'4545'
 )
 
+CALL getLamGen(
+	'4545'
+)
+
+
 DELIMITER $$
 	CREATE PROCEDURE getLamGen(
 		IN id_idCodPrdct VARCHAR(255)
@@ -538,6 +543,55 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
+	DELIMITER;
+
+	-- REFILADO
+DELIMITER $$
+	CREATE PROCEDURE InsertRefil(
+		IN idCodPrdc INT,
+		IN proceso VARCHAR(255),				/*EXTRUCIÓN*/
+		IN acabadoBob VARCHAR(255),
+		IN grosorCore VARCHAR(255),
+		IN figEmbob_impr VARCHAR(255),
+		IN bobinaRefilar VARCHAR(255),
+		IN maximo_Empal INT,
+		IN señalEmpl VARCHAR(255),
+		IN orient_Bob_Tarima VARCHAR(255),
+		IN tipo_Empaque VARCHAR(255),
+		IN pesar_Prdct VARCHAR(255),
+		IN etiquetado VARCHAR(255),
+		IN tarima_emplaye VARCHAR(255),
+		IN tarima_flejada VARCHAR(255),
+		IN numBobTam INT,
+
+		IN diametro DECIMAL(10,2),
+		IN tol_dim DECIMAL(10,2),
+
+		IN peso DECIMAL(10,2),
+		IN tol_peso DECIMAL(10,2),
+
+		IN num_Bob_Cama DECIMAL(10,2),
+		IN camas_Tarima DECIMAL(10,2),
+
+		IN pesoNeto DECIMAL(10,2),
+		IN tol_psoNto DECIMAL(10,2),
+
+		IN core DECIMAL(10,2),
+		IN tol_core DECIMAL(10,2),
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+
+			INSERT INTO REFILADO (idCodPrdc, proceso, acabadoBob, grosorCore, figEmbob_impr, bobinaRefilar, maximo_Empal, señalEmpl, orient_Bob_Tarima, tipo_Empaque, pesar_Prdct, etiquetado, tarima_emplaye, tarima_flejada, numBobTam)
+            VALUES (idCodPrdc,proceso,acabadoBob,grosorCore,figEmbob_impr,bobinaRefilar,maximo_Empal,señalEmpl,orient_Bob_Tarima,tipo_Empaque,pesar_Prdct,etiquetado,tarima_emplaye,tarima_flejada,numBobTam);
+		
+			INSERT INTO AnchoFinalBob_TolrRef (idCodPrdc,anchoFinalBob,tolerancia)
+            VALUES (idCodPrdc,anchoFinalBob,tol_an)
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
 	DELIMITER ;
 
 # -------------------------------------------------------------------------------------------------------------  #
@@ -762,55 +816,206 @@ DELIMITER $$
 		WHERE id_idCodPrdc = id_idCodPrdc;
 
 		-- ACTUALIZA VALIDAR COLOR
-		UPDATE vldClr
-		SET color = color,
-			tolDelts = tolDelts
-		WHERE id_idCodPrdc = id_idCodPrdc;
+		UPDATE vldClr SET color = color, tolDelts = tolDelts WHERE id_idCodPrdc = id_idCodPrdc;
         
-
 		-- ACTUALIZA CALIBRE_MATERIAL_TOL
-		UPDATE CalMater_Tolr
-		SET calibre = calibre,
-			tolerancia = tol_cal
-		WHERE id_idCodPrdc = id_idCodPrdc;
+		UPDATE CalMater_Tolr SET calibre = calibre,	tolerancia = tol_cal WHERE id_idCodPrdc = id_idCodPrdc;
 
 		-- ACTUALIZA ANCHOBOB_TOL
-		UPDATE AnchoBobImpr_Tolr
-		SET ancho = ancho,
-			tolerancia = tol_ancho
-		WHERE id_idCodPrdc = id_idCodPrdc;
+		UPDATE AnchoBobImpr_Tolr SET ancho = ancho,	tolerancia = tol_ancho WHERE id_idCodPrdc = id_idCodPrdc;
 
 		-- ACTUALIZA ANCHO_CORE_TOL
-		UPDATE AnchoCore_TolrImpr
-		SET ancho_Core = ancho_Core,
-			tolerancia = tol_anchCore
-		WHERE id_idCodPrdc = id_idCodPrdc;
+		UPDATE AnchoCore_TolrImpr SET ancho_Core = ancho_Core,tolerancia = tol_anchCore	WHERE id_idCodPrdc = id_idCodPrdc;
 
 		-- ACTUALIZA DIAMETRO_BOB_TOL
-		UPDATE DiamBob_Tolr
-		SET diametro = diametro,
-			tolerancia = tol_dim
-		WHERE id_idCodPrdc = id_idCodPrdc;
+		UPDATE DiamBob_Tolr	SET diametro = diametro,tolerancia = tol_dim WHERE id_idCodPrdc = id_idCodPrdc;
         
 		-- ACTUALIZA PESO_PROM_BOB
-		UPDATE PesoPromBob
-		SET peso = peso,
-			tolerancia = tol_pso
-		WHERE id_idCodPrdc = id_idCodPrdc;
+		UPDATE PesoPromBob 	SET peso = peso,tolerancia = tol_pso WHERE id_idCodPrdc = id_idCodPrdc;
 
 		-- ACTUALIZA NUM_BOB_CAMATAM
-		UPDATE Num_BobCama_CamaTarima
-		SET numBobCama = numBobCama,
-			camaTam = camaTam
-		WHERE id_idCodPrdc = id_idCodPrdc;
+		UPDATE Num_BobCama_CamaTarima SET numBobCama = numBobCama,	camaTam = camaTam WHERE id_idCodPrdc = id_idCodPrdc;
 
 		-- ACTUALIZA PESO_PROM_TARIMAimpr
-		UPDATE Peso_prom_tarimaImpr
-		SET pesoNto = pesoNto,
-			tolerancia = tol_psoNto
-		WHERE id_idCodPrdc = id_idCodPrdc;
+		UPDATE Peso_prom_tarimaImpr SET pesoNto = pesoNto,tolerancia = tol_psoNto WHERE id_idCodPrdc = id_idCodPrdc;
         
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
 	DELIMITER ;
+    
+    
+    -- * ---- LAMINACIÓN ---- * 
+
+		-- LAMINACION GENERAL / MATERIAL IMPRIMIR
+DELIMITER $$
+	CREATE PROCEDURE UpdateLam(
+		IN estructProduct VARCHAR(255),
+		IN maxEmpalmesBob INT,
+		IN orientBobRack VARCHAR(255),
+		IN tipoEmpaqBob VARCHAR(255),
+		IN etiquetado VARCHAR(255),
+		IN pesarProduct VARCHAR(255),
+		IN psoNtoBob VARCHAR(255),
+		IN medidaManga DECIMAL(10,2),
+		IN tol_Mng DECIMAL(10,2),
+		IN anchoCore DECIMAL(10,2),
+		IN tol_anchCore DECIMAL(10,2),
+		IN diametro DECIMAL(10,2),
+		IN grosorCore DECIMAL(10,2),
+		IN diametroBob DECIMAL(10,2),
+		IN tol_diamBob DECIMAL(10,2),	-- 15
+
+		IN mtrlImprs VARCHAR(255),			-- MATERIAL IMPRESO
+		IN tipoTratado VARCHAR(255),
+
+			IN calibre DECIMAL(10,2),		-- Calibre de pelicula y Tolerancia	
+			IN tol_cal  DECIMAL(10,2),
+	
+			IN anchoBob  DECIMAL(10,2),		-- Ancho de Bobina y Tolerancia
+			IN tol_bob  DECIMAL(10,2),
+		IN id_idCodPrdc INT					-- id para wl WHERE
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+        
+        -- Actualizar la tabla LAMINADO GENERAL
+		UPDATE LAMINADO
+		SET estructProduct = estructProduct,
+			maxEmpalmesBob = maxEmpalmesBob,
+			orientBobRack = orientBobRack,
+			tipoEmpaqBob = tipoEmpaqBob,
+			etiquetado = etiquetado,
+			pesarProduct = pesarProduct,
+			psoNtoBob = psoNtoBob
+		WHERE id_idCodPrdc = id_idCodPrdc;
+
+         -- Actualizar la tabla MedidManga
+		UPDATE MedidManga SET medidaManga = medidaManga, tolerancia = tol_Mng WHERE id_idCodPrdc = id_idCodPrdc;
+
+         -- Actualizar la tabla AnchoCore_TolrLam
+		UPDATE AnchoCore_TolrLam SET anchoCore = anchoCore, tolerancia = tol_anchCore WHERE id_idCodPrdc = id_idCodPrdc;
+        
+		-- Actualizar la tabla Diametro_GrosCore
+        UPDATE Diametro_GrosCore SET diametro = diametro, grosorCore = grosorCore WHERE id_idCodPrdc = id_idCodPrdc;
+        
+		-- Actualizar la tabla Diametro_Bob_Tolr
+		UPDATE Diametro_Bob_Tolr SET diametroBob = diametroBob, tolerancia = tol_diamBob WHERE id_idCodPrdc = id_idCodPrdc;
+
+		-- MATERIAL IMPRESO
+	
+		UPDATE Material_Impreso SET mtrlImprs = mtrlImprs, tipoTratado = tipoTratado WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE CalibrePelic_Tolr SET calibre = calibre, tolerancia = tol_cal WHERE id_idCodPrdc = id_idCodPrdc;
+        
+		UPDATE AnchoBob_TolrMtrl SET anchoBob = anchoBob, tolerancia = tol_bob WHERE id_idCodPrdc = id_idCodPrdc;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+		-- LAMINACIÓNES
+        
+DROP PROCEDURE IF EXISTS UpdateLmns;
+DELIMITER $$
+	CREATE PROCEDURE UpdateLmns(
+		IN Mtrl_1 VARCHAR(255),
+		IN tipoTratado_1 VARCHAR(255),
+		IN tipoLamin_1 VARCHAR(255),
+
+			IN cal_1 DECIMAL(10,2),
+			IN tol_cal_1 DECIMAL(10,2),
+
+			IN anchoBob_1 DECIMAL(10,2),
+			IN tol_bob_1 DECIMAL(10,2),
+
+		IN Mtrl_2 VARCHAR(255),			-- Material_Laminar_2
+		IN tipoTratado_2 VARCHAR(255),
+		IN tipoLamin_2 VARCHAR(255),
+
+			IN cal_2 DECIMAL(10,2),
+			IN tol_cal_2 DECIMAL(10,2),
+
+			IN anchoBob_2 DECIMAL(10,2),
+			IN tol_bob_2 DECIMAL(10,2),
+
+		IN Mtrl_3 VARCHAR(255),			-- Material_Laminar_3
+		IN tipoTratado_3 VARCHAR(255),
+		IN tipoLamin_3 VARCHAR(255),
+
+			IN cal_3 DECIMAL(10,2),
+			IN tol_cal_3 DECIMAL(10,2),
+
+			IN anchoBob_3 DECIMAL(10,2),
+			IN tol_bob_3 DECIMAL(10,2),
+
+		IN Mtrl_4 VARCHAR(255),			-- Material_Laminar_4
+		IN tipoTratado_4 VARCHAR(255),
+		IN tipoLamin_4 VARCHAR(255),
+
+			IN cal_4 DECIMAL(10,2),
+			IN tol_cal_4 DECIMAL(10,2),
+
+			IN anchoBob_4 DECIMAL(10,2),
+			IN tol_bob_4 DECIMAL(10,2),
+		IN id_idCodPrdc INT
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+		
+		-- Material_Laminar_1		
+		UPDATE Material_Laminar_1
+		SET Material = Mtrl_1,
+			tipoTratado = tipoTratado_1,
+			tipoLamin = tipoLamin_1
+		WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE CalibrePelic_TolrLam1 SET calibre = cal_1, tolerancia = tol_cal_1 WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE AnchoBob_TolrLam1 SET anchoBob = anchoBob_1, tolerancia = tol_bob_1 WHERE id_idCodPrdc = id_idCodPrdc;
+
+		-- Material_Laminar_2
+
+		UPDATE Material_Laminar_2
+		SET Material = Mtrl_2,
+			tipoTratado = tipoTratado_2,
+			tipoLamin = tipoLamin_2
+		WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE CalibrePelic_TolrLam2 SET calibre = cal_2, tolerancia = tol_cal_2 WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE AnchoBob_TolrLam2 SET anchoBob = anchoBob_2, tolerancia = tol_bob_2 WHERE id_idCodPrdc = id_idCodPrdc;
+
+		-- Material_Laminar_3
+
+		UPDATE Material_Laminar_3
+		SET Material = Mtrl_3,
+			tipoTratado = tipoTratado_3,
+			tipoLamin = tipoLamin_3
+		WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE CalibrePelic_TolrLam3 SET calibre = cal_3, tolerancia = tol_cal_3 WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE AnchoBob_TolrLam3 SET anchoBob = anchoBob_3, tolerancia = tol_bob_3 WHERE id_idCodPrdc = id_idCodPrdc;
+
+		-- Material_Laminar_4
+
+		UPDATE Material_Laminar_4
+		SET Material = Mtrl_4,
+			tipoTratado = tipoTratado_4,
+			tipoLamin = tipoLamin_4
+		WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE CalibrePelic_TolrLam4 SET calibre = cal_4, tolerancia = tol_cal_4 WHERE id_idCodPrdc = id_idCodPrdc;
+
+		UPDATE AnchoBob_TolrLam4 SET anchoBob = anchoBob_4, tolerancia = tol_bob_4 WHERE id_idCodPrdc = id_idCodPrdc;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+    
+    

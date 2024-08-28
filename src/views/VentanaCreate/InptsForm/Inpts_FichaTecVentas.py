@@ -137,10 +137,9 @@ class Inpts_FichaTec_Ventas():
     # GET FICHA
     def data(self,default_value,Indx):
         if self.id != "Insert":           
-            #print(self.dtaFich().getFicha(self.id))
-            #return self.dtaFich().getFicha(self.id)[Indx]
+            
             return self.dta[Indx]
-            #return "simon"
+            #return f"{Indx}"
         else:
             return default_value
             #return None'''
@@ -149,7 +148,7 @@ class Inpts_FichaTec_Ventas():
     def dataVentas(self,default_value,Indx):
         if self.id != "Insert":   
             return self.dtaVnts[Indx]
-            #return "SINCH0"
+            #return f"{Indx}"
         else:
             return default_value
 

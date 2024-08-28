@@ -1,12 +1,27 @@
 from flet import * 
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+from src.Controllers.appLam import appLam
 
 class Inpts_Lam():
     def __init__(self,page):
 
         self.page = page
         self.valida = verificaciones(page)
+
+        # -- ACTUALIZA SI ES INSERT O UPDATE --#
+        self.aux = InptsAux
+        self.dtaLam = appLam
+    
+        # ID PRODUCT UPDATE 
+        self.id = self.page.client_storage.get("id")
+
+        # QURY DATA FORM #
+            # QUERY LAMINADO
+        self.dtaGen = self.dtaLam().transctGetLamGen(self.id)
+            # QUERY LAMINADO
+        self.dtaLmns = self.dtaLam().transctGetLmns(self.id)
     
     ### INPUTS DE LAS TABLAS DE LAMINADO ###
 
@@ -15,7 +30,8 @@ class Inpts_Lam():
             label="Estructura del Producto",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamGen('N/A',1),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)     
@@ -34,7 +50,8 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',9),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)     
@@ -48,7 +65,8 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',10),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -71,7 +89,8 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',12),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -85,7 +104,8 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',13),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -108,7 +128,8 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',15),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -122,7 +143,8 @@ class Inpts_Lam():
                             label="grosor",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',16),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -145,7 +167,8 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',18),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -159,7 +182,8 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',19),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -173,7 +197,8 @@ class Inpts_Lam():
             label="Maximo de Empalmes por Bobina",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            #value='0',
+            value=self.dataLamGen('0',2),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -183,7 +208,8 @@ class Inpts_Lam():
             label="Orientación de Bobina en Rack",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamGen('N/A',3),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -193,7 +219,8 @@ class Inpts_Lam():
             label="Tipo de Empaque para Bobina",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamGen('N/A',4),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -202,7 +229,8 @@ class Inpts_Lam():
         self.etiquetado = Dropdown(             # GENERAL
             label="Etiquetado",
             hint_text="etiquetado",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamGen('N/A',5),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -217,7 +245,8 @@ class Inpts_Lam():
         self.psrPrdct = Dropdown(               # GENERAL
             label="Pesar producto por : ",
             hint_text="pesar por ..",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamGen('N/A',6),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -233,7 +262,8 @@ class Inpts_Lam():
             label="Peso Neto Promedio de Bobina",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamGen('N/A',7),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -246,7 +276,8 @@ class Inpts_Lam():
             label="Material Impreso",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamGen('N/A',21),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -265,7 +296,8 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',24),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -279,7 +311,8 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',25),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -302,7 +335,8 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',27),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -316,7 +350,8 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            #value='0',
+                            value=self.dataLamGen('0',28),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -329,7 +364,8 @@ class Inpts_Lam():
         self.tipTratado = Dropdown(             # MatrImprs
             label="Tratado : ",
             hint_text="tratado",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamGen('N/A',22),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -351,7 +387,8 @@ class Inpts_Lam():
             label="Material para Laminar",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamns('N/A',1),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)
@@ -370,7 +407,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataLamns('0',5),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -384,7 +421,7 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataLamns('0',6),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -407,7 +444,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataLamns('0',8),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -421,7 +458,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataLamns('0',9),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -434,7 +471,8 @@ class Inpts_Lam():
         self.LN1tipTratado = Dropdown(
             label="Tipo de Tratado",
             hint_text="etiquetado",
-            value="N/A",
+            #value="N/A",
+            value=self.dataLamns('N/A',2),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -449,7 +487,7 @@ class Inpts_Lam():
         self.LN1tipLam = Dropdown(
             label="Tipo de Laminación",
             hint_text="Laminación",
-            value="N/A",
+            value=self.dataLamns('N/A',3),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -467,7 +505,7 @@ class Inpts_Lam():
             label="Material para Laminar",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            value=self.dataLamns('N/A',11),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)
@@ -486,7 +524,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataLamns('0',15),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -500,7 +538,7 @@ class Inpts_Lam():
                             label="N/A",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataLamns('0',16),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -523,7 +561,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataLamns('0',18),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -537,7 +575,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataLamns('0',19),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -550,7 +588,7 @@ class Inpts_Lam():
         self.LN2tipTratado = Dropdown(
             label="Tipo de Tratado",
             hint_text="etiquetado",
-            value="N/A",
+            value=self.dataLamns('N/A',12),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -565,7 +603,7 @@ class Inpts_Lam():
         self.LN2tipLam = Dropdown(
             label="Tipo de Laminación",
             hint_text="Laminación",
-            value="N/A",
+            value=self.dataLamns('N/A',13),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -581,7 +619,7 @@ class Inpts_Lam():
             label="Material para Laminar",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            value=self.dataLamns('N/A',21),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)
@@ -600,7 +638,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataLamns('0',25),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -614,7 +652,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataLamns('0',26),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -637,7 +675,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataLamns('0',28),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -651,7 +689,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataLamns('0',29),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -664,7 +702,7 @@ class Inpts_Lam():
         self.LN3tipTratado = Dropdown(
             label="Tipo de Tratado",
             hint_text="etiquetado",
-            value="N/A",
+            value=self.dataLamns('N/A',22),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -679,7 +717,7 @@ class Inpts_Lam():
         self.LN3tipLam = Dropdown(
             label="Tipo de Laminación",
             hint_text="Laminación",
-            value="N/A",
+            value=self.dataLamns('N/A',23),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -696,7 +734,7 @@ class Inpts_Lam():
             label="Material para Laminar",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value="N/A",
+            value=self.dataLamns('N/A',31),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfEstrcProd)
@@ -715,7 +753,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataLamns('0',35),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -729,7 +767,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataLamns('0',36),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -752,7 +790,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataLamns('0',38),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -765,7 +803,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataLamns('0',39),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )
@@ -777,7 +815,7 @@ class Inpts_Lam():
         self.LN4tipTratado = Dropdown(
             label="Tipo de Tratado",
             hint_text="etiquetado",
-            value="N/A",
+            value=self.dataLamns('N/A',32),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -792,7 +830,7 @@ class Inpts_Lam():
         self.LN4tipLam = Dropdown(
             label="Tipo de Laminación",
             hint_text="Laminación",
-            value="N/A",
+            value=self.dataLamns('N/A',33),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -839,6 +877,26 @@ class Inpts_Lam():
                     )        
                 ])
         )
+
+    # GET LAM
+    def dataLamGen(self,default_value,Indx):
+    #def dataLamGen(self,default_value):
+        if self.id != "Insert":
+            #print(self.dtaGen)                  
+            return self.dtaGen[Indx]
+            #return f"{Indx}"
+        else:
+            return default_value
+        
+    def dataLamns(self,default_value,Indx):
+    #def dataLamns(self,default_value):
+        if self.id != "Insert":                  
+            #print(self.dtaLmns)
+            return self.dtaLmns[Indx]
+            #return f"{Indx}"
+        else:
+            return default_value
+
 
     def tplInptsLam(self):
         return [

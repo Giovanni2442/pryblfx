@@ -563,7 +563,7 @@ class Inpst_ImprDig():
     def dataImprs(self,default_value,Indx):
         if self.id != "Insert":                  
             return self.dta[Indx]
-            #return "SINCH0"
+            #return f"{Indx}"
         else:
             return default_value
 

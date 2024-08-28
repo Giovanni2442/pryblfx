@@ -14,8 +14,8 @@ class appUpdate():
         self.dataTbl = appFichVent
         self.dtaExtr = appExtr
         self.dtaImpr = appImpr
-        #self.dtaLam = appLam
-        #self.dtaRef = appRef
+        self.dtaLam = appLam
+        self.dtaRef = appRef
         #self.dtaConvrs = appConvrs #'''
 
         self.auxList = []
@@ -62,4 +62,9 @@ class appUpdate():
         self.dtaExtr().transctUpdateExtrs(*self.auxList[10:38], self.auxList[0]) 
         # --- IMPRESION ---
         self.dtaImpr().transctUpdateImprs(*self.auxList[38:73], self.auxList[0])#'''
+        # --- LAMINACIÓN ---
+            # -- LAMIANDO --
+        self.dtaLam().transctUpdateLamGen(*self.auxList[73:94], self.auxList[0])
+            # -- MATERIAL LAMINADO --
+        self.dtaLam().transctUpdateLmns(*self.auxList[94:122], self.auxList[0])
 
