@@ -14,12 +14,6 @@ class appInserts():
     def __init__(self,page):
         super().__init__()
 
-        #self.data = appDb()
-
-        #self.connectPool = dbpool()
-        #self.conex = self.connectPool.get_connection()
-        #self.cursor = self.conex.cursor()
-
         #self.page = page
         self.filter = filter().vrfPrintCard
         self.b1 = True
@@ -28,8 +22,8 @@ class appInserts():
         self.dtaExtr = appExtr
         self.dtaImpr = appImpr
         self.dtaLam = appLam
-        #self.dtaRef = appRef()
-        #self.dtaConvrs = appConvrs()
+        self.dtaRef = appRef
+        self.dtaConvrs = appConvrs
 
         self.tpl = []
         self.tpl2 = []
@@ -61,24 +55,12 @@ class appInserts():
                 else:
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
                     self.tpl2.append(j.value)
-            
-        #-- INSERCIÓN --#
-        #je = self.tpl2[162:164] # Laminación
-        #print(je)
-        #print(self.tpl2)
-        #print(je)
 
-        print("-----------> : " ,self.tpl2[10:24])
+        print("-----------> : " ,self.tpl2[122:150])
 
         #'''
                 # --- INSERCIÓN POR REBANADAS ---   
 
-            # --- FICHA --- 
-        #self.dataTbl.post_data(*self.tpl2[:5])
-
-            # --- VENTAS ---
-        #self.dataTbl.post_dataVentas(self.tpl2[0],*self.tpl2[5:10])
-        #self.data.dtaFichVen.transactInsrtFichVents(*self.tpl2[:10])
             # --- PRUEBAS FICHA / VENTAS  
         self.dataTbl().transactInsrtFichVents(*self.tpl2[:10])
         
@@ -92,6 +74,11 @@ class appInserts():
         self.dtaLam().transctInsertLam(self.tpl2[0],*self.tpl2[73:94])
         self.dtaLam().transctInsertLmns(self.tpl2[0],*self.tpl2[94:122])
 
+            # --- REFILADO ---
+        self.dtaRef().transInsertRefil(self.tpl2[0],*self.tpl2[122:150])
+
+            # --- CONVERSION ---
+        self.dtaConvrs().transInsertConvrs(self.tpl2[0],*self.tpl2[150:174])
         #'''
          
 

@@ -1,11 +1,25 @@
 from flet import *
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+from src.Controllers.appRef import appRef
 
 class Inpts_Refil():
     def __init__(self,page):
         self.page = page
         self.valida = verificaciones(page)
+
+        # -- ACTUALIZA SI ES INSERT O UPDATE --#
+        self.aux = InptsAux
+        self.dtaRef = appRef
+    
+        # ID PRODUCT UPDATE 
+        self.id = self.page.client_storage.get("id")
+
+        # QURY DATA FORM #
+            # QUERY GET REFILADO
+        self.dtaRef = self.dtaRef().transGetRefil(self.id)
+
 
     ### INPUTS DE LA TABLA REFILADO ###
 
@@ -13,7 +27,8 @@ class Inpts_Refil():
         self.procRef = Dropdown(
             label="Proceso Refilado",
             hint_text="Proceso",
-            value="N/A",
+            #value="N/A",
+            value=self.dataRefil("N/A",1),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -38,7 +53,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataRefil('0',16),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -52,7 +67,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataRefil('0',17),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -65,7 +80,7 @@ class Inpts_Refil():
         self.acabdBob = Dropdown(
             label="Proceso Refilado",
             hint_text="Proceso",
-            value="N/A",
+            value=self.dataRefil("N/A",2),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -89,7 +104,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataRefil('0',34),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -103,7 +118,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataRefil('0',35),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -117,7 +132,7 @@ class Inpts_Refil():
                 label="Grosor de Core",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value="N/A",
+                value=self.dataRefil("N/A",3),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -127,7 +142,7 @@ class Inpts_Refil():
         self.figEmb = Dropdown(
             label="Figura de Embobinado",
             hint_text="Figura",
-            value='0',
+            value=self.dataRefil('0',4),
             error_text = "",
             options=[
                 dropdown.Option(0),
@@ -147,7 +162,7 @@ class Inpts_Refil():
         self.bobRef_Dbl = Dropdown(
             label="La bobina se Refilira / Doblara",
             hint_text="Proceso",
-            value="N/A",
+            value=self.dataRefil('N/A',5),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -172,7 +187,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataRefil('0',19),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -186,7 +201,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataRefil('0',20),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -209,7 +224,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataRefil('0',22),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -223,7 +238,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataRefil('0',23),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -237,7 +252,7 @@ class Inpts_Refil():
                 label="Maximo de Empalmes por Bobina",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value='0',
+                value=self.dataRefil('0',6),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -250,7 +265,7 @@ class Inpts_Refil():
                 label="Señalización de Empalme",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value="N/A",
+                value=self.dataRefil('N/A',7),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -259,7 +274,7 @@ class Inpts_Refil():
         self.orntBobTam = Dropdown(
             label="Orientación de Bobina en Tarima",
             hint_text="Proceso",
-            value="N/A",
+            value=self.dataRefil('N/A',8),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -273,7 +288,7 @@ class Inpts_Refil():
         self.tipEmpqBob = Dropdown(
             label="Tipo de Empaque para Bobina",
             hint_text="Proceso",
-            value="N/A",
+            value=self.dataRefil('N/A',9),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -287,7 +302,7 @@ class Inpts_Refil():
         self.psrPrdct = Dropdown(
             label="Pesar producto por : ",
             hint_text="Proceso",
-            value="N/A",
+            value=self.dataRefil('N/A',10),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -312,7 +327,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataRefil('0',25),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -326,44 +341,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
-                            error_text = "",
-                            label_style=TextStyle(color="Black",italic=True),
-                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
-                        )
-                    ])
-                ),
-            ]
-        )
-
-        self.anchFnlBob_Tol = PopupMenuButton(
-            Text("Ancho final de Bobina y Tol.",color=colors.WHITE),
-            bgcolor="white",
-            menu_position=PopupMenuPosition.OVER,
-            items=[ 
-                PopupMenuItem(
-                    content= Column(width=200,controls=[
-                        Text("Ancho Final"),
-                        TextField(
-                            label="Ancho",
-                            border= InputBorder.OUTLINE,
-                            #width=100,
-                            border_color="black",
-                            value='0',
-                            error_text = "",
-                            label_style=TextStyle(color="black",italic=True),
-                            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
-                        )
-                    ])
-                ),
-                PopupMenuItem(
-                    content= Column([
-                        Text("Tolerancia"),
-                        TextField(
-                            label="Tolerancia",
-                            border= InputBorder.OUTLINE,
-                            border_color="Black",
-                            value='0',
+                            value=self.dataRefil('0',26),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -377,7 +355,7 @@ class Inpts_Refil():
         self.etiquetado = Dropdown(
             label="Tipo de Empaque para Bobina",
             hint_text="Proceso",
-            value="N/A",
+            value=self.dataRefil('N/A',11),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -402,7 +380,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataRefil('0',28),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -416,7 +394,7 @@ class Inpts_Refil():
                             label="camas tarm.",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataRefil('0',29),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -430,7 +408,7 @@ class Inpts_Refil():
                 label="Numero de Bobinas en Tarima",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value="0",
+                value=self.dataRefil('0',14),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -449,7 +427,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataRefil('0',31),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -463,7 +441,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataRefil('0',32),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -476,7 +454,7 @@ class Inpts_Refil():
         self.tamEmplaye = Dropdown(
             label="La tarima llevara Emplaye",
             hint_text="Emplaye",
-            value="N/A",
+            value=self.dataRefil('N/A',12),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -489,7 +467,7 @@ class Inpts_Refil():
         self.tamflejada = Dropdown(
             label="La tarima sera flejada",
             hint_text="Flejada",
-            value="N/A",
+            value=self.dataRefil('N/A',13),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -498,6 +476,17 @@ class Inpts_Refil():
             autofocus=True,
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
+
+    # GET REFIL
+    def dataRefil(self,default_value,Indx):
+    #def dataLamGen(self,default_value):
+        if self.id != "Insert":
+            print(self.dtaRef)                  
+            return self.dtaRef[Indx]
+            #return f"{Indx}"
+        else:
+            return default_value
+
 
     def tplInptsRef(self):
         return [
@@ -514,9 +503,9 @@ class Inpts_Refil():
             self.etiquetado,
             self.tamEmplaye,
             self.tamflejada,  # 12
-            
+            self.numBobTam, # 20 
 
-            self.anchFnlBob_Tol,
+            self.anchBobRefDbl,
             self.mtrBobRefl,
             self.dmtrBob_Tol,
             self.psPromBob,
@@ -524,6 +513,4 @@ class Inpts_Refil():
             self.psPromTam,
             self.anchCre_Tol,# 19
 
-
-            self.numBobTam # 20 
         ]

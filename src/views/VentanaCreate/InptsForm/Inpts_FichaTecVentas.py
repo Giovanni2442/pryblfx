@@ -138,8 +138,8 @@ class Inpts_FichaTec_Ventas():
     def data(self,default_value,Indx):
         if self.id != "Insert":           
             
-            return self.dta[Indx]
-            #return f"{Indx}"
+            #return self.dta[Indx]
+            return f"{Indx}"
         else:
             return default_value
             #return None'''

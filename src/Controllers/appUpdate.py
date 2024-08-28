@@ -68,3 +68,5 @@ class appUpdate():
             # -- MATERIAL LAMINADO --
         self.dtaLam().transctUpdateLmns(*self.auxList[94:122], self.auxList[0])
 
+        # --- REFILADO ---
+        self.dtaRef().transctUpdateRefil(*self.auxList[122:148], self.auxList[0])

@@ -19,11 +19,10 @@ class appLam():
                 data = result.fetchone()
             return data
         except mysql.connector.Error as err:
-            #print("ERROR AL TRAER DATOS IMPRS! : ",err)
+            print("ERROR AL TRAER DATOS IMPRS! : ",err)
         finally:
             self.cursorPool.close()
-        pass
-
+  
     # --- TRANSACCIÓN GET MATERIALES A IMPRIMIR --- #    
     def transctGetLmns(self,id):
         try:
@@ -33,7 +32,7 @@ class appLam():
                 data = result.fetchone()
             return data
         except mysql.connector.Error as err:
-            #print("ERROR AL TRAER DATOS IMPRS! : ",err)
+            print("ERROR AL TRAER DATOS IMPRS! : ",err)
         finally:
             self.cursorPool.close()
 
@@ -46,7 +45,7 @@ class appLam():
             self.conectPool.commit()
             #print("INSERTADO LAM!")
         except mysql.connector.Error as err:
-            #print("ERROR AL INSERTAR LAM",err)
+            print("ERROR AL INSERTAR LAM",err)
         finally:
             self.cursorPool.close()
             #print("Conexión cerrada!")
@@ -58,7 +57,7 @@ class appLam():
             self.conectPool.commit()
             #print("INSERTADO LAMINASIONES!")
         except mysql.connector.Error as err:
-            #print("ERROR AL INSERTAR LAMINS",err)
+            print("ERROR AL INSERTAR LAMINS",err)
         finally:
             self.cursorPool.close()
             #print("Conexión cerrada!")
@@ -72,7 +71,7 @@ class appLam():
             self.conectPool.commit()
             #print("ACTUALIZADA LAMINASIO GENERAL!")
         except mysql.connector.Error as err:
-            #print("ERROR AL ACTUALIZAR LAMGEN",err)
+            print("ERROR AL ACTUALIZAR LAMGEN",err)
         finally:
             self.cursorPool.close()
             #print("Conexión cerrada!")
@@ -84,7 +83,7 @@ class appLam():
             self.conectPool.commit()
             print("ACTUALIZADA LAMINASIO GENERAL!")
         except mysql.connector.Error as err:
-            #print("ERROR AL ACTUALIZAR LAMINS",err)
+            print("ERROR AL ACTUALIZAR LAMINS",err)
         finally:
             self.cursorPool.close()
             #print("Conexión cerrada!")

@@ -1130,8 +1130,8 @@ CREATE TABLE FichaTec(
 			FOREIGN KEY (idCodPrdc) REFERENCES CONVERSION(idCodPrdc) ON DELETE CASCADE
         );
          select * from NumBlts_CajsCmas_CmasTarim;
-        /*Numero de bultos o cajas por camas y camas por tarima*/
-                    
+         
+        /*Numero de bultos o cajas por camas y camas por tarima*/         
         CREATE TABLE NumBlts_CajsCmas_CmasTarim(
 			idCodPrdc VARCHAR(255),
 			cajasCama float NOT NULL,  

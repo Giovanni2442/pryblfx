@@ -46,7 +46,7 @@ KILL CONNECTION 1559;
 
 DROP PROCEDURE IF EXISTS getExtrs;
 
-            -- * --------------------- EXTRUSIÓN  ------------------- *
+        -- * --------------------- EXTRUSIÓN  ------------------- *
 SELECT * FROM extrusion;
 DELETE FROM FichaTec WHERE id_codProduct = "232323";
 SELECT * FROM FICHATEC;
@@ -78,7 +78,7 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
     
-			-- * --------------------- IMPRESIÓN  ------------------- *
+		-- * --------------------- IMPRESIÓN  ------------------- *
 CALL getImprs(
 	'4444'
 )
@@ -108,9 +108,8 @@ DELIMITER $$
 	DELIMITER ;
     
     
-			-- * --------------------- LAMINACIÓN  ------------------- *	
-		
-		-- LAMINACION GENERAL / MATERIAL IMPRIMIR
+		-- * --------------------- LAMINACIÓN  ------------------- *		
+	-- LAMINACION GENERAL / MATERIAL IMPRIMIR
         
 SELECT * FROM AnchoBob_TolrLam4;
 CALL getLmns(
@@ -183,6 +182,65 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
 
+	-- * --------------------- REFILADAO  ------------------- *
+CALL getRefil(
+	'4545'
+)
+
+DELIMITER $$
+	CREATE PROCEDURE getRefil(
+		IN id_idCodPrdct VARCHAR(255)
+	)
+	BEGIN 
+		-- Iniciar la transacción
+		START TRANSACTION;
+
+		SELECT * FROM REFILADO rfl
+	        INNER JOIN AnchoFinalBob_TolrRef anchRef ON rfl.idCodPrdc = anchRef.idCodPrdc
+            INNER JOIN MetrosBobRefil_Tolr mtrs ON rfl.idCodPrdc = mtrs.idCodPrdc
+			INNER JOIN DiamBobRefil_Tolr dmtrRef ON rfl.idCodPrdc = dmtrRef.idCodPrdc
+			INNER JOIN PesoNet_Prom_Bob psBob ON rfl.idCodPrdc = psBob.idCodPrdc
+			INNER JOIN Num_BobCama_CamTamRefil numCmTam ON rfl.idCodPrdc = numCmTam.idCodPrdc
+			INNER JOIN Peso_prom_tarimaRefil psPromTam ON rfl.idCodPrdc = psPromTam.idCodPrdc
+			INNER JOIN anchCre_TolRefil anchCore ON rfl.idCodPrdc = anchCore.idCodPrdc
+
+		WHERE rfl.idCodPrdc = id_idCodPrdct;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+
+	-- * --------------------- CONVERSION  ------------------- *
+CALL getRefil(
+	'4545'
+)
+
+DROP PROCEDURE IF EXISTS getConvrs;
+
+DELIMITER $$
+	CREATE PROCEDURE getConvrs(
+		IN id_codProduct VARCHAR(255)
+	)
+	BEGIN 
+		START TRANSACTION;
+
+		SELECT * FROM CONVERSION cnvrs
+	        INNER JOIN MedidEmpq md ON cnvrs.idCodPrdc = md.idCodPrdc
+			INNER JOIN NumBlts_CajsCmas_CmasTarim nmlts ON cnvrs.idCodPrdc = nmlts.idCodPrdc
+            INNER JOIN NumBlts_CajsTarim ncjs ON cnvrs.idCodPrdc = ncjs.idCodPrdc
+			INNER JOIN psPromTam psPrm ON cnvrs.idCodPrdc = psPrm.idCodPrdc
+
+		WHERE cnvrs.idCodPrdc = id_codProduct;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+    
+
+    
 # ------------------------------------------------------------------------------------------------------------  #
 
 
@@ -545,6 +603,8 @@ DELIMITER $$
 	END$$
 	DELIMITER;
 
+
+DROP PROCEDURE IF EXISTS InsertRefil;
 	-- REFILADO
 DELIMITER $$
 	CREATE PROCEDURE InsertRefil(
@@ -564,20 +624,26 @@ DELIMITER $$
 		IN tarima_flejada VARCHAR(255),
 		IN numBobTam INT,
 
+		IN anchoFinalBob DECIMAL(10,2),
+		IN tol_anchoBob DECIMAL(10,2),
+
+		IN metros DECIMAL(10,2),
+		IN tol_Mtrs DECIMAL(10,2),
+
 		IN diametro DECIMAL(10,2),
 		IN tol_dim DECIMAL(10,2),
 
 		IN peso DECIMAL(10,2),
-		IN tol_peso DECIMAL(10,2),
+		IN tol_pso DECIMAL(10,2),
 
 		IN num_Bob_Cama DECIMAL(10,2),
 		IN camas_Tarima DECIMAL(10,2),
 
 		IN pesoNeto DECIMAL(10,2),
-		IN tol_psoNto DECIMAL(10,2),
+		IN tol_psNto DECIMAL(10,2),
 
 		IN core DECIMAL(10,2),
-		IN tol_core DECIMAL(10,2),
+		IN tol_core DECIMAL(10,2)
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
 		-- Iniciar la transacción
@@ -587,12 +653,98 @@ DELIMITER $$
             VALUES (idCodPrdc,proceso,acabadoBob,grosorCore,figEmbob_impr,bobinaRefilar,maximo_Empal,señalEmpl,orient_Bob_Tarima,tipo_Empaque,pesar_Prdct,etiquetado,tarima_emplaye,tarima_flejada,numBobTam);
 		
 			INSERT INTO AnchoFinalBob_TolrRef (idCodPrdc,anchoFinalBob,tolerancia)
-            VALUES (idCodPrdc,anchoFinalBob,tol_an)
+            VALUES (idCodPrdc,anchoFinalBob,tol_anchoBob);
+
+			INSERT INTO MetrosBobRefil_Tolr (idCodPrdc,metros,tolerancia)
+            VALUES (idCodPrdc,metros,tol_Mtrs);
+
+			INSERT INTO DiamBobRefil_Tolr (idCodPrdc,diametro,tolerancia)
+            VALUES (idCodPrdc,diametro,tol_dim);
+
+			INSERT INTO PesoNet_Prom_Bob (idCodPrdc,peso,tolerancia)
+            VALUES (idCodPrdc,peso,tol_pso);
+
+			INSERT INTO Num_BobCama_CamTamRefil (idCodPrdc,num_Bob_Cama,camas_Tarima)
+            VALUES (idCodPrdc,num_Bob_Cama,camas_Tarima);
+
+			INSERT INTO Peso_prom_tarimaRefil (idCodPrdc,pesoNeto,tolerancia)
+            VALUES (idCodPrdc,pesoNeto,tol_psNto);
+
+			INSERT INTO anchCre_TolRefil(idCodPrdc,core,tolerancia)
+            VALUES (idCodPrdc,core,tol_core);
 
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
 	DELIMITER ;
+
+DROP PROCEDURE IF EXISTS InsertConvrs;
+CALL getConvrs(
+	'4545'
+)
+
+SELECT * FROM FICHATEC;
+
+
+	-- CONVERSIÓN
+DELIMITER $$
+	CREATE PROCEDURE InsertConvrs(
+		IN idCodPrdc INT,
+		IN tipo_Empaque VARCHAR(255),				/*EXTRUCIÓN*/
+		IN tipoSello VARCHAR(255),
+		IN tipoAcabado VARCHAR(255),
+		IN prdctPerf VARCHAR(255),
+		IN cntPerf INT,
+		IN prdctSuaje VARCHAR(255),
+		IN tipSuaje VARCHAR(255),
+		IN empcdPrdct VARCHAR(255),
+		IN cantPzsPacq DECIMAL(10,2),
+		IN tipEmblj VARCHAR(255),
+		IN medidEmblj INT,
+		IN pesarProd VARCHAR(255),
+		IN pesoProm DECIMAL(10,2),
+		IN etiquetado VARCHAR(255),
+		IN tarima_Emplaye VARCHAR(255),
+		IN tarima_Flejada VARCHAR(255),
+
+		/*Medida del empaque Ancho/Alto*/
+		IN ancho DECIMAL(10,2),
+		IN alto DECIMAL(10,2),
+		/*Numero de bultos o cajas por camas y camas por tarima*/         
+		IN cajasCama DECIMAL(10,2),
+		IN camasTarima DECIMAL(10,2),
+		/*Numero de bultos o cajas por camas y camas por tarima*/
+		IN num DECIMAL(10,2),
+		IN tol_num DECIMAL(10,2),
+		/*Peso promedio en tarima*/
+		IN peso DECIMAL(10,2),
+		IN tol_pso DECIMAL(10,2)
+
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+			-- Conversión
+			INSERT INTO CONVERSION (idCodPrdc, tipo_Empaque, tipoSello, tipoAcabado, prdctPerf, cntPerf, prdctSuaje, tipSuaje, empcdPrdct, cantPzsPacq, tipEmblj, medidEmblj, pesarProd, pesoProm, etiquetado, tarima_Emplaye, tarima_Flejada)
+            VALUES (idCodPrdc,tipo_Empaque,tipoSello,tipoAcabado,prdctPerf,cntPerf,prdctSuaje,tipSuaje,empcdPrdct,cantPzsPacq,tipEmblj,medidEmblj,pesarProd,pesoProm,etiquetado,tarima_Emplaye,tarima_Flejada);
+			-- MedidEmpq
+			INSERT INTO MedidEmpq(idCodPrdc, ancho, alto)
+            VALUES (idCodPrdc,ancho,alto);
+			-- 	NumBlts_CajsCmas_CmasTarim
+			INSERT INTO NumBlts_CajsCmas_CmasTarim(idCodPrdc,cajasCama,camasTarima)
+            VALUES (idCodPrdc,cajasCama,camasTarima);
+			-- NumBlts_CajsTarim
+			INSERT INTO NumBlts_CajsTarim(idCodPrdc,num,tolerancia)
+            VALUES (idCodPrdc,num,tol_num);
+			-- psPromTam
+			INSERT INTO psPromTam(idCodPrdc,peso,tolerancia)
+            VALUES (idCodPrdc,peso,tol_pso);
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
 
 # -------------------------------------------------------------------------------------------------------------  #
 
@@ -601,7 +753,7 @@ DELIMITER $$
 			
 # ---------------------------------------------  UPDATE --------------------------------------------------------  #
 
-# --- UPDATE FICHA / VENTAS ---
+# --------------------FICHA / VENTAS------------------------------------------------------------------------------------------     
 
 DELIMITER $$
 	CREATE PROCEDURE UpdateFichaVentas(
@@ -638,9 +790,11 @@ DELIMITER $$
             WHERE idCodPrdc = id_idCodPrdct;
 		COMMIT;
 	END$$
-	DELIMITER ;        
+	DELIMITER ;   
+
+# ------------------------------------------------------------------------------------------------------------------     
             
-# --- TRANSACCIÓN EXTRUCIÓN ---
+# -------------------- EXTRUSION ------------------------------------------------------------------------------------------     
  DROP PROCEDURE IF EXISTS UpdateEtrs;
 SET SQL_SAFE_UPDATES = 0;
 
@@ -746,7 +900,10 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
 
-		-- **** IMPRESIÓN ****
+# ------------------------------------------------------------------------------------------------------------------     
+
+
+# -------------------- IMPRESION ------------------------------------------------------------------------------------------     
 
 DELIMITER $$
 	CREATE PROCEDURE UpdateImpr(
@@ -844,8 +1001,12 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
     
+# ------------------------------------------------------------------------------------------------------------------     
     
-    -- * ---- LAMINACIÓN ---- * 
+    
+ DROP PROCEDURE IF EXISTS UpdateEtrs;
+
+# -------------------- LAMINADO ------------------------------------------------------------------------------------------ 
 
 		-- LAMINACION GENERAL / MATERIAL IMPRIMIR
 DELIMITER $$
@@ -1017,5 +1178,168 @@ DELIMITER $$
 		COMMIT;
 	END$$
 	DELIMITER ;
-    
-    
+
+# ------------------------------------------------------------------------------------------------------------------     
+
+# -------------------- REFILADO ------------------------------------------------------------------------------------------ 
+
+DROP PROCEDURE IF EXISTS UpdateRefil;
+	-- REFILADO
+DELIMITER $$
+	CREATE PROCEDURE UpdateRefil(
+		IN proceso VARCHAR(255),
+		IN acabadoBob VARCHAR(255),
+		IN grosorCore VARCHAR(255),
+		IN figEmbob_impr VARCHAR(255),
+		IN bobinaRefilar VARCHAR(255),
+		IN maximo_Empal INT,
+		IN señalEmpl VARCHAR(255),
+		IN orient_Bob_Tarima VARCHAR(255),
+		IN tipo_Empaque VARCHAR(255),
+		IN pesar_Prdct VARCHAR(255),
+		IN etiquetado VARCHAR(255),
+		IN tarima_emplaye VARCHAR(255),
+		IN tarima_flejada VARCHAR(255),
+		IN numBobTam INT,
+
+		IN anchoFinalBob DECIMAL(10,2),
+		IN tol_anchoBob DECIMAL(10,2),
+
+		IN metros DECIMAL(10,2),
+		IN tol_Mtrs DECIMAL(10,2),
+
+		IN diametro DECIMAL(10,2),
+		IN tol_dim DECIMAL(10,2),
+
+		IN peso DECIMAL(10,2),
+		IN tol_pso DECIMAL(10,2),
+
+		IN num_Bob_Cama DECIMAL(10,2),
+		IN camas_Tarima DECIMAL(10,2),
+
+		IN pesoNeto DECIMAL(10,2),
+		IN tol_psNto DECIMAL(10,2),
+
+		IN core DECIMAL(10,2),
+		IN tol_core DECIMAL(10,2),
+
+		IN id_idCodPrdc INT
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+			-- REFILADO
+			UPDATE REFILADO
+				SET proceso = proceso,
+					acabadoBob = acabadoBob,
+					grosorCore = grosorCore,
+					figEmbob_impr = figEmbob_impr,
+					bobinaRefilar = bobinaRefilar,
+					maximo_Empal = maximo_Empal,
+					señalEmpl = señalEmpl,
+					orient_Bob_Tarima = orient_Bob_Tarima,
+					tipo_Empaque = tipo_Empaque,
+					pesar_Prdct = pesar_Prdct,
+					etiquetado = etiquetado,
+					tarima_emplaye = tarima_emplaye,
+					tarima_flejada = tarima_flejada,
+					numBobTam = numBobTam
+				WHERE id_idCodPrdc = id_idCodPrdc;
+
+			-- Ancho Bobina / Tol
+			UPDATE AnchoFinalBob_TolrRef SET anchoFinalBob = anchoFinalBob, tolerancia = tol_anchoBob WHERE id_idCodPrdc = id_idCodPrdc;
+			-- MetrosBobRefil_Tolr
+			UPDATE MetrosBobRefil_Tolr SET metros = metros, tolerancia = tol_Mtrs WHERE id_idCodPrdc = id_idCodPrdc;
+			-- MetrosBobRefil_Tolr
+			UPDATE DiamBobRefil_Tolr SET diametro = diametro, tolerancia = tol_dim WHERE id_idCodPrdc = id_idCodPrdc;
+			-- PesoNet_Prom_Bob
+			UPDATE PesoNet_Prom_Bob SET peso = peso, tolerancia = tol_pso WHERE id_idCodPrdc = id_idCodPrdc;
+			-- Num_BobCama_CamTamRefil
+			UPDATE Num_BobCama_CamTamRefil SET num_Bob_Cama = num_Bob_Cama, camas_Tarima = camas_Tarima WHERE id_idCodPrdc = id_idCodPrdc;
+			-- Peso_prom_tarimaRefil
+			UPDATE Peso_prom_tarimaRefil SET pesoNeto = pesoNeto, tolerancia = tol_psNto WHERE id_idCodPrdc = id_idCodPrdc;
+			-- anchCre_TolRefil
+			UPDATE anchCre_TolRefil SET core = core, tolerancia = tol_core WHERE id_idCodPrdc = id_idCodPrdc;
+	
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+# ------------------------------------------------------------------------------------------------------------------     
+
+# -------------------- CONVERSIÓN ------------------------------------------------------------------------------------------ 
+
+	-- CONVERSIÓN
+DELIMITER $$
+	CREATE PROCEDURE UpdateConvrs(
+		IN tipo_Empaque VARCHAR(255),				/*EXTRUCIÓN*/
+		IN tipoSello VARCHAR(255),
+		IN tipoAcabado VARCHAR(255),
+		IN prdctPerf VARCHAR(255),
+		IN cntPerf INT,
+		IN prdctSuaje INT,
+		IN tipSuaje VARCHAR(255),
+		IN empcdPrdct VARCHAR(255),
+		IN cantPzsPacq DECIMAL(10,2),
+		IN tipEmblj VARCHAR(255),
+		IN medidEmblj INT,
+		IN pesarProd VARCHAR(255),
+		IN pesoProm DECIMAL(10,2),
+		IN etiquetado VARCHAR(255),
+		IN tarima_Emplaye VARCHAR(255),
+		IN tarima_Flejada VARCHAR(255),
+
+		/*Medida del empaque Ancho/Alto*/
+		IN ancho DECIMAL(10,2),
+		IN alto DECIMAL(10,2),
+		/*Numero de bultos o cajas por camas y camas por tarima*/         
+		IN cajasCama DECIMAL(10,2),
+		IN camasTarima DECIMAL(10,2),
+		/*Numero de bultos o cajas por camas y camas por tarima*/
+		IN num DECIMAL(10,2),
+		IN tol_num DECIMAL(10,2),
+		/*Peso promedio en tarima*/
+		IN peso DECIMAL(10,2),
+		IN tol_pso DECIMAL(10,2),
+
+		IN id_idCodPrdc INT
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+			-- Conversión
+			UPDATE REFILADO
+				SET tipo_Empaque = tipo_Empaque,
+					tipoSello = tipoSello,
+					tipoAcabado = tipoAcabado,
+					prdctPerf = prdctPerf,
+					cntPerf = cntPerf,
+					prdctSuaje = prdctSuaje,
+					tipSuaje = tipSuaje,
+					empcdPrdct = empcdPrdct,
+					cantPzsPacq = cantPzsPacq,
+					tipEmblj = tipEmblj,
+					medidEmblj = medidEmblj,
+					pesarProd = pesarProd,
+					pesoProm = pesoProm,
+					etiquetado = etiquetado,
+					tarima_Emplaye = tarima_Emplaye,
+					tarima_Flejada = tarima_Flejada,
+				WHERE id_idCodPrdc = id_idCodPrdc;
+			
+			-- MedidEmpq
+			UPDATE MedidEmpq SET ancho = ancho, alto = alto WHERE id_idCodPrdc = id_idCodPrdc;
+			-- 	NumBlts_CajsCmas_CmasTarim
+			UPDATE NumBlts_CajsCmas_CmasTarim SET cajasCama = cajasCama, camasTarima = camasTarima WHERE id_idCodPrdc = id_idCodPrdc;
+			-- NumBlts_CajsTarim
+			UPDATE NumBlts_CajsTarim SET num = num, tolerancia = tol_num WHERE id_idCodPrdc = id_idCodPrdc;
+			-- psPromTam
+			UPDATE psPromTam SET peso = peso, tolerancia = tol_pso WHERE id_idCodPrdc = id_idCodPrdc;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+# ------------------------------------------------------------------------------------------------------------------     

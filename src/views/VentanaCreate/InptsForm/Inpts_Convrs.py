@@ -1,12 +1,27 @@
 from flet import *
 from src.views.VentanaCreate.Verificaciones import verificaciones
 from src.app.filExcel.filtroExcel import filter
+from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+from src.Controllers.appConvrs import appConvrs
+
 
 class Inpts_Convrs():
     def __init__(self,page):
         
         self.page = page
         self.valida = verificaciones(page)
+
+         # -- ACTUALIZA SI ES INSERT O UPDATE --#
+        self.aux = InptsAux
+        self.dtaCnvrs = appConvrs
+    
+        # ID PRODUCT UPDATE 
+        self.id = self.page.client_storage.get("id")
+
+        # QURY DATA FORM #
+            # QUERY GET REFILADO
+        self.dtaRef = self.dtaCnvrs().transGetConvrs(self.id)
+
 
     ### INPUTS DE LA TABLA CONVERSIÓN ###
 
@@ -56,7 +71,7 @@ class Inpts_Convrs():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
-                on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
         )
 
         self.tipSello = TextField(
@@ -66,7 +81,7 @@ class Inpts_Convrs():
                 value="N/A",
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
-                on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
+                on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
         )
 
         self.tipAcbd = TextField(
@@ -350,6 +365,15 @@ class Inpts_Convrs():
             autofocus=True,
             #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
+
+    # GET CNVRS
+    def dataExtrs(self,default_value,Indx):
+        if self.id != "Insert":
+            print(self.dtaCnvrs)                  
+            return self.dtaCnvrs[Indx]
+            #return f"{Indx}"
+        else:
+            return default_value
 
     def tplInptsConvrs(self):
         return [
