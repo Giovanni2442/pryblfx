@@ -13,14 +13,14 @@ class Inpts_Convrs():
 
          # -- ACTUALIZA SI ES INSERT O UPDATE --#
         self.aux = InptsAux
-        self.dtaCnvrs = appConvrs
+        self.Cnvrs = appConvrs
     
         # ID PRODUCT UPDATE 
         self.id = self.page.client_storage.get("id")
 
         # QURY DATA FORM #
             # QUERY GET REFILADO
-        self.dtaRef = self.dtaCnvrs().transGetConvrs(self.id)
+        self.dtaCvrs = self.Cnvrs().transGetConvrs(self.id)
 
 
     ### INPUTS DE LA TABLA CONVERSIÓN ###
@@ -40,7 +40,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataCnvrs('0',18),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -54,7 +54,7 @@ class Inpts_Convrs():
                             label="Alto",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataCnvrs('0',19),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -68,7 +68,7 @@ class Inpts_Convrs():
                 label="Tipo de Empaque",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value="N/A",
+                value=self.dataCnvrs("N/A",1),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -78,7 +78,7 @@ class Inpts_Convrs():
                 label="Tipo de Sello",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value="N/A",
+                value=self.dataCnvrs("N/A",2),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
@@ -88,7 +88,7 @@ class Inpts_Convrs():
                 label="Tipo de Acabado",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value="N/A",
+                value=self.dataCnvrs("N/A",3),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -97,7 +97,7 @@ class Inpts_Convrs():
         self.prdctPerf = Dropdown(
             label="El producto llevara Perforaciónes",
             hint_text="Perforaciónes",
-            value="N/A",
+            value=self.dataCnvrs("N/A",4),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -111,7 +111,7 @@ class Inpts_Convrs():
                 label="Cantidad de Perforaciónes",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value='0',
+                value=self.dataCnvrs('0',5),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -120,7 +120,7 @@ class Inpts_Convrs():
         self.prdctSuaje = Dropdown(
             label="El Producto lleva Suaje : ",
             hint_text="Suaje",
-            value="N/A",
+            value=self.dataCnvrs('N/A',6),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -134,7 +134,7 @@ class Inpts_Convrs():
                 label="Tipo de Suaje",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value="N/A",
+                value=self.dataCnvrs('N/A',7),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfAny)
@@ -143,7 +143,7 @@ class Inpts_Convrs():
         self.empcdPrdct = Dropdown(
             label="Empacado de Producto",
             hint_text="Empacado",
-            value="N/A",
+            value=self.dataCnvrs('N/A',8),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -159,7 +159,7 @@ class Inpts_Convrs():
                 label="Cantidad de Piezas por Paquete",
                 border= InputBorder.OUTLINE,
                 border_color="Black",
-                value='0',
+                value=self.dataCnvrs('0',9),
                 error_text = "",
                 label_style=TextStyle(color="Black",italic=True),
                 on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -168,7 +168,7 @@ class Inpts_Convrs():
         self.tipEmblj = Dropdown(
             label="Tipo de Embalaje",
             hint_text="Embalaje",
-            value="N/A",
+            value=self.dataCnvrs('N/A',10),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -183,7 +183,7 @@ class Inpts_Convrs():
             label="Medida del Embalaje",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataCnvrs('0',11),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -192,7 +192,7 @@ class Inpts_Convrs():
         self.psrPrdct = Dropdown(
             label="Pesar Producto Por :",
             hint_text="Pesar",
-            value="N/A",
+            value=self.dataCnvrs('N/A',12),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -208,7 +208,7 @@ class Inpts_Convrs():
             label="Peso neto promedio de bobina",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value='0',
+            value=self.dataCnvrs('0',13),
             error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -217,7 +217,7 @@ class Inpts_Convrs():
         self.etiquetado = Dropdown(
             label="Etiquetado",
             hint_text="etiquetado",
-            value="N/A",
+            value=self.dataCnvrs('N/A',14),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -242,7 +242,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataCnvrs('0',21),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -256,7 +256,7 @@ class Inpts_Convrs():
                             label="Camas",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataCnvrs('0',22),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -279,7 +279,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataCnvrs('0',24),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -293,7 +293,7 @@ class Inpts_Convrs():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataCnvrs('0',25),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -316,7 +316,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value='0',
+                            value=self.dataCnvrs('0',27),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -330,7 +330,7 @@ class Inpts_Convrs():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value='0',
+                            value=self.dataCnvrs('0',28),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -343,7 +343,7 @@ class Inpts_Convrs():
         self.tamEmply = Dropdown(
             label="La tarima llevara Emplaye",
             hint_text="Emplaye",
-            value="N/A",
+            value=self.dataCnvrs('N/A',15),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -356,7 +356,7 @@ class Inpts_Convrs():
         self.tamFlej = Dropdown(
             label="La tarima sera Flejada",
             hint_text="Fleje",
-            value="N/A",
+            value=self.dataCnvrs('N/A',16),
             error_text = "",
             options=[
                 dropdown.Option("N/A"),
@@ -367,10 +367,10 @@ class Inpts_Convrs():
         )
 
     # GET CNVRS
-    def dataExtrs(self,default_value,Indx):
+    def dataCnvrs(self,default_value,Indx):
         if self.id != "Insert":
-            print(self.dtaCnvrs)                  
-            return self.dtaCnvrs[Indx]
+            #print(self.dtaCvrs)             
+            return self.dtaCvrs[Indx]
             #return f"{Indx}"
         else:
             return default_value

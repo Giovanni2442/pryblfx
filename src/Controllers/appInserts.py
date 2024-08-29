@@ -56,7 +56,7 @@ class appInserts():
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
                     self.tpl2.append(j.value)
 
-        print("-----------> : " ,self.tpl2[122:150])
+        #print("-----------> : " ,self.tpl2[122:150])
 
         #'''
                 # --- INSERCIÓN POR REBANADAS ---   

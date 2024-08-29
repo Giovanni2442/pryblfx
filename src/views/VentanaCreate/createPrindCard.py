@@ -1,6 +1,6 @@
 from flet import *
 from src.views.VentanaCreate.Verificaciones import verificaciones
-from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
+#from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 #from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 #Notas : para el usuario se puede agregar cerrar su seción, ver su historial de modificaciónes etc..
@@ -16,7 +16,7 @@ from src.views.VentanaCreate.InptsForm.Inpts_Refil import Inpts_Refil
 from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
 from src.views.VentanaCreate.Verificaciones import verificaciones      # <---- DESCOMENTAR ESTO
 #from src.Controllers.appInserts import appInserts
-from src.views.VentanaCreate.Mdls import opnMdlImg
+#from src.views.VentanaCreate.Mdls import opnMdlImg
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 
 class createPrind(UserControl):
@@ -37,13 +37,13 @@ class createPrind(UserControl):
         self.InptsConvrs = Inpts_Convrs(page)      # <--- DESCOMENTAR ESTO!!!!!!!!!
         
         #---Pruebas para el prindcard ---#
-        self.prntCrd = CreatePdf()
+        #self.prntCrd = CreatePdf()     #           #<---- DESCOMENTAR ESTO!!!!!!!!!
         # Verifica cada una de las entradas
         self.vrf = verificaciones(page)            #<---- DESCOMENTAR ESTO!!!!!!!!!
         # Qry's de la Base de datos
         #self.appInsert = appInserts(page)
         # Modal de Imagenes
-        self.mdlImg = opnMdlImg(page)
+        #self.mdlImg = opnMdlImg(page)              #<---- DESCOMENTAR ESTO!!!!!!!!!
 
         # BOTON AGREGAR
         self.btn = FilledButton(

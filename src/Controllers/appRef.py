@@ -41,7 +41,7 @@ class appRef():
     # --- TRANSACCIÓN UPDATE --- #
     def transctUpdateRefil(self,*args):
         try:
-            self.cursorPool.callproc('UpdateImpr',(args))
+            self.cursorPool.callproc('UpdateRefil',(args))
             self.conectPool.commit()
         except mysql.connector.Error as err:
             print("ERROR UPDATE REFIL",err)

@@ -186,10 +186,11 @@ class verificaciones():
                 if row[0] == data[0][0].value:           # La primera tabla FichaTecnica contiene el ID asi que de la tupa toma el [FichaTec][Id]
                     contact_exists = True
                     break
-                #### ARREGLAR ESTE PINCHE DESMADRE ####
-
+             
+            # INSERT
             if self.aux().changeBtn(self.page.client_storage.get("id")) == "Ingresar":
                 if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
+                    
                     # INSERTAR EN DB
                     self.Insrt.qryPost(data)
         

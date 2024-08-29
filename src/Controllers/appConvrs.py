@@ -15,6 +15,7 @@ class appConvrs():
             # Recuperar los resultados
             for result in self.cursorPool.stored_results():
                 data = result.fetchone()
+            #print("-- : ",data)
             return data
         except mysql.connector.Error as err:
             print("ERROR AL TRAER DATOS CONVRS! : ",err)

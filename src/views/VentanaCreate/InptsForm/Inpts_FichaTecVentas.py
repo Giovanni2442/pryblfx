@@ -30,9 +30,10 @@ class Inpts_FichaTec_Ventas():
             border_color="Black",
             #value=self.aux().getData(self.id,'FICHA',0,""),
             value=self.data("",0),
+            error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfPrintCard),       # Traba con la expreción regular del input
-            #disabled= lambda _: self.edit()
+            disabled= self.edit()
         )
 
         self.cliente = TextField(
@@ -51,6 +52,7 @@ class Inpts_FichaTec_Ventas():
             border= InputBorder.OUTLINE,
             border_color="Black",
             value=self.data("",2),
+            error_text = "",
             #value=self.aux().getData(self.id,'FICHA',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
@@ -62,6 +64,7 @@ class Inpts_FichaTec_Ventas():
             border= InputBorder.OUTLINE,
             border_color="Black",
             value=self.data("",3),
+            error_text = "",
             #value=self.aux().getData(self.id,'FICHA',3,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
@@ -72,6 +75,7 @@ class Inpts_FichaTec_Ventas():
             border= InputBorder.OUTLINE,       
             border_color="Black",
             value=self.data("",4),
+            error_text = "",
             #value=self.aux().getData(self.id,'FICHA',4,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
@@ -83,6 +87,7 @@ class Inpts_FichaTec_Ventas():
             border= InputBorder.OUTLINE,       
             border_color="Black",
             value=self.dataVentas("",1),
+            error_text = "",
             #value=self.aux().getData(self.id,'VENTAS',3,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
@@ -93,6 +98,7 @@ class Inpts_FichaTec_Ventas():
             border= InputBorder.OUTLINE,       
             border_color="Black",
             value=self.dataVentas("",2),
+            error_text = "",
             #value=self.aux().getData(self.id,'VENTAS',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
@@ -103,8 +109,8 @@ class Inpts_FichaTec_Ventas():
             hint_text="Producto Laminado",
             #value="N/A",
             value=self.dataVentas("N/A",3),
+            error_text = "",
             #value=self.aux().getData(self.id,'VENTAS',3,"N/A"),
-            error_text="",
             options=[
                 dropdown.Option("N/A"),
                 dropdown.Option("APLICA"),
@@ -118,6 +124,7 @@ class Inpts_FichaTec_Ventas():
             border= InputBorder.OUTLINE,       
             border_color="Black",
             value=self.dataVentas("",4),
+            error_text = "",
             #value=self.aux().getData(self.id,'VENTAS',4,""),
             #value=self.data(""),
             label_style=TextStyle(color="Black",italic=True),
@@ -130,6 +137,7 @@ class Inpts_FichaTec_Ventas():
             border_color="Black",
             #value=self.aux().getData(self.id,'VENTAS',4,""),
             value=self.dataVentas("",5),
+            error_text = "",
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter) # change it
         )
@@ -137,9 +145,8 @@ class Inpts_FichaTec_Ventas():
     # GET FICHA
     def data(self,default_value,Indx):
         if self.id != "Insert":           
-            
-            #return self.dta[Indx]
-            return f"{Indx}"
+            return self.dta[Indx]
+            #return f"{Indx}"
         else:
             return default_value
             #return None'''
@@ -154,14 +161,12 @@ class Inpts_FichaTec_Ventas():
 
     # DESACTIVAR EDICIÓN
     def edit(self):
-        if  self.aux().changeBtn(self.page.client_storage.get("id")) != "Insert":
+        if  self.id != "Insert":
             return True
         else:
             return False
 
     # OBTIENE DATOS POR MEDIO DE SU ID
-
-    
     def tplInptsFichTec(self):
         return [
             self.id_product,

@@ -16,7 +16,7 @@ class appUpdate():
         self.dtaImpr = appImpr
         self.dtaLam = appLam
         self.dtaRef = appRef
-        #self.dtaConvrs = appConvrs #'''
+        self.dtaConvrs = appConvrs #'''
 
         self.auxList = []
       
@@ -69,4 +69,7 @@ class appUpdate():
         self.dtaLam().transctUpdateLmns(*self.auxList[94:122], self.auxList[0])
 
         # --- REFILADO ---
-        self.dtaRef().transctUpdateRefil(*self.auxList[122:148], self.auxList[0])
+        self.dtaRef().transctUpdateRefil(*self.auxList[122:150], self.auxList[0])
+        
+        # --- CONVERSION ---
+        self.dtaConvrs().transctUpdateConvrs(*self.auxList[150:174],self.auxList[0])

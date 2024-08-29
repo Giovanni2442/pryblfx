@@ -4,7 +4,6 @@ use dbingbf;
 show tables;
 show databases;
 
-
 # ------------------------------------- MUESTRAS DE CONTENIDO --------------------------------------------------
 SELECT * FROM FICHATEC;
 SELECT * FROM VENTAS;
@@ -213,15 +212,17 @@ DELIMITER $$
 
 
 	-- * --------------------- CONVERSION  ------------------- *
-CALL getRefil(
+CALL getConvrs(
 	'4545'
 )
+
+select * from conversion;
 
 DROP PROCEDURE IF EXISTS getConvrs;
 
 DELIMITER $$
 	CREATE PROCEDURE getConvrs(
-		IN id_codProduct VARCHAR(255)
+		IN id_idCodPrdct VARCHAR(255)
 	)
 	BEGIN 
 		START TRANSACTION;
@@ -232,15 +233,13 @@ DELIMITER $$
             INNER JOIN NumBlts_CajsTarim ncjs ON cnvrs.idCodPrdc = ncjs.idCodPrdc
 			INNER JOIN psPromTam psPrm ON cnvrs.idCodPrdc = psPrm.idCodPrdc
 
-		WHERE cnvrs.idCodPrdc = id_codProduct;
+		WHERE cnvrs.idCodPrdc = id_idCodPrdct;
 
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
 	DELIMITER ;
-    
-
-    
+        
 # ------------------------------------------------------------------------------------------------------------  #
 
 
@@ -745,7 +744,6 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
 
-
 # -------------------------------------------------------------------------------------------------------------  #
 
 
@@ -1183,6 +1181,8 @@ DELIMITER $$
 
 # -------------------- REFILADO ------------------------------------------------------------------------------------------ 
 
+
+select * from FICHATEC;
 DROP PROCEDURE IF EXISTS UpdateRefil;
 	-- REFILADO
 DELIMITER $$
@@ -1270,6 +1270,8 @@ DELIMITER $$
 
 # -------------------- CONVERSIÓN ------------------------------------------------------------------------------------------ 
 
+DROP PROCEDURE IF EXISTS UpdateConvrs;
+
 	-- CONVERSIÓN
 DELIMITER $$
 	CREATE PROCEDURE UpdateConvrs(
@@ -1278,7 +1280,7 @@ DELIMITER $$
 		IN tipoAcabado VARCHAR(255),
 		IN prdctPerf VARCHAR(255),
 		IN cntPerf INT,
-		IN prdctSuaje INT,
+		IN prdctSuaje VARCHAR(255),
 		IN tipSuaje VARCHAR(255),
 		IN empcdPrdct VARCHAR(255),
 		IN cantPzsPacq DECIMAL(10,2),
@@ -1309,7 +1311,7 @@ DELIMITER $$
 		-- Iniciar la transacción
 		START TRANSACTION;
 			-- Conversión
-			UPDATE REFILADO
+			UPDATE CONVERSION
 				SET tipo_Empaque = tipo_Empaque,
 					tipoSello = tipoSello,
 					tipoAcabado = tipoAcabado,
@@ -1325,7 +1327,7 @@ DELIMITER $$
 					pesoProm = pesoProm,
 					etiquetado = etiquetado,
 					tarima_Emplaye = tarima_Emplaye,
-					tarima_Flejada = tarima_Flejada,
+					tarima_Flejada = tarima_Flejada
 				WHERE id_idCodPrdc = id_idCodPrdc;
 			
 			-- MedidEmpq

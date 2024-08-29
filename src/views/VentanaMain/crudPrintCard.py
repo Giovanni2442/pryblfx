@@ -4,7 +4,7 @@ from flet import *          # Se importa todos los componentes de la Libreria "f
 #from src.Controllers.appdb import appDb
 from src.Controllers.appFichVent import appFichVent
 #from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
-from src.views.VentanaCreate.createPrindCard import createPrind
+#from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
 #from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
 
@@ -23,7 +23,7 @@ class crudPrintCard(UserControl):
         self.dataTbl = appFichVent  #Accede a la información en la base de datos
         #self.InsrtData = CntrlsCreatePrindCard()
         
-        self.createPrnt = createPrind(page)
+        #self.createPrnt = createPrind(page)
         self.pr = pr(page)
         #self.pdf = opnPrindPdf(page)'''
 
@@ -105,9 +105,13 @@ class crudPrintCard(UserControl):
         # --- TABLA ---
             # --- Columnas de la tabla ---
         self.Table = DataTable(
-            border= border.all(2,"purple"),
-            border_radius=5,
-            vertical_lines= BorderSide(1,color=colors.WHITE),
+            #border= border.all(2,"purple"),
+            #border_radius=2,
+            expand=True,
+            bgcolor="#146364",
+            data_row_color = colors.WHITE70,
+            border_radius=border_radius.only(top_left=10,top_right=10),
+            vertical_lines= BorderSide(0.5,color=colors.WHITE24),
             columns=[
                 DataColumn(Text("ID_PRODUCTO",color=colors.WHITE,weight="bold")),
                 DataColumn(Text("CLIENTE",color=colors.WHITE,weight="bold")),
@@ -176,21 +180,22 @@ class crudPrintCard(UserControl):
     
     def dataRows(self,row):
         self.rows = DataRow(
+            #color="yellow",
             cells=[
-                DataCell(Text(row[0],color="white")),
-                DataCell(Text(row[1],color="white")),
-                DataCell(Text(row[3],color="white")),
-                DataCell(Text(row[2],color="white")),
+                DataCell(Text(row[0],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
+                DataCell(Text(row[1],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
+                DataCell(Text(row[3],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
+                DataCell(Text(row[2],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
                 DataCell(
                     Row([
                         IconButton("delete",
                             #icons.CHECK,
-                            icon_color="red",
+                            icon_color=colors.BLACK54,
                             data=row,
                             on_click=self.dltButton # --- PROXIMA TAREA ---
                         ),
                         IconButton("edit",
-                            icon_color="green",
+                            icon_color=colors.BLACK54,
                             data=row,
                             on_click= lambda e: (
                                 self.page.client_storage.set("id",e.control.data[0]),
@@ -198,7 +203,7 @@ class crudPrintCard(UserControl):
                             ),
                         ),
                         IconButton("NEWSPAPER", # Ficha Tecnica
-                            icon_color="yellow",
+                            icon_color=colors.BLACK54,
                             data=row,
                             #on_click= #self.pdf.open_pdf # --- PROXIMA TAREA ---
                             #on_click= #self.pdf.opnPdfBffer
@@ -263,61 +268,51 @@ class crudPrintCard(UserControl):
     # --- CONTENEDORES,FRAMES ETC ... ---
         # --- FRAME FILTRADO ---
         self.cntFiltPrinf = Container(
-            expand=True,
-            bgcolor="#222222",
-            border_radius=5,
-            padding=10,
+            #expand=True,
+            bgcolor= colors.BLACK12,
+            border_radius=0,
+            alignment= alignment.center,
+            padding=0,
             content= Row(
                 controls=[
-                    #Contenedor de busquedas masivas por ciente
-                    Container(
-                        expand=True,
-                        bgcolor=self.color_teal,
-                        border_radius=10,
-                        padding=8,
-                        content= Column(
-                            controls=[  
-                                Container(
-                                    Text("Busqueda Masiva : ",color="whithe"),
-                                    #self.InptPrindCard,
-                                    alignment=alignment.center,
-                                    bgcolor="black",
-                                    border_radius=5
-                                ),
-                                self.InptClienteMasiva
-                            ]
-                        )
-                    ),
                     # Contenedor de Busquedas Simples
                     Container(
                         expand=True,
-                        bgcolor= self.color_teal,
-                        border_radius=10,
+                        bgcolor= colors.WHITE,
+                        border_radius=0,
                         padding=8,
-                        alignment = alignment.center_right,
+                    
+                        alignment=alignment.center,
                         content= Column(
                             controls=[
                                 Container( 
-                                    Text("Buscar por : ",color="whithe"),
+                                    Text("FICHA TECNICA",color=colors.BLACK38,theme_style=TextThemeStyle.TITLE_SMALL),
+                                    border=border.only(bottom=border.BorderSide(0.5, colors.BLACK87)),
+                                    #expand=True,
                                     #self.InptPrindCard,
                                     alignment=alignment.center,
-                                    bgcolor="black",
-                                    border_radius=5
+                                    height=50,
+                                    #bgcolor=colors.AMBER,
+                                    border_radius=0
                                 ),
                                 
                                 self.InptPrindCard,
-                                self.InptClienteSimple,
+                                #self.InptClienteSimple,
                                 # Se coloca en un contenedor para centar
                                 Container(
-                                    expand=True,
-                                    alignment=alignment.bottom_right,
+                                    #expand=True,
+                                    alignment=alignment.bottom_left,
                                     #bgcolor="yellow",
                                     padding=5,
                                     border_radius=3,
                                     content= Row(
+                                        alignment=MainAxisAlignment.SPACE_BETWEEN,
                                         controls= [
-                                            self.BtnCreate,
-                                            self.BtnCreate2
+                                            Text("PrindCards",
+                                                color=colors.BLACK38,
+                                                theme_style=TextThemeStyle.TITLE_LARGE,
+                                                font_family="Calibri",italic=True),
+                                            self.BtnCreate
                                         ]
                                     )
                                 )
@@ -330,25 +325,18 @@ class crudPrintCard(UserControl):
 
         # --- FRAME TABLE ---
         self.cntTable = Container(
-            bgcolor="#222222",  # Cambiado a azul para distinguir visualmente
-            border_radius=10,
+            bgcolor= colors.WHITE54,  # Cambiado a azul para distinguir visualmente
+            border_radius=5,
             alignment=alignment.top_center,
             expand=True,
-            padding=10,
+            padding=5,
+            margin= margin.only(left=0,right=0,top=-5,bottom=0),
             content= Column( 
                 expand=True,
                 scroll="auto",
                 controls=[
-                    #self.data_table
-                    Container(
-                        #expand=True,
-                        bgcolor="red",
-                        margin=0,
-                        border_radius=3,
-                        alignment=ft.alignment.center,
-                        content=Text("Lista de PrindCards"),
-                    ),
-                    ResponsiveRow(                        
+                    Row(
+                        #scroll="auto",                     
                         controls=[
                             self.Table
                         ]
@@ -359,9 +347,9 @@ class crudPrintCard(UserControl):
 
         # Colocar los frames en forma de columna
         self.frameMain = Container(
-            bgcolor="black",
+            bgcolor= colors.BLACK12,
             border_radius=10,
-            padding=2,
+            padding=8,
             content=Column(
                     controls=[
                         self.cntFiltPrinf,
@@ -379,12 +367,14 @@ class crudPrintCard(UserControl):
     # IMPORTANTE : Retorna todos los Gidwts del promama
     def build(self):    
         return self.container
-'''
+#'''
 def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicación
     page.window_min_height = 200
     page.window_min_width = 200
-    page.theme_mode = ThemeMode.DARK
-    page.padding = 5
+
+    #page.theme_mode = ThemeMode.DARK
+    page.padding = 0
+    #page.adaptive = True
     page.add(crudPrintCard(page))
 
 

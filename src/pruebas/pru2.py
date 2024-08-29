@@ -1,4 +1,4 @@
-##--Draw and drop--##
+'''##--Draw and drop--##
 from flet import * 
 
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
@@ -80,7 +80,7 @@ class FileUploaderApp:
 #    app = FileUploaderApp(page)
 #    page.add(app.build())
 
-#app(target=main)
+#app(target=main)'''
 
     
 
