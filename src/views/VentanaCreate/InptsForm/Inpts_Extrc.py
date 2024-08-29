@@ -188,7 +188,6 @@ class InptsExtrc():
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
-
                         )
                     ])
                 ),

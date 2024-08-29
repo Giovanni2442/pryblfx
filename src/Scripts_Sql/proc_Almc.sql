@@ -1,3 +1,8 @@
+# TAREA : CONVERTIR TODOS LOS DECIMAL A INT,
+# HAY ERROR EN TOLERANCIA CALIBRE EXTRUCIÓN CON UPDATE
+# VERIFICAR QUE LA HACER EL UPDATE SE ACTUALICE TODO Y AGREGUE TODO
+
+
 show databases;
 use dbingbf;
 
@@ -239,7 +244,8 @@ DELIMITER $$
 		COMMIT;
 	END$$
 	DELIMITER ;
-        
+    
+    
 # ------------------------------------------------------------------------------------------------------------  #
 
 
@@ -250,7 +256,6 @@ select * from fichatec;
 SELECT * FROM extrusion;
 SELECT * FROM impresion;
 SELECT * FROM ventas;
-DROP PROCEDURE IF EXISTS InsertExtr;
 
 	-- * --- FICHA / VENTAS ----* 
     
@@ -278,10 +283,11 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
     
+DROP PROCEDURE IF EXISTS InsertExtr;
 	-- *** EXTRUCIÓN ***	
 DELIMITER $$
 	CREATE PROCEDURE InsertExtr(
-		IN idCodPrdc INT,
+		IN idCodPrdc VARCHAR(255),
 		IN tipo_Material VARCHAR(255),				
 		IN dinaje VARCHAR(255),
 		IN formula VARCHAR(255),
@@ -296,20 +302,20 @@ DELIMITER $$
 		IN num_Bob_Tarima INT,
 		IN tarima_Emplaye VARCHAR(255),
 		IN tarima_flejada VARCHAR(255),
-		IN calibre DECIMAL(10,2),
-		IN tol_calibre DECIMAL(10,2),
-		IN anchoBob DECIMAL(10,2),
-		IN tol_anchoBob DECIMAL(10,2),
-		IN anchoCore DECIMAL(10,2),
-		IN tol_anchoCore DECIMAL(10,2),
-		IN diamBob DECIMAL(10,2),
-		IN tol_diamBob DECIMAL(10,2),
-		IN pesoBob DECIMAL(10,2),
-		IN tol_pesoBob DECIMAL(10,2),
+		IN calibre INT, #DECIMAL(10,2),
+		IN tol_calibre INT,  #DECIMAL(10,2),
+		IN anchoBob INT,  #DECIMAL(10,2),
+		IN tol_anchoBob INT,  #DECIMAL(10,2),
+		IN anchoCore INT,  #DECIMAL(10,2),
+		IN tol_anchoCore INT,  #DECIMAL(10,2),
+		IN diamBob INT,  #DECIMAL(10,2),
+		IN tol_diamBob INT,  #DECIMAL(10,2),
+		IN pesoBob INT,  #DECIMAL(10,2),
+		IN tol_pesoBob INT,  #DECIMAL(10,2),
 		IN num_Bob_Cama INT,
 		IN camas_Tarima INT,
-		IN peso_neto DECIMAL(10,2),
-		IN tol_peso_neto DECIMAL(10,2)
+		IN peso_neto INT,  #DECIMAL(10,2),
+		IN tol_peso_neto INT #--DECIMAL(10,2)
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
 		-- Iniciar la transacción
@@ -395,7 +401,7 @@ DELIMITER $$
 		IN idCodPrdc INT,
 		IN material_Imprimir VARCHAR(255),				/*EXTRUCIÓN*/
 		IN dinaje VARCHAR(255),
-		IN grosor_Core DECIMAL(10,2),
+		IN grosor_Core INT,  #DECIMAL(10,2),
 		IN desarrolloImpr INT,
 		IN rep_Eje INT,
 		IN rep_Dessr INT,
@@ -487,23 +493,23 @@ DELIMITER $$
 		IN etiquetado VARCHAR(255),
 		IN pesarProduct VARCHAR(255),
 		IN psoNtoBob VARCHAR(255),
-		IN medidaManga DECIMAL(10,2),
-		IN tol_Mng DECIMAL(10,2),
-		IN anchoCore DECIMAL(10,2),
-		IN tol_anchCore DECIMAL(10,2),
-		IN diametro DECIMAL(10,2),
-		IN grosorCore DECIMAL(10,2),
-		IN diametroBob DECIMAL(10,2),
-		IN tol_diamBob DECIMAL(10,2),	-- 15
+		IN medidaManga INT,  #DECIMAL(10,2),
+		IN tol_Mng INT,  #DECIMAL(10,2),
+		IN anchoCore INT,  #DECIMAL(10,2),
+		IN tol_anchCore INT,  #DECIMAL(10,2),
+		IN diametro INT,  #DECIMAL(10,2),
+		IN grosorCore INT,  #DECIMAL(10,2),
+		IN diametroBob INT,  #DECIMAL(10,2),
+		IN tol_diamBob INT,  #DECIMAL(10,2),	-- 15
 
 		IN mtrlImprs VARCHAR(255),			-- MATERIAL IMPRESO
 		IN tipoTratado VARCHAR(255),
 
-			IN calibre DECIMAL(10,2),		-- Calibre de pelicula y Tolerancia	
-			IN tol_cal  DECIMAL(10,2),
+			IN calibre INT,  #DECIMAL(10,2),		-- Calibre de pelicula y Tolerancia	
+			IN tol_cal  INT,  #DECIMAL(10,2),
 	
-			IN anchoBob  DECIMAL(10,2),		-- Ancho de Bobina y Tolerancia
-			IN tol_bob  DECIMAL(10,2)
+			IN anchoBob  INT,  #DECIMAL(10,2),		-- Ancho de Bobina y Tolerancia
+			IN tol_bob  INT #--DECIMAL(10,2)
 
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
@@ -537,41 +543,41 @@ DELIMITER $$
 		IN tipoTratado_1 VARCHAR(255),
 		IN tipoLamin_1 VARCHAR(255),
 
-			IN cal_1 DECIMAL(10,2),
-			IN tol_cal_1 DECIMAL(10,2),
+			IN cal_1 INT,  #DECIMAL(10,2),
+			IN tol_cal_1 INT,  #DECIMAL(10,2),
 
-			IN anchoBob_1 DECIMAL(10,2),
-			IN tol_bob_1 DECIMAL(10,2),
+			IN anchoBob_1 INT,  #DECIMAL(10,2),
+			IN tol_bob_1 INT,  #DECIMAL(10,2),
 
 		IN Mtrl_2 VARCHAR(255),			-- Material_Laminar_2
 		IN tipoTratado_2 VARCHAR(255),
 		IN tipoLamin_2 VARCHAR(255),
 
-			IN cal_2 DECIMAL(10,2),
-			IN tol_cal_2 DECIMAL(10,2),
+			IN cal_2 INT,  #DECIMAL(10,2),
+			IN tol_cal_2 INT,  #DECIMAL(10,2),
 
-			IN anchoBob_2 DECIMAL(10,2),
-			IN tol_bob_2 DECIMAL(10,2),
+			IN anchoBob_2 INT,  #DECIMAL(10,2),
+			IN tol_bob_2 INT,  #DECIMAL(10,2),
 
 		IN Mtrl_3 VARCHAR(255),			-- Material_Laminar_3
 		IN tipoTratado_3 VARCHAR(255),
 		IN tipoLamin_3 VARCHAR(255),
 
-			IN cal_3 DECIMAL(10,2),
-			IN tol_cal_3 DECIMAL(10,2),
+			IN cal_3 INT,  #DECIMAL(10,2),
+			IN tol_cal_3 INT,  #DECIMAL(10,2),
 
-			IN anchoBob_3 DECIMAL(10,2),
-			IN tol_bob_3 DECIMAL(10,2),
+			IN anchoBob_3 INT,  #DECIMAL(10,2),
+			IN tol_bob_3 INT,  #DECIMAL(10,2),
 
 		IN Mtrl_4 VARCHAR(255),			-- Material_Laminar_4
 		IN tipoTratado_4 VARCHAR(255),
 		IN tipoLamin_4 VARCHAR(255),
 
-			IN cal_4 DECIMAL(10,2),
-			IN tol_cal_4 DECIMAL(10,2),
+			IN cal_4 INT,  #DECIMAL(10,2),
+			IN tol_cal_4 INT,  #DECIMAL(10,2),
 
-			IN anchoBob_4 DECIMAL(10,2),
-			IN tol_bob_4 DECIMAL(10,2)
+			IN anchoBob_4 INT,  #DECIMAL(10,2),
+			IN tol_bob_4 INT,--DECIMAL(10,2)
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
 		-- Iniciar la transacción
@@ -602,12 +608,11 @@ DELIMITER $$
 	END$$
 	DELIMITER;
 
-
 DROP PROCEDURE IF EXISTS InsertRefil;
 	-- REFILADO
 DELIMITER $$
 	CREATE PROCEDURE InsertRefil(
-		IN idCodPrdc INT,
+		IN idCodPrdc VARCHAR(255),
 		IN proceso VARCHAR(255),				/*EXTRUCIÓN*/
 		IN acabadoBob VARCHAR(255),
 		IN grosorCore VARCHAR(255),
@@ -623,26 +628,26 @@ DELIMITER $$
 		IN tarima_flejada VARCHAR(255),
 		IN numBobTam INT,
 
-		IN anchoFinalBob DECIMAL(10,2),
-		IN tol_anchoBob DECIMAL(10,2),
+		IN anchoFinalBob INT,  #DECIMAL(10,2),
+		IN tol_anchoBob INT,  #DECIMAL(10,2),
 
-		IN metros DECIMAL(10,2),
-		IN tol_Mtrs DECIMAL(10,2),
+		IN metros INT,  #DECIMAL(10,2),
+		IN tol_Mtrs INT,  #DECIMAL(10,2),
 
-		IN diametro DECIMAL(10,2),
-		IN tol_dim DECIMAL(10,2),
+		IN diametro INT,  #DECIMAL(10,2),
+		IN tol_dim INT,  #DECIMAL(10,2),
 
-		IN peso DECIMAL(10,2),
-		IN tol_pso DECIMAL(10,2),
+		IN peso INT,  #DECIMAL(10,2),
+		IN tol_pso INT,  #DECIMAL(10,2),
 
-		IN num_Bob_Cama DECIMAL(10,2),
-		IN camas_Tarima DECIMAL(10,2),
+		IN num_Bob_Cama INT,  #DECIMAL(10,2),
+		IN camas_Tarima INT,  #DECIMAL(10,2),
 
-		IN pesoNeto DECIMAL(10,2),
-		IN tol_psNto DECIMAL(10,2),
+		IN pesoNeto INT,  #DECIMAL(10,2),
+		IN tol_psNto INT,  #DECIMAL(10,2),
 
-		IN core DECIMAL(10,2),
-		IN tol_core DECIMAL(10,2)
+		IN core INT,  #DECIMAL(10,2),
+		IN tol_core INT,--DECIMAL(10,2)
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
 		-- Iniciar la transacción
@@ -684,11 +689,11 @@ CALL getConvrs(
 
 SELECT * FROM FICHATEC;
 
-
+DROP PROCEDURE IF EXISTS InsertConvrs;
 	-- CONVERSIÓN
 DELIMITER $$
 	CREATE PROCEDURE InsertConvrs(
-		IN idCodPrdc INT,
+		IN idCodPrdc VARCHAR(255),
 		IN tipo_Empaque VARCHAR(255),				/*EXTRUCIÓN*/
 		IN tipoSello VARCHAR(255),
 		IN tipoAcabado VARCHAR(255),
@@ -697,27 +702,27 @@ DELIMITER $$
 		IN prdctSuaje VARCHAR(255),
 		IN tipSuaje VARCHAR(255),
 		IN empcdPrdct VARCHAR(255),
-		IN cantPzsPacq DECIMAL(10,2),
+		IN cantPzsPacq INT,  #DECIMAL(10,2),
 		IN tipEmblj VARCHAR(255),
 		IN medidEmblj INT,
 		IN pesarProd VARCHAR(255),
-		IN pesoProm DECIMAL(10,2),
+		IN pesoProm INT,  #DECIMAL(10,2),
 		IN etiquetado VARCHAR(255),
 		IN tarima_Emplaye VARCHAR(255),
 		IN tarima_Flejada VARCHAR(255),
 
 		/*Medida del empaque Ancho/Alto*/
-		IN ancho DECIMAL(10,2),
-		IN alto DECIMAL(10,2),
+		IN ancho INT,  #DECIMAL(10,2),
+		IN alto INT,  #DECIMAL(10,2),
 		/*Numero de bultos o cajas por camas y camas por tarima*/         
-		IN cajasCama DECIMAL(10,2),
-		IN camasTarima DECIMAL(10,2),
+		IN cajasCama INT,  #DECIMAL(10,2),
+		IN camasTarima INT,  #DECIMAL(10,2),
 		/*Numero de bultos o cajas por camas y camas por tarima*/
-		IN num DECIMAL(10,2),
-		IN tol_num DECIMAL(10,2),
+		IN num INT,  #DECIMAL(10,2),
+		IN tol_num INT,  #DECIMAL(10,2),
 		/*Peso promedio en tarima*/
-		IN peso DECIMAL(10,2),
-		IN tol_pso DECIMAL(10,2)
+		IN peso INT,  #DECIMAL(10,2),
+		IN tol_pso INT,--DECIMAL(10,2)
 
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
@@ -743,6 +748,25 @@ DELIMITER $$
 		COMMIT;
 	END$$
 	DELIMITER ;
+    
+	-- PRIND CARD
+DELIMITER $$
+	CREATE PROCEDURE InsertPrindCard(
+		IN idCodPrdc VARCHAR(255),
+		IN prindCrdPdf LONGBLOB
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+			INSERT INTO PrindCard(idCodPrdc,prindCrdPdf)
+			VALUES (idCodPrdc,prindCrdPdf);
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+    
+    
+
 
 # -------------------------------------------------------------------------------------------------------------  #
 
@@ -811,22 +835,22 @@ DELIMITER $$
 		IN pesar_Prdct VARCHAR(255),
 		IN etiquetado VARCHAR(255),
 		IN num_Bob_Tarima INT,
-		IN tarima_Emplaye VARCHAR(255),
-		IN tarima_flejada VARCHAR(255),
-		IN calibre DECIMAL(10,2),
-		IN tol_calibre DECIMAL(10,2),
-		IN anchoBob DECIMAL(10,2),
-		IN tol_anchoBob DECIMAL(10,2),
-		IN anchoCore DECIMAL(10,2),
-		IN tol_anchoCore DECIMAL(10,2),
-		IN diamBob DECIMAL(10,2),
-		IN tol_diamBob DECIMAL(10,2),
-		IN pesoBob DECIMAL(10,2),
-		IN tol_pesoBob DECIMAL(10,2),
+		IN tarima_Emplaye VARCHAR(255),		
+		IN tarima_flejada VARCHAR(255),		
+		IN calibre INT,  #DECIMAL(10,2),			# INT,--DECIMAL(10,2)
+		IN tol_calibre INT,  #DECIMAL(10,2),		# INT,--DECIMAL(10,2)
+		IN anchoBob INT,  #DECIMAL(10,2),			# INT,--DECIMAL(10,2)
+		IN tol_anchoBob INT,  #DECIMAL(10,2),		# INT,--DECIMAL(10,2)
+		IN anchoCore INT,  #DECIMAL(10,2),			# INT,--DECIMAL(10,2)
+		IN tol_anchoCore INT,  #DECIMAL(10,2),		
+		IN diamBob INT,  #DECIMAL(10,2),
+		IN tol_diamBob INT,  #DECIMAL(10,2),
+		IN pesoBob INT,  #DECIMAL(10,2),
+		IN tol_pesoBob INT,  #DECIMAL(10,2),
 		IN num_Bob_Cama INT,
 		IN camas_Tarima INT,
-		IN peso_neto DECIMAL(10,2),
-		IN tol_peso_neto DECIMAL(10,2),
+		IN peso_neto INT,  #DECIMAL(10,2),
+		IN tol_peso_neto INT,  #DECIMAL(10,2),
 		IN id_idCodPrdc INT
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
@@ -907,7 +931,7 @@ DELIMITER $$
 	CREATE PROCEDURE UpdateImpr(
 		IN material_Imprimir VARCHAR(255),				/*EXTRUCIÓN*/
 		IN dinaje VARCHAR(255),
-		IN grosor_Core DECIMAL(10,2),
+		IN grosor_Core INT,  #DECIMAL(10,2),
 		IN desarrolloImpr INT,
 		IN rep_Eje INT,
 		IN rep_Dessr INT,
@@ -1016,23 +1040,23 @@ DELIMITER $$
 		IN etiquetado VARCHAR(255),
 		IN pesarProduct VARCHAR(255),
 		IN psoNtoBob VARCHAR(255),
-		IN medidaManga DECIMAL(10,2),
-		IN tol_Mng DECIMAL(10,2),
-		IN anchoCore DECIMAL(10,2),
-		IN tol_anchCore DECIMAL(10,2),
-		IN diametro DECIMAL(10,2),
-		IN grosorCore DECIMAL(10,2),
-		IN diametroBob DECIMAL(10,2),
-		IN tol_diamBob DECIMAL(10,2),	-- 15
+		IN medidaManga INT,  #DECIMAL(10,2),
+		IN tol_Mng INT,  #DECIMAL(10,2),
+		IN anchoCore INT,  #DECIMAL(10,2),
+		IN tol_anchCore INT,  #DECIMAL(10,2),
+		IN diametro INT,  #DECIMAL(10,2),
+		IN grosorCore INT,  #DECIMAL(10,2),
+		IN diametroBob INT,  #DECIMAL(10,2),
+		IN tol_diamBob INT,  #DECIMAL(10,2),	-- 15
 
 		IN mtrlImprs VARCHAR(255),			-- MATERIAL IMPRESO
 		IN tipoTratado VARCHAR(255),
 
-			IN calibre DECIMAL(10,2),		-- Calibre de pelicula y Tolerancia	
-			IN tol_cal  DECIMAL(10,2),
+			IN calibre INT,  #DECIMAL(10,2),		-- Calibre de pelicula y Tolerancia	
+			IN tol_cal  INT,  #DECIMAL(10,2),
 	
-			IN anchoBob  DECIMAL(10,2),		-- Ancho de Bobina y Tolerancia
-			IN tol_bob  DECIMAL(10,2),
+			IN anchoBob  INT,  #DECIMAL(10,2),		-- Ancho de Bobina y Tolerancia
+			IN tol_bob  INT,  #DECIMAL(10,2),
 		IN id_idCodPrdc INT					-- id para wl WHERE
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
@@ -1084,41 +1108,41 @@ DELIMITER $$
 		IN tipoTratado_1 VARCHAR(255),
 		IN tipoLamin_1 VARCHAR(255),
 
-			IN cal_1 DECIMAL(10,2),
-			IN tol_cal_1 DECIMAL(10,2),
+			IN cal_1 INT,  #DECIMAL(10,2),
+			IN tol_cal_1 INT,  #DECIMAL(10,2),
 
-			IN anchoBob_1 DECIMAL(10,2),
-			IN tol_bob_1 DECIMAL(10,2),
+			IN anchoBob_1 INT,  #DECIMAL(10,2),
+			IN tol_bob_1 INT,  #DECIMAL(10,2),
 
 		IN Mtrl_2 VARCHAR(255),			-- Material_Laminar_2
 		IN tipoTratado_2 VARCHAR(255),
 		IN tipoLamin_2 VARCHAR(255),
 
-			IN cal_2 DECIMAL(10,2),
-			IN tol_cal_2 DECIMAL(10,2),
+			IN cal_2 INT,  #DECIMAL(10,2),
+			IN tol_cal_2 INT,  #DECIMAL(10,2),
 
-			IN anchoBob_2 DECIMAL(10,2),
-			IN tol_bob_2 DECIMAL(10,2),
+			IN anchoBob_2 INT,  #DECIMAL(10,2),
+			IN tol_bob_2 INT,  #DECIMAL(10,2),
 
 		IN Mtrl_3 VARCHAR(255),			-- Material_Laminar_3
 		IN tipoTratado_3 VARCHAR(255),
 		IN tipoLamin_3 VARCHAR(255),
 
-			IN cal_3 DECIMAL(10,2),
-			IN tol_cal_3 DECIMAL(10,2),
+			IN cal_3 INT,  #DECIMAL(10,2),
+			IN tol_cal_3 INT,  #DECIMAL(10,2),
 
-			IN anchoBob_3 DECIMAL(10,2),
-			IN tol_bob_3 DECIMAL(10,2),
+			IN anchoBob_3 INT,  #DECIMAL(10,2),
+			IN tol_bob_3 INT,  #DECIMAL(10,2),
 
 		IN Mtrl_4 VARCHAR(255),			-- Material_Laminar_4
 		IN tipoTratado_4 VARCHAR(255),
 		IN tipoLamin_4 VARCHAR(255),
 
-			IN cal_4 DECIMAL(10,2),
-			IN tol_cal_4 DECIMAL(10,2),
+			IN cal_4 INT,  #DECIMAL(10,2),
+			IN tol_cal_4 INT,  #DECIMAL(10,2),
 
-			IN anchoBob_4 DECIMAL(10,2),
-			IN tol_bob_4 DECIMAL(10,2),
+			IN anchoBob_4 INT,  #DECIMAL(10,2),
+			IN tol_bob_4 INT,  #DECIMAL(10,2),
 		IN id_idCodPrdc INT
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
@@ -1202,26 +1226,26 @@ DELIMITER $$
 		IN tarima_flejada VARCHAR(255),
 		IN numBobTam INT,
 
-		IN anchoFinalBob DECIMAL(10,2),
-		IN tol_anchoBob DECIMAL(10,2),
+		IN anchoFinalBob INT,  #DECIMAL(10,2),
+		IN tol_anchoBob INT,  #DECIMAL(10,2),
 
-		IN metros DECIMAL(10,2),
-		IN tol_Mtrs DECIMAL(10,2),
+		IN metros INT,  #DECIMAL(10,2),
+		IN tol_Mtrs INT,  #DECIMAL(10,2),
 
-		IN diametro DECIMAL(10,2),
-		IN tol_dim DECIMAL(10,2),
+		IN diametro INT,  #DECIMAL(10,2),
+		IN tol_dim INT,  #DECIMAL(10,2),
 
-		IN peso DECIMAL(10,2),
-		IN tol_pso DECIMAL(10,2),
+		IN peso INT,  #DECIMAL(10,2),
+		IN tol_pso INT,  #DECIMAL(10,2),
 
-		IN num_Bob_Cama DECIMAL(10,2),
-		IN camas_Tarima DECIMAL(10,2),
+		IN num_Bob_Cama INT,  #DECIMAL(10,2),
+		IN camas_Tarima INT,  #DECIMAL(10,2),
 
-		IN pesoNeto DECIMAL(10,2),
-		IN tol_psNto DECIMAL(10,2),
+		IN pesoNeto INT,  #DECIMAL(10,2),
+		IN tol_psNto INT,  #DECIMAL(10,2),
 
-		IN core DECIMAL(10,2),
-		IN tol_core DECIMAL(10,2),
+		IN core INT,  #DECIMAL(10,2),
+		IN tol_core INT,  #DECIMAL(10,2),
 
 		IN id_idCodPrdc INT
 	)
@@ -1283,27 +1307,27 @@ DELIMITER $$
 		IN prdctSuaje VARCHAR(255),
 		IN tipSuaje VARCHAR(255),
 		IN empcdPrdct VARCHAR(255),
-		IN cantPzsPacq DECIMAL(10,2),
+		IN cantPzsPacq INT,  #DECIMAL(10,2),
 		IN tipEmblj VARCHAR(255),
 		IN medidEmblj INT,
 		IN pesarProd VARCHAR(255),
-		IN pesoProm DECIMAL(10,2),
+		IN pesoProm INT,  #DECIMAL(10,2),
 		IN etiquetado VARCHAR(255),
 		IN tarima_Emplaye VARCHAR(255),
 		IN tarima_Flejada VARCHAR(255),
 
 		/*Medida del empaque Ancho/Alto*/
-		IN ancho DECIMAL(10,2),
-		IN alto DECIMAL(10,2),
+		IN ancho INT,  #DECIMAL(10,2),
+		IN alto INT,  #DECIMAL(10,2),
 		/*Numero de bultos o cajas por camas y camas por tarima*/         
-		IN cajasCama DECIMAL(10,2),
-		IN camasTarima DECIMAL(10,2),
+		IN cajasCama INT,  #DECIMAL(10,2),
+		IN camasTarima INT,  #DECIMAL(10,2),
 		/*Numero de bultos o cajas por camas y camas por tarima*/
-		IN num DECIMAL(10,2),
-		IN tol_num DECIMAL(10,2),
+		IN num INT,  #DECIMAL(10,2),
+		IN tol_num INT,  #DECIMAL(10,2),
 		/*Peso promedio en tarima*/
-		IN peso DECIMAL(10,2),
-		IN tol_pso DECIMAL(10,2),
+		IN peso INT,  #DECIMAL(10,2),
+		IN tol_pso INT,  #DECIMAL(10,2),
 
 		IN id_idCodPrdc INT
 	)
@@ -1343,5 +1367,20 @@ DELIMITER $$
 		COMMIT;
 	END$$
 	DELIMITER ;
-
+    
+	-- PRIND CARD
+DELIMITER $$
+	CREATE PROCEDURE UpdatePrindCard(
+		IN prindCrdPdf LONGBLOB,
+        IN id_idCodPrdc VARCHAR(255)
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+			# update PrindCard
+			UPDATE PrindCard SET prindCrdPdf = prindCrdPdf WHERE id_idCodPrdc = id_idCodPrdc;
+		COMMIT;
+	END$$
+	DELIMITER ;
+    
 # ------------------------------------------------------------------------------------------------------------------     

@@ -1,6 +1,6 @@
 from flet import * 
-#from src.pruebas.pru2 import FileUploaderApp
-#from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
+from src.pruebas.pru2 import FileUploaderApp
+from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 # Esta clase sirve como un Modulo Auxiliar para abrir y cerrar Modales
 class Mdls():
@@ -27,7 +27,7 @@ class Mdls():
     def close_dialog(self,dialog):
         dialog.open = False
         self.page.update()
-'''
+#'''
 class opnMdlImg():
     def __init__(self,page):
         self.page = page
@@ -272,6 +272,6 @@ class opnMdlImg():
         print("---> ",self.mdlObsr.content.content.controls[5].value)       # TextField Observaciones
         print("---> ",self.mdlObsr.content.content.controls[1])       # TextField Observaciones
 
-        self.mdl.open_dialog(self.mdlObsr)'''
+        self.mdl.open_dialog(self.mdlObsr)#'''
 
             

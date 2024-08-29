@@ -132,7 +132,7 @@ class Insrt_Convrs():
         # PESO NETO PROMEDIO DE: (BULTO / CAJA/ OTRO)  
         page.insert_text(   
             (1045, 363),
-            text= tpl[6][12].value.upper(),
+            text= tpl[6][12].value,
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt

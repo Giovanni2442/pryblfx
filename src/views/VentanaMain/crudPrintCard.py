@@ -1,12 +1,12 @@
 from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
-#from src.Controllers.appdb import appDb
+from src.Controllers.appdb import appDb
 from src.Controllers.appFichVent import appFichVent
-#from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
-#from src.views.VentanaCreate.createPrindCard import createPrind
+from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
+from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
-#from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
+from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
 
 class crudPrintCard(UserControl):
     def __init__(self,page):
@@ -21,11 +21,11 @@ class crudPrintCard(UserControl):
 
         #self.inptTable = InptsTable(page)
         self.dataTbl = appFichVent  #Accede a la información en la base de datos
-        #self.InsrtData = CntrlsCreatePrindCard()
+        self.InsrtData = CntrlsCreatePrindCard()
         
         #self.createPrnt = createPrind(page)
         self.pr = pr(page)
-        #self.pdf = opnPrindPdf(page)'''
+        self.pdf = opnPrindPdf(page)#'''
 
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
@@ -205,8 +205,8 @@ class crudPrintCard(UserControl):
                         IconButton("NEWSPAPER", # Ficha Tecnica
                             icon_color=colors.BLACK54,
                             data=row,
-                            #on_click= #self.pdf.open_pdf # --- PROXIMA TAREA ---
-                            #on_click= #self.pdf.opnPdfBffer
+                            #on_click= self.pdf.open_pdf # --- PROXIMA TAREA ---
+                            on_click= self.pdf.opnPdfBffer
                         )
                     ])
                 )
@@ -367,7 +367,7 @@ class crudPrintCard(UserControl):
     # IMPORTANTE : Retorna todos los Gidwts del promama
     def build(self):    
         return self.container
-#'''
+'''
 def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicación
     page.window_min_height = 200
     page.window_min_width = 200

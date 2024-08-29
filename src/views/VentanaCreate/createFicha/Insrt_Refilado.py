@@ -25,7 +25,8 @@ class Instr_Refilado():
         page.insert_text(   
             (685, 840),
             #text= tpl[5][13].items[0].content.controls[1].value,
-            text = self.aux.pru(tpl,5,13,"+","CM"),
+            text = self.aux.pru(tpl,5,14,"+","CM"),
+            #text = "VALORE ERRONEO",
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -44,7 +45,7 @@ class Instr_Refilado():
         page.insert_text(   
             (685, 869),
             #text= tpl[5][19].items[0].content.controls[1].value,
-            text = self.aux.pru(tpl,5,19,"+","CM"),
+            text = self.aux.pru(tpl,5,20,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -81,7 +82,7 @@ class Instr_Refilado():
         page.insert_text(   
             (685, 926),
             #text= tpl[5][14].items[0].content.controls[1].value,
-            text = self.aux.pru(tpl,5,14,"+","MTRS"),
+            text = self.aux.pru(tpl,5,15,"+","MTRS"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -91,7 +92,7 @@ class Instr_Refilado():
         page.insert_text(   
             (685, 940),
             #text= tpl[5][15].items[0].content.controls[1].value,
-            text = self.aux.pru(tpl,5,15,"+","CM"),
+            text = self.aux.pru(tpl,5,16,"+","CM"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -146,7 +147,7 @@ class Instr_Refilado():
         page.insert_text(   
             (685, 1025),
             #text= tpl[5][16].items[0].content.controls[1].value,
-            text = self.aux.pru(tpl,5,16,"+","KG"),
+            text = self.aux.pru(tpl,5,17,"+","KG"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -165,7 +166,7 @@ class Instr_Refilado():
         page.insert_text(   
             (685, 1053),
             #text= tpl[5][17].items[0].content.controls[1].value,
-            text = self.aux.pru(tpl,5,17,"X","PZ"),
+            text = self.aux.pru(tpl,5,18,"X","PZ"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -174,7 +175,8 @@ class Instr_Refilado():
         # NUMERO DE BOBINAS EN TARIMA
         page.insert_text(   
             (685, 1068),
-            text= tpl[5][20].value,
+            text= tpl[5][13].value,
+            #text="VALOR ERRONEO!",
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -184,7 +186,7 @@ class Instr_Refilado():
         page.insert_text(   
             (685, 1082),
             #text= tpl[5][18].items[0].content.controls[1].value,
-            text = self.aux.pru(tpl,5,18,"+","KG"),
+            text = self.aux.pru(tpl,5,19,"+","KG"),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt

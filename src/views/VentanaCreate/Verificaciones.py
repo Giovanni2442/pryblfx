@@ -22,7 +22,7 @@ class verificaciones():
         self.b1 = True
         self.page = page
         self.dataTbl = appFichVent
-        self.crtPdf = CreatePdf
+        self.crtPdf = CreatePdf(page)
 
         self.tpl = []
         self.tpl2 = []
@@ -191,8 +191,11 @@ class verificaciones():
             if self.aux().changeBtn(self.page.client_storage.get("id")) == "Ingresar":
                 if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
                     
-                    # INSERTAR EN DB
+                    #  -- INSERTAR EN DB -- 
                     self.Insrt.qryPost(data)
+
+                    #  -- INSERTAR TEXTO AL PDF -- 
+                    self.crtPdf.InsertTxt(data)
         
                     self.msgInsrt = SnackBar(         # Insert exitoso!
                         content=Column(
@@ -236,6 +239,9 @@ class verificaciones():
                 else:
                     # UPDATE IN DB
                     self.Update.qryUpdate(data)
+                    
+
+                    self.crtPdf.InsertTxt(data)
 
                     self.msgInsrt = SnackBar(         # Insert exitoso!
                         content=Column(

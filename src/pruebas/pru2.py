@@ -1,4 +1,4 @@
-'''##--Draw and drop--##
+#'''##--Draw and drop--##
 from flet import * 
 
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
@@ -17,7 +17,7 @@ class FileUploaderApp:
         self.file_picker = FilePicker(on_result=self.on_file_picked)        # Abre el administrador de busqueda de Windows
         self.page.overlay.append(self.file_picker) 
         
-        self.crtPdf = CreatePdf()                         # Agregar el picker a la aplicación 
+        self.crtPdf = CreatePdf(page)                         # Agregar el picker a la aplicación 
     
         self.pru = None
         # Id button
@@ -58,9 +58,11 @@ class FileUploaderApp:
         id = self.Btnid[0]
         numFig = self.Btnid[1]
         Obsrv = self.Btnid[2]
-        self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)
+        self.crtPdf.InsertTxt()
+        #self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)
         #print(any)
-        #self.crtPdf.InsertImg(id,self.tplImg)
+
+        self.crtPdf.InsertImg(id,self.tplImg)
         
     def hi(self):
         print(self.tplImg)

@@ -78,7 +78,7 @@ class Inpts_Refil():
         )
 
         self.acabdBob = Dropdown(
-            label="Proceso Refilado",
+            label="Acabado de Bobina",
             hint_text="Proceso",
             value=self.dataRefil("N/A",2),
             error_text = "",
@@ -511,6 +511,6 @@ class Inpts_Refil():
             self.psPromBob,
             self.numBobCma_CmsTam,
             self.psPromTam,
-            self.anchCre_Tol,# 19
+            self.anchCre_Tol,# 20
 
         ]

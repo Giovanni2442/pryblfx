@@ -21,7 +21,7 @@ from src.Controllers.appPrindCard import appPrindCard
 # src\views\VentanaCreate\createFicha\Template
 
 class CreatePdf():
-    def __init__(self):
+    def __init__(self,page):
         self.pdfFichVent = Insrt_FichaVentas()
         self.pdfExtr = Insrt_Extr()
         self.pdfImpr = Insrt_Impr()
@@ -33,17 +33,19 @@ class CreatePdf():
         self.tmpl = "Template/Template.pdf"
         self.doc = fitz.open(self.tmpl)
 
+        self.page = page
+
+        # INSERT / UPDATE
+        self.id = self.page.client_storage.get("id")
+
         # -- ELEMENTOS DE PRUEBA --
         self.tplImg={} 
         self.Btnid = []
 
-
-        self.uno = None
-        self.dos = None
         ########################### 
 
         # ADD TO DATABASE
-        self.postpdf = appPrindCard()
+        self.postpdf = appPrindCard
         # PAGINA "0" DEL PDF
         self.page = self.doc[0]
         
@@ -89,7 +91,7 @@ class CreatePdf():
     #def Insert(self):
         # Ejemplo: añadir texto en la primera página
         #txtFld = tpl[2][15]items[0].content.controls[1].value
-        print(self.Btnid)
+        print(tpl[5])
         #'''
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfFichVent.pdfFichVent(self.page,tpl)
@@ -113,32 +115,28 @@ class CreatePdf():
         #### INSERTAR EN BD #####
         #pdfBytes = doc.write()
         #namePdf = f"{tpl[0][0].value}.pdf"
-        #self.postpdf.postPridCardPdf(tpl[0][0].value,namePdf)
+        #self.postpdf().postPridCardPdf(tpl[0][0].value,namePdf)
         #########################
         #print("--",self.Btnid)
         #self.save()
         
         #self.doc.close()
 
-        '''
+        #'''
         ####Prueba sin archivos Temporales####
         pdf_buffer = io.BytesIO()               # Transforma el archivo en Bytes
         self.doc.save(pdf_buffer)
         pdf_binary = pdf_buffer.getvalue()      # Archivo Binario
-        self.postpdf.postPridCardPdf(tpl[0][0].value,pdf_binary)
-        self.doc.close()'''
+        #self.postpdf().postPridCardPdf(tpl[0][0].value,pdf_binary)
 
-    def save(self,*tpl):
-        jer1,jer2 = "",""
-        if tpl[0] == 1:
-            jer1 = tpl[1]
-        elif tpl[0] == 2:
-            jer2 = tpl[1]
+        if self.id != "Insert":
+            # UPDATE
+            self.postpdf().transctUpdatePrindCard(pdf_binary,tpl[0][0].value)
+            self.doc.close()#'''
         else:
-            print(None)
-
-        print("--1",jer1,"--2",jer2)
-    
+            # INSERT
+            self.postpdf().transctInsertPrindCard(tpl[0][0].value,pdf_binary)
+            self.doc.close()
 
 #crpdf = CreatePdf()
 #crpdf.Insert()
