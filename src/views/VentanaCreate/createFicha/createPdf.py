@@ -22,18 +22,17 @@ from src.Controllers.appPrindCard import appPrindCard
 
 class CreatePdf():
     def __init__(self,page):
+        self.page = page
         self.pdfFichVent = Insrt_FichaVentas()
         self.pdfExtr = Insrt_Extr()
         self.pdfImpr = Insrt_Impr()
         self.pdfLam = Insrt_Laminado()
         self.pdfRef = Instr_Refilado()
         self.pdfCnvrs = Insrt_Convrs()
-        self.pdfImg = InstrImgs()
+        self.pdfImg = InstrImgs(self.page)
 
         self.tmpl = "Template/Template.pdf"
         self.doc = fitz.open(self.tmpl)
-
-        self.page = page
 
         # INSERT / UPDATE
         self.id = self.page.client_storage.get("id")
@@ -73,19 +72,25 @@ class CreatePdf():
         print(self.uno,self.dos)
 
     # agregar tpl
-    def InsertImg(self,id,dicImg):
-        print(dicImg)
+    #def InsertImg(self,id,dicImg):
+    def InsertImg(self):
+        #print(dicImg)
         #### -- PREUBAS PARA IMAGEN -- #####
-        self.pdfImg.main(self.page,id,dicImg)
+        #self.pdfImg.main(self.page,id,dicImg)
+        self.pdfImg.main2(self.page)
         #self.Btnid = dicImg
         #print(self.Btnid)
-        #self.temp_filename = "Template/Template_temp.pdf"
-        #self.doc.save(self.temp_filename)
+        self.temp_filename = "Template/Template_temp.pdf"
+        self.doc.save(self.temp_filename)
+
+
+        #print(self.id)
         #self.doc.save()
         ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
         #temp_filename = "Template/Template_temp.pdf"
         #self.doc.save(temp_filename)
         #doc.close()
+        #pass
 
     def InsertTxt(self,tpl):
     #def Insert(self):
@@ -108,6 +113,9 @@ class CreatePdf():
         self.pdfCnvrs.pdfConvrs(self.page,tpl)#'''
         #self.pdfImg.main(self.page,id,dicImg)
         
+        # INSERCIÓN DE IMAGENES # 
+        self.pdfImg.main2(self.page)
+
         #self.pdfImg.main(self.page,tpl)
         self.temp_filename = "Template/Template_temp.pdf"
         self.doc.save(self.temp_filename)
@@ -129,14 +137,15 @@ class CreatePdf():
         pdf_binary = pdf_buffer.getvalue()      # Archivo Binario
         #self.postpdf().postPridCardPdf(tpl[0][0].value,pdf_binary)
 
+        #'''
         if self.id != "Insert":
             # UPDATE
             self.postpdf().transctUpdatePrindCard(pdf_binary,tpl[0][0].value)
-            self.doc.close()#'''
+            self.doc.close()
         else:
             # INSERT
             self.postpdf().transctInsertPrindCard(tpl[0][0].value,pdf_binary)
-            self.doc.close()
+            self.doc.close()#'''
 
 #crpdf = CreatePdf()
 #crpdf.Insert()

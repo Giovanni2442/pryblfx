@@ -13,13 +13,15 @@
 import fitz  # PyMuPDF
 
 class InstrImgs():
-    def __init__(self):
+    def __init__(self,page):
         self.vl = 7
         self.clr = (0, 0, 0)
         self.fnt = "Helvetica-Bold"
 
         self.text_color = (0,0,0)        # Color del Recuadro(ELIMINAR)
         self.text_size = 12    
+
+        self.page = page
 
     def pdfImageExtr(self,page,id,dic):
         # Ruta de la imagen que deseas insertar
@@ -127,5 +129,29 @@ class InstrImgs():
         if funcion_seleccionada:
             # Ejecuta la función, pasándole los argumentos necesarios
             funcion_seleccionada(page,id, dicImg)
+        else:
+            print(f"Opción {id} no encontrada.")
+
+    def main2(self,page):
+
+        id = self.page.client_storage.get("id_Img")
+        dicImg = self.page.client_storage.get(id)  # Obtén el valor asociado a la clave
+        
+        print("--",id)
+        #'''
+        select = {
+            'EXTRC' : self.pdfImageExtr,
+            'IMPRC' : self.pdfImageImpr,
+            'LMNSN' : self.pdfImageLam,
+            'RFLD'  : self.pdfImageRef,
+            'CNVRSN' : self.pdfImageCnvrs
+        }
+
+        # Busca la función en el diccionario
+        funcion_seleccionada = select.get(id)
+        
+        if funcion_seleccionada:
+            # Ejecuta la función, pasándole los argumentos necesarios
+            funcion_seleccionada(page, id, dicImg)
         else:
             print(f"Opción {id} no encontrada.")

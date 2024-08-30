@@ -35,7 +35,7 @@ class opnMdlImg():
         self.mdl = Mdls(page)
 
         # PRU
-        self.crdtPdf = CreatePdf()
+        self.crdtPdf = CreatePdf(self.page)
 
         #EVENTO PICKER(PARA CARGAR ARCHIVOS)
         self.Img = FileUploaderApp(page)
@@ -122,6 +122,8 @@ class opnMdlImg():
                             #on_click= lambda _: print(self.mdlObsr.content.content.controls[3].value)
                             # jer(event,flag,txt1,txt2)
                             #on_click= lambda _: self.Img.jer(id,self.mdlImg2.content.controls[3].value,self.mdlImg2.content.controls[5].value)
+                            
+                            # INSERCIÓN DE IMAGEN Y OBSERVACIÓNES #
                             on_click= lambda _: self.Img.jer(id,self.mdlImg2.content.controls[0].content.controls[3].value,self.mdlImg2.content.controls[0].content.controls[5].value)
                         ),
                         # CERRAR MODAL

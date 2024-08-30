@@ -32,7 +32,7 @@ class verificaciones():
         self.aux = InptsAux
     
         self.Bnd = None
-        self.Img = FileUploaderApp(page)
+        #self.Img = FileUploaderApp(page)
 
         #Inserción de todas las tablas#
         self.Insrt = appInserts(page)

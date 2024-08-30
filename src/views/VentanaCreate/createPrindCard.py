@@ -1,7 +1,5 @@
 from flet import *
 from src.views.VentanaCreate.Verificaciones import verificaciones
-#from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
-#from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 
 #Notas : para el usuario se puede agregar cerrar su seción, ver su historial de modificaciónes etc..
 # python -m venv venv
@@ -16,7 +14,7 @@ from src.views.VentanaCreate.InptsForm.Inpts_Refil import Inpts_Refil
 from src.views.VentanaCreate.InptsForm.Inpts_Convrs import Inpts_Convrs
 from src.views.VentanaCreate.Verificaciones import verificaciones      # <---- DESCOMENTAR ESTO
 #from src.Controllers.appInserts import appInserts
-#from src.views.VentanaCreate.Mdls import opnMdlImg
+from src.views.VentanaCreate.Mdls import opnMdlImg
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 
 class createPrind(UserControl):
@@ -43,7 +41,7 @@ class createPrind(UserControl):
         # Qry's de la Base de datos
         #self.appInsert = appInserts(page)
         # Modal de Imagenes
-        #self.mdlImg = opnMdlImg(page)              #<---- DESCOMENTAR ESTO!!!!!!!!!
+        self.mdlImg = opnMdlImg(page)              #<---- DESCOMENTAR ESTO!!!!!!!!!
 
         # BOTON AGREGAR
         self.btn = FilledButton(
@@ -566,7 +564,7 @@ class createPrind(UserControl):
                                             ElevatedButton(         # Agregar Images y Observaciónes
                                                 text="IMAGENES",
                                                 #on_click= lambda _: self.mdlImg.open('EXTRC')
-                                                on_click= lambda _: self.mdlImg.opn2('EXTRC')
+                                                on_click= lambda _: self.mdlImg.open('EXTRC')
                                             )
                                         ]
                                     ),

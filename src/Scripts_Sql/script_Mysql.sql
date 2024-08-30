@@ -229,12 +229,13 @@ CREATE TABLE FichaTec(
         tarima_flejada VARCHAR(25) NOT NULL,
         FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
     );
-			
+		
+        drop table EXTRUSION;
 		/*Calibre de Pelicula y Tolerancia*/
 		CREATE TABLE CalibrePel_Tolr(
             idCodPrdc VARCHAR(255),
-            calibre VARCHAR(50) NOT NULL,
-            tolerancia VARCHAR(50) NOT NULL,
+            calibre float NOT NULL,
+            tolerancia float NOT NULL,
 			FOREIGN KEY (idCodPrdc) REFERENCES EXTRUSION(idCodPrdc) ON DELETE CASCADE
         );
         
