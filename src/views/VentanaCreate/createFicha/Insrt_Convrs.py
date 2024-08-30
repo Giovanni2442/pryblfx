@@ -60,7 +60,7 @@ class Insrt_Convrs():
         # CANTIDAD DE  PERFORACIONES
         page.insert_text(   
             (1045, 248),
-            text= tpl[6][4].value,
+            text= str(tpl[6][4].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -96,7 +96,7 @@ class Insrt_Convrs():
         # CANTIDAD DE PIEZAS POR PAQUETE 
         page.insert_text(   
             (1045, 304),
-            text= tpl[6][8].value,
+            text= str(tpl[6][8].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -114,7 +114,7 @@ class Insrt_Convrs():
         # MEDIDA DEL EMBALAJE:  
         page.insert_text(   
             (1045, 334),
-            text= tpl[6][10].value,
+            text= str(tpl[6][10].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -132,7 +132,7 @@ class Insrt_Convrs():
         # PESO NETO PROMEDIO DE: (BULTO / CAJA/ OTRO)  
         page.insert_text(   
             (1045, 363),
-            text= tpl[6][12].value,
+            text= str(tpl[6][12].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt

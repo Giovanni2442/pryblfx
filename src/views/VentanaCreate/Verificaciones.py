@@ -240,7 +240,7 @@ class verificaciones():
                     # UPDATE IN DB
                     self.Update.qryUpdate(data)
                     
-
+                    # INSERTAR TEXTO EN PDF
                     self.crtPdf.InsertTxt(data)
 
                     self.msgInsrt = SnackBar(         # Insert exitoso!

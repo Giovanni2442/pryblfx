@@ -51,7 +51,7 @@ class Inpts_Lam():
                             #width=100,
                             border_color="black",
                             #value='0',
-                            value=self.dataLamGen('0',9),
+                            value=self.dataLamGen('0.0',9),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)     
@@ -66,7 +66,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value='0',
-                            value=self.dataLamGen('0',10),
+                            value=self.dataLamGen('0.0',10),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -90,7 +90,7 @@ class Inpts_Lam():
                             #width=100,
                             border_color="black",
                             #value='0',
-                            value=self.dataLamGen('0',12),
+                            value=self.dataLamGen('0.0',12),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -105,7 +105,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value='0',
-                            value=self.dataLamGen('0',13),
+                            value=self.dataLamGen('0.0',13),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -129,7 +129,7 @@ class Inpts_Lam():
                             #width=100,
                             border_color="black",
                             #value='0',
-                            value=self.dataLamGen('0',15),
+                            value=self.dataLamGen('0.0',15),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -144,7 +144,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value='0',
-                            value=self.dataLamGen('0',16),
+                            value=self.dataLamGen('0.0',16),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -168,7 +168,7 @@ class Inpts_Lam():
                             #width=100,
                             border_color="black",
                             #value='0',
-                            value=self.dataLamGen('0',18),
+                            value=self.dataLamGen('0.0',18),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -183,7 +183,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value='0',
-                            value=self.dataLamGen('0',19),
+                            value=self.dataLamGen('0.0',19),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -297,7 +297,7 @@ class Inpts_Lam():
                             #width=100,
                             border_color="black",
                             #value='0',
-                            value=self.dataLamGen('0',24),
+                            value=self.dataLamGen('0.0',24),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -312,7 +312,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value='0',
-                            value=self.dataLamGen('0',25),
+                            value=self.dataLamGen('0.0',25),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -336,7 +336,7 @@ class Inpts_Lam():
                             #width=100,
                             border_color="black",
                             #value='0',
-                            value=self.dataLamGen('0',27),
+                            value=self.dataLamGen('0.0',27),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -351,7 +351,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value='0',
-                            value=self.dataLamGen('0',28),
+                            value=self.dataLamGen('0.0',28),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -407,7 +407,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataLamns('0',5),
+                            value=self.dataLamns('0.0',5),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -421,7 +421,7 @@ class Inpts_Lam():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataLamns('0',6),
+                            value=self.dataLamns('0.0',6),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -444,7 +444,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataLamns('0',8),
+                            value=self.dataLamns('0.0',8),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -458,7 +458,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataLamns('0',9),
+                            value=self.dataLamns('0.0',9),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -524,7 +524,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataLamns('0',15),
+                            value=self.dataLamns('0.0',15),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -538,7 +538,7 @@ class Inpts_Lam():
                             label="N/A",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataLamns('0',16),
+                            value=self.dataLamns('0.0',16),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -561,7 +561,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataLamns('0',18),
+                            value=self.dataLamns('0.0',18),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -575,7 +575,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataLamns('0',19),
+                            value=self.dataLamns('0.0',19),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -638,7 +638,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataLamns('0',25),
+                            value=self.dataLamns('0.0',25),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -652,7 +652,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataLamns('0',26),
+                            value=self.dataLamns('0.0',26),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -675,7 +675,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataLamns('0',28),
+                            value=self.dataLamns('0.0',28),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -689,7 +689,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataLamns('0',29),
+                            value=self.dataLamns('0.0',29),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -753,7 +753,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataLamns('0',35),
+                            value=self.dataLamns('0.0',35),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -767,7 +767,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataLamns('0',36),
+                            value=self.dataLamns('0.0',36),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -790,7 +790,7 @@ class Inpts_Lam():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataLamns('0',38),
+                            value=self.dataLamns('0.0',38),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                         )
@@ -803,7 +803,7 @@ class Inpts_Lam():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataLamns('0',39),
+                            value=self.dataLamns('0.0',39),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )

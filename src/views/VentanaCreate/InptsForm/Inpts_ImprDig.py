@@ -59,7 +59,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataImprs('0',24),
+                            value=self.dataImprs('0.0',24),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)      
@@ -73,7 +73,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataImprs('0',25),
+                            value=self.dataImprs('0.0',25),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -96,7 +96,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataImprs('0',27),
+                            value=self.dataImprs('0.0',27),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)      
@@ -110,7 +110,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataImprs('0',28),
+                            value=self.dataImprs('0.0',28),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -143,7 +143,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataImprs('0',30),
+                            value=self.dataImprs('0.0',30),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -157,7 +157,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataImprs('0',31),
+                            value=self.dataImprs('0.0',31),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -280,7 +280,7 @@ class Inpst_ImprDig():
                             label="Color",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataImprs('0',21),                            
+                            value=self.dataImprs('0.0',21),                            
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
@@ -294,7 +294,7 @@ class Inpst_ImprDig():
                             label="Tol. Deltas",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataImprs('0',22),
+                            value=self.dataImprs('0.0',22),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfAny) 
@@ -373,7 +373,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataImprs('0',33),
+                            value=self.dataImprs('0.0',33),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -388,7 +388,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataImprs('0',34),
+                            value=self.dataImprs('0.0',34),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -411,7 +411,7 @@ class Inpst_ImprDig():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataImprs('0',36),
+                            value=self.dataImprs('0.0',36),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -425,7 +425,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataImprs('0',37),
+                            value=self.dataImprs('0.0',37),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -509,7 +509,7 @@ class Inpst_ImprDig():
                             label="Peso",
                             border= InputBorder.OUTLINE,
                             border_color="black",
-                            value=self.dataImprs('0',42),
+                            value=self.dataImprs('0.0',42),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber) 
@@ -524,7 +524,7 @@ class Inpst_ImprDig():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataImprs('0',43),
+                            value=self.dataImprs('0.0',43),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                         )

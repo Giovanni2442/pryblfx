@@ -28,7 +28,7 @@ class appPrindCard():
         try:
             self.cursorPool.callproc('UpdatePrindCard',(args))
             self.conectPool.commit()
-            print(args)
+            #print(args)
             print("UPDATE PRIND OK!")
             #return "INSERT PRIND OK!"
         except mysql.connector.Error as err:

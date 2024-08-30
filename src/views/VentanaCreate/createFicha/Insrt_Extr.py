@@ -108,7 +108,7 @@ class Insrt_Extr():
         # MÁXIMO DE EMPALMES POR BOBINA
         page.insert_text( 
             (320, 412),
-            text= tpl[2][6].value,
+            text= str(tpl[2][6].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -117,7 +117,7 @@ class Insrt_Extr():
         # ORIENTACIÓN DE BOBINA EN TARIMA: (HORIZONTAL/ VERTICAL)
         page.insert_text( 
             (320, 426),
-            text= tpl[2][7].value,
+            text= str(tpl[2][7].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -173,7 +173,7 @@ class Insrt_Extr():
         # NUMERO DE BOBINAS EN TARIMA
         page.insert_text( 
             (320, 511),
-            text= tpl[2][11].value,
+            text= str(tpl[2][11].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"

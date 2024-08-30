@@ -53,7 +53,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataRefil('0',16),
+                            value=self.dataRefil('0.0',16),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -67,7 +67,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataRefil('0',17),
+                            value=self.dataRefil('0.0',17),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -104,7 +104,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataRefil('0',34),
+                            value=self.dataRefil('0.0',34),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -118,7 +118,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataRefil('0',35),
+                            value=self.dataRefil('0.0',35),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -187,7 +187,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataRefil('0',19),
+                            value=self.dataRefil('0.0',19),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -201,7 +201,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataRefil('0',20),
+                            value=self.dataRefil('0.0',20),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -224,7 +224,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataRefil('0',22),
+                            value=self.dataRefil('0.0',22),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -238,7 +238,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataRefil('0',23),
+                            value=self.dataRefil('0.0',23),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -327,7 +327,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataRefil('0',25),
+                            value=self.dataRefil('0.0',25),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -341,7 +341,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataRefil('0',26),
+                            value=self.dataRefil('0.0',26),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -380,7 +380,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataRefil('0',28),
+                            value=self.dataRefil('0.0',28),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -394,7 +394,7 @@ class Inpts_Refil():
                             label="camas tarm.",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataRefil('0',29),
+                            value=self.dataRefil('0.0',29),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -427,7 +427,7 @@ class Inpts_Refil():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataRefil('0',31),
+                            value=self.dataRefil('0.0',31),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -441,7 +441,7 @@ class Inpts_Refil():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataRefil('0',32),
+                            value=self.dataRefil('0.0',32),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)

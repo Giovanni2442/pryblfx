@@ -781,11 +781,12 @@ CREATE TABLE FichaTec(
             tolerancia float not null,
 			FOREIGN KEY (idCodPrdc) REFERENCES IMPRESION(idCodPrdc) ON DELETE CASCADE
         );
-                
+          
+          drop table Num_BobCama_CamaTarima;
         /*Numero de bobinas por cama y camas por tarima*/
         CREATE TABLE Num_BobCama_CamaTarima(
 			idCodPrdc VARCHAR(255),
-            numBobCama VARCHAR(10) not null,
+            numBobCama int not null,
             camaTam int not null,
 			FOREIGN KEY (idCodPrdc) REFERENCES IMPRESION(idCodPrdc) ON DELETE CASCADE
         );

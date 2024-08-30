@@ -15,7 +15,7 @@ class Instr_Refilado():
         # PROCESO A REALIZAR: (DOBLADO, REFILADO, AMBOS)
         page.insert_text(   
             (685, 827),
-            text= tpl[5][0].value,
+            text= str(tpl[5][0].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -35,7 +35,7 @@ class Instr_Refilado():
         # ACABADO DE LA BOBINA: (COMERCIAL/ESPEJO)
         page.insert_text(   
             (685, 855),
-            text= tpl[5][1].value,
+            text= str(tpl[5][1].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -54,7 +54,7 @@ class Instr_Refilado():
         # GROSOR DE CORE: (10 MM / OTRO)
         page.insert_text(   
             (685, 883),
-            text= tpl[5][2].value,
+            text= str(tpl[5][2].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -63,7 +63,7 @@ class Instr_Refilado():
         # FIGURA DE EMBOBINADO  EN REFILAD
         page.insert_text(   
             (685, 898),
-            text= tpl[5][3].value,
+            text= str(tpl[5][3].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -101,7 +101,7 @@ class Instr_Refilado():
         # MÁXIMO DE EMPALMES POR BOBINA
         page.insert_text(   
             (685, 954),
-            text= tpl[5][5].value,
+            text= str(tpl[5][5].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -119,7 +119,7 @@ class Instr_Refilado():
         # ORIENTACIÓN DE BOBINA EN TARIMA: (HORIZONTAL/ VERTICAL)
         page.insert_text(   
             (685, 981),
-            text= tpl[5][7].value,
+            text= str(tpl[5][7].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -128,7 +128,7 @@ class Instr_Refilado():
         # TIPO DE EMPAQUE PARA BOBINA:
         page.insert_text(   
             (685, 996),
-            text= tpl[5][8].value,
+            text= str(tpl[5][8].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -137,7 +137,7 @@ class Instr_Refilado():
         # PESAR PRODUCTO POR:
         page.insert_text(   
             (685, 1012),
-            text= tpl[5][9].value,
+            text= str(tpl[5][9].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -156,7 +156,7 @@ class Instr_Refilado():
         # ETIQUETADO: 
         page.insert_text(   
             (685, 1039),
-            text= tpl[5][10].value,
+            text= str(tpl[5][10].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -175,7 +175,7 @@ class Instr_Refilado():
         # NUMERO DE BOBINAS EN TARIMA
         page.insert_text(   
             (685, 1068),
-            text= tpl[5][13].value,
+            text= str(tpl[5][13].value),
             #text="VALOR ERRONEO!",
             color=self.clr,
             fontsize=self.vl,
@@ -195,7 +195,7 @@ class Instr_Refilado():
         # LA TARIMA LLEVARA EMPLAYE:
         page.insert_text(   
             (685, 1096),
-            text= tpl[5][11].value,
+            text= str(tpl[5][11].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -204,7 +204,7 @@ class Instr_Refilado():
         # LA TARIMA SERA FLEJADA: (APLICA / N/A)
         page.insert_text(   
             (685, 1110),
-            text= tpl[5][12].value,
+            text= str(tpl[5][12].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt

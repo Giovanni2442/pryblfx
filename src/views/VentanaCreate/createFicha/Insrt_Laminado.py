@@ -35,7 +35,7 @@ class Insrt_Laminado():
         # TIPO DE TRATADO: 
         page.insert_text(   
             (685, 234),
-            text= tpl[4][11][1].value,
+            text= str(tpl[4][11][1].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -75,7 +75,7 @@ class Insrt_Laminado():
         # TIPO DE TRATADO:
         page.insert_text(   
             (685, 290),
-            text= tpl[4][12][1].value,
+            text= str(tpl[4][12][1].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -84,7 +84,7 @@ class Insrt_Laminado():
         # TIPO DE LAMINACIÓN 
         page.insert_text(   
             (685, 305),
-            text= tpl[4][12][2].value,
+            text= str(tpl[4][12][2].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -125,7 +125,7 @@ class Insrt_Laminado():
         # TIPO DE TRATADO:
         page.insert_text(   
             (685, 361),
-            text= tpl[4][13][1].value,
+            text= str(tpl[4][13][1].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -134,7 +134,7 @@ class Insrt_Laminado():
         # TIPO DE LAMINACIÓN 
         page.insert_text(   
             (685, 375),
-            text= tpl[4][13][2].value,
+            text= str(tpl[4][13][2].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -174,7 +174,7 @@ class Insrt_Laminado():
         # TIPO DE TRATADO:
         page.insert_text(   
             (685, 432),
-            text= tpl[4][14][1].value,
+            text= str(tpl[4][14][1].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -183,7 +183,7 @@ class Insrt_Laminado():
         # TIPO DE LAMINACIÓN 
         page.insert_text(   
             (685, 446),
-            text= tpl[4][14][2].value,
+            text= str(tpl[4][14][2].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -223,7 +223,7 @@ class Insrt_Laminado():
         # TIPO DE TRATADO:
         page.insert_text(   
             (685, 504),
-            text= tpl[4][15][1].value,
+            text= str(tpl[4][15][1].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -232,7 +232,7 @@ class Insrt_Laminado():
         # TIPO DE LAMINACIÓN 
         page.insert_text(   
             (685, 518),
-            text= tpl[4][15][2].value,
+            text= str(tpl[4][15][2].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -304,7 +304,7 @@ class Insrt_Laminado():
         # MÁXIMO DE EMPALMES POR BOBINA
         page.insert_text(   
             (685, 586),
-            text= tpl[4][1].value,
+            text= str(tpl[4][1].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt
@@ -349,7 +349,7 @@ class Insrt_Laminado():
         # PESO NETO PROMEDIO DE BOBINA
         page.insert_text(   
             (685, 658),
-            text= tpl[4][6].value,
+            text= str(tpl[4][6].value),
             color=self.clr,
             fontsize=self.vl,
             fontname=self.fnt

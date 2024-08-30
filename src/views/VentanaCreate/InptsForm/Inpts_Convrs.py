@@ -40,7 +40,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataCnvrs('0',18),
+                            value=self.dataCnvrs('0.0',18),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -54,7 +54,7 @@ class Inpts_Convrs():
                             label="Alto",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataCnvrs('0',19),
+                            value=self.dataCnvrs('0.0',19),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -242,7 +242,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataCnvrs('0',21),
+                            value=self.dataCnvrs('0.0',21),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -256,7 +256,7 @@ class Inpts_Convrs():
                             label="Camas",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataCnvrs('0',22),
+                            value=self.dataCnvrs('0.0',22),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -279,7 +279,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataCnvrs('0',24),
+                            value=self.dataCnvrs('0.0',24),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -293,7 +293,7 @@ class Inpts_Convrs():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataCnvrs('0',25),
+                            value=self.dataCnvrs('0.0',25),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -316,7 +316,7 @@ class Inpts_Convrs():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value=self.dataCnvrs('0',27),
+                            value=self.dataCnvrs('0.0',27),
                             error_text = "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -330,7 +330,7 @@ class Inpts_Convrs():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value=self.dataCnvrs('0',28),
+                            value=self.dataCnvrs('0.0',28),
                             error_text = "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)

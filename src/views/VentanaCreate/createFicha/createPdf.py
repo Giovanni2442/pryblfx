@@ -91,7 +91,7 @@ class CreatePdf():
     #def Insert(self):
         # Ejemplo: añadir texto en la primera página
         #txtFld = tpl[2][15]items[0].content.controls[1].value
-        print(tpl[5])
+        #print(tpl[5])
         #'''
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfFichVent.pdfFichVent(self.page,tpl)

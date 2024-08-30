@@ -58,11 +58,11 @@ class FileUploaderApp:
         id = self.Btnid[0]
         numFig = self.Btnid[1]
         Obsrv = self.Btnid[2]
-        self.crtPdf.InsertTxt()
+        #self.crtPdf.InsertTxt()
         #self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)
         #print(any)
 
-        self.crtPdf.InsertImg(id,self.tplImg)
+        #self.crtPdf.InsertImg(id,self.tplImg)
         
     def hi(self):
         print(self.tplImg)

@@ -50,7 +50,7 @@ class Insrt_Impr():
         # GROSOR DE CORE:  (10 MM / OTRO) 
         page.insert_text( 
             (320, 748),
-            text= tpl[3][2].value,
+            text= str(tpl[3][2].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -69,7 +69,7 @@ class Insrt_Impr():
         # DESARROLLO A IMPRIMIR (MANGA)  
         page.insert_text( 
             (320, 777),
-            text= tpl[3][3].value,
+            text= str(tpl[3][3].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -78,7 +78,7 @@ class Insrt_Impr():
         # REPETICIONES AL EJE  
         page.insert_text( 
             (320, 792),
-            text=tpl[3][4].value,       
+            text= str(tpl[3][4].value),       
             fontsize=self.vl,
             fontname="Helvetica-Bold"
         )
@@ -86,7 +86,7 @@ class Insrt_Impr():
         # REPETICIONES AL DESARROLLO 
         page.insert_text( 
             (320, 806),
-            text= tpl[3][5].value,
+            text= str(tpl[3][5].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -95,7 +95,7 @@ class Insrt_Impr():
         # CANTIDAD DE TINTAS A IMPRIMIR 
         page.insert_text( 
             (320, 820),
-            text= tpl[3][6].value,
+            text= str(tpl[3][6].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -131,7 +131,7 @@ class Insrt_Impr():
         # FIGURA DE EMBOBINADO AL SALIR DE IMPRESIÓN (1,2,3,4,5,6,7,8)
         page.insert_text( 
             (320, 876),
-            text= tpl[3][10].value,
+            text= str(tpl[3][10].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -150,7 +150,7 @@ class Insrt_Impr():
         # MÁXIMO DE EMPALMES POR BOBINA
         page.insert_text( 
             (320, 906),
-            text= tpl[3][11].value,
+            text= str(tpl[3][11].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"
@@ -227,7 +227,7 @@ class Insrt_Impr():
         # NUMERO DE BOBINAS EN TARIMA    
         page.insert_text( 
             (320, 1019),
-            text= tpl[3][16].value,
+            text= str(tpl[3][16].value),
             color=(0, 0, 0),
             fontsize=self.vl,
             fontname="Helvetica-Bold"

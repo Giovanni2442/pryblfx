@@ -106,7 +106,7 @@ class InptsExtrc():
                             #width=100,
                             border_color="black",
                             #value= self.dataExtrs('0',6),
-                            value = self.dataExtrs('0',16),
+                            value = self.dataExtrs('0.0',16),
                                 #value= self.aux.getData(self.id,'EXTRS',4,"0"),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
@@ -121,7 +121,7 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = self.dataExtrs('0',17),
+                            value = self.dataExtrs('0.0',17),
                             #value = '0',
                                 #value= self.aux.getData(self.id,'EXTRS',5,"0"),
                             error_text= "",
@@ -169,7 +169,7 @@ class InptsExtrc():
                             #width=100,
                             border_color="black",
                             #value = "0",
-                            value= self.dataExtrs('0',19),
+                            value= self.dataExtrs('0.0',19),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -184,7 +184,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value = "0",
-                            value= self.dataExtrs('0',20),
+                            value= self.dataExtrs('0.0',20),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -208,7 +208,7 @@ class InptsExtrc():
                             #width=100,
                             border_color="black",
                             #value = "0",
-                            value= self.dataExtrs('0',22),
+                            value= self.dataExtrs('0.0',22),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -223,7 +223,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value = "0",
-                            value = self.dataExtrs('0',23),
+                            value = self.dataExtrs('0.0',23),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -304,7 +304,7 @@ class InptsExtrc():
                             #width=100,
                             border_color="black",
                             #value = "0",
-                            value = self.dataExtrs('0',25),
+                            value = self.dataExtrs('0.0',25),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -319,7 +319,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             border_color="Black",
                             #value = "0",
-                            value = self.dataExtrs('0',26),
+                            value = self.dataExtrs('0.0',26),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -345,7 +345,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = self.dataExtrs('0',28),
+                            value = self.dataExtrs('0.0',28),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -359,7 +359,7 @@ class InptsExtrc():
                             label="Tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = self.dataExtrs('0',29),
+                            value = self.dataExtrs('0.0',29),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -398,7 +398,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = self.dataExtrs('0',31),
+                            value = self.dataExtrs('0.0',31),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -412,7 +412,7 @@ class InptsExtrc():
                             label="CamasBobina",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = self.dataExtrs('0',32),
+                            value = self.dataExtrs('0.0',32),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -426,7 +426,7 @@ class InptsExtrc():
             label="Ingresar Numero de Bobinas",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value = self.dataExtrs('0',12),
+            value = self.dataExtrs('0.0',12),
             
             #value= self.aux.getData(self.id,'EXTRS',12,"0"),
             error_text= "",
@@ -447,7 +447,7 @@ class InptsExtrc():
                             border= InputBorder.OUTLINE,
                             #width=100,
                             border_color="black",
-                            value = self.dataExtrs('0',34),
+                            value = self.dataExtrs('0.0',34),
                             error_text= "",
                             label_style=TextStyle(color="black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
@@ -461,7 +461,7 @@ class InptsExtrc():
                             label="tolerancia",
                             border= InputBorder.OUTLINE,
                             border_color="Black",
-                            value = self.dataExtrs('0',35),
+                            value = self.dataExtrs('0.0',35),
                             error_text= "",
                             label_style=TextStyle(color="Black",italic=True),
                             on_change= lambda e: self.valida.verInpts(e,filter.vrfIsNumber)
