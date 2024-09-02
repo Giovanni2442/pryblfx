@@ -22,6 +22,8 @@ class crudPrintCard(UserControl):
     
         # path ruta local#
         self.pdf_path = ""
+        # PATH RUTA LOCAL IMAGENES
+        self.ImgPdf = ""
 
         #self.createPrnt = createPrind(page)
         self.pr = pr(page)
@@ -128,6 +130,7 @@ class crudPrintCard(UserControl):
         # Modularizar el Modal para Eliminar, Atualizar y Agregar
     def dltButton(self,e):
         idPrind = e.control.data[0]
+        print(e.control.data)
         self.mdlDlt = AlertDialog(
             modal=True,
             title=Text("Alerta!"),
@@ -148,16 +151,38 @@ class crudPrintCard(UserControl):
     
         # -- Query Modal Delete --
     
+    # ELIMINA LOS PDF Y SUS IMAGENES
+    def dltPdfImgs(self,id):
+        # LISTA DE RUTAS DE IMAGENES Y PDF
+        urlPdf = [
+            # ELIMINAR PDF DESDE LA RUTA LOCAL}
+            f'FilePdf/{id}.pdf',
+            # ELIMINAR  IMAGENES DEL PDF
+            f'Imagenes/EXTRC/{id}.png',
+            f'Imagenes/IMPRC/{id}.png',
+            f'Imagenes/LMNSN/{id}.png',
+            f'Imagenes/RFLD/{id}.png',
+            f'Imagenes/CNVRSN/{id}.png',
+        ]
+
+        for url in urlPdf:
+            try:
+                os.remove(url)
+                print(f"Archivo eliminado: {url}")
+            except FileNotFoundError:
+                pass
+                #print(f'Archivo o imagen {url} No encontrado!')
+
+    # ELIMINA LOS REGISTROS DE LA BASE DE DATOS
     def queryDlt(self,bnd,id):
         if not bnd:
             self.mdlDlt.open = False
         else:
+            # ELIMINA DATOS DEL PRINDCARD#
             self.dataTbl().delete_row_Table(id)
-
-            # ELIMINAR PDF DESDE LA RUTA LOCAL}
-            self.pdf_path = f'FilePdf/{id}.pdf'
-            os.remove(self.pdf_path)
-
+            # ELIMINA REGISTRO DEL PDF#
+            self.dltPdfImgs(id)
+        
             self.mdlDlt.open = False
 
             # -- Limpia y Actualiza la tabla -- 

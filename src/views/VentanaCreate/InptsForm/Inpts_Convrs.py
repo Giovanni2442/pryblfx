@@ -370,8 +370,8 @@ class Inpts_Convrs():
     def dataCnvrs(self,default_value,Indx):
         if self.id != "Insert":
             #print(self.dtaCvrs)             
-            #return self.dtaCvrs[Indx]
-            return f"{Indx}"
+            return self.dtaCvrs[Indx]
+            #return f"{Indx}"
         else:
             return default_value
 

@@ -74,7 +74,7 @@ class createPrind(UserControl):
             animation_duration=200,
             indicator_color="#761010",
             indicator_border_radius=30,
-            divider_color="#761010",
+            divider_color="#761019",
             scrollable = True,
             unselected_label_color = "black" ,
             on_change=self.navTabs,
@@ -197,7 +197,7 @@ class createPrind(UserControl):
                     Container(      #-- CONTENEDOR INICIO Y USUARIO --
                         #expand=True,
                         #height=100,
-                        bgcolor="white",
+                        bgcolor=colors.WHITE,
                         #border=border.only(bottom=border.BorderSide(1, "#858585")),
                         margin=margin.only(bottom=-6,left=0,right=0,top=0),
                     
@@ -223,15 +223,15 @@ class createPrind(UserControl):
                     Container(      # -- CONTENEDOR MENU PRINCIPAL --
                         #height=100,
                         #width=500,
-                        bgcolor="858585cd",
-                        border_radius=border_radius.only(bottom_left=20,bottom_right=20),
+                        bgcolor="858587cd",
+                        border_radius=border_radius.only(bottom_left=15,bottom_right=15),
                         border=border.only(bottom=border.BorderSide(1, "#858585")),
                         margin=margin.only(bottom=3,left=0,right=0,top=0),
                         shadow=BoxShadow(
                             spread_radius=-20,   # No se expande hacia dentro ni hacia afuera
-                            blur_radius=35,    # Incrementa el desenfoque para suavizar la sombra
-                            offset=Offset(0,40),  # Desplaza la sombra más hacia abajo
-                            color="#9c0606",
+                            blur_radius=75,    # Incrementa el desenfoque para suavizar la sombra
+                            offset=Offset(0,34),  # Desplaza la sombra más hacia abajo
+                            color="#0f724a",
                             blur_style=ShadowBlurStyle.NORMAL
                         ),
                         content= Row(
@@ -1778,4 +1778,4 @@ def main(page: Page):
     page.add(createPrind(page))
     #margin=margin.only(top=-5)
     
-app(main)'''
+app(main)#'''

@@ -7,7 +7,6 @@ create database dbingbf;
         
 /*---------------------------- PRIND CARD ------------------------------------*/
 
-
 									/*--CREATE TABLE--*/
 select * from PrindCardLOCAL;
 SELECT prindCrdPdf_URL FROM PrindCardLOCAL WHERE idCodPrdc = '2323'

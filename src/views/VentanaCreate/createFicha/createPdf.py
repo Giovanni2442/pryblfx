@@ -32,6 +32,8 @@ class CreatePdf():
         self.pdfImg = InstrImgs(self.page)
 
         self.tmpl = "Template/Template.pdf"
+
+        #self.tmpl = "C:/Users/csanchez/Desktop/pryblfx/venv/src/views/VentanaCreate/createFicha/Template/Template.pdf"
         self.doc = fitz.open(self.tmpl)
 
         # INSERT / UPDATE
@@ -110,7 +112,7 @@ class CreatePdf():
         #print("IMG --",lstImg)
         #self.pdfImg.main(self.page,tpl)
 
-        imgExtr = lstImg[0]
+        imgExtr = lstImg[0]   #  
         imgImpr = lstImg[1]
         imgLam = lstImg[2]
         imgRef = lstImg[3]

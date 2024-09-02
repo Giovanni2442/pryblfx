@@ -52,6 +52,7 @@ class opnMdlImg():
         self.mdlObsr = AlertDialog(     # Modal Observaciónes
             modal=True,
             title= Container(
+                border=border.only(bottom=border.BorderSide(1, "#858585")),
                 #border= border.only(bottom=border.BorderSide(1, "black")),
                 shadow=BoxShadow(
                     spread_radius=0,
@@ -81,7 +82,13 @@ class opnMdlImg():
                     controls=[
                         Text("Agregar Figura : ", color="black", text_align="center"),              # Agregar Imagem                       
                         ElevatedButton(
-                            text="UPLOAD!",
+                            text="CARGAR!",
+                            #color="RED",
+                            bgcolor=colors.WHITE38,
+                            color={
+                                    ControlState.DEFAULT: colors.BLACK,
+                                    ControlState.HOVERED: colors.RED,
+                                },
                             on_click= self.Img.select_file # Función donde contiene el Picker
                         ),
 
@@ -124,14 +131,15 @@ class opnMdlImg():
                         FilledButton("AGREGAR",  # AGREGAR CAMBIOS
                             adaptive=True,
                             style=ButtonStyle(
-                                bgcolor="#21A772",
+                                bgcolor=colors.WHITE54,
                                 color={
-                                    ControlState.HOVERED: colors.RED,
-                                    ControlState.HOVERED: colors.BLACK,
+                                    ControlState.HOVERED: colors.WHITE,
+                                    ControlState.DEFAULT: colors.BLACK,
                                 },
-                                overlay_color=colors.TRANSPARENT,
+                                overlay_color=colors.RED_800,
+                                #overlay_color=colors.TRANSPARENT,
                                 elevation={"pressed": 0, "": 1},
-                                animation_duration=200,
+                                animation_duration=300,
                                 shape={
                                     ControlState.HOVERED: RoundedRectangleBorder(radius=15),
                                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
@@ -145,14 +153,15 @@ class opnMdlImg():
                         FilledButton("CERRAR",  # CERRAR MODAL
                             adaptive=True,
                             style=ButtonStyle(
-                                bgcolor="#21A772",
+                                bgcolor=colors.WHITE54,
                                 color={
-                                    ControlState.HOVERED: colors.RED,
-                                    ControlState.HOVERED: colors.BLACK,
+                                    ControlState.HOVERED: colors.WHITE,
+                                    ControlState.DEFAULT: colors.BLACK,
                                 },
-                                overlay_color=colors.TRANSPARENT,
+                                overlay_color=colors.RED_800,
+                                #overlay_color=colors.TRANSPARENT,
                                 elevation={"pressed": 0, "": 1},
-                                animation_duration=200,
+                                animation_duration=300,
                                 
                                 shape={
                                     ControlState.HOVERED: RoundedRectangleBorder(radius=15),

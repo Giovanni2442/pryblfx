@@ -105,16 +105,21 @@ class InstrImgs():
     # Función para agregar Imagenes y Observaciónes
     # Ayuda a agregar Imagenes vacias y Observaciónes
     def chekKey(self,page,fig,numFig,obsr,dicImgs):
-        if dicImgs[0] != None:          # Accede al indice de la imagen
-            #pass
-            page.insert_image(fig,filename=dicImgs[0])  # EN POSICIÓN [0] SE ENCIENTRA LA IMAGEN
-            page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
-            page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)         # EN POSICIÓN [2] SE ENCIENTRA LA DESCR.
-        elif dicImgs[1] and dicImgs[2] != "N/A":        # Si no hay imagen, agrega los demas textos NUM. FIG Y DESCRIP
-            page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
-            page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
-        else:
-            return None
+        try:
+            if dicImgs[0] != None:          # Accede al indice de la imagen
+                #pass
+                page.insert_image(fig,filename=dicImgs[0])  # EN POSICIÓN [0] SE ENCIENTRA LA IMAGEN
+                page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
+                page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)         # EN POSICIÓN [2] SE ENCIENTRA LA DESCR.
+            elif dicImgs[1] and dicImgs[2] != "N/A":        # Si no hay imagen, agrega los demas textos NUM. FIG Y DESCRIP
+                page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
+                page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
+            else:
+                return None
+        except:
+            print("ERROR EN INSERTAR LA IMAGEN")
+  
+            
         #'''
 
         '''nota : reposiciónar los cuadros de texto y el de imagen.
@@ -122,9 +127,10 @@ class InstrImgs():
         el espacio de la imagen faltante'
         print("--: ",dicImgs[key][0])'''
     
+
+    '''
     def chekKeyPRU(self,lst):
         print("--",lst[1])       # IMAGEN
-        #'''
         if dicImgs[0] != None:          # Accede al indice de la imagen
             #pass
             page.insert_image(fig,filename=dicImgs[0])  # EN POSICIÓN [0] SE ENCIENTRA LA IMAGEN
@@ -134,12 +140,11 @@ class InstrImgs():
             page.insert_textbox(numFig, dicImgs[id][1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
             page.insert_textbox(obsr, dicImgs[id][2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
         else:
-            return None
+            return None'''
     
     def main2(self,page,idPrint):
         
         # INSERTAR / ANTUALIZAR IMAGENES EN EL PDF#
-
         if self.id != 'Insert':
             #print("UPDATE - ",self.urlImg)
             dta = self.appPrind().getPridCardImagesLOCAL(self.id)
@@ -194,8 +199,9 @@ class InstrImgs():
                 #print("ERROR")
 
     # idPrint : Id del Prindcard
-    # idSec     : Id de la secuencia
+    # idSec     : Id de la secuencia (EXTRUSION,IMPRESION,LAMINADO,REFILADO,CONVERSION)
     # url_Img   : url de la Imagen
+    # 
     def PostImgs(self,idPrint,idSec,url_Img):
         dicImgs = {
             'EXTRC' : 'N/A',
@@ -214,23 +220,28 @@ class InstrImgs():
                 with Image.open(url_Img) as img:
                     extencion = img.format.lower()  # 'jpeg', 'png', 'gif', etc.
 
-                nuevo_nombre = f"{idPrint}_{idSec}.{extencion}"             # Nombre nueva de la Imagen ejemplo : 'E34EE_344_IMPRS.png'
-                nuevo_directorio = os.path.join(os.getcwd(), "Imagenes")
-                
-                 # Crear la ruta completa para la nueva ubicación
+                #nuevo_nombre = f"{idPrint}_{idSec}.{extencion}"             # Nombre nueva de la Imagen ejemplo : 'E34EE_344_IMPRS.png'
+                nuevo_nombre = f"{idPrint}.{extencion}" 
+                nuevo_directorio = os.path.join(os.getcwd(), "Imagenes",f'{idSec}')     # NOTA : HACER QUE SE GUARDEN POR SUBCARPETAS
+                # Crear la ruta completa para la nueva ubicación
                 nueva_ruta = os.path.join(nuevo_directorio, nuevo_nombre)
-
+                
+                # RUTA DEL DIRECTORIO DEL PROYECTO
+                ruta_relativa = os.path.relpath(nueva_ruta, os.getcwd())
+                print("CARPETA NUEVA --- ",ruta_relativa)
                 # Mover y renombrar el archivo
                 shutil.move(url_Img, nueva_ruta)
-  
+                #shutil.move(url_Img, ruta_relativa)
+
                 # Almacena la url en el dicciónario dependiendo de la Key
-                dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
+                #dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
+                dicImgs[idSec] = f'{ruta_relativa}'
 
                 # Recorrer el Dicciónario y agregar sus value en una lista
                 for key in dicImgs: 
                     lstImgs.append(dicImgs[key])
                     #print("-- ",dicImgs[key])  # Imprimir el diccionario para verificar
-                #print("lista ---",lstImgs)
+                print("lista ---",lstImgs)
                 return lstImgs
 
             except Exception as e:
