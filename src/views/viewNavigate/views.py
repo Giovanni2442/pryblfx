@@ -2,8 +2,8 @@ from flet import *
 from src.views.VentanaMain.crudPrintCard import crudPrintCard
 from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaCreate.WindowPru import windowPru
-from src.views.VentanaMain.vtnMain import pr
-from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
+from src.views.VentanaMain.crudMsvUptd import crudMsv
+
 
 def getViews(page):
     id = page.client_storage.get("id") or "id"
@@ -19,6 +19,13 @@ def getViews(page):
             route='/cratePrindCard',
             controls=[
                 createPrind(page)
+            ]
+        ),
+
+         '/editMsv': View(
+            route='/crudMsvUptd',
+            controls=[
+                crudMsv(page)
             ]
         ),
 

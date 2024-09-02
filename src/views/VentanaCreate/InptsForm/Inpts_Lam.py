@@ -883,8 +883,8 @@ class Inpts_Lam():
     #def dataLamGen(self,default_value):
         if self.id != "Insert":
             #print(self.dtaGen)                  
-            return self.dtaGen[Indx]
-            #return f"{Indx}"
+            #return self.dtaGen[Indx]
+            return f"{Indx}"
         else:
             return default_value
         
@@ -892,8 +892,8 @@ class Inpts_Lam():
     #def dataLamns(self,default_value):
         if self.id != "Insert":                  
             #print(self.dtaLmns)
-            return self.dtaLmns[Indx]
-            #return f"{Indx}"
+            #return self.dtaLmns[Indx]
+            return f"{Indx}"
         else:
             return default_value
 

@@ -482,8 +482,8 @@ class Inpts_Refil():
     #def dataLamGen(self,default_value):
         if self.id != "Insert":
             #print(self.dtaRef)                  
-            return self.dtaRef[Indx]
-            #return f"{Indx}"
+            #return self.dtaRef[Indx]
+            return f"{Indx}"
         else:
             return default_value
 

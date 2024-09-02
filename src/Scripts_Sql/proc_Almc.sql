@@ -546,7 +546,7 @@ DELIMITER $$
 		IN idCodPrdc VARCHAR(255),					-- Material_Laminar_1
 		IN Mtrl_1 VARCHAR(255),
 		IN tipoTratado_1 VARCHAR(255),
-		IN tipoLamin_1 VARCHAR(255),
+		IN tipoLamin_1 VARCHAR(255), 
 
 			IN cal_1 	DECIMAL(10,2),
 			IN tol_cal_1 	DECIMAL(10,2),

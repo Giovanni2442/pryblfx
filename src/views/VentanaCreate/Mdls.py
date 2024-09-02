@@ -1,11 +1,19 @@
 from flet import * 
 from src.pruebas.pru2 import FileUploaderApp
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
+from src.Controllers.appPrindCard import appPrindCard
+
 
 # Esta clase sirve como un Modulo Auxiliar para abrir y cerrar Modales
 class Mdls():
     def __init__(self,page):
+
         self.page = page
+
+
+        # IDENTIFICADOR DE INSERT Y UPDATE
+        self.id = self.page.client_storage.get("id")
+  
         
     def open_Cntndr(self,cnt):
         self.page.overlay.append(cnt)
@@ -39,117 +47,6 @@ class opnMdlImg():
 
         #EVENTO PICKER(PARA CARGAR ARCHIVOS)
         self.Img = FileUploaderApp(page)
-
-    def opn2(self,id):
-        self.mdlImg2 = Container(              # CONTENEDOR DE BOTONES
-            visible=False,
-            expand=True,
-            width=500,
-            height=500,
-            bgcolor="blue",
-            alignment=alignment.center,
-            content= Column([
-                Container(
-                    expand = True,
-                    #bgcolor="#f0f0f0",
-                    #width=500,
-                    #height=250,
-                    margin=0,
-                    alignment=alignment.center,
-                    content=Column(
-                        scroll="auto",          # Scroll
-                        alignment=MainAxisAlignment.CENTER,  # Centra verticalmente el contenido dentro de la columna
-                        horizontal_alignment=CrossAxisAlignment.CENTER,  # Centra horizontalmente el contenido dentro de la columna
-                        controls=[
-                            Text("Agregar Figura : ", color="black", text_align="center"),              # Agregar Imagem                       
-                            ElevatedButton(
-                                text="UPLOAD!",
-                                on_click= self.Img.select_file # Función donde contiene el Picker
-                            ),
-
-                            Text("Ingresar Numero de Figura : ", color="black", text_align="center"),   # Agregar Num. Fig
-                            TextField(
-                                label="Figura",
-                                border=InputBorder.OUTLINE,
-                                border_color="Black",
-                                height=100,
-                                value="N/A",
-                                color="black",
-                                error_text="",
-                                label_style=TextStyle(color="Black", italic=True),
-                                #on_change= lambda e: self.Img.select_file(e, e.control.value)
-                            ),
-
-                            Text("Ingresar Observaciónes", color="black", text_align="center"),
-                            TextField(
-                                label="Observaciónes",
-                                border=InputBorder.OUTLINE,
-                                border_color="Black",
-                                multiline=True,
-                                height=100,
-                                value="N/A",
-                                color="black",
-                                error_text="",
-                                label_style=TextStyle(color="black", italic=True),
-                                #on_change= lambda e: txt1 = e.control.value  
-                            )
-                        ]
-                    ),
-                ),
-                Container(              # CONTENEDOR DE BOTONES
-                    expand = True,
-                    content=Row(
-                        vertical_alignment=CrossAxisAlignment.END,
-                        controls=[
-                        # ABRIR MODAL
-                        FilledButton("AGREGAR",  # AGREGAR CAMBIOS
-                            adaptive=True,
-                            style=ButtonStyle(
-                                bgcolor="#21A772",
-                                color={
-                                    ControlState.HOVERED: colors.RED,
-                                    ControlState.HOVERED: colors.BLACK,
-                                },
-                                overlay_color=colors.TRANSPARENT,
-                                elevation={"pressed": 0, "": 1},
-                                animation_duration=200,
-                                shape={
-                                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
-                                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
-                                },
-                            ),
-                            # TAREA : CONFIRMA LOS CAMBIOS Y CIERRA EL MODAL, AGREGAR UN MENSAJE DE CONFIRMACIÓN!
-                            #on_click= lambda _: print(self.mdlObsr.content.content.controls[3].value)
-                            # jer(event,flag,txt1,txt2)
-                            #on_click= lambda _: self.Img.jer(id,self.mdlImg2.content.controls[3].value,self.mdlImg2.content.controls[5].value)
-                            
-                            # INSERCIÓN DE IMAGEN Y OBSERVACIÓNES #
-                            on_click= lambda _: self.Img.jer(id,self.mdlImg2.content.controls[0].content.controls[3].value,self.mdlImg2.content.controls[0].content.controls[5].value)
-                        ),
-                        # CERRAR MODAL
-                        FilledButton("CERRAR",  # CERRAR MODAL
-                            adaptive=True,
-                            style=ButtonStyle(
-                                bgcolor="#21A772",
-                                color={
-                                    ControlState.HOVERED: colors.RED,
-                                    ControlState.HOVERED: colors.BLACK,
-                                },
-                                overlay_color=colors.TRANSPARENT,
-                                elevation={"pressed": 0, "": 1},
-                                animation_duration=200,
-                                shape={
-                                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
-                                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
-                                },
-                            ),
-                            on_click=lambda _: self.mdl.Cls_Cntndr(self.mdlImg2)
-                        )
-                    ])
-                )
-            ])
-        )
-        self.mdl.open_Cntndr(self.mdlImg2)
 
     def open(self,id):
         self.mdlObsr = AlertDialog(     # Modal Observaciónes
@@ -208,7 +105,7 @@ class opnMdlImg():
                             border_color="Black",
                             multiline=True,
                             height=100,
-                            value="N/A",
+                           value="N/A",         # <-- Hacer el Update para traer los datos sin borrarse
                             color="black",
                             error_text="",
                             label_style=TextStyle(color="black", italic=True),
@@ -241,8 +138,6 @@ class opnMdlImg():
                                 },
                             ),
                             # TAREA : CONFIRMA LOS CAMBIOS Y CIERRA EL MODAL, AGREGAR UN MENSAJE DE CONFIRMACIÓN!
-                            #on_click= lambda _: print(self.mdlObsr.content.content.controls[3].value)
-                            # jer(event,flag,txt1,txt2)
                             on_click= lambda _: self.Img.jer(id,self.mdlObsr.content.content.controls[3].value,self.mdlObsr.content.content.controls[5].value)
                             #on_click= lambda _: self.crdtPdf.jir(id,self.mdlObsr.content.content.controls[3].value,self.mdlObsr.content.content.controls[5].value)
                         ),
@@ -276,4 +171,10 @@ class opnMdlImg():
 
         self.mdl.open_dialog(self.mdlObsr)#'''
 
+    def dataPdf(self,default_value,Indx):
+        if self.id != "Insert":   
+            return self.id
+            return f"{Indx}"
+        else:
+            return default_value
             

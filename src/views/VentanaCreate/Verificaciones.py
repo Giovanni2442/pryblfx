@@ -223,8 +223,8 @@ class verificaciones():
                     #self.msgDlt(self.mdlDplctPrdct)
                     self.mdl.open_dialog(self.mdlDplctPrdct)
                     return False
-                
-            else: # UPDATE
+            # UPDATE   
+            else: 
                 if not contact_exists: 
                     self.mdlDplctPrdct = AlertDialog(   # MODAL PRODUCTO DUPLICADO
                         modal=True,
@@ -238,7 +238,7 @@ class verificaciones():
                     return False
                 else:
                     # UPDATE IN DB
-                    self.Update.qryUpdate(data)
+                    self.Update.qryUpdate(data) 
                     
                     # INSERTAR TEXTO EN PDF
                     self.crtPdf.InsertTxt(data)

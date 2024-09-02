@@ -83,20 +83,12 @@ class CreatePdf():
         self.temp_filename = "Template/Template_temp.pdf"
         self.doc.save(self.temp_filename)
 
-
-        #print(self.id)
-        #self.doc.save()
-        ####### ACTUALIZA SIN SOBRE ESCRIBIRLO ######
-        #temp_filename = "Template/Template_temp.pdf"
-        #self.doc.save(temp_filename)
-        #doc.close()
-        #pass
-
     def InsertTxt(self,tpl):
     #def Insert(self):
         # Ejemplo: añadir texto en la primera página
         #txtFld = tpl[2][15]items[0].content.controls[1].value
         #print(tpl[5])
+        idpdf = tpl[0][0].value
         #'''
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfFichVent.pdfFichVent(self.page,tpl)
@@ -114,30 +106,39 @@ class CreatePdf():
         #self.pdfImg.main(self.page,id,dicImg)
         
         # INSERCIÓN DE IMAGENES # 
-        self.pdfImg.main2(self.page)
+        lstImg = self.pdfImg.main2(self.page,idpdf)
+        #print("IMG --",lstImg)
+        #self.pdfImg.main(self.page,tpl)
+
+        imgExtr = lstImg[0]
+        imgImpr = lstImg[1]
+        imgLam = lstImg[2]
+        imgRef = lstImg[3]
+        imgCnvr = lstImg[4]
+
+        self.pdf = f"FilePdf/{idpdf}.pdf"
+        self.doc.save(self.pdf)
+
+        # pdf : Url y nombre donde se guarda el pdf
+        # idpdf : Id del Prindcard
+        # 
+        self.postPdfLOCAL(idpdf,self.pdf,imgExtr,imgImpr,imgLam,imgRef,imgCnvr)
+
+        ###########################################################################################
+
+        ###### INSERCIÓN DESDE LA BASE DE DATOS (MINIMISA EL RENDEMIENTO EN BD) ###########
 
         #self.pdfImg.main(self.page,tpl)
-        self.temp_filename = "Template/Template_temp.pdf"
-        self.doc.save(self.temp_filename)
-        
-        #### INSERTAR EN BD #####
-        #pdfBytes = doc.write()
-        #namePdf = f"{tpl[0][0].value}.pdf"
-        #self.postpdf().postPridCardPdf(tpl[0][0].value,namePdf)
-        #########################
-        #print("--",self.Btnid)
-        #self.save()
-        
-        #self.doc.close()
+        #self.temp_filename = "Template/Template_temp.pdf"
+        #self.doc.save(self.temp_filename)
 
-        #'''
+        '''
         ####Prueba sin archivos Temporales####
         pdf_buffer = io.BytesIO()               # Transforma el archivo en Bytes
         self.doc.save(pdf_buffer)
         pdf_binary = pdf_buffer.getvalue()      # Archivo Binario
         #self.postpdf().postPridCardPdf(tpl[0][0].value,pdf_binary)
 
-        #'''
         if self.id != "Insert":
             # UPDATE
             self.postpdf().transctUpdatePrindCard(pdf_binary,tpl[0][0].value)
@@ -146,6 +147,35 @@ class CreatePdf():
             # INSERT
             self.postpdf().transctInsertPrindCard(tpl[0][0].value,pdf_binary)
             self.doc.close()#'''
+        
+        ###########################################################################################
+        
+        # --- FUNCIÓN POST PDF ----
+        #self.postPdf(pdf_binary,idpdf)
+
+
+    def postPdfSQL(self,pdf,id_pdf):
+        if self.id != "Insert":
+            # UPDATE
+            self.postpdf().transctUpdatePrindCard(pdf,id_pdf)
+            self.doc.close()
+        else:
+            # INSERT
+            self.postpdf().transctInsertPrindCard(id_pdf,pdf)
+            self.doc.close()#'''
+
+    def postPdfLOCAL(self,id_pdf,url_pef,extr,imprs,lam,ref,cnvr):
+        if self.id != "Insert":
+            # UPDATE
+            #self.postpdf().transctInsertPrindCardLOCAL(url_pef,id_pdf)
+            #self.doc.close()
+            print("PROCIMAMENTE!")
+        else:
+            # INSERT
+            self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,extr,imprs,lam,ref,cnvr)
+            self.doc.close()#'''
+
+
 
 #crpdf = CreatePdf()
 #crpdf.Insert()

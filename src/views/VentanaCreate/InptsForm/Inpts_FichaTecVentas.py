@@ -149,13 +149,13 @@ class Inpts_FichaTec_Ventas():
             #return f"{Indx}"
         else:
             return default_value
-            #return None'''
+            #return None
 
     # GET VENTAS
     def dataVentas(self,default_value,Indx):
         if self.id != "Insert":   
-            return self.dtaVnts[Indx]
-            #return f"{Indx}"
+            #return self.dtaVnts[Indx]
+            return f"{Indx}"
         else:
             return default_value
 
