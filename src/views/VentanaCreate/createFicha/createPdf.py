@@ -41,7 +41,7 @@ class CreatePdf():
 
         # -- ELEMENTOS DE PRUEBA --
         self.tplImg={} 
-        self.Btnid = []
+        self.dta = []       # ALMACENA LOS DATOS QUE SE VAN A INGRESAR EN LA BD
 
         ########################### 
 
@@ -91,6 +91,7 @@ class CreatePdf():
         #txtFld = tpl[2][15]items[0].content.controls[1].value
         #print(tpl[5])
         idpdf = tpl[0][0].value
+
         #'''
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfFichVent.pdfFichVent(self.page,tpl)
@@ -109,14 +110,27 @@ class CreatePdf():
         
         # INSERCIÓN DE IMAGENES # 
         lstImg = self.pdfImg.main2(self.page,idpdf)
-        #print("IMG --",lstImg)
+        print("IMG --",lstImg)      # <- EYY! Q CHECA LA LISTA
         #self.pdfImg.main(self.page,tpl)
 
-        imgExtr = lstImg[0]   #  
-        imgImpr = lstImg[1]
-        imgLam = lstImg[2]
-        imgRef = lstImg[3]
-        imgCnvr = lstImg[4]
+        for pros in lstImg:       # Recorre el proceso
+            for lst in pros:
+                print("--.i.- ",lst)
+
+        imgExtr = lstImg[0][0]   #  
+        imgImpr = lstImg[1][0]
+        imgLam = lstImg[2][0]
+        imgRef = lstImg[3][0]
+        imgCnvr = lstImg[4][0]
+
+        figExtrs = lstImg[0][1]
+        figImprs = "N/A"
+        figLam = "N/A"
+        figRef = "N/A"
+        figCnvrs = "N/A"
+
+        print(figExtrs)
+        #figImprs = lstImg[1][1]
 
         self.pdf = f"FilePdf/{idpdf}.pdf"
         self.doc.save(self.pdf)
@@ -124,7 +138,8 @@ class CreatePdf():
         # pdf : Url y nombre donde se guarda el pdf
         # idpdf : Id del Prindcard
         # 
-        self.postPdfLOCAL(idpdf,self.pdf,imgExtr,imgImpr,imgLam,imgRef,imgCnvr)
+
+        #self.postPdfLOCAL(idpdf,self.pdf,imgExtr,imgImpr,imgLam,imgRef,imgCnvr,figExtrs,figImprs,figLam,figRef,figCnvrs)
 
         ###########################################################################################
 
@@ -155,7 +170,6 @@ class CreatePdf():
         # --- FUNCIÓN POST PDF ----
         #self.postPdf(pdf_binary,idpdf)
 
-
     def postPdfSQL(self,pdf,id_pdf):
         if self.id != "Insert":
             # UPDATE
@@ -166,7 +180,7 @@ class CreatePdf():
             self.postpdf().transctInsertPrindCard(id_pdf,pdf)
             self.doc.close()#'''
 
-    def postPdfLOCAL(self,id_pdf,url_pef,extr,imprs,lam,ref,cnvr):
+    def postPdfLOCAL(self,id_pdf,url_pef,extr,imprs,lam,ref,cnvr,figExtrs,figImprs,figLam,figRef,figCnvrs):
         if self.id != "Insert":
             # UPDATE
             #self.postpdf().transctInsertPrindCardLOCAL(url_pef,id_pdf)
@@ -174,10 +188,8 @@ class CreatePdf():
             print("PROXIMAMENTE!")
         else:
             # INSERT
-            self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,extr,imprs,lam,ref,cnvr)
+            self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,extr,imprs,lam,ref,cnvr,figExtrs,figImprs,figLam,figRef,figCnvrs)
             self.doc.close()#'''
-
-
 
 #crpdf = CreatePdf()
 #crpdf.Insert()

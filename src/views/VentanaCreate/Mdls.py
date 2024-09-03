@@ -102,6 +102,7 @@ class opnMdlImg():
                             color="black",
                             error_text="",
                             label_style=TextStyle(color="Black", italic=True),
+                            #on_change= lambda e: self.valida.verInpts(e,filter.vrfPrintCard),
                             #on_change= lambda e: self.Img.select_file(e, e.control.value)
                         ),
 
@@ -116,8 +117,8 @@ class opnMdlImg():
                             color="black",
                             error_text="",
                             label_style=TextStyle(color="black", italic=True),
+                            #on_change= lambda e: self.valida.verInpts(e,filter.vrfPrintCard),
                             #on_change= lambda e: txt1 = e.control.value
-                            
                         )
                     ]
                 ),
@@ -186,4 +187,14 @@ class opnMdlImg():
             return f"{Indx}"
         else:
             return default_value
+        
+    # OBTIENE DATOS POR MEDIO DE SU ID
+    def tplInpts(self):
+        return [
+            self.id_product,
+            self.cliente,
+            self.fecha_Elav,
+            self.fecha_Rev,
+            self.producto
+        ]
             

@@ -78,7 +78,7 @@ class appInserts():
         self.dtaRef().transInsertRefil(self.tpl2[0],*self.tpl2[122:150])
 
             # --- CONVERSION ---
-        self.dtaConvrs().transInsertConvrs(self.tpl2[0],*self.tpl2[150:174] )
+        self.dtaConvrs().transInsertConvrs(self.tpl2[0],*self.tpl2[150:174])
         #'''
          
 

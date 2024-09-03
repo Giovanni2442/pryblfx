@@ -41,13 +41,14 @@ CREATE TABLE UrlImgsPdf(
 		FOREIGN KEY (idCodPrdc) REFERENCES PrindCardLOCAL(idCodPrdc) ON DELETE CASCADE
 );
 
+drop table FigImgPdf;
 CREATE TABLE FigImgPdf(		/* ES LA FIGURA O EL "TITULO DE LA IMAGEN" */
 		idCodPrdc VARCHAR(255),
 		ExtrsFig VARCHAR(255),
 		ImprsFig VARCHAR(255),
 		LamFig VARCHAR(255),
 		RefFig VARCHAR(255),
-		CnvsImg VARCHAR(255),
+		CnvsFig VARCHAR(255),
 		FOREIGN KEY (idCodPrdc) REFERENCES PrindCardLOCAL(idCodPrdc) ON DELETE CASCADE
 );
 
@@ -63,11 +64,37 @@ CREATE TABLE DescImgPdf(		/* DESCRIPCIÓNES DE LA IMAGEN" */
         
         /* ------------ PROCEDIMIENTOS ALMACENADOS --------------------------- */
         
+						/*--GET--*/
+
+CALL getObsrv(
+	'2424'
+)
+
+DROP PROCEDURE IF EXISTS getObsrv;
+
+DELIMITER $$
+	CREATE PROCEDURE getObsrv(						/* --  GET OBSERVACIÓNES --  */
+		IN id_idCodPrdct VARCHAR(255)
+	)
+	BEGIN 
+		START TRANSACTION;
+
+		SELECT * FROM UrlImgsPdf img
+	        INNER JOIN FigImgPdf figImg ON img.idCodPrdc = figImg.idCodPrdc
+			INNER JOIN DescImgPdf dcImg ON img.idCodPrdc = dcImg.idCodPrdc
+		WHERE img.idCodPrdc = id_idCodPrdct;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+        
 									/*--INSERT--*/
                                     
 DROP PROCEDURE IF EXISTS InsertPrindCardUrl_PRU;
 
 	-- PRIND CARD
+    
 DELIMITER $$
 	CREATE PROCEDURE InsertPrindCardUrl_PRU(
 		IN idCodPrdc VARCHAR(255),			-- TABLA PADRE
@@ -77,7 +104,14 @@ DELIMITER $$
         IN ImprsImg VARCHAR(255),
         IN LamImg VARCHAR(255),
         IN RefImg VARCHAR(255),
-        IN CnvsImg VARCHAR(255)				
+        IN CnvsImg VARCHAR(255),	
+        
+		IN ExtrsFig VARCHAR(255),
+        IN ImprsFig VARCHAR(255),
+		IN LamFig VARCHAR(255),
+		IN RefFig VARCHAR(255),
+		IN CnvsFig VARCHAR(255)
+		
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
 		-- Iniciar la transacción
@@ -89,6 +123,10 @@ DELIMITER $$
             -- UrlImages
             INSERT INTO UrlImgsPdf(idCodPrdc,ExtrsImg,ImprsImg,LamImg,RefImg,CnvsImg)
 			VALUES (idCodPrdc,ExtrsImg,ImprsImg,LamImg,RefImg,CnvsImg);
+            
+             -- figuras PDF
+            INSERT INTO FigImgPdf(idCodPrdc,ExtrsFig,ImprsFig,LamFig,RefFig,CnvsFig)
+			VALUES (idCodPrdc,ExtrsFig,ImprsFig,LamFig,RefFig,CnvsFig);
             
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
