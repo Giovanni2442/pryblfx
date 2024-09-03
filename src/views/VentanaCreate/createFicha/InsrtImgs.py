@@ -23,9 +23,10 @@ class InstrImgs():
         self.clr = (0, 0, 0)
         self.fnt = "Helvetica-Bold"
 
-        self.text_color = (0,0,0)        # Color del Recuadro(ELIMINAR)
-        self.text_size = 12    
-        self.lst = []
+        self.text_color = (0,0,0)               # Color del Recuadro(ELIMINAR)
+        self.text_size = 12     
+        self.lst = []                            # Lista de urls que retorna la función para almacenar en BD            
+        #self.dicImgs = {}                           #  Dicciónario de Imagenes, donde guarda las url dependiendo del proceso 
         self.appPrind = appPrindCard
        
         # INSERTAR / ACTUALIZAR
@@ -83,20 +84,14 @@ class InstrImgs():
         text_rect = fitz.Rect(950, 564, 1125, 776)   # Txt. Extrusión
  
         self.chekKey(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)#'''
-  
+    
+    # PROXIMAMENTE HACER ESTO AUTOMATICO
     def pdfSecuen(self,page):
         image_path = "Imagenes/img1.png" 
-
-        # Crear el nuevo rectángulo en las coordenadas especificadas
-         #                   x0  y0   x1   y1 
-        txt = "Hommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmla xd"
-        text_color = color = (0,1,0)
-        text_size = 12
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
-
         # Figuras
         Img_rect = fitz.Rect(800, 810, 1125, 1265)     # Img. Extrusión
- 
+        # CONTENEDOR GUIA DE IMAGEN
         page.draw_rect(Img_rect,color=color)
  
         # Sirve para Ingresar Textos dentro del Rectangulo
@@ -114,10 +109,10 @@ class InstrImgs():
             elif dicImgs[1] and dicImgs[2] != "N/A":        # Si no hay imagen, agrega los demas textos NUM. FIG Y DESCRIP
                 page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
                 page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
-            else:
+            else :
                 return None
-        except:
-            print("ERROR EN INSERTAR LA IMAGEN")
+        except Exception  as e:
+            print("ERROR EN INSERTAR LA IMAGEN",e)
   
             
         #'''
@@ -128,9 +123,13 @@ class InstrImgs():
         print("--: ",dicImgs[key][0])'''
     
 
-    '''
-    def chekKeyPRU(self,lst):
-        print("--",lst[1])       # IMAGEN
+    #'''
+
+    #EL PROBLEMA ESTA PORQUE REQUIERE DE UNA LISTA CON 3 ELEMENTOS [IMAGEN,FIGURA,DESCRIPCIÓN]
+    # HACER UNA PRUEBA DONDE SOLO TOME LA IMAGEN O HACER QUE TOME LAS OTRAS 2 QUE FALTA, TOMANDO LOS VALORES
+    # DE LOS TEXFIELD#
+    def chekKeyPRU(self,page,fig,numFig,obsr,dicImgs):
+        #print("--",lst[1])       # IMAGEN
         if dicImgs[0] != None:          # Accede al indice de la imagen
             #pass
             page.insert_image(fig,filename=dicImgs[0])  # EN POSICIÓN [0] SE ENCIENTRA LA IMAGEN
@@ -140,23 +139,28 @@ class InstrImgs():
             page.insert_textbox(numFig, dicImgs[id][1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
             page.insert_textbox(obsr, dicImgs[id][2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
         else:
-            return None'''
+            return None#'''
     
     def main2(self,page,idPrint):
         
         # INSERTAR / ANTUALIZAR IMAGENES EN EL PDF#
-        if self.id != 'Insert':
-            #print("UPDATE - ",self.urlImg)
+        if self.id != 'Insert':  # ACTUALIZAR
+            dicImgs = self.page.client_storage.get("id_Img")
+            # TRAE LAS URL DE LA BASE DE DATOS
             dta = self.appPrind().getPridCardImagesLOCAL(self.id)
-            print(dta)
-            """select = {
-                'EXTRC' : ,
-                'IMPRC' : self.pdfImageImpr,
-                'LMNSN' : self.pdfImageLam,
-                'RFLD'  : self.pdfImageRef,
-                'CNVRSN' : self.pdfImageCnvrs
+            print("--",dta)
+            
+            # RECOLECTA DE LA BASE DE DATOS# 
+            selectImg = {
+                'EXTRC' : dta[1],
+                'IMPRC' : dta[2],
+                'LMNSN' : dta[3],
+                'RFLD'  : dta[4],
+                'CNVRSN' : dta[5]
             }
-            dicImgs = self.page.client_storage.get("id_Img")"""
+            ##################################
+
+            # RECOLECTA DEL DICCIONARIO STORAGE # 
             select = {
                 'EXTRC' : self.pdfImageExtr,
                 'IMPRC' : self.pdfImageImpr,
@@ -164,9 +168,31 @@ class InstrImgs():
                 'RFLD'  : self.pdfImageRef,
                 'CNVRSN' : self.pdfImageCnvrs
             }
-            return [dta[1],dta[2],dta[3],dta[4],dta[5]]
+            #####################################
+         
+            for key in selectImg:
+                value = selectImg[key]
+                if value != "N/A":           # VERIFICAR CONTENIDO
+                    
+                    fun = select.get(key)
+                    print(value)
+                    fun(page,value) 
+
+                    #POST IMAGENES
+                    # LLAMADA PARA CREAR LA LISTA
+                    r = self.PostImgs(idPrint,key,value)
+                # Limpiar el diccionario id_Img
+            self.page.client_storage.set("id_Img", {})
+            print("Mieda -",r)
+            return r 
+
+
+                    # SE INSERTAN IMAGENES VACIAS SI NO HAY IMAGENES
+                    #print("NEL PASTEL XD")
+                    #return ["N/A","N/A","N/A","N/A","N/A"]
+                    #print("ERROR")
         
-        else : 
+        else :      # INSERTAR
             dicImgs = self.page.client_storage.get("id_Img")
 
             #print("-AQUI LIMPIAR-",dicImgs)
@@ -182,7 +208,7 @@ class InstrImgs():
             if dicImgs:
                 for key in dicImgs:
                     value = dicImgs[key]
-                    #print(value)
+                    print("--d-- : ",value)
                     fun = select.get(key)
                     fun(page,value)
 
@@ -192,9 +218,10 @@ class InstrImgs():
                 
                 # Limpiar el diccionario id_Img
                 self.page.client_storage.set("id_Img", {})
+                print(r)
                 return r 
             else:
-                # SE INSERTAN IMAGENES VACIAS
+                # SE INSERTAN IMAGENES VACIAS SI NO HAY IMAGENES
                 return ["N/A","N/A","N/A","N/A","N/A"]
                 #print("ERROR")
 

@@ -171,7 +171,7 @@ class CreatePdf():
             # UPDATE
             #self.postpdf().transctInsertPrindCardLOCAL(url_pef,id_pdf)
             #self.doc.close()
-            print("PROCIMAMENTE!")
+            print("PROXIMAMENTE!")
         else:
             # INSERT
             self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,extr,imprs,lam,ref,cnvr)
