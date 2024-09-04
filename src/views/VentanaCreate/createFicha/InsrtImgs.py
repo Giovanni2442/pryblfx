@@ -117,7 +117,7 @@ class InstrImgs():
         # Ayuda a agregar Imagenes vacias y Observaciónes
     def chekKey(self,page,fig,numFig,obsr,dicImgs):
         try:
-            if dicImgs[0] != None:          # Accede al indice de la imagen
+            if dicImgs[0] != "N/A":          # Accede al indice de la imagen
                 #pass
                 page.insert_image(fig,filename=dicImgs[0])  # EN POSICIÓN [0] SE ENCIENTRA LA IMAGEN
                 page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
@@ -126,6 +126,7 @@ class InstrImgs():
                 page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
                 page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
             else :
+                print("---AUI ESTA EL PEDO--")
                 return None
         except Exception  as e:
             print("ERROR EN INSERTAR LA IMAGEN",e)
@@ -168,7 +169,6 @@ class InstrImgs():
         fig = ""
         comntrs = ""
 
-
             #  - INSERTAR / ANTUALIZAR IMAGENES EN EL PDF - #
 
         # - ACTUALIZAR - 
@@ -176,18 +176,21 @@ class InstrImgs():
             dicImgs = self.page.client_storage.get("id_Img")
             #print(dicImgs)
             # TRAE LAS URL DE LA BASE DE DATOS
-            dta = self.appPrind().getPridCardImagesLOCAL(self.id)
-            #print("--",dta)
+            dta = self.appPrind().transactGetObsrv(idPrint)
+            dta2 = self.appPrind().getPridCardImagesLOCAL(idPrint)
+            #print("--.i.-",dta)
+            #print("-simple- : ",dta2)
             
+            #'''
             # RECOLECTA DE LA BASE DE DATOS# 
             # NOTA : REALIZAR UN INNER JOIN DE LAS TABLAS:
             # [IMAGENES , FIGURA , DESCRIPCIÓN]     <- LA LISTA TIENE QUE QUEDAR ASI 
             selectImg = {
-                'EXTRC' : [dta[1],"N/A","N/A"],
-                #'IMPRC' : dta[2],
-                #'LMNSN' : dta[3],
-                #'RFLD'  : dta[4],
-                #'CNVRSN' : dta[5]
+                'EXTRC' : [dta[1],dta[7],dta[13]],
+                'IMPRC' : [dta[2],dta[8],dta[14]],
+                'LMNSN' : [dta[3],dta[9],dta[15]],
+                'RFLD'  : [dta[4],dta[10],dta[16]],
+                'CNVRSN' : [dta[5],dta[11],dta[17]]
             }
             ##################################
 
@@ -211,15 +214,15 @@ class InstrImgs():
 
                 #POST IMAGENES      
                 # LLAMADA PARA CREAR LA LISTA
-                r = self.PostImgs(idPrint,key,value)
+                #r = self.PostImgs(idPrint,key,value)
             # Limpiar el diccionario id_Img
             self.page.client_storage.set("id_Img", {})
-            print("Mieda -",r)
+            #print("Mieda -",r)
             return ["N/A","N/A","N/A","N/A","N/A"]
                     # SE INSERTAN IMAGENES VACIAS SI NO HAY IMAGENES
                     #print("NEL PASTEL XD")
                     #return ["N/A","N/A","N/A","N/A","N/A"]
-                    #print("ERROR")
+                    #print("ERROR")'''
         
         #  -- INSERTAR --
         else :      
@@ -270,9 +273,9 @@ class InstrImgs():
         lstImgs = []
         
         # IMAGEN , FIGURA Y COMENTARIOS 
-        print(idSec,url_Img,)
+        print("--PEDOTE--",idSec,url_Img)
 
-        if url_Img:     # si no es None
+        if url_Img != "N/A":     # si no es None
             try:
                 # Abrir la imagen con Pillow para detectar el formato original
                 with Image.open(url_Img) as img:
@@ -293,7 +296,6 @@ class InstrImgs():
 
                 # Almacena la url en el dicciónario dependiendo de la Key
                 #dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
-                
                 self.dicImgs[idSec] = [f'{ruta_relativa}',f'{fig}',f'{cmntrs}']
 
                 # Recorrer el Dicciónario y agregar sus value en una lista
@@ -301,10 +303,17 @@ class InstrImgs():
                     lstImgs.append(self.dicImgs[key])
                     #print("-- ",dicImgs[key])  # Imprimir el diccionario para verificar
                 print("lista ---",lstImgs)      # <-- pedo aqui ##
-                return lstImgs
+                #return lstImgs
 
             except Exception as e:
                 print(f"Error al mover y renombrar la imagen: {e}")
         else:
-            print("ERROR HACER RESTRICCIÓN HASTA AGREGAR ALGO!")
+            # EL PEDO ESTA QUE AL HABER UN "N/A", no retorna ni madres
+            # Recorrer el Dicciónario y agregar sus value en una lista
+            
+            self.dicImgs[idSec] = ['N/A',f'{fig}',f'{cmntrs}']
+
+            for key in self.dicImgs: 
+                lstImgs.append(self.dicImgs[key])
+        return lstImgs
     

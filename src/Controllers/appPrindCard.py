@@ -55,6 +55,21 @@ class appPrindCard():
     #########################################################
 
     ############ PROCEDURES TRASACCTIONS PRUEBAS ALAMCENAMIENTO EN LOCAL ####################
+    # GET OBSERVACIÓNES
+    # --- TRANSACCIÓN GET --- #
+    def transactGetObsrv(self,id):
+        try:
+            self.cursorPool.callproc('getObsrv',[id])
+            # Recuperar los resultados
+            for result in self.cursorPool.stored_results():
+                data = result.fetchone()
+            return data
+        except mysql.connector.Error as err:
+            print("ERROR EN GET OBSRVS",err)
+        finally:
+            self.cursorPool.close() 
+    
+    
     # INSERT PRINDCARD
     def transctInsertPrindCardLOCAL(self,*args):
         try:
@@ -109,7 +124,6 @@ class appPrindCard():
         finally:
             cur.close()
             self.dtaDb.close()
-
 
     #########################################################
 

@@ -42,6 +42,10 @@ CREATE TABLE UrlImgsPdf(
 );
 
 drop table FigImgPdf;
+
+select * from FigImgPdf;
+select * from FigImgPdf;
+
 CREATE TABLE FigImgPdf(		/* ES LA FIGURA O EL "TITULO DE LA IMAGEN" */
 		idCodPrdc VARCHAR(255),
 		ExtrsFig VARCHAR(255),
@@ -51,6 +55,10 @@ CREATE TABLE FigImgPdf(		/* ES LA FIGURA O EL "TITULO DE LA IMAGEN" */
 		CnvsFig VARCHAR(255),
 		FOREIGN KEY (idCodPrdc) REFERENCES PrindCardLOCAL(idCodPrdc) ON DELETE CASCADE
 );
+
+drop table DescImgPdf;
+
+select * from DescImgPdf;
 
 CREATE TABLE DescImgPdf(		/* DESCRIPCIÓNES DE LA IMAGEN" */
 		idCodPrdc VARCHAR(255),
@@ -67,7 +75,7 @@ CREATE TABLE DescImgPdf(		/* DESCRIPCIÓNES DE LA IMAGEN" */
 						/*--GET--*/
 
 CALL getObsrv(
-	'2424'
+	'55656'
 )
 
 DROP PROCEDURE IF EXISTS getObsrv;
@@ -118,7 +126,6 @@ DELIMITER $$
 		IN RefDesc VARCHAR(255),
 		IN CnvsDesc VARCHAR(255)
 	)
-    
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
 		-- Iniciar la transacción
 		START TRANSACTION;
@@ -133,19 +140,20 @@ DELIMITER $$
              -- figuras PDF
             INSERT INTO FigImgPdf(idCodPrdc,ExtrsFig,ImprsFig,LamFig,RefFig,CnvsFig)
 			VALUES (idCodPrdc,ExtrsFig,ImprsFig,LamFig,RefFig,CnvsFig);
-
-			-- Descripción Figuras
+            
+			-- DESCRIPCIÓN FIGURAS
 			INSERT INTO DescImgPdf(idCodPrdc,ExtrsDesc,ImprsDesc,LamDesc,RefDesc,CnvsDesc)
 			VALUES (idCodPrdc,ExtrsDesc,ImprsDesc,LamDesc,RefDesc,CnvsDesc);
 
-            
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
 	DELIMITER ;
     
 							/*-- UPDATE --*/
-    
+ 
+DROP PROCEDURE IF EXISTS UpdatePrindCardUrl_PRU;
+
     	-- PRIND CARD
 DELIMITER $$
 	CREATE PROCEDURE UpdatePrindCardUrl_PRU(
@@ -155,7 +163,19 @@ DELIMITER $$
         IN ImprsImg VARCHAR(255),
         IN LamImg VARCHAR(255),
         IN RefImg VARCHAR(255),
-        IN CnvsImg VARCHAR(255),
+        IN CnvsImg VARCHAR(255),	
+        
+		IN ExtrsFig VARCHAR(255),			-- Texto Numero de Figura
+        IN ImprsFig VARCHAR(255),
+		IN LamFig VARCHAR(255),
+		IN RefFig VARCHAR(255),
+		IN CnvsFig VARCHAR(255),
+
+		IN ExtrsDesc VARCHAR(255),			-- Texto Descripciónes
+		IN ImprsDesc VARCHAR(255),
+		IN LamDesc VARCHAR(255),
+		IN RefDesc VARCHAR(255),
+		IN CnvsDesc VARCHAR(255),
         
         IN id_idCodPrdct VARCHAR(255)
 	)
@@ -163,11 +183,9 @@ DELIMITER $$
 		-- Iniciar la transacción
 		START TRANSACTION;
 			-- prindCrdPdf_URL
-            
-            # UPDATE prindCrdPdf_URL
 			UPDATE PrindCardLOCAL SET
                 prindCrdPdf_URL=prindCrdPdf_URL
-            WHERE id_codProduct = id_idCodPrdct;
+            WHERE id_idCodPrdct = id_idCodPrdct;
                    
 			-- UrlImages
 			UPDATE UrlImgsPdf SET
@@ -176,7 +194,25 @@ DELIMITER $$
                 LamImg=LamImg,
                 RefImg=RefImg,
                 CnvsImg=CnvsImg
-            WHERE id_codProduct = id_idCodPrdct;
+            WHERE id_idCodPrdct = id_idCodPrdct;
+
+			-- Numero de Figura
+			UPDATE FigImgPdf SET
+				ExtrsFig=ExtrsFig,
+				ImprsFig=ImprsFig,
+				LamFig=LamFig,
+				RefFig=RefFig,
+				CnvsFig=CnvsFig
+			WHERE id_idCodPrdct = id_idCodPrdct;
+
+			-- Descripción del Proceso
+			UPDATE DescImgPdf SET
+				ExtrsDesc=ExtrsDesc,
+				ImprsDesc=ImprsDesc,
+				LamDesc=LamDesc,
+				RefDesc=RefDesc,
+				CnvsDesc=CnvsDesc
+			WHERE id_idCodPrdct = id_idCodPrdct;
             
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;

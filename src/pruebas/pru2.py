@@ -11,7 +11,7 @@ class FileUploaderApp:
         
         self.crtPdf = CreatePdf(self.page)                         # Agregar el picker a la aplicación 
     
-        self.pru = None
+        self.pru = "N/A"        # <- PROBAR CON None ó N/A
         # Id button
         self.Btnid = None
         #Lista de imagenes
@@ -29,7 +29,7 @@ class FileUploaderApp:
 
     
     def jer(self,*any):     # Inserción al PDF y a la base de datos (PROXIMAMENTE!)
-        self.crtPdf.jir1(any)
+        #self.crtPdf.jir1(any)
         self.Btnid = any
         id = self.Btnid[0]
         numFig = self.Btnid[1]

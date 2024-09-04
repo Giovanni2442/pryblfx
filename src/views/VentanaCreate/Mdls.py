@@ -10,11 +10,6 @@ class Mdls():
 
         self.page = page
 
-
-        # IDENTIFICADOR DE INSERT Y UPDATE
-        self.id = self.page.client_storage.get("id")
-  
-        
     def open_Cntndr(self,cnt):
         self.page.overlay.append(cnt)
         cnt.visible = True
@@ -36,14 +31,20 @@ class Mdls():
         dialog.open = False
         self.page.update()
 #'''
+
+# --- MODAL OBSERVACIÓNES ---
 class opnMdlImg():
     def __init__(self,page):
         self.page = page
         # Abre y Cierra el modal
         self.mdl = Mdls(page)
 
-        # PRU
-        self.crdtPdf = CreatePdf(self.page)
+        # IDENTIFICADOR DE INSERT Y UPDATE
+        self.id = self.page.client_storage.get("id")
+    
+        # CONTROLADOR PRINDCARD
+        dtaPrind = appPrindCard
+        self.dta = dtaPrind().transactGetObsrv(self.id)
 
         #EVENTO PICKER(PARA CARGAR ARCHIVOS)
         self.Img = FileUploaderApp(page)
@@ -98,7 +99,8 @@ class opnMdlImg():
                             border=InputBorder.OUTLINE,
                             border_color="Black",
                             height=100,
-                            value="N/A",
+                            value= self.dataFig("N/A",id),
+                            #value="N/A",
                             color="black",
                             error_text="",
                             label_style=TextStyle(color="Black", italic=True),
@@ -113,7 +115,8 @@ class opnMdlImg():
                             border_color="Black",
                             multiline=True,
                             height=100,
-                           value="N/A",         # <-- Hacer el Update para traer los datos sin borrarse
+                            value=self.dataDescr("N/A",id),
+                            #value="N/A",         # <-- Hacer el Update para traer los datos sin borrarse
                             color="black",
                             error_text="",
                             label_style=TextStyle(color="black", italic=True),
@@ -148,7 +151,6 @@ class opnMdlImg():
                             ),
                             # TAREA : CONFIRMA LOS CAMBIOS Y CIERRA EL MODAL, AGREGAR UN MENSAJE DE CONFIRMACIÓN!
                             on_click= lambda _: self.Img.jer(id,self.mdlObsr.content.content.controls[3].value,self.mdlObsr.content.content.controls[5].value)
-                            #on_click= lambda _: self.crdtPdf.jir(id,self.mdlObsr.content.content.controls[3].value,self.mdlObsr.content.content.controls[5].value)
                         ),
                         # CERRAR MODAL
                         FilledButton("CERRAR",  # CERRAR MODAL
@@ -181,20 +183,35 @@ class opnMdlImg():
 
         self.mdl.open_dialog(self.mdlObsr)#'''
 
-    def dataPdf(self,default_value,Indx):
-        if self.id != "Insert":   
-            return self.id
-            return f"{Indx}"
+     # GET FIG
+    def dataFig(self,default_value,id):
+        print(id)
+        
+        if self.id != "Insert":
+            dta = {
+                "EXTRC": self.dta[7],
+                "IMPRC": self.dta[8],
+                "LMNSN": self.dta[9],
+                "RFLD": self.dta[10],
+                "CNVRSN": self.dta[11],
+            } 
+            return dta[id]
+            #return f'{self.dta[Indx]} , id : {id}'
+            #return f"{Indx}"
         else:
             return default_value
         
-    # OBTIENE DATOS POR MEDIO DE SU ID
-    def tplInpts(self):
-        return [
-            self.id_product,
-            self.cliente,
-            self.fecha_Elav,
-            self.fecha_Rev,
-            self.producto
-        ]
+     # GET DESCR
+    def dataDescr(self,default_value,id):
+        if self.id != "Insert":                  
+            dta = {
+                "EXTRC": self.dta[13],
+                "IMPRC": self.dta[14],
+                "LMNSN": self.dta[15],
+                "RFLD": self.dta[16],
+                "CNVRSN": self.dta[17],
+            } 
+            return dta[id]
+        else:
+            return default_value
             
