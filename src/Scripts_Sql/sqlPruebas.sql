@@ -110,9 +110,15 @@ DELIMITER $$
         IN ImprsFig VARCHAR(255),
 		IN LamFig VARCHAR(255),
 		IN RefFig VARCHAR(255),
-		IN CnvsFig VARCHAR(255)
-		
+		IN CnvsFig VARCHAR(255),
+
+		IN ExtrsDesc VARCHAR(255),
+		IN ImprsDesc VARCHAR(255),
+		IN LamDesc VARCHAR(255),
+		IN RefDesc VARCHAR(255),
+		IN CnvsDesc VARCHAR(255)
 	)
+    
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
 		-- Iniciar la transacción
 		START TRANSACTION;
@@ -127,6 +133,11 @@ DELIMITER $$
              -- figuras PDF
             INSERT INTO FigImgPdf(idCodPrdc,ExtrsFig,ImprsFig,LamFig,RefFig,CnvsFig)
 			VALUES (idCodPrdc,ExtrsFig,ImprsFig,LamFig,RefFig,CnvsFig);
+
+			-- Descripción Figuras
+			INSERT INTO DescImgPdf(idCodPrdc,ExtrsDesc,ImprsDesc,LamDesc,RefDesc,CnvsDesc)
+			VALUES (idCodPrdc,ExtrsDesc,ImprsDesc,LamDesc,RefDesc,CnvsDesc);
+
             
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;

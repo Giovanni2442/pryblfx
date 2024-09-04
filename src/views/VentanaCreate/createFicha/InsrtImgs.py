@@ -35,6 +35,15 @@ class InstrImgs():
         #self.dta = self.dtaFich().getFicha(self.id)
         #self.urlImg = self.appPrind().getPridCardImagesLOCAL(self.id)
 
+        self.dicImgs = {
+            'EXTRC' :   ['N/A','N/A','N/A'],
+            'IMPRC' :   ['N/A','N/A','N/A'],
+            'LMNSN' :   ['N/A','N/A','N/A'],
+            'RFLD'  :   ['N/A','N/A','N/A'],
+            'CNVRSN' :  ['N/A','N/A','N/A']
+        }
+
+
     ###################### ASIGNACIÓN DE COORDENADAS PARA CADA IMAGEN , FIGURA Y DESCRIPCIÓN ###########################################
     
     ### CUIDADO! FUNCIÓN EN PRUEBAS PARA EL UPDATE, EVITAR LA INSERCIÓN EN EXTRS ###
@@ -51,8 +60,8 @@ class InstrImgs():
         #page.draw_rect(text_rect,color=color)
  
         # --- AGREGAR TEXTO/IMAGEN AL RECT ---
-        #self.chekKey(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)#'''
-        self.chekKeyPRU(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)
+        self.chekKey(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)#'''
+        #self.chekKeyPRU(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)
 
     #'''
     def pdfImageImpr(self,page,dic):
@@ -88,7 +97,7 @@ class InstrImgs():
  
         self.chekKey(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)#'''
     
-    # PROXIMAMENTE HACER ESTO AUTOMATICO
+    #  --- PROXIMAMENTE HACER ESTO AUTOMATICO --- 
     def pdfSecuen(self,page):
         image_path = "Imagenes/img1.png" 
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
@@ -259,14 +268,6 @@ class InstrImgs():
     # 
     def PostImgs(self,idPrint,idSec,url_Img,fig,cmntrs):
         lstImgs = []
-
-        dicImgs = {
-            'EXTRC' :   ['N/A','N/A','N/A'],
-            'IMPRC' :   ['N/A','N/A','N/A'],
-            'LMNSN' :   ['N/A','N/A','N/A'],
-            'RFLD'  :   ['N/A','N/A','N/A'],
-            'CNVRSN' :  ['N/A','N/A','N/A']
-        }
         
         # IMAGEN , FIGURA Y COMENTARIOS 
         print(idSec,url_Img,)
@@ -293,11 +294,11 @@ class InstrImgs():
                 # Almacena la url en el dicciónario dependiendo de la Key
                 #dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
                 
-                dicImgs[idSec] = [f'{ruta_relativa}',f'{fig}',f'{cmntrs}']
+                self.dicImgs[idSec] = [f'{ruta_relativa}',f'{fig}',f'{cmntrs}']
 
                 # Recorrer el Dicciónario y agregar sus value en una lista
-                for key in dicImgs: 
-                    lstImgs.append(dicImgs[key])
+                for key in self.dicImgs: 
+                    lstImgs.append(self.dicImgs[key])
                     #print("-- ",dicImgs[key])  # Imprimir el diccionario para verificar
                 print("lista ---",lstImgs)      # <-- pedo aqui ##
                 return lstImgs

@@ -116,7 +116,9 @@ class CreatePdf():
         for pros in lstImg:       # Recorre el proceso
             for lst in pros:
                 print("--.i.- ",lst)
+                self.dta.append(lst)
 
+        print(self.dta)
         imgExtr = lstImg[0][0]   #  
         imgImpr = lstImg[1][0]
         imgLam = lstImg[2][0]
@@ -139,7 +141,7 @@ class CreatePdf():
         # idpdf : Id del Prindcard
         # 
 
-        #self.postPdfLOCAL(idpdf,self.pdf,imgExtr,imgImpr,imgLam,imgRef,imgCnvr,figExtrs,figImprs,figLam,figRef,figCnvrs)
+        self.postPdfLOCAL(idpdf,self.pdf,self.dta) # ----- MOVERLE A ESTE PEDO
 
         ###########################################################################################
 
@@ -180,7 +182,7 @@ class CreatePdf():
             self.postpdf().transctInsertPrindCard(id_pdf,pdf)
             self.doc.close()#'''
 
-    def postPdfLOCAL(self,id_pdf,url_pef,extr,imprs,lam,ref,cnvr,figExtrs,figImprs,figLam,figRef,figCnvrs):
+    def postPdfLOCAL(self,id_pdf,url_pef,dta):
         if self.id != "Insert":
             # UPDATE
             #self.postpdf().transctInsertPrindCardLOCAL(url_pef,id_pdf)
@@ -188,7 +190,7 @@ class CreatePdf():
             print("PROXIMAMENTE!")
         else:
             # INSERT
-            self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,extr,imprs,lam,ref,cnvr,figExtrs,figImprs,figLam,figRef,figCnvrs)
+            self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,*dta[0:15])
             self.doc.close()#'''
 
 #crpdf = CreatePdf()
