@@ -28,12 +28,12 @@ class appExtr():
         try:
             self.cursorPool.callproc('InsertExtr',(args))
             self.conectPool.commit()
-            print("INSERTADO")
+            #print("INSERTADO")
         except mysql.connector.Error as err:
             print("ERROR AL INSERTAR EXTRS",err)
         finally:
             self.cursorPool.close()
-            print("Conexión cerrada!")
+            #print("Conexión cerrada!")
 
         # -- METHOD PUT -- #
     # --- TRANSACCIÓN UPDATE --- #

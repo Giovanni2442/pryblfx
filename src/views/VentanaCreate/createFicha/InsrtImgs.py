@@ -26,15 +26,12 @@ class InstrImgs():
         self.text_color = (0,0,0)               # Color del Recuadro(ELIMINAR)
         self.text_size = 12     
         self.lst = []                            # Lista de urls que retorna la función para almacenar en BD            
-        #self.dicImgs = {}                           #  Dicciónario de Imagenes, donde guarda las url dependiendo del proceso 
         self.appPrind = appPrindCard
        
         # INSERTAR / ACTUALIZAR
         self.id = self.page.client_storage.get("id")
-        # METHOD GET 
-        #self.dta = self.dtaFich().getFicha(self.id)
-        #self.urlImg = self.appPrind().getPridCardImagesLOCAL(self.id)
 
+        # DICCIÓNARIO DE CADA PROCESO FORMATEADO
         self.dicImgs = {
             'EXTRC' :   ['N/A','N/A','N/A'],
             'IMPRC' :   ['N/A','N/A','N/A'],
@@ -44,9 +41,8 @@ class InstrImgs():
         }
 
 
-    ###################### ASIGNACIÓN DE COORDENADAS PARA CADA IMAGEN , FIGURA Y DESCRIPCIÓN ###########################################
+###################### ASIGNACIÓN DE COORDENADAS PARA CADA IMAGEN , FIGURA Y DESCRIPCIÓN ###########################################
     
-    ### CUIDADO! FUNCIÓN EN PRUEBAS PARA EL UPDATE, EVITAR LA INSERCIÓN EN EXTRS ###
     def pdfImageExtr(self,page,dic):
         print("MTHOD EXTRS -- ",dic)
         # Figuras
@@ -63,7 +59,6 @@ class InstrImgs():
         self.chekKey(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)#'''
         #self.chekKeyPRU(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)
 
-    #'''
     def pdfImageImpr(self,page,dic):
         # Figuras
         numFig = fitz.Rect(208, 1095, 400, 1120)      # Num. Fig. Bobina
@@ -109,10 +104,10 @@ class InstrImgs():
         # Sirve para Ingresar Textos dentro del Rectangulo
         page.insert_image(Img_rect, filename=image_path)
     
-    ############################################################################################################
+############################################################################################################
 
 
-    #################### INSERCIÓN DE IMAGENES CON LAS COORDENADAS OBTENIDAS #######################################################
+#################### INSERCIÓN DE IMAGENES CON LAS COORDENADAS OBTENIDAS #######################################################
         # Función para agregar Imagenes y Observaciónes
         # Ayuda a agregar Imagenes vacias y Observaciónes
     def chekKey(self,page,fig,numFig,obsr,dicImgs):
@@ -138,30 +133,8 @@ class InstrImgs():
         * Si falta imagen, reposiciónar el recuadro de Obsrv, avarcando
         el espacio de la imagen faltante'
         print("--: ",dicImgs[key][0])'''
-    
-
-    #'''
-
-    #EL PROBLEMA ESTA PORQUE REQUIERE DE UNA LISTA CON 3 ELEMENTOS [IMAGEN,FIGURA,DESCRIPCIÓN]
-    # HACER UNA PRUEBA DONDE SOLO TOME LA IMAGEN O HACER QUE TOME LAS OTRAS 2 QUE FALTA, TOMANDO LOS VALORES
-    # DE LOS TEXFIELD#
-    def chekKeyPRU(self,page,fig,numFig,obsr,dicImgs):
-        print("UPDATE --",dicImgs[0])
         
-        #'''
-        #print("--",lst[1])       # IMAGEN
-        if dicImgs[0] != "N/A":          # Accede al indice de la imagen
-            #pass
-            page.insert_image(fig,filename=dicImgs[0])  # EN POSICIÓN [0] SE ENCIENTRA LA IMAGEN
-            page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
-            page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)         # EN POSICIÓN [2] SE ENCIENTRA LA DESCR.
-        elif dicImgs[id][1] and dicImgs[2] != "N/A":        # Si no hay imagen, agrega los demas textos NUM. FIG Y DESCRIP
-            page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
-            page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
-        else:
-            return None##'''
-        
-    ############################################################################################################
+############################################################################################################
 
     def main2(self,page,idPrint):
         # ALMACENAN LA IMAGEN , FIGURA Y COMENTARIOS
@@ -171,16 +144,13 @@ class InstrImgs():
 
             #  - INSERTAR / ANTUALIZAR IMAGENES EN EL PDF - #
 
-        # - ACTUALIZAR - 
+        # - UPDATE - 
         if self.id != 'Insert':  
-            dicImgs = self.page.client_storage.get("id_Img")
-            #print(dicImgs)
+            dicObsrvc = self.page.client_storage.get("id_Img")
+            print("UPDATE-...- ",dicObsrvc)
             # TRAE LAS URL DE LA BASE DE DATOS
             dta = self.appPrind().transactGetObsrv(idPrint)
-            dta2 = self.appPrind().getPridCardImagesLOCAL(idPrint)
-            #print("--.i.-",dta)
-            #print("-simple- : ",dta2)
-            
+         
             #'''
             # RECOLECTA DE LA BASE DE DATOS# 
             # NOTA : REALIZAR UN INNER JOIN DE LAS TABLAS:
@@ -194,54 +164,88 @@ class InstrImgs():
             }
             ##################################
 
-            # ACCEDE A LAS FUNCIÓNES INSERCIÓN DE IMAGES # 
+            # ACCEDE A LAS COORDENADAS DE CADA PROCESO# 
+            #'''
             select = {
                 'EXTRC' : self.pdfImageExtr,
                 'IMPRC' : self.pdfImageImpr,
                 'LMNSN' : self.pdfImageLam,
                 'RFLD'  : self.pdfImageRef,
                 'CNVRSN' : self.pdfImageCnvrs
-            }
+            }#'''
             #####################################
-         
-            for key in selectImg:
-                value = selectImg[key]
-                #if value != "N/A":           # VERIFICAR CONTENIDO
-                    
-                fun = select.get(key)
-                #print("---",value)
-                fun(page,value)            # <-- MODIFICAR ESTA FUNCIÓN 
 
-                #POST IMAGENES      
-                # LLAMADA PARA CREAR LA LISTA
-                #r = self.PostImgs(idPrint,key,value)
-            # Limpiar el diccionario id_Img
-            self.page.client_storage.set("id_Img", {})
-            #print("Mieda -",r)
-            return ["N/A","N/A","N/A","N/A","N/A"]
-                    # SE INSERTAN IMAGENES VACIAS SI NO HAY IMAGENES
-                    #print("NEL PASTEL XD")
-                    #return ["N/A","N/A","N/A","N/A","N/A"]
-                    #print("ERROR")'''
+            ######################
+            # SI EL dicObsrvc NO ES VACIO
+            if dicObsrvc:  
+                #print("LLENO",dicObsrvc)
+                for key in dicObsrvc:                               # RECORRE EL DICCIONARIO DE OBSERVACIÓNES
+                    for i,value in enumerate(dicObsrvc[key]):       # ENUMERA EL DICC PARA ACCEDER AL INDICE   
+                        if value != "N/A":                          # SI EL DICC ES DIFERENTE A "N/A"
+                            selectImg[key][i] = value               # ACTUALIZAMOS EL DICC DE ELEMENTOS
+                #print("ACTUALIZADO ..--..-- ",selectImg)
+
+                # RECORREMOS EL DICC ACTUALIZADO CON LOS NUEVOS DATOS
+                for key in selectImg:
+                    value = selectImg[key]
+                    #if value != "N/A":           # VERIFICAR CONTENIDO
+                        
+                    fun = select.get(key)
+                    #print("---",value)
+                    fun(page,value)            # <-- MODIFICAR ESTA FUNCIÓN 
+
+                    img = value[0]
+                    fig = value[1]
+                    comntrs = value[2]
+
+                    r = self.PostImgs(idPrint,key,img,fig,comntrs)
+                    
+                # Limpiar el diccionario id_Img
+                self.page.client_storage.set("id_Img", {})
+                print("UPDATE--",r)
+                return r 
+
+            else:
+                    #print("VACIO",dicObsrvc)
+                ######################
+                # RECORRE EL DICCIÓNARIO CON DATOS TRAIDOS DE LA BD
+                for key in selectImg:
+                    value = selectImg[key]
+                    #if value != "N/A":           # VERIFICAR CONTENIDO
+                        
+                    fun = select.get(key)
+                    #print("---",value)
+                    fun(page,value)            # <-- MODIFICAR ESTA FUNCIÓN 
+
+                    img = value[0]
+                    fig = value[1]
+                    comntrs = value[2]
+
+                    r = self.PostImgs(idPrint,key,img,fig,comntrs)
+                    
+                # Limpiar el diccionario id_Img
+                self.page.client_storage.set("id_Img", {})
+                print("UPDATE--",r)
+                return r 
         
         #  -- INSERTAR --
-        else :      
-            dicImgs = self.page.client_storage.get("id_Img")
-            print("--**",dicImgs)
+        else : 
+            dicObsrvc = self.page.client_storage.get("id_Img")    
+            print("--**",dicObsrvc)
           
-            # COORDENADAS EN IMAGENES
+            #'''# COORDENADAS EN IMAGENES
             select = {
                 'EXTRC' : self.pdfImageExtr,
                 'IMPRC' : self.pdfImageImpr,
                 'LMNSN' : self.pdfImageLam,
                 'RFLD'  : self.pdfImageRef,
                 'CNVRSN' : self.pdfImageCnvrs
-            }
+            }#'''
 
             # SI NO ES NONE, INSERTA EN LAS COORDENADAS
-            if dicImgs:
-                for key in dicImgs:
-                    value = dicImgs[key]
+            if dicObsrvc:
+                for key in dicObsrvc:
+                    value = dicObsrvc[key]
                     print("--d-- : ",value)
                     fun = select.get(key)
                     fun(page,value)
@@ -289,13 +293,12 @@ class InstrImgs():
                 
                 # RUTA DEL DIRECTORIO DEL PROYECTO
                 ruta_relativa = os.path.relpath(nueva_ruta, os.getcwd())
-                #print("CARPETA NUEVA --- ",ruta_relativa)
                 # Mover y renombrar el archivo
-                shutil.move(url_Img, nueva_ruta)
+                shutil.copy(url_Img, nueva_ruta)
                 #shutil.move(url_Img, ruta_relativa)
 
                 # Almacena la url en el dicciónario dependiendo de la Key
-                #dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
+                    #EJEMPLO : dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
                 self.dicImgs[idSec] = [f'{ruta_relativa}',f'{fig}',f'{cmntrs}']
 
                 # Recorrer el Dicciónario y agregar sus value en una lista
@@ -306,7 +309,7 @@ class InstrImgs():
                 #return lstImgs
 
             except Exception as e:
-                print(f"Error al mover y renombrar la imagen: {e}")
+                print(f"Error al copiar y renombrar la imagen: {e}")
         else:
             # EL PEDO ESTA QUE AL HABER UN "N/A", no retorna ni madres
             # Recorrer el Dicciónario y agregar sus value en una lista

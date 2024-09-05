@@ -36,6 +36,7 @@ class FileUploaderApp:
         Obsrv = self.Btnid[2]
         #self.crtPdf.InsertTxt()
         self.tplImg[self.Btnid[0]] = (self.pru,numFig,Obsrv)        # DICCIONARIO DONDE ALMACENA CADA BTN INGRESADO!
+        self.pru = "N/A"
         print("tpl -- ",self.tplImg)
         self.page.client_storage.set("id_Img",self.tplImg)           # <-- DICCIONARIO ACCECIBLE
        

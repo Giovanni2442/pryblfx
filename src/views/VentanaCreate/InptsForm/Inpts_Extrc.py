@@ -502,8 +502,8 @@ class InptsExtrc():
     # GET EXTRS
     def dataExtrs(self,default_value,Indx):
         if self.id != "Insert":                  
-            return self.dta[Indx]
-            #return f"{Indx}"
+            #return self.dta[Indx]
+            return f"{Indx}"
         else:
             return default_value
     

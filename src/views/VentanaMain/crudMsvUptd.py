@@ -1,18 +1,62 @@
+import os
+from typing import Any, List
+import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
 from src.Controllers.appFichVent import appFichVent
-from typing import Any, List
+from src.views.VentanaMain.vtnMain import pr
+from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
 
 class crudMsv(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
         self.color_teal = "teal"
-        self.dataTbl = appFichVent  #Accede a la información en la base de datos
+        #'''
+    # ########## COMPONENTES ############################
+        self.page = page  
 
-        
-        '''
+        self.dataTbl = appFichVent  #Accede a la información en la base de datos
+    
+        # path ruta local#
+        self.pdf_path = ""
+        # PATH RUTA LOCAL IMAGENES
+        self.ImgPdf = ""
+
+        #self.createPrnt = createPrind(page)
+        self.pr = pr(page)
+        self.pdf = opnPrindPdf(page)#'''
+
+        # --- INPUTS DE BUSQUEDA --- 
+            # Busqueda del PrindCard
+        self.InptPrindCard = TextField(
+            label="Buscar PridCard",
+            suffix_icon= icons.SEARCH,
+            border= InputBorder.UNDERLINE,
+            border_color= "black",
+            label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e : self.searchInput(e,i=0)
+        )
+            # Busqueda por cliente
+        self.InptClienteSimple = TextField(
+            label="Buscar Cliente",
+            suffix_icon= icons.SEARCH,
+            border= InputBorder.UNDERLINE,
+            border_color= "black",
+            label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e : self.searchInput(e,i=1)
+        )
+            # Busqueda / cliente Masivo
+        self.InptClienteMasiva = TextField(
+            label="Buscar Cliente",
+            suffix_icon= icons.SEARCH,
+            border= InputBorder.UNDERLINE,
+            border_color= "black",
+            label_style=TextStyle(color="black",italic=True)
+        )
+  
         # --- BOTONES ---
+            ###  - CREAR UN NUEVO PRIND CARD  - ###
         self.BtnCreate = FilledButton(
-            text="EDITAR MASIVO",
+            text="Crear PrindCard",
             adaptive=True,
             style=ButtonStyle(
                 bgcolor="#21A772",
@@ -20,7 +64,7 @@ class crudMsv(UserControl):
                     ControlState.HOVERED: colors.RED,
                     ControlState.HOVERED: colors.BLACK,
                 },
-                overlay_color=colors.TRANSPARENT,
+                overlay_color=ft.colors.TRANSPARENT,
                 elevation={"pressed": 0, "": 1},
                 animation_duration=200,
                 shape={
@@ -35,18 +79,25 @@ class crudMsv(UserControl):
             #on_click= self.inptTable.jer
         )
 
-
-        # --- INPUTS DE BUSQUEDA --- 
-            # Busqueda del PrindCard
-        self.InptPrindCard = TextField(
-            label="Buscar PridCard",
-            suffix_icon= icons.SEARCH,
-            border= InputBorder.UNDERLINE,
-            border_color= "black",
-            label_style=TextStyle(color="Black",italic=True),
-            on_change= lambda e : self.searchInput(e,i=0)
+        self.BtnCreate2 = FilledButton(
+            text="Crear PrindCard 2",
+            adaptive=True,
+            style=ButtonStyle(
+                bgcolor="#21A742",
+                color={
+                    ControlState.HOVERED: colors.RED,
+                    ControlState.HOVERED: colors.BLACK,
+                },
+                overlay_color=ft.colors.TRANSPARENT,
+                elevation={"pressed": 0, "": 1},
+                animation_duration=200,
+                shape={
+                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                },
+            ),     
+            on_click= lambda _: self.page.go('/editMsv'),
         )
-
 
         # --- TABLA ---
             # --- Columnas de la tabla ---
@@ -59,21 +110,19 @@ class crudMsv(UserControl):
             border_radius=border_radius.only(top_left=10,top_right=10),
             vertical_lines= BorderSide(0.5,color=colors.WHITE24),
             columns=[
-                DataColumn(Text("ID_PRODUCTO",color=colors.WHITE,weight="bold")),
                 DataColumn(Text("CLIENTE",color=colors.WHITE,weight="bold")),
-                DataColumn(Text("PRODUCTO",color=colors.WHITE,weight="bold")),
-                DataColumn(Text("FECHA",color=colors.WHITE,weight="bold")),
                 DataColumn(Text("HERRAMIENTAS",color=colors.WHITE,weight="bold"))
             ],
         )
         # row table
         self.showData() # Carga la función donde se recorre las tuplas de productos disponibles
 
-        # -- Herramientas de la tabla --
+    # -- Herramientas de la tabla --
         # --- Delete Product ---
         # Modularizar el Modal para Eliminar, Atualizar y Agregar
     def dltButton(self,e):
         idPrind = e.control.data[0]
+        print(e.control.data)
         self.mdlDlt = AlertDialog(
             modal=True,
             title=Text("Alerta!"),
@@ -94,13 +143,40 @@ class crudMsv(UserControl):
     
         # -- Query Modal Delete --
     
+    # ELIMINA LOS PDF Y SUS IMAGENES
+    def dltPdfImgs(self,id):
+        # LISTA DE RUTAS DE IMAGENES Y PDF
+        urlPdf = [
+            # ELIMINAR PDF DESDE LA RUTA LOCAL}
+            f'FilePdf/{id}.pdf',
+            # ELIMINAR  IMAGENES DEL PDF
+            f'Imagenes/EXTRC/{id}.png',
+            f'Imagenes/IMPRC/{id}.png',
+            f'Imagenes/LMNSN/{id}.png',
+            f'Imagenes/RFLD/{id}.png',
+            f'Imagenes/CNVRSN/{id}.png',
+        ]
+
+        for url in urlPdf:
+            try:
+                os.remove(url)
+                print(f"Archivo eliminado: {url}")
+            except FileNotFoundError:
+                pass
+                #print(f'Archivo o imagen {url} No encontrado!')
+
+    # ELIMINA LOS REGISTROS DE LA BASE DE DATOS
     def queryDlt(self,bnd,id):
         if not bnd:
             self.mdlDlt.open = False
         else:
+            # ELIMINA DATOS DEL PRINDCARD#
             self.dataTbl().delete_row_Table(id)
-            #self.dataTbl.delete_row_Table(id=id) 
+            # ELIMINA REGISTRO DEL PDF#
+            self.dltPdfImgs(id)
+        
             self.mdlDlt.open = False
+
             # -- Limpia y Actualiza la tabla -- 
             self.Table.rows.clear() 
             self.showData()
@@ -129,9 +205,6 @@ class crudMsv(UserControl):
             #color="yellow",
             cells=[
                 DataCell(Text(row[0],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
-                DataCell(Text(row[1],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
-                DataCell(Text(row[3],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
-                DataCell(Text(row[2],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
                 DataCell(
                     Row([
                         IconButton("delete",
@@ -148,19 +221,12 @@ class crudMsv(UserControl):
                                 self.page.go('/cratePrindCard'),
                             ),
                         ),
-                        IconButton("NEWSPAPER", # Ficha Tecnica
-                            icon_color=colors.BLACK54,
-                            data=row,
-                            #on_click= self.pdf.open_pdf # --- PROXIMA TAREA ---
-                            #on_click= self.pdf.opnPdfBffer
-                        )
                     ])
                 )
             ]
         )
         return self.rows
     
-
     # --- BUSCADORES ---
         # inpt  : Input que se va a utilizar
         # e     : Evento de escucha
@@ -198,16 +264,21 @@ class crudMsv(UserControl):
                 size=20
             )
         
+    #''' <-- DESCOMENTAR -->
     # Muestra los datos de la base de datos
     def showData(self):
+        #'''
         self.Table.rows = []
-        for row in self.dataTbl().get_row_Table():    # Accede a la variable de la conexión
+        for row in self.dataTbl().get_row_clientes():    # Accede a la variable de la conexión
             self.Table.rows.append(
                 self.dataRows(row)
             )
-        self.update()  
+        self.update()#'''
+        #pass
 
-        # --- CONTENEDORES,FRAMES ETC ... ---
+    #######################################################
+
+    # --- CONTENEDORES,FRAMES ETC ... ---
         # --- FRAME FILTRADO ---
         self.cntFiltPrinf = Container(
             #expand=True,
@@ -309,4 +380,17 @@ class crudMsv(UserControl):
 
     # IMPORTANTE : Retorna todos los Gidwts del promama
     def build(self):    
-        return self.container'''
+        return self.container
+'''
+def main(page: Page):       #   page : Es el Frame o la ventana de la Aplicación
+    page.window_min_height = 200
+    page.window_min_width = 200
+
+    #page.theme_mode = ThemeMode.DARK
+    page.padding = 0
+    #page.adaptive = True
+    page.add(crudPrintCard(page))
+
+
+app(main)
+#pru()'''

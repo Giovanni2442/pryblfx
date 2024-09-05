@@ -20,6 +20,27 @@ class appFichVent():
     # Show all products
     #'''
     #@classmethod
+
+
+    ## -- ACTUALIZACIÓNES MASIVAS -- ##
+
+    def get_row_clientes(self):
+        try:
+            query = 'SELECT DISTINCT cliente FROM FichaTec;'
+            #cur = self.connect.cursor()
+            cur = self.dtaDb.cursor()
+            cur.execute(query)   
+            result = cur.fetchall()
+            return result
+        except:
+            print("ERROR AL OBTENER DATOS!")
+        finally:
+            cur.close()
+            self.dtaDb.close()
+
+    ###################################
+
+
     def get_row_Table(self):
         try:
             query = 'SELECT * FROM FichaTec;'
@@ -93,7 +114,7 @@ class appFichVent():
         try:
             self.cursorPool.callproc('InsertFichaVentas',(args))
             self.conectPool.commit()
-            print("INSERTADO!")
+            #print("INSERTADO!")
         except mysql.connector.Error as err:
             print("ERROR AL INSERTAR EN FICHA!",err)
         finally:

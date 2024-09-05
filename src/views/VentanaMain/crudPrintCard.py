@@ -4,7 +4,6 @@ import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
 from src.Controllers.appdb import appDb
 from src.Controllers.appFichVent import appFichVent
-from src.Controllers.appCreatePrindCard import CntrlsCreatePrindCard
 from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
 from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
@@ -18,7 +17,6 @@ class crudPrintCard(UserControl):
         self.page = page  
 
         self.dataTbl = appFichVent  #Accede a la información en la base de datos
-        self.InsrtData = CntrlsCreatePrindCard()
     
         # path ruta local#
         self.pdf_path = ""

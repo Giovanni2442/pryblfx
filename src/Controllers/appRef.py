@@ -29,12 +29,12 @@ class appRef():
         try:
             self.cursorPool.callproc('InsertRefil',(args))
             self.conectPool.commit()
-            print("INSERTADO") 
+            #print("INSERTADO") 
         except mysql.connector.Error as err:
             print("ERROR AL INSERTAR REFIL!",err)
         finally:
             self.cursorPool.close()
-            print("Conexión cerrada!")
+            #print("Conexión cerrada!")
 
     # --- METHOD UPDATE --- #
 
@@ -47,4 +47,4 @@ class appRef():
             print("ERROR UPDATE REFIL",err)
         finally:
             self.cursorPool.close()
-            print("Conexión cerrada!")    
+            #print("Conexión cerrada!")    
