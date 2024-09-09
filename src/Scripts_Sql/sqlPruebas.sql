@@ -77,8 +77,10 @@ CREATE TABLE DescImgPdf(		/* DESCRIPCIÓNES DE LA IMAGEN" */
 						/*--GET--*/
 
 CALL getObsrv(
-	'2222'
-)
+	'4444'
+);
+
+select * from fichatec;
 
 DROP PROCEDURE IF EXISTS getObsrv;
 

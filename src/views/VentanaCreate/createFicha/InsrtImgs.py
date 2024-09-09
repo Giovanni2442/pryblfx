@@ -145,7 +145,7 @@ class InstrImgs():
 
             #  - INSERTAR / ANTUALIZAR IMAGENES EN EL PDF - #
 
-        # - UPDATE - 
+        # - UPDATE NORMAL- 
         if self.estd != 'Insert':  
             dicObsrvc = self.page.client_storage.get("id_Img")
             #print("UPDATE-...- ",dicObsrvc)

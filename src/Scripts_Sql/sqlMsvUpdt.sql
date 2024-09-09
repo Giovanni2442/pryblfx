@@ -6,6 +6,7 @@ FROM productos;
 
 SELECT * FROM FichaTec;
 
+SET SQL_SAFE_UPDATES = 0;
 
 
 /* ---------------------------- IMPRECIÓNES DE LAS TABLAS -----------------------------*/
@@ -237,7 +238,7 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
-DELIMITER ;
+ DELIMITER ;
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -245,7 +246,7 @@ DELIMITER ;
 select * from fichatec;
 
 CALL getImprs(
-	'5656'
+	'3333'
 );
 
 CALL UpdtMsvImprs(
@@ -286,7 +287,6 @@ CALL UpdtMsvImprs(
     0,                   -- tol_psoNto
     'REYMA'                -- Updt_Cliente (nombre del cliente a actualizar)
 );
-
 
 
 DROP PROCEDURE IF EXISTS UpdtMsvImprs;
@@ -427,7 +427,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS UpdtMsvLamGen;
 
 DELIMITER $$
-	CREATE PROCEDURE UpdtMsvLamGen(
+	CREATE PROCEDURE UpdtMsvLamGen(			-- Update Masivo de Laminación general
 		IN estructProduct VARCHAR(255),
 		IN maxEmpalmesBob INT,
 		IN orientBobRack VARCHAR(255),
@@ -521,8 +521,391 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
+DELIMITER ;
+
+
+DELIMITER $$
+	CREATE PROCEDURE UpdtMsvLaminas(			-- Update masivo de Materiales ha laminar
+		IN Mtrl_1 VARCHAR(255),
+		IN tipoTratado_1 VARCHAR(255),
+		IN tipoLamin_1 VARCHAR(255),
+
+			IN cal_1 	DECIMAL(10,2),
+			IN tol_cal_1 	DECIMAL(10,2),
+
+			IN anchoBob_1 	DECIMAL(10,2),
+			IN tol_bob_1 	DECIMAL(10,2),
+
+		IN Mtrl_2 VARCHAR(255),			-- Material_Laminar_2
+		IN tipoTratado_2 VARCHAR(255),
+		IN tipoLamin_2 VARCHAR(255),
+
+			IN cal_2 	DECIMAL(10,2),
+			IN tol_cal_2 	DECIMAL(10,2),
+
+			IN anchoBob_2 	DECIMAL(10,2),
+			IN tol_bob_2 	DECIMAL(10,2),
+
+		IN Mtrl_3 VARCHAR(255),			-- Material_Laminar_3
+		IN tipoTratado_3 VARCHAR(255),
+		IN tipoLamin_3 VARCHAR(255),
+
+			IN cal_3 	DECIMAL(10,2),
+			IN tol_cal_3 	DECIMAL(10,2),
+
+			IN anchoBob_3 	DECIMAL(10,2),
+			IN tol_bob_3 	DECIMAL(10,2),
+
+		IN Mtrl_4 VARCHAR(255),			-- Material_Laminar_4
+		IN tipoTratado_4 VARCHAR(255),
+		IN tipoLamin_4 VARCHAR(255),
+
+			IN cal_4 	DECIMAL(10,2),
+			IN tol_cal_4 	DECIMAL(10,2),
+
+			IN anchoBob_4 	DECIMAL(10,2),
+			IN tol_bob_4 	DECIMAL(10,2),
+		
+		IN Updt_Cliente VARCHAR(255)
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+		
+		-- Material_Laminar_1
+		UPDATE Material_Laminar_1 mt1   	
+		INNER JOIN fichatec ft on mt1.idCodPrdc = ft.id_codProduct			
+		SET Material = CASE WHEN Mtrl_1 <> 'N/A' THEN Mtrl_1 ELSE Mtrl_1 END,
+			tipoTratado = CASE WHEN tipoTratado_1 <> 'N/A' THEN tipoTratado_1 ELSE tipoTratado_1 END,
+			tipoLamin =  CASE WHEN tipoLamin_1 <> 'N/A' THEN tipoLamin_1 ELSE tipoLamin_1 END
+		WHERE ft.cliente = Updt_Cliente;
+
+			UPDATE CalibrePelic_TolrLam1 clbPl1   	
+			INNER JOIN fichatec ft on clbPl1.idCodPrdc = ft.id_codProduct	
+			SET calibre = CASE WHEN cal_1 <> 0.0 THEN cal_1 ELSE cal_1 END,
+				tolerancia =  CASE WHEN tol_cal_1 <> 0.0 THEN tol_cal_1 ELSE tol_cal_1 END
+			WHERE ft.cliente = Updt_Cliente;
+
+			UPDATE AnchoBob_TolrLam1 anchBob1   	
+			INNER JOIN fichatec ft on anchBob1.idCodPrdc = ft.id_codProduct	
+			SET anchoBob =  CASE WHEN anchoBob_1 <> 0.0 THEN anchoBob_1 ELSE anchoBob_1 END,
+				tolerancia =  CASE WHEN tol_bob_1 <> 0.0 THEN tol_bob_1 ELSE tol_bob_1 END
+			WHERE ft.cliente = Updt_Cliente;
+
+		-- Material_Laminar_2
+		UPDATE Material_Laminar_2 mt2   	
+		INNER JOIN fichatec ft on mt2.idCodPrdc = ft.id_codProduct			
+		SET Material = CASE WHEN Mtrl_2 <> 'N/A' THEN Mtrl_2 ELSE Mtrl_2 END,
+			tipoTratado = CASE WHEN tipoTratado_2 <> 'N/A' THEN tipoTratado_2 ELSE tipoTratado_2 END,
+			tipoLamin =  CASE WHEN tipoLamin_2 <> 'N/A' THEN tipoLamin_2 ELSE tipoLamin_2 END
+		WHERE ft.cliente = Updt_Cliente;
+
+			UPDATE CalibrePelic_TolrLam2 clbPl2   	
+			INNER JOIN fichatec ft on clbPl2.idCodPrdc = ft.id_codProduct	
+			SET calibre = CASE WHEN cal_2 <> 0.0 THEN cal_2 ELSE cal_2 END,
+				tolerancia =  CASE WHEN tol_cal_2 <> 0.0 THEN tol_cal_2 ELSE tol_cal_2 END
+			WHERE ft.cliente = Updt_Cliente;
+
+			UPDATE AnchoBob_TolrLam2 anchBob2   	
+			INNER JOIN fichatec ft on anchBob2.idCodPrdc = ft.id_codProduct	
+			SET anchoBob =  CASE WHEN anchoBob_2 <> 0.0 THEN anchoBob_2 ELSE anchoBob_2 END,
+				tolerancia = CASE WHEN tol_bob_2 <> 0.0 THEN tol_bob_2 ELSE tol_bob_2 END
+			WHERE ft.cliente = Updt_Cliente;
+
+		-- Material_Laminar_3	
+		UPDATE Material_Laminar_3 mt3   	
+		INNER JOIN fichatec ft on mt3.idCodPrdc = ft.id_codProduct			
+		SET Material = CASE WHEN Mtrl_3 <> 'N/A' THEN Mtrl_3 ELSE Mtrl_3 END,
+			tipoTratado = CASE WHEN tipoTratado_3 <> 'N/A' THEN tipoTratado_3 ELSE tipoTratado_3 END,
+			tipoLamin =  CASE WHEN tipoLamin_3 <> 'N/A' THEN tipoLamin_3 ELSE tipoLamin_3 END
+		WHERE ft.cliente = Updt_Cliente;
+
+			UPDATE CalibrePelic_TolrLam3 clbPl3   	
+			INNER JOIN fichatec ft on clbPl3.idCodPrdc = ft.id_codProduct	
+			SET calibre = CASE WHEN cal_3 <> 0.0 THEN cal_3 ELSE cal_3 END,
+				tolerancia =  CASE WHEN tol_cal_3 <> 0.0 THEN tol_cal_3 ELSE tol_cal_3 END
+			WHERE ft.cliente = Updt_Cliente;
+
+			UPDATE AnchoBob_TolrLam3 anchBob3   	
+			INNER JOIN fichatec ft on anchBob3.idCodPrdc = ft.id_codProduct	
+			SET anchoBob =  CASE WHEN anchoBob_3 <> 0.0 THEN anchoBob_3 ELSE anchoBob_3 END,
+				tolerancia = CASE WHEN tol_bob_3 <> 0.0 THEN tol_bob_3 ELSE tol_bob_3 END
+			WHERE ft.cliente = Updt_Cliente;
+
+		-- Material_Laminar_4
+		UPDATE Material_Laminar_4 mt4   	
+		INNER JOIN fichatec ft on mt4.idCodPrdc = ft.id_codProduct			
+		SET Material = CASE WHEN Mtrl_4 <> 'N/A' THEN Mtrl_4 ELSE Mtrl_4 END,
+			tipoTratado = CASE WHEN tipoTratado_4 <> 'N/A' THEN tipoTratado_4 ELSE tipoTratado_4 END,
+			tipoLamin =  CASE WHEN tipoLamin_4 <> 'N/A' THEN tipoLamin_4 ELSE tipoLamin_4 END
+		WHERE ft.cliente = Updt_Cliente;
+
+			UPDATE CalibrePelic_TolrLam4 clbPl4   	
+			INNER JOIN fichatec ft on clbPl4.idCodPrdc = ft.id_codProduct	
+			SET calibre = CASE WHEN cal_4 <> 0.0 THEN cal_4 ELSE cal_4 END,
+				tolerancia =  CASE WHEN tol_cal_4 <> 0.0 THEN tol_cal_4 ELSE tol_cal_4 END
+			WHERE ft.cliente = Updt_Cliente;
+
+			UPDATE AnchoBob_TolrLam4 anchBob4   	
+			INNER JOIN fichatec ft on anchBob4.idCodPrdc = ft.id_codProduct	
+			SET anchoBob =  CASE WHEN anchoBob_4 <> 0.0 THEN anchoBob_4 ELSE anchoBob_4 END,
+				tolerancia = CASE WHEN tol_bob_4 <> 0.0 THEN tol_bob_4 ELSE tol_bob_4 END
+			WHERE ft.cliente = Updt_Cliente;
+		
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
 	DELIMITER ;
 
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-- /////////////////////////// REFILADO ///////////////////////////////////////////////////////////////////////////////////////////
+
+		-- CALL PARA PRUEBAS
+CALL UpdtMsvRefil(
+    'EJEMPLO ALV',          -- proceso
+    'N/A',          -- acabadoBob
+    'N/A',           -- grosorCore
+    'N/A',         -- figEmbob_impr
+    'JIJI',           -- bobinaRefilar
+    222,                   -- maximo_Empal
+    'N/A',            -- señalEmpl
+    'N/A',      -- orient_Bob_Tarima
+    'N/A',      -- tipo_Empaque
+    'N/A',            -- pesar_Prdct
+    'N/A',       -- etiquetado
+    'N/A',    -- tarima_emplaye
+    'N/A',    -- tarima_flejada
+    0,                  -- numBobTam
+    0,              -- anchoFinalBob
+    0,                -- tol_anchoBob
+    0,              -- metros
+    0,                -- tol_Mtrs
+    0,               -- diametro
+    0,                -- tol_dim
+    0,              -- peso
+    0,               -- tol_pso
+    0,                -- num_Bob_Cama
+    0,                -- camas_Tarima
+    0,             -- pesoNeto
+    0,               -- tol_psNto
+    24.5,                -- core
+    24.5,                -- tol_core
+    'REYMA'           -- Updt_Cliente
+);
+
+select * from refilado;
+		-- CALL QUE MUESTRA TODOS LOS ATRIBUTOS DEL PROCESO
+CALL getRefil(
+	'1111'
+)
+
+	-- REFILADO
+DELIMITER $$
+	CREATE PROCEDURE UpdtMsvRefil(
+		IN proceso VARCHAR(255),
+		IN acabadoBob VARCHAR(255),
+		IN grosorCore VARCHAR(255),
+		IN figEmbob_impr VARCHAR(255),
+		IN bobinaRefilar VARCHAR(255),
+		IN maximo_Empal INT,
+		IN señalEmpl VARCHAR(255),
+		IN orient_Bob_Tarima VARCHAR(255),
+		IN tipo_Empaque VARCHAR(255),
+		IN pesar_Prdct VARCHAR(255),
+		IN etiquetado VARCHAR(255),
+		IN tarima_emplaye VARCHAR(255),
+		IN tarima_flejada VARCHAR(255),
+		IN numBobTam INT,
+
+		IN anchoFinalBob 	DECIMAL(10,2),
+		IN tol_anchoBob 	DECIMAL(10,2),
+
+		IN metros 	DECIMAL(10,2),
+		IN tol_Mtrs 	DECIMAL(10,2),
+
+		IN diametro 	DECIMAL(10,2),
+		IN tol_dim 	DECIMAL(10,2),
+
+		IN peso 	DECIMAL(10,2),
+		IN tol_pso 	DECIMAL(10,2),
+
+		IN num_Bob_Cama 	DECIMAL(10,2),
+		IN camas_Tarima 	DECIMAL(10,2),
+
+		IN pesoNeto 	DECIMAL(10,2),
+		IN tol_psNto 	DECIMAL(10,2),
+
+		IN core 	DECIMAL(10,2),
+		IN tol_core 	DECIMAL(10,2),
+
+		IN Updt_Cliente VARCHAR(255)
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+			-- REFILADO
+			UPDATE REFILADO ref   	
+			INNER JOIN fichatec ft on ref.idCodPrdc = ft.id_codProduct
+			SET proceso = CASE WHEN proceso <> 'N/A' THEN proceso ELSE proceso END,
+				acabadoBob = CASE WHEN acabadoBob <> 'N/A' THEN acabadoBob ELSE acabadoBob END,
+				grosorCore = CASE WHEN grosorCore <> 'N/A' THEN grosorCore ELSE grosorCore END,
+				figEmbob_impr = CASE WHEN figEmbob_impr <> 'N/A' THEN figEmbob_impr ELSE figEmbob_impr END,
+				bobinaRefilar = CASE WHEN bobinaRefilar <> 'N/A' THEN bobinaRefilar ELSE bobinaRefilar END,
+				maximo_Empal = CASE WHEN maximo_Empal <> 0 THEN maximo_Empal ELSE maximo_Empal END,
+				señalEmpl = CASE WHEN señalEmpl <> 'N/A' THEN señalEmpl ELSE señalEmpl END,
+				orient_Bob_Tarima = CASE WHEN orient_Bob_Tarima <> 'N/A' THEN orient_Bob_Tarima ELSE orient_Bob_Tarima END,
+				tipo_Empaque = CASE WHEN tipo_Empaque <> 'N/A' THEN tipo_Empaque ELSE tipo_Empaque END,
+				pesar_Prdct = CASE WHEN pesar_Prdct <> 'N/A' THEN pesar_Prdct ELSE pesar_Prdct END,
+				etiquetado = CASE WHEN etiquetado <> 'N/A' THEN etiquetado ELSE etiquetado END,
+				tarima_emplaye = CASE WHEN tarima_emplaye <> 'N/A' THEN tarima_emplaye ELSE tarima_emplaye END,
+				tarima_flejada = CASE WHEN tarima_flejada <> 'N/A' THEN tarima_flejada ELSE tarima_flejada END,
+				numBobTam = CASE WHEN numBobTam <> 0 THEN numBobTam ELSE numBobTam END
+			WHERE ft.cliente = Updt_Cliente;
+
+			-- Ancho Bobina / Tol
+			UPDATE AnchoFinalBob_TolrRef anchFnBob   	
+			INNER JOIN fichatec ft on anchFnBob.idCodPrdc = ft.id_codProduct
+			SET anchoFinalBob = CASE WHEN anchoFinalBob <> 0.0 THEN anchoFinalBob ELSE anchoFinalBob END,
+				tolerancia = CASE WHEN tol_anchoBob <> 0.0 THEN tol_anchoBob ELSE tol_anchoBob END
+			WHERE ft.cliente = Updt_Cliente;
+			
+			-- MetrosBobRefil_Tolr
+			UPDATE MetrosBobRefil_Tolr mtrsBbRef   	
+			INNER JOIN fichatec ft on mtrsBbRef.idCodPrdc = ft.id_codProduct
+			SET metros = CASE WHEN metros <> 0.0 THEN metros ELSE metros END,
+				tolerancia = CASE WHEN tol_Mtrs <> 0.0 THEN tol_Mtrs ELSE tol_Mtrs END
+			WHERE ft.cliente = Updt_Cliente;
+
+			-- MetrosBobRefil_Tolr
+			UPDATE DiamBobRefil_Tolr dmBbRef   	
+			INNER JOIN fichatec ft on dmBbRef.idCodPrdc = ft.id_codProduct
+			SET diametro = CASE WHEN diametro <> 0.0 THEN diametro ELSE diametro END,
+				tolerancia = CASE WHEN tol_dim <> 0.0 THEN tol_dim ELSE tol_dim END
+			WHERE ft.cliente = Updt_Cliente;
+
+			-- PesoNet_Prom_Bob
+			UPDATE PesoNet_Prom_Bob psNtBb   	
+			INNER JOIN fichatec ft on psNtBb.idCodPrdc = ft.id_codProduct
+			SET peso = CASE WHEN peso <> 0.0 THEN peso ELSE peso END,
+				tolerancia = CASE WHEN tol_pso <> 0.0 THEN tol_pso ELSE tol_pso END
+			WHERE ft.cliente = Updt_Cliente;
+			
+			-- Num_BobCama_CamTamRefil
+			UPDATE Num_BobCama_CamTamRefil numBbCm   	
+			INNER JOIN fichatec ft on numBbCm.idCodPrdc = ft.id_codProduct
+			SET num_Bob_Cama = CASE WHEN num_Bob_Cama <> 0.0 THEN num_Bob_Cama ELSE num_Bob_Cama END,
+				camas_Tarima = CASE WHEN camas_Tarima <> 0.0 THEN camas_Tarima ELSE camas_Tarima END
+			WHERE ft.cliente = Updt_Cliente;
+
+			-- Peso_prom_tarimaRefil			
+			UPDATE Peso_prom_tarimaRefil psPrmTam   	
+			INNER JOIN fichatec ft on psPrmTam.idCodPrdc = ft.id_codProduct
+			SET pesoNeto = CASE WHEN pesoNeto <> 0.0 THEN pesoNeto ELSE pesoNeto END,
+				tolerancia = CASE WHEN tol_psNto <> 0.0 THEN tol_psNto ELSE tol_psNto END
+			WHERE ft.cliente = Updt_Cliente;
+
+			-- anchCre_TolRefil
+			UPDATE anchCre_TolRefil anchCr  	
+			INNER JOIN fichatec ft on anchCr.idCodPrdc = ft.id_codProduct
+			SET core = CASE WHEN core <> 0.0 THEN core ELSE core END,
+				tolerancia = CASE WHEN tol_core <> 0.0 THEN tol_core ELSE tol_core END
+			WHERE ft.cliente = Updt_Cliente;
+	
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+DELIMITER ;
+
+-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-- /////////////////////////// CONVERSIÓN ///////////////////////////////////////////////////////////////////////////////////////////
+
+DELIMITER $$
+	CREATE PROCEDURE UpdtMsvConvrs(
+		IN tipo_Empaque VARCHAR(255),				/*EXTRUCIÓN*/
+		IN tipoSello VARCHAR(255),
+		IN tipoAcabado VARCHAR(255),
+		IN prdctPerf VARCHAR(255),
+		IN cntPerf INT,
+		IN prdctSuaje VARCHAR(255),
+		IN tipSuaje VARCHAR(255),
+		IN empcdPrdct VARCHAR(255),
+		IN cantPzsPacq 	DECIMAL(10,2),
+		IN tipEmblj VARCHAR(255),
+		IN medidEmblj INT,
+		IN pesarProd VARCHAR(255),
+		IN pesoProm 	DECIMAL(10,2),
+		IN etiquetado VARCHAR(255),
+		IN tarima_Emplaye VARCHAR(255),
+		IN tarima_Flejada VARCHAR(255),
+
+		/*Medida del empaque Ancho/Alto*/
+		IN ancho 	DECIMAL(10,2),
+		IN alto 	DECIMAL(10,2),
+		/*Numero de bultos o cajas por camas y camas por tarima*/         
+		IN cajasCama 	DECIMAL(10,2),
+		IN camasTarima 	DECIMAL(10,2),
+		/*Numero de bultos o cajas por camas y camas por tarima*/
+		IN num 	DECIMAL(10,2),
+		IN tol_num 	DECIMAL(10,2),
+		/*Peso promedio en tarima*/
+		IN peso 	DECIMAL(10,2),
+		IN tol_pso 	DECIMAL(10,2),
+
+		IN Updt_Cliente VARCHAR(255)
+	)
+	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
+		-- Iniciar la transacción
+		START TRANSACTION;
+			-- Conversión
+			
+			UPDATE CONVERSION cnvrs   	
+			INNER JOIN fichatec ft on cnvrs.idCodPrdc = ft.id_codProduct
+			SET tipo_Empaque = CASE WHEN tipo_Empaque <> 'N/A' THEN tipo_Empaque ELSE tipo_Empaque END,
+					tipoSello = CASE WHEN tipoSello <> 'N/A' THEN tipoSello ELSE tipoSello END,
+					tipoAcabado = CASE WHEN tipoAcabado <> 'N/A' THEN tipoAcabado ELSE tipoAcabado END,
+					prdctPerf = CASE WHEN prdctPerf <> 'N/A' THEN prdctPerf ELSE prdctPerf END,
+					cntPerf =  CASE WHEN cntPerf <> 0 THEN cntPerf ELSE cntPerf END,
+					prdctSuaje = CASE WHEN prdctSuaje <> 'N/A' THEN prdctSuaje ELSE prdctSuaje END,
+					tipSuaje = CASE WHEN tipSuaje <> 'N/A' THEN tipSuaje ELSE tipSuaje END,
+					empcdPrdct = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE tipEmblj END,
+					cantPzsPacq = CASE WHEN cantPzsPacq <> 0 THEN cantPzsPacq ELSE cantPzsPacq END,
+					tipEmblj = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE tipEmblj END,
+					medidEmblj = CASE WHEN medidEmblj <> 0 THEN medidEmblj ELSE medidEmblj END,
+					pesarProd = CASE WHEN pesarProd <> 'N/A' THEN pesarProd ELSE pesarProd END,
+					pesoProm = CASE WHEN pesoProm <> 0.0 THEN pesoProm ELSE pesoProm END,
+					etiquetado = CASE WHEN etiquetado <> 'N/A' THEN etiquetado ELSE etiquetado END,
+					tarima_Emplaye = CASE WHEN tarima_Emplaye <> 'N/A' THEN tarima_Emplaye ELSE tarima_Emplaye END,
+					tarima_Flejada = CASE WHEN tarima_Flejada <> 'N/A' THEN tarima_Flejada ELSE tarima_Flejada END
+				WHERE ft.cliente = Updt_Cliente;
+			
+			-- MedidEmpq
+			UPDATE MedidEmpq mdEmpq   	
+			INNER JOIN fichatec ft on mdEmpq.idCodPrdc = ft.id_codProduct
+			SET ancho = CASE WHEN ancho <> 'N/A' THEN ancho ELSE ancho END,
+				alto = CASE WHEN alto <> 'N/A' THEN alto ELSE alto END
+			WHERE ft.cliente = Updt_Cliente;
+
+			-- 	NumBlts_CajsCmas_CmasTarim
+			
+			UPDATE NumBlts_CajsCmas_CmasTarim mdEmpq   	
+			INNER JOIN fichatec ft on mdEmpq.idCodPrdc = ft.id_codProduct
+			SET cajasCama = cajasCama, camasTarima = camasTarima WHERE id_idCodPrdc = id_idCodPrdc;
+			-- NumBlts_CajsTarim
+			UPDATE NumBlts_CajsTarim SET num = num, tolerancia = tol_num WHERE id_idCodPrdc = id_idCodPrdc;
+			-- psPromTam
+			UPDATE psPromTam SET peso = peso, tolerancia = tol_pso WHERE id_idCodPrdc = id_idCodPrdc;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
 
 

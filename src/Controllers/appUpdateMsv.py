@@ -13,7 +13,7 @@ class appUpdateMasivo():
         #'''
         #self.dataTbl = appFichVent
         self.dtaExtr = appExtr
-        #self.dtaImpr = appImpr
+        self.dtaImpr = appImpr
         #self.dtaLam = appLam
         #self.dtaRef = appRef
         #self.dtaConvrs = appConvrs #'''
@@ -60,5 +60,5 @@ class appUpdateMasivo():
         # --- EXTRUSION ---
         self.dtaExtr().transctUpdateMsvExtrs(*self.auxList[10:38],cliente) 
         # --- IMPRESION ---
-        #self.dtaImpr().transctUpdateImprs(*self.auxList[38:73], self.auxList[0])#'''
+        self.dtaImpr().transctUpdateMsvImprs(*self.auxList[38:73],cliente)#'''
      

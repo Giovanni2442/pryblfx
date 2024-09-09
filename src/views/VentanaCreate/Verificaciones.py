@@ -190,7 +190,7 @@ class verificaciones():
                     contact_exists = True
                     break
              
-            # INSERT
+            # --- INSERT ---
             if self.aux().changeBtn(self.page.client_storage.get("estado")) == "Ingresar":
                 if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
                     

@@ -51,8 +51,10 @@ DELETE FROM FichaTec WHERE id_codProduct = "232323";
 SELECT * FROM FICHATEC;
 
 CALL getExtrs(
-	'3333'
+	'2222'
 )
+
+select * from fichatec;
 
 DELIMITER $$
 	CREATE PROCEDURE getExtrs(
@@ -118,7 +120,6 @@ CALL getLmns(
 CALL getLamGen(
 	'4545'
 )
-
 
 DELIMITER $$
 	CREATE PROCEDURE getLamGen(
