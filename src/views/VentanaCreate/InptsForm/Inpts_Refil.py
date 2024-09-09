@@ -13,7 +13,9 @@ class Inpts_Refil():
         self.aux = InptsAux
         self.dtaRef = appRef
     
-        # ID PRODUCT UPDATE 
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
 
         # QURY DATA FORM #
@@ -480,10 +482,10 @@ class Inpts_Refil():
     # GET REFIL
     def dataRefil(self,default_value,Indx):
     #def dataLamGen(self,default_value):
-        if self.id != "Insert":
+        if self.estd != "Insert" and self.estd != "UpdateMsv":  
             #print(self.dtaRef)                  
-            return self.dtaRef[Indx]
-            #return f"{Indx}"
+            #return self.dtaRef[Indx]
+            return f"{Indx}"
         else:
             return default_value
 

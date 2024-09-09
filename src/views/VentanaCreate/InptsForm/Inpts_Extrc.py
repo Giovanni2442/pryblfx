@@ -16,7 +16,10 @@ class InptsExtrc():
 
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
         self.aux = InptsAux()
-        # IDENTIFICADOR DE INSERT Y UPDATE
+
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
 
         # QURY DATA FORM#
@@ -501,7 +504,8 @@ class InptsExtrc():
 
     # GET EXTRS
     def dataExtrs(self,default_value,Indx):
-        if self.id != "Insert":                  
+        #if self.id != "Insert": 
+        if self.estd != "Insert" and self.estd != "UpdateMsv":                   
             return self.dta[Indx]
             #return f"{Indx}"
         else:

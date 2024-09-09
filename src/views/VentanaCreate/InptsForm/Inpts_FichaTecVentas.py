@@ -17,11 +17,15 @@ class Inpts_FichaTec_Ventas():
         
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
         self.aux = InptsAux
-        # IDENTIFICADOR DE INSERT Y UPDATE
+        
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
-
+        
         self.dta = self.dtaFich().getFicha(self.id)
         self.dtaVnts = self.dtaFich().get_Ventas(self.id)
+
         
     ### INPUTS DE TABLA FichaTecnica ###
         self.id_product = TextField(
@@ -116,7 +120,7 @@ class Inpts_FichaTec_Ventas():
                 dropdown.Option("APLICA"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.EstrcPrdct = TextField(
@@ -144,7 +148,8 @@ class Inpts_FichaTec_Ventas():
 
     # GET FICHA
     def data(self,default_value,Indx):
-        if self.id != "Insert":           
+        #if self.id != "Insert":
+        if self.estd != "Insert" and self.estd != "UpdateMsv":      # UPDATE     
             return self.dta[Indx]
             #return f"{Indx}"
         else:
@@ -153,15 +158,18 @@ class Inpts_FichaTec_Ventas():
 
     # GET VENTAS
     def dataVentas(self,default_value,Indx):
-        if self.id != "Insert":   
+        #if self.id != "Insert":
+        if self.estd != "Insert" and self.estd != "UpdateMsv":   
             return self.dtaVnts[Indx]
             #return f"{Indx}"
         else:
+            #print(self.id)
             return default_value
 
     # DESACTIVAR EDICIÓN
     def edit(self):
-        if  self.id != "Insert":
+        #if  self.id != "Insert":
+        if self.estd != "Insert" and self.estd != "UpdateMsv":
             return True
         else:
             return False

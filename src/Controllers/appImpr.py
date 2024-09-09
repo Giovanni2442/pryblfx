@@ -32,12 +32,12 @@ class appImpr():
         try:
             self.cursorPool.callproc('InsertImprs',(args))
             self.conectPool.commit()
-            print("INSERTADO") 
+            #print("INSERTADO") 
         except:
             print("ERROR AL INSERTAR!")
         finally:
             self.cursorPool.close()
-            print("Conexión cerrada!")
+            #print("Conexión cerrada!")
 
             # -- METHOD PUT -- #
     # --- TRANSACCIÓN UPDATE --- #
@@ -49,5 +49,5 @@ class appImpr():
             print("ERROR UPDATE")
         finally:
             self.cursorPool.close()
-            print("Conexión cerrada!")
+            #print("Conexión cerrada!")
 #'''

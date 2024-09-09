@@ -45,7 +45,7 @@ class createPrind(UserControl):
 
         # BOTON AGREGAR
         self.btn = FilledButton(
-            text= self.aux().changeBtn(self.page.client_storage.get("id")),
+            text= self.aux().changeBtn(self.page.client_storage.get("estado")),
             adaptive=True,
             style=ButtonStyle(
                 bgcolor="#761010",
@@ -61,10 +61,9 @@ class createPrind(UserControl):
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
             ),
-            #on_click= lambda e: self.Inpts.clean_fields(e), 
-            on_click= self.eventInsert
-            #on_click= lambda _: print(self.aux.getData(self.page.client_storage.get("id"),"EXTRS")) # <-- PRUEBAS DE METODO 
-            #on_click= lambda _: print(self.aux().getData2(self.page.client_storage.get("id")) # <-- PRUEBAS DE METODO 
+
+            on_click= self.eventInsert # <- CLAVE UPDATE MSV
+            
         )
         
 
@@ -1756,7 +1755,7 @@ class createPrind(UserControl):
     
     # Evento al preciónar el boton crear Ficha
     #'''
-    def eventInsert(self,e):
+    def eventInsert(self,e):  # <- CLAVE UPDATE MSV
         self.vrf.insrtFicha(
             self.Inpts.tplInptsFichTec(),
             self.Inpts.tplInptsVentas(),

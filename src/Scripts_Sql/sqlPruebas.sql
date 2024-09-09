@@ -59,6 +59,8 @@ CREATE TABLE FigImgPdf(		/* ES LA FIGURA O EL "TITULO DE LA IMAGEN" */
 drop table DescImgPdf;
 
 select * from DescImgPdf;
+select * from DescImgPdf;
+
 
 CREATE TABLE DescImgPdf(		/* DESCRIPCIÓNES DE LA IMAGEN" */
 		idCodPrdc VARCHAR(255),
@@ -75,7 +77,7 @@ CREATE TABLE DescImgPdf(		/* DESCRIPCIÓNES DE LA IMAGEN" */
 						/*--GET--*/
 
 CALL getObsrv(
-	'55656'
+	'2222'
 )
 
 DROP PROCEDURE IF EXISTS getObsrv;

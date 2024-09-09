@@ -29,12 +29,12 @@ class appConvrs():
         try:
             self.cursorPool.callproc('InsertConvrs',(args))
             self.conectPool.commit()
-            print("INSERTADO") 
+            #print("INSERTADO") 
         except mysql.connector.Error as err:
             print("ERROR AL INSERTAR CONVRS!",err)
         finally:
             self.cursorPool.close()
-            print("Conexión cerrada!")
+            #print("Conexión cerrada!")
 
     # --- METHOD UPDATE --- #
 
@@ -47,5 +47,5 @@ class appConvrs():
             print("ERROR UPDATE CONVRS",err)
         finally:
             self.cursorPool.close()
-            print("Conexión cerrada!")  
+            #print("Conexión cerrada!")  
     

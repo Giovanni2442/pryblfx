@@ -1,8 +1,3 @@
-# TAREA : CONVERTIR TOD	DECIMAL A INT,
-# HAY ERROR EN TOLERANCIA CALIBRE EXTRUCIÓN CON UPDATE
-# VERIFICAR QUE LA HACER EL UPDATE SE ACTUALICE TODO Y AGREGUE TODO
-
-
 show databases;
 use dbingbf;
 
@@ -930,7 +925,7 @@ DELIMITER $$
 DROP PROCEDURE IF EXISTS UpdateImpr;
 DELIMITER $$
 	CREATE PROCEDURE UpdateImpr(
-		IN material_Imprimir VARCHAR(255),				/*EXTRUCIÓN*/
+		IN material_Imprimir VARCHAR(255),				
 		IN dinaje VARCHAR(255),
 		IN grosor_Core 	DECIMAL(10,2),
 		IN desarrolloImpr INT,
@@ -951,20 +946,20 @@ DELIMITER $$
 		IN tarima_Flejada VARCHAR(255),
 		IN color VARCHAR(255),
 		IN tolDelts VARCHAR(255),
-		IN calibre VARCHAR(255),
-		IN tol_cal VARCHAR(255),
-		IN ancho VARCHAR(255),
-		IN tol_ancho VARCHAR(255),
-		IN ancho_Core VARCHAR(255),
-		IN tol_anchCore VARCHAR(255),
-		IN diametro VARCHAR(255),
-		IN tol_dim VARCHAR(255),
-		IN peso VARCHAR(255),
-		IN tol_pso VARCHAR(255),
+		IN calibre DECIMAL(10,2),
+		IN tol_cal DECIMAL(10,2),
+		IN ancho DECIMAL(10,2),
+		IN tol_ancho DECIMAL(10,2),
+		IN ancho_Core DECIMAL(10,2),
+		IN tol_anchCore DECIMAL(10,2),
+		IN diametro DECIMAL(10,2),
+		IN tol_dim DECIMAL(10,2),
+		IN peso DECIMAL(10,2),
+		IN tol_pso DECIMAL(10,2),
 		IN numBobCama INT,
 		IN camaTam INT,
-		IN pesoNto VARCHAR(255),
-		IN tol_psoNto VARCHAR(255),
+		IN pesoNto INT,
+		IN tol_psoNto INT,
 		IN id_idCodPrdc VARCHAR(255)
 	)
 	BEGIN										/*INICIO DE LA TRANSACCIÓN EN EL PROCEDIMIENTO*/
