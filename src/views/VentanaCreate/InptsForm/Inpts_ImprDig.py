@@ -14,11 +14,14 @@ class Inpst_ImprDig():
         self.aux = InptsAux
         self.dtaImprs = appImpr
     
-        # ID PRODUCT UPDATE 
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
 
         # QURY DATA FORM #
         self.dta = self.dtaImprs().transGetImprs(self.id)
+        
 
 
     ### INPUTS DE LA TABLA IMPRECIÓN DIGITAL ###
@@ -561,7 +564,8 @@ class Inpst_ImprDig():
 
     # GET IMPRS
     def dataImprs(self,default_value,Indx):
-        if self.id != "Insert":                  
+        #if self.id != "Insert":
+        if self.estd != "Insert" and self.estd != "UpdateMsv":                 
             #return self.dta[Indx]
             return f"{Indx}"
         else:

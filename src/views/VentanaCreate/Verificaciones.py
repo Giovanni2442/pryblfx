@@ -4,6 +4,7 @@ from flet import *
 from src.app.filExcel.filtroExcel import filter
 from src.Controllers.appInserts import appInserts
 from src.Controllers.appUpdate import appUpdate
+from src.Controllers.appUpdateMsv import appUpdateMasivo     # <- UPDATE MASIVO
 from src.Controllers.appFichVent import appFichVent
 from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 from src.views.VentanaCreate.Mdls import Mdls
@@ -37,7 +38,9 @@ class verificaciones():
         #Inserción de todas las tablas#
         self.Insrt = appInserts(page)
         # UPDATE DE LAS TABLAS#
-        self.Update = appUpdate()
+        self.Update = appUpdate
+        # UPDATE MASIVE
+        self.UpdtMsv = appUpdateMasivo
 
         #Abrir y Cerrar Modales
         self.mdl = Mdls(page)
@@ -188,7 +191,7 @@ class verificaciones():
                     break
              
             # INSERT
-            if self.aux().changeBtn(self.page.client_storage.get("id")) == "Ingresar":
+            if self.aux().changeBtn(self.page.client_storage.get("estado")) == "Ingresar":
                 if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
                     
                     #  -- INSERTAR EN DB -- 
@@ -224,7 +227,7 @@ class verificaciones():
                     self.mdl.open_dialog(self.mdlDplctPrdct)
                     return False
             # UPDATE   
-            else: 
+            elif self.aux().changeBtn(self.page.client_storage.get("estado")) == "Update":
                 if not contact_exists: 
                     self.mdlDplctPrdct = AlertDialog(   # MODAL PRODUCTO DUPLICADO
                         modal=True,
@@ -238,7 +241,7 @@ class verificaciones():
                     return False
                 else:
                     # UPDATE IN DB
-                    self.Update.qryUpdate(data) 
+                    self.Update().qryUpdate(data) 
                     
                     # INSERTAR TEXTO EN PDF
                     self.crtPdf.InsertTxt(data)
@@ -256,3 +259,28 @@ class verificaciones():
                     )
                     #self.mdlErrValue(self.msgDlt)
                     self.mdl.open_dialog(self.msgInsrt)#'''
+            
+            # UPDATE MASIVO
+            else:                   # <- CLAVE UPDATE MSV
+                cliente = self.page.client_storage.get("id")
+                #print("HOLA TE ENCUENTRAS EN VERIFICACIÓNES",)
+                #'''
+                # ACTUALIZACIÓNES MASIVAS
+                self.UpdtMsv().qryUpdateMsv(data,cliente) 
+                
+                # INSERTAR TEXTO EN PDF
+                #self.crtPdf.InsertTxt(data)  # <- trabajar las actualizaciónes masivas en los PDF
+
+                self.msgInsrt = SnackBar(         # Insert exitoso!
+                    content=Column(
+                        controls=[
+                            Container(
+                                Text(f"PrindCards {cliente} Actualizados!",size=20,color="white"),
+                                alignment=alignment.center
+                            ),
+                        ],
+                    ),
+                    bgcolor="#5AE590",
+                )
+                #self.mdlErrValue(self.msgDlt)
+                self.mdl.open_dialog(self.msgInsrt)#'''

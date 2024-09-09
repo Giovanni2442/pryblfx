@@ -217,7 +217,10 @@ class crudMsv(UserControl):
                             icon_color=colors.BLACK54,
                             data=row,
                             on_click= lambda e: (
+                                self.page.client_storage.set("estado","UpdateMsv"),
+                                print("--",self.page.client_storage.get("estado")),
                                 self.page.client_storage.set("id",e.control.data[0]),
+                                
                                 self.page.go('/cratePrindCard'),
                             ),
                         ),

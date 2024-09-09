@@ -23,6 +23,8 @@ class InptsAux():
     def changeBtn(self,id):
         if id == "Insert":
             return "Ingresar"
+        elif id == "UpdateMsv":
+            return "Update Masivo"
         else:
             return "Update"
         

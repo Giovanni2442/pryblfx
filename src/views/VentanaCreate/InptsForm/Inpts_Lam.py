@@ -14,7 +14,9 @@ class Inpts_Lam():
         self.aux = InptsAux
         self.dtaLam = appLam
     
-        # ID PRODUCT UPDATE 
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
 
         # QURY DATA FORM #
@@ -881,7 +883,7 @@ class Inpts_Lam():
     # GET LAM
     def dataLamGen(self,default_value,Indx):
     #def dataLamGen(self,default_value):
-        if self.id != "Insert":
+        if self.estd != "Insert" and self.estd != "UpdateMsv":  
             #print(self.dtaGen)                  
             #return self.dtaGen[Indx]
             return f"{Indx}"
@@ -890,7 +892,7 @@ class Inpts_Lam():
         
     def dataLamns(self,default_value,Indx):
     #def dataLamns(self,default_value):
-        if self.id != "Insert":                  
+        if self.estd != "Insert" and self.estd != "UpdateMsv":                   
             #print(self.dtaLmns)
             #return self.dtaLmns[Indx]
             return f"{Indx}"

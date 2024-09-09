@@ -47,5 +47,20 @@ class appExtr():
         finally:
             self.cursorPool.close()#'''
             
+    ################ UPDATE MASIVO #################
+    
+    # --- TRANSACCIÓN UPDATE MASIVO --- #
+    def transctUpdateMsvExtrs(self,*args):
+        try:
+            self.cursorPool.callproc('UpdtMsvExtrs',(args))
+            self.conectPool.commit()
+            print("ACTUALIZACIÓN MASIVA EXITOSA!")
+        except mysql.connector.Error as err:
+            print("ERROR UPDATE EXTRS MSV : ", err)
+        finally:
+            self.cursorPool.close()
 
+
+
+    ################################################
 

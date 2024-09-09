@@ -28,8 +28,10 @@ class InstrImgs():
         self.lst = []                            # Lista de urls que retorna la función para almacenar en BD            
         self.appPrind = appPrindCard
        
-        # INSERTAR / ACTUALIZAR
-        self.id = self.page.client_storage.get("id")
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
+        #self.id = self.page.client_storage.get("id")
 
         # DICCIÓNARIO DE CADA PROCESO FORMATEADO
         self.dicImgs = {
@@ -126,7 +128,6 @@ class InstrImgs():
         except Exception  as e:
             print("ERROR EN INSERTAR LA IMAGEN",e)
   
-            
         #'''
 
         '''nota : reposiciónar los cuadros de texto y el de imagen.
@@ -145,12 +146,12 @@ class InstrImgs():
             #  - INSERTAR / ANTUALIZAR IMAGENES EN EL PDF - #
 
         # - UPDATE - 
-        if self.id != 'Insert':  
+        if self.estd != 'Insert':  
             dicObsrvc = self.page.client_storage.get("id_Img")
-            print("UPDATE-...- ",dicObsrvc)
+            #print("UPDATE-...- ",dicObsrvc)
             # TRAE LAS URL DE LA BASE DE DATOS
             dta = self.appPrind().transactGetObsrv(idPrint)
-         
+            print(f'-- BD -- : ',dta)
             #'''
             # RECOLECTA DE LA BASE DE DATOS# 
             # NOTA : REALIZAR UN INNER JOIN DE LAS TABLAS:
@@ -166,7 +167,7 @@ class InstrImgs():
 
             # ACCEDE A LAS COORDENADAS DE CADA PROCESO# 
             #'''
-            select = {
+            select = {      # coordenadas 
                 'EXTRC' : self.pdfImageExtr,
                 'IMPRC' : self.pdfImageImpr,
                 'LMNSN' : self.pdfImageLam,
@@ -182,6 +183,7 @@ class InstrImgs():
                 for key in dicObsrvc:                               # RECORRE EL DICCIONARIO DE OBSERVACIÓNES
                     for i,value in enumerate(dicObsrvc[key]):       # ENUMERA EL DICC PARA ACCEDER AL INDICE   
                         if value != "N/A":                          # SI EL DICC ES DIFERENTE A "N/A"
+                            print("-.-.-.-.",selectImg[key][i])
                             selectImg[key][i] = value               # ACTUALIZAMOS EL DICC DE ELEMENTOS
                 #print("ACTUALIZADO ..--..-- ",selectImg)
 
@@ -220,6 +222,7 @@ class InstrImgs():
                     img = value[0]
                     fig = value[1]
                     comntrs = value[2]
+                    
 
                     r = self.PostImgs(idPrint,key,img,fig,comntrs)
                     
@@ -275,11 +278,10 @@ class InstrImgs():
     # 
     def PostImgs(self,idPrint,idSec,url_Img,fig,cmntrs):
         lstImgs = []
-        
-        # IMAGEN , FIGURA Y COMENTARIOS 
-        print("--PEDOTE--",idSec,url_Img)
 
-        if url_Img != "N/A":     # si no es None
+        if url_Img != "N/A":     # si la url de la imagen no es N/A
+            print("--URL IMG --",idSec,"---",url_Img)
+            
             try:
                 # Abrir la imagen con Pillow para detectar el formato original
                 with Image.open(url_Img) as img:
@@ -293,19 +295,33 @@ class InstrImgs():
                 
                 # RUTA DEL DIRECTORIO DEL PROYECTO
                 ruta_relativa = os.path.relpath(nueva_ruta, os.getcwd())
+
+                try:
+                    if os.path.exists(ruta_relativa):
+                        print(" *** El archivo ya existe! *** ")
+                        #os.remove(ruta_relativa)
+                        shutil.copy(url_Img, ruta_relativa)
+                    else:
+                        shutil.copy(url_Img, ruta_relativa)
+                except Exception as e:
+                    print("El archivo ya existe!")
+                 
+                #shutil.copy(url_Img, ruta_relativa)
                 # Mover y renombrar el archivo
-                shutil.copy(url_Img, nueva_ruta)
+                #shutil.copy(url_Img, ruta_relativa)
                 #shutil.move(url_Img, ruta_relativa)
 
                 # Almacena la url en el dicciónario dependiendo de la Key
                     #EJEMPLO : dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
-                self.dicImgs[idSec] = [f'{ruta_relativa}',f'{fig}',f'{cmntrs}']
+                self.dicImgs[idSec] = [f'{nueva_ruta}',f'{fig}',f'{cmntrs}']
+                print("-++++",self.dicImgs)
+
 
                 # Recorrer el Dicciónario y agregar sus value en una lista
                 for key in self.dicImgs: 
                     lstImgs.append(self.dicImgs[key])
-                    #print("-- ",dicImgs[key])  # Imprimir el diccionario para verificar
-                print("lista ---",lstImgs)      # <-- pedo aqui ##
+                    #print("-- ",self.dicImgs[key])  # Imprimir el diccionario para verificar
+                print("lista -o--",lstImgs)      # <-- pedo aqui ##
                 #return lstImgs
 
             except Exception as e:
@@ -313,10 +329,11 @@ class InstrImgs():
         else:
             # EL PEDO ESTA QUE AL HABER UN "N/A", no retorna ni madres
             # Recorrer el Dicciónario y agregar sus value en una lista
-            
+        
             self.dicImgs[idSec] = ['N/A',f'{fig}',f'{cmntrs}']
 
             for key in self.dicImgs: 
                 lstImgs.append(self.dicImgs[key])
+            print("--vacio--",lstImgs)
         return lstImgs
     

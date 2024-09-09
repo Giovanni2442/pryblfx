@@ -7,21 +7,21 @@ from src.Controllers.appLam import appLam
 from src.Controllers.appRef import appRef
 from src.Controllers.appConvrs import appConvrs #'''
 
-class appUpdate():
+class appUpdateMasivo():
     def __init__(self):
 
         #'''
-        self.dataTbl = appFichVent
+        #self.dataTbl = appFichVent
         self.dtaExtr = appExtr
-        self.dtaImpr = appImpr
-        self.dtaLam = appLam
-        self.dtaRef = appRef
-        self.dtaConvrs = appConvrs #'''
+        #self.dtaImpr = appImpr
+        #self.dtaLam = appLam
+        #self.dtaRef = appRef
+        #self.dtaConvrs = appConvrs #'''
 
         self.auxList = []
       
         # RECOLECTOR DE DATOS PARA CADA ENTRADA
-    def qryUpdate(self,tpl):                     # Recorre las listas de Inputs para colocarlas en una lista
+    def qryUpdateMsv(self,tpl,cliente):                     # Recorre las listas de Inputs para colocarlas en una lista
         #vle = tpl[2][0].items[0].content.controls[1].value
         for indx,i in enumerate(tpl):       # Recorre las listas de Inputs
             for j in i:                     # Recorre los valores de cada lista
@@ -46,8 +46,7 @@ class appUpdate():
                     #print(f" --xx {inx}  : {j.label} : {j.value}")
                     self.auxList.append(j.value)
 
-        print(self.auxList[10:26],self.auxList[0])
-
+        #print(self.auxList[10:26],self.auxList[0])
         
         #'''
           # --- FICHA ---
@@ -57,19 +56,9 @@ class appUpdate():
         # --- VENTAS ---
         #self.dataTbl.putVentas(*self.auxList[5:10], self.auxList[0])
         # --- FICHA / VENTAS ---
-        self.dataTbl().transactUpdateFichaVents(*self.auxList[1:10],self.auxList[0])
+        #self.dataTbl().transactUpdateFichaVents(*self.auxList[1:10],self.auxList[0])
         # --- EXTRUSION ---
-        self.dtaExtr().transctUpdateExtrs(*self.auxList[10:38], self.auxList[0]) 
+        self.dtaExtr().transctUpdateMsvExtrs(*self.auxList[10:38],cliente) 
         # --- IMPRESION ---
-        self.dtaImpr().transctUpdateImprs(*self.auxList[38:73], self.auxList[0])#'''
-        # --- LAMINACIÓN ---
-            # -- LAMIANDO --
-        self.dtaLam().transctUpdateLamGen(*self.auxList[73:94], self.auxList[0])
-            # -- MATERIAL LAMINADO --
-        self.dtaLam().transctUpdateLmns(*self.auxList[94:122], self.auxList[0])
-
-        # --- REFILADO ---
-        self.dtaRef().transctUpdateRefil(*self.auxList[122:150], self.auxList[0])
-        
-        # --- CONVERSION ---
-        self.dtaConvrs().transctUpdateConvrs(*self.auxList[150:174],self.auxList[0])
+        #self.dtaImpr().transctUpdateImprs(*self.auxList[38:73], self.auxList[0])#'''
+     

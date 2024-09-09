@@ -36,8 +36,11 @@ class CreatePdf():
         #self.tmpl = "C:/Users/csanchez/Desktop/pryblfx/venv/src/views/VentanaCreate/createFicha/Template/Template.pdf"
         self.doc = fitz.open(self.tmpl)
 
-        # INSERT / UPDATE
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
+
 
         # -- ELEMENTOS DE PRUEBA --
         self.tplImg={} 
@@ -134,7 +137,7 @@ class CreatePdf():
         #self.postPdf(pdf_binary,idpdf)
 
     def postPdfSQL(self,pdf,id_pdf):
-        if self.id != "Insert":
+        if self.estd != "Insert":
             # UPDATE
             self.postpdf().transctUpdatePrindCard(pdf,id_pdf)
             self.doc.close()
@@ -144,7 +147,7 @@ class CreatePdf():
             self.doc.close()#'''
 
     def postPdfLOCAL(self,id_pdf,url_pef,dta):
-        if self.id != "Insert":
+        if self.estd != "Insert":
                     # UPDATE
             # IMAGENES  =       [:15:3]
             # FIGURAS   =       [1:15:3]
@@ -155,8 +158,8 @@ class CreatePdf():
         else:
                     # INSERT
             # IMAGENES  =   [:15:3]
-            # FIGURAS   =   [1:15:3]
-            # DESCRIPCIÓNES = [2:15:3]
+           # DESCRIPCIÓNES = [2:15:3]
+             # FIGURAS   =   [1:15:3]
             self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,*dta[:15:3],*dta[1:15:3],*dta[2:15:3])
             self.doc.close()#'''
 

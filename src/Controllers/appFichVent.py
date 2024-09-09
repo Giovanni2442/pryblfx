@@ -65,7 +65,7 @@ class appFichVent():
             result = self.cur.fetchone()
             return result
         except:
-            print("ERROR AL OBTENER DATOS EN FICHA!")
+            print("ERROR AL OBTENER DATOS EN FICHA error aqui !")
         finally:
             self.cur.close()
             self.dtaDb.close()

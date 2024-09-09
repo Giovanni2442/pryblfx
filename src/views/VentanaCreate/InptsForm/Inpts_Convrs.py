@@ -15,7 +15,9 @@ class Inpts_Convrs():
         self.aux = InptsAux
         self.Cnvrs = appConvrs
     
-        # ID PRODUCT UPDATE 
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
 
         # QURY DATA FORM #
@@ -368,7 +370,7 @@ class Inpts_Convrs():
 
     # GET CNVRS
     def dataCnvrs(self,default_value,Indx):
-        if self.id != "Insert":
+        if self.estd != "Insert" and self.estd != "UpdateMsv":  
             #print(self.dtaCvrs)             
             #return self.dtaCvrs[Indx]
             return f"{Indx}"

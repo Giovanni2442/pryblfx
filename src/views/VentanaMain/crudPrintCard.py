@@ -2,9 +2,7 @@ import os
 from typing import Any, List
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
-from src.Controllers.appdb import appDb
 from src.Controllers.appFichVent import appFichVent
-from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaMain.vtnMain import pr
 from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
 
@@ -76,7 +74,8 @@ class crudPrintCard(UserControl):
                 },
             ),
             on_click= lambda _: (
-                page.client_storage.set("id", "Insert"),
+                page.client_storage.set("estado", "Insert"),
+                #page.client_storage.set("id", "Insert"),
                 self.page.go('/cratePrindCard'),
             ),
             #on_click= self.inptTable.jer
@@ -226,6 +225,7 @@ class crudPrintCard(UserControl):
                             icon_color=colors.BLACK54,
                             data=row,
                             on_click= lambda e: (
+                                self.page.client_storage.set("estado","Update"),
                                 self.page.client_storage.set("id",e.control.data[0]),
                                 self.page.go('/cratePrindCard'),
                             ),

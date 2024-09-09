@@ -39,8 +39,11 @@ class opnMdlImg():
         # Abre y Cierra el modal
         self.mdl = Mdls(page)
 
-        # IDENTIFICADOR DE INSERT Y UPDATE
+        # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
+        print(self.id)
     
         # CONTROLADOR PRINDCARD
         dtaPrind = appPrindCard
@@ -187,7 +190,7 @@ class opnMdlImg():
     def dataFig(self,default_value,id):
         print(id)
         
-        if self.id != "Insert":
+        if self.estd != "Insert":
             dta = {
                 "EXTRC": self.dta[7],
                 "IMPRC": self.dta[8],
@@ -195,7 +198,7 @@ class opnMdlImg():
                 "RFLD": self.dta[10],
                 "CNVRSN": self.dta[11],
             } 
-            return dta[id]
+            return dta[id]      # id = Proceso
             #return f'{self.dta[Indx]} , id : {id}'
             #return f"{Indx}"
         else:
@@ -203,7 +206,7 @@ class opnMdlImg():
         
      # GET DESCR
     def dataDescr(self,default_value,id):
-        if self.id != "Insert":                  
+        if self.estd != "Insert":                  
             dta = {
                 "EXTRC": self.dta[13],
                 "IMPRC": self.dta[14],
