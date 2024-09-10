@@ -34,6 +34,8 @@ select * from fichatec;
 select * from ventas;
 SET SQL_SAFE_UPDATES = 0;
 
+
+-- PRUEBAS
 CALL UpdtMsvFichaVentas(
     'Asi nomas',      -- producto (se actualiza)
     'N/A',        -- fecha_Elav (se actualiza)
@@ -94,6 +96,8 @@ END$$
 -- /////////////////////////// EXTRUSIÓN ///////////////////////////////////////////////////////////////////////////////////////////
 
 -- INSERCIÓNES DE PRUEBA
+
+-- PRUEBAS
 CALL prMsvExtrs(
     'N/A',        -- new_tipo_Material (se actualiza)
     'N/A',                -- new_dinaje (no se actualiza)
@@ -238,17 +242,19 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
- DELIMITER ;
+DELIMITER ;
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 -- /////////////////////////// IMPRESION ///////////////////////////////////////////////////////////////////////////////////////////
 select * from fichatec;
 
+-- OBSERVAR TABLAS
 CALL getImprs(
 	'3333'
 );
 
+-- PRUEBAS
 CALL UpdtMsvImprs(
     'Material para Imprimir',  -- material_Imprimir
     'PP',                  -- dinaje
@@ -418,13 +424,49 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
-DELIMITER ;
+ DELIMITER ;
 
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 -- /////////////////////////// LAMINADO ///////////////////////////////////////////////////////////////////////////////////////////
+	/* -- laminado general --*/
+
 DROP PROCEDURE IF EXISTS UpdtMsvLamGen;
+-- OBSERVACIÓNES
+select * from LAMINADO;
+
+-- OBSERVACIÓNES
+CALL getLamGen(
+	'2222'
+);
+
+-- PRUEBAS
+CALL UpdtMsvLamGen(
+    'ACTUALIZACIÓNES',      -- estructProduct
+    0,                          -- maxEmpalmesBob
+    'N/A',         -- orientBobRack
+    'N/A',             -- tipoEmpaqBob
+    'N/A',               -- etiquetado
+    'N/A',            -- pesarProduct
+    'N/A',                -- psoNtoBob
+    0,                      -- medidaManga
+    0,                       -- tol_Mng
+    0,                       -- anchoCore
+    0,                        -- tol_anchCore
+    0,                       -- diametro
+    0,                        -- grosorCore
+    0,                       -- diametroBob
+    0,                        -- tol_diamBob
+    'N/A',         -- mtrlImprs
+    'ACTUALIZACIÓNES',             -- tipoTratado
+    0,                       -- calibre
+    0,                        -- tol_cal
+    70,                      -- anchoBob
+    40,                        -- tol_bob
+    
+    'REYMA'                   -- Updt_Cliente
+);
 
 DELIMITER $$
 	CREATE PROCEDURE UpdtMsvLamGen(			-- Update Masivo de Laminación general
@@ -523,6 +565,50 @@ DELIMITER $$
 	END$$
 DELIMITER ;
 
+/* ------------------------------------------------------------------------------------------------------------------------------ */
+
+		/* -- MATERIALES LAMINAR -- */
+-- OBSERVACIÓNES
+CALL getLmns(
+	'2222'
+);
+
+-- PRUEBAS
+CALL UpdtMsvLaminas(
+    'PANCH0',          -- Mtrl_1
+    'N/A',           -- tipoTratado_1
+    'N/A',          -- tipoLamin_1
+    0.0,                 -- cal_1
+    0.0,                  -- tol_cal_1
+    0.0,                -- anchoBob_1
+    0.0,                  -- tol_bob_1
+
+    'PANCH0',          -- Mtrl_2
+    'N/A',           -- tipoTratado_2
+    'N/A',          -- tipoLamin_2
+    0.0,                 -- cal_2
+    0.0,                  -- tol_cal_2
+    0.0,                -- anchoBob_2
+    0.0,                  -- tol_bob_2
+
+    'PANCH0',          -- Mtrl_3
+    'N/A',           -- tipoTratado_3
+    'N/A',          -- tipoLamin_3
+    0.0,                 -- cal_3
+    0.0,                  -- tol_cal_3
+    0.0,                -- anchoBob_3
+    0.0,                  -- tol_bob_3
+
+    'PANCH0',          -- Mtrl_4
+    'N/A',           -- tipoTratado_4
+    'N/A',          -- tipoLamin_4
+    0.0,                 -- cal_4
+    0.0,                  -- tol_cal_4
+    0.0,                -- anchoBob_4
+    34.45,                  -- tol_bob_4
+
+    'REYMA'           -- Updt_Cliente
+);
 
 DELIMITER $$
 	CREATE PROCEDURE UpdtMsvLaminas(			-- Update masivo de Materiales ha laminar
@@ -822,9 +908,49 @@ DELIMITER ;
 
 -- /////////////////////////// CONVERSIÓN ///////////////////////////////////////////////////////////////////////////////////////////
 
+select * from conversion;
+
+-- OBSERVACIÓNES
+CALL getConvrs(
+	'2222'
+);
+
+-- PRUEBAS
+CALL UpdtMsvConvrs(
+    'ACTUALIZADO',      -- tipo_Empaque
+    'N/A',        -- tipoSello
+    'ACTUALIZADO',      -- tipoAcabado
+    'N/A',-- prdctPerf
+    0,                 -- cntPerf
+    'N/A',    -- prdctSuaje
+    'N/A',        -- tipSuaje
+    'N/A', -- empcdPrdct
+    0.0,              -- cantPzsPacq
+    'N/A',     -- tipEmblj
+    0.0,                 -- medidEmblj
+    'N/A',    -- pesarProd
+    0.0,              -- pesoProm
+    'N/A',       -- etiquetado
+    'N/A',    -- tarima_Emplaye
+    'N/A',    -- tarima_Flejada
+    0.0,               -- ancho
+    0.0,               -- alto
+	0.0,                -- cajasCama
+    0.0,               -- camasTarima
+    0.0,               -- num
+	2.0,                -- tol_num
+    0.0,             -- peso
+	34.4,                -- tol_pso
+    'REYMA'           -- Updt_Cliente
+);
+
+
+DROP PROCEDURE IF EXISTS UpdtMsvConvrs;
+
+
 DELIMITER $$
 	CREATE PROCEDURE UpdtMsvConvrs(
-		IN tipo_Empaque VARCHAR(255),				/*EXTRUCIÓN*/
+		IN tipo_Empaque VARCHAR(255),
 		IN tipoSello VARCHAR(255),
 		IN tipoAcabado VARCHAR(255),
 		IN prdctPerf VARCHAR(255),
@@ -864,39 +990,51 @@ DELIMITER $$
 			UPDATE CONVERSION cnvrs   	
 			INNER JOIN fichatec ft on cnvrs.idCodPrdc = ft.id_codProduct
 			SET tipo_Empaque = CASE WHEN tipo_Empaque <> 'N/A' THEN tipo_Empaque ELSE tipo_Empaque END,
-					tipoSello = CASE WHEN tipoSello <> 'N/A' THEN tipoSello ELSE tipoSello END,
-					tipoAcabado = CASE WHEN tipoAcabado <> 'N/A' THEN tipoAcabado ELSE tipoAcabado END,
-					prdctPerf = CASE WHEN prdctPerf <> 'N/A' THEN prdctPerf ELSE prdctPerf END,
-					cntPerf =  CASE WHEN cntPerf <> 0 THEN cntPerf ELSE cntPerf END,
-					prdctSuaje = CASE WHEN prdctSuaje <> 'N/A' THEN prdctSuaje ELSE prdctSuaje END,
-					tipSuaje = CASE WHEN tipSuaje <> 'N/A' THEN tipSuaje ELSE tipSuaje END,
-					empcdPrdct = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE tipEmblj END,
-					cantPzsPacq = CASE WHEN cantPzsPacq <> 0 THEN cantPzsPacq ELSE cantPzsPacq END,
-					tipEmblj = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE tipEmblj END,
-					medidEmblj = CASE WHEN medidEmblj <> 0 THEN medidEmblj ELSE medidEmblj END,
-					pesarProd = CASE WHEN pesarProd <> 'N/A' THEN pesarProd ELSE pesarProd END,
-					pesoProm = CASE WHEN pesoProm <> 0.0 THEN pesoProm ELSE pesoProm END,
-					etiquetado = CASE WHEN etiquetado <> 'N/A' THEN etiquetado ELSE etiquetado END,
-					tarima_Emplaye = CASE WHEN tarima_Emplaye <> 'N/A' THEN tarima_Emplaye ELSE tarima_Emplaye END,
-					tarima_Flejada = CASE WHEN tarima_Flejada <> 'N/A' THEN tarima_Flejada ELSE tarima_Flejada END
+				tipoSello = CASE WHEN tipoSello <> 'N/A' THEN tipoSello ELSE tipoSello END,
+				tipoAcabado = CASE WHEN tipoAcabado <> 'N/A' THEN tipoAcabado ELSE tipoAcabado END,
+				prdctPerf = CASE WHEN prdctPerf <> 'N/A' THEN prdctPerf ELSE prdctPerf END,
+				cntPerf =  CASE WHEN cntPerf <> 0 THEN cntPerf ELSE cntPerf END,
+				prdctSuaje = CASE WHEN prdctSuaje <> 'N/A' THEN prdctSuaje ELSE prdctSuaje END,
+				tipSuaje = CASE WHEN tipSuaje <> 'N/A' THEN tipSuaje ELSE tipSuaje END,
+				empcdPrdct = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE tipEmblj END,
+				cantPzsPacq = CASE WHEN cantPzsPacq <> 0.0 THEN cantPzsPacq ELSE cantPzsPacq END,
+				tipEmblj = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE tipEmblj END,
+				medidEmblj = CASE WHEN medidEmblj <> 0 THEN medidEmblj ELSE medidEmblj END,
+				pesarProd = CASE WHEN pesarProd <> 'N/A' THEN pesarProd ELSE pesarProd END,
+				pesoProm = CASE WHEN pesoProm <> 0.0 THEN pesoProm ELSE pesoProm END,
+				etiquetado = CASE WHEN etiquetado <> 'N/A' THEN etiquetado ELSE etiquetado END,
+				tarima_Emplaye = CASE WHEN tarima_Emplaye <> 'N/A' THEN tarima_Emplaye ELSE tarima_Emplaye END,
+				tarima_Flejada = CASE WHEN tarima_Flejada <> 'N/A' THEN tarima_Flejada ELSE tarima_Flejada END
 				WHERE ft.cliente = Updt_Cliente;
 			
 			-- MedidEmpq
 			UPDATE MedidEmpq mdEmpq   	
 			INNER JOIN fichatec ft on mdEmpq.idCodPrdc = ft.id_codProduct
-			SET ancho = CASE WHEN ancho <> 'N/A' THEN ancho ELSE ancho END,
-				alto = CASE WHEN alto <> 'N/A' THEN alto ELSE alto END
+			SET ancho = CASE WHEN ancho <> 0.0 THEN ancho ELSE ancho END,
+				alto = CASE WHEN alto <> 0.0 THEN alto ELSE alto END
 			WHERE ft.cliente = Updt_Cliente;
 
 			-- 	NumBlts_CajsCmas_CmasTarim
 			
-			UPDATE NumBlts_CajsCmas_CmasTarim mdEmpq   	
-			INNER JOIN fichatec ft on mdEmpq.idCodPrdc = ft.id_codProduct
-			SET cajasCama = cajasCama, camasTarima = camasTarima WHERE id_idCodPrdc = id_idCodPrdc;
+			UPDATE NumBlts_CajsCmas_CmasTarim cjsCms   	
+			INNER JOIN fichatec ft on cjsCms.idCodPrdc = ft.id_codProduct
+			SET cajasCama = CASE WHEN cajasCama <> 0.0 THEN cajasCama ELSE cajasCama END,
+				camasTarima = CASE WHEN camasTarima <> 0.0 THEN camasTarima ELSE camasTarima END
+			WHERE ft.cliente = Updt_Cliente;
+            
 			-- NumBlts_CajsTarim
-			UPDATE NumBlts_CajsTarim SET num = num, tolerancia = tol_num WHERE id_idCodPrdc = id_idCodPrdc;
+			UPDATE NumBlts_CajsTarim nmBltsCjs   	
+			INNER JOIN fichatec ft on nmBltsCjs.idCodPrdc = ft.id_codProduct
+			SET num = CASE WHEN num <> 0.0 THEN num ELSE num END,
+				tolerancia = CASE WHEN tol_num <> 0.0 THEN tol_num ELSE tol_num  END
+			WHERE ft.cliente = Updt_Cliente;
+
 			-- psPromTam
-			UPDATE psPromTam SET peso = peso, tolerancia = tol_pso WHERE id_idCodPrdc = id_idCodPrdc;
+			UPDATE psPromTam nmBltsCjs   	
+			INNER JOIN fichatec ft on nmBltsCjs.idCodPrdc = ft.id_codProduct
+			SET peso = CASE WHEN peso <> 0.0 THEN peso ELSE peso END,
+				tolerancia =  CASE WHEN tol_pso <> 0.0 THEN tol_pso ELSE tol_pso END
+			WHERE ft.cliente = Updt_Cliente;
 
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;

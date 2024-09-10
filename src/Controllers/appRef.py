@@ -48,3 +48,19 @@ class appRef():
         finally:
             self.cursorPool.close()
             #print("Conexión cerrada!")    
+
+
+################ UPDATE MASIVO #################
+    
+    # --- TRANSACCIÓN UPDATE MASIVO --- #
+    def transctUpdateMsvRefil(self,*args):
+        try:
+            self.cursorPool.callproc('UpdtMsvRefil',(args))
+            self.conectPool.commit()
+            print("ACTUALIZACIÓN REF MASIVA EXITOSA!")
+        except mysql.connector.Error as err:
+            print("ERROR UPDATE REFIL MSV : ", err)
+        finally:
+            self.cursorPool.close()
+
+################################################

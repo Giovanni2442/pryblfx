@@ -26,7 +26,6 @@ class createPrind(UserControl):
 
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
         self.aux = InptsAux
-        self.ji = Inpts_Convrs
         self.Inpts = Inpts_FichaTec_Ventas(page)    # Inputs FichaTecnica
         self.InptsExtrc = InptsExtrc(page)          # Inputs Extrusión
         self.InptsImpDig = Inpst_ImprDig(page)      # Inputs Impresión Digital
@@ -1038,7 +1037,7 @@ class createPrind(UserControl):
                             content=
                             Column([Text("LAMINACIÓN N.4",color=colors.BLACK54,theme_style=TextThemeStyle.TITLE_SMALL)])
                         ),
-                        #self.ji()
+
                 ]),
 
                 Row(                    # --- Contenedor LAMINASIÓN ---

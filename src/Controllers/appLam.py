@@ -88,4 +88,30 @@ class appLam():
             self.cursorPool.close()
             #print("Conexión cerrada!")
     
-            
+
+    #################################################################
+
+            # --- TRANSACCIÓN UPDATE MASIVO --- #
+    # -- LAMINACIÓN GENERAL --#
+    def transctUpdateMsvLamGeneral(self,*args):
+        try:
+            self.cursorPool.callproc('UpdtMsvLamGen',(args))
+            self.conectPool.commit()
+            print("ACTUALIZACIÓN LAM GEN MASIVA EXITOSA!")
+        except mysql.connector.Error as err:
+            print("ERROR UPDATE LAM GEN MSV : ", err)
+        finally:
+            self.cursorPool.close()
+
+    # -- LAMINACIÓNES --#
+    def transctUpdateMsvLaminas(self,*args):
+        try:
+            self.cursorPool.callproc('UpdtMsvLaminas',(args))
+            self.conectPool.commit()
+            print("ACTUALIZACIÓN LAMINAS MASIVA EXITOSA!")
+        except mysql.connector.Error as err:
+            print("ERROR UPDATE LAMINAS MSV : ", err)
+        finally:
+            self.cursorPool.close()
+
+    #########################################################################################################         

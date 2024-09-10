@@ -115,11 +115,11 @@ DELIMITER $$
 SELECT * FROM AnchoBob_TolrLam4;
 CALL getLmns(
 	'4545'
-)
+);
 
 CALL getLamGen(
 	'4545'
-)
+);
 
 DELIMITER $$
 	CREATE PROCEDURE getLamGen(

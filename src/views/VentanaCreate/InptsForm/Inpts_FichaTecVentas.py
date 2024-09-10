@@ -166,8 +166,8 @@ class Inpts_FichaTec_Ventas():
         elif self.estd == "UpdateMsv":
             return 'N/A'
         else:
-            #return self.dta[Indx]
-            return f"{Indx}"
+            return self.dtaVnts[Indx]
+            #return f"{Indx}"
 
     # DESACTIVAR EDICIÓN
     def edit(self):
@@ -180,6 +180,8 @@ class Inpts_FichaTec_Ventas():
     def editCliente(self):
         if self.estd == "UpdateMsv":
             return True
+        else:
+            return False
 
     # OBTIENE DATOS POR MEDIO DE SU ID
     def tplInptsFichTec(self):

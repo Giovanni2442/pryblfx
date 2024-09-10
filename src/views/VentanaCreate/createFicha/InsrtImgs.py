@@ -1,13 +1,9 @@
 '''
-*********** TAREAS ******************
-
-* Establecer la función auxiliar para cada tabla que lo requiera
-* Desarrollar vista para agregar Imágenes al pdf y descipciónes para el footer de cada tabla
-* Hacer las conexiones pertinentes para que todo funcione bien
-* Averiguar como arreglar el bug de los PDF
-* Averiguar como hacer el UPDATE
-* Si no, empezar con el diseño (PRIORIDAD)
-
+        TAREAS
+* Hacer que los pdf se actualicen al hacer el update Masivo
+* Hacer el apartado de procesos. (PUEDES HACER UNA CAPTURA DEL PROSESO AL SER LLENADO UN CAMPO DEL FORMULARIO)
+* colocar try catch
+* HACER Diseño 
 '''
 
 import fitz  # PyMuPDF
@@ -96,7 +92,12 @@ class InstrImgs():
     
     #  --- PROXIMAMENTE HACER ESTO AUTOMATICO --- 
     def pdfSecuen(self,page):
-        image_path = "Imagenes/img1.png" 
+
+        # --- DIBUJA EL RECTANGULO ---      
+        page.draw_rect(numFig,color=color) 
+        page.draw_rect(Img_rect,color=color)
+        page.draw_rect(text_rect,color=color)
+    
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
         # Figuras
         Img_rect = fitz.Rect(800, 810, 1125, 1265)     # Img. Extrusión
@@ -104,7 +105,7 @@ class InstrImgs():
         page.draw_rect(Img_rect,color=color)
  
         # Sirve para Ingresar Textos dentro del Rectangulo
-        page.insert_image(Img_rect, filename=image_path)
+        #page.insert_image(Img_rect, filename=image_path)
     
 ############################################################################################################
 
@@ -123,7 +124,7 @@ class InstrImgs():
                 page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
                 page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
             else :
-                print("---AUI ESTA EL PEDO--")
+                #print("---AUI ESTA EL PEDO--")
                 return None
         except Exception  as e:
             print("ERROR EN INSERTAR LA IMAGEN",e)
@@ -183,7 +184,6 @@ class InstrImgs():
                 for key in dicObsrvc:                               # RECORRE EL DICCIONARIO DE OBSERVACIÓNES
                     for i,value in enumerate(dicObsrvc[key]):       # ENUMERA EL DICC PARA ACCEDER AL INDICE   
                         if value != "N/A":                          # SI EL DICC ES DIFERENTE A "N/A"
-                            print("-.-.-.-.",selectImg[key][i])
                             selectImg[key][i] = value               # ACTUALIZAMOS EL DICC DE ELEMENTOS
                 #print("ACTUALIZADO ..--..-- ",selectImg)
 
@@ -193,7 +193,6 @@ class InstrImgs():
                     #if value != "N/A":           # VERIFICAR CONTENIDO
                         
                     fun = select.get(key)
-                    #print("---",value)
                     fun(page,value)            # <-- MODIFICAR ESTA FUNCIÓN 
 
                     img = value[0]
@@ -295,10 +294,10 @@ class InstrImgs():
                 
                 # RUTA DEL DIRECTORIO DEL PROYECTO
                 ruta_relativa = os.path.relpath(nueva_ruta, os.getcwd())
-
+            
                 try:
                     if os.path.exists(ruta_relativa):
-                        print(" *** El archivo ya existe! *** ")
+                        #print(" *** El archivo ya existe! *** ")
                         #os.remove(ruta_relativa)
                         shutil.copy(url_Img, ruta_relativa)
                     else:
@@ -313,15 +312,13 @@ class InstrImgs():
 
                 # Almacena la url en el dicciónario dependiendo de la Key
                     #EJEMPLO : dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
-                self.dicImgs[idSec] = [f'{nueva_ruta}',f'{fig}',f'{cmntrs}']
-                print("-++++",self.dicImgs)
-
+                self.dicImgs[idSec] = [f'{ruta_relativa}',f'{fig}',f'{cmntrs}']
+       
 
                 # Recorrer el Dicciónario y agregar sus value en una lista
                 for key in self.dicImgs: 
                     lstImgs.append(self.dicImgs[key])
                     #print("-- ",self.dicImgs[key])  # Imprimir el diccionario para verificar
-                print("lista -o--",lstImgs)      # <-- pedo aqui ##
                 #return lstImgs
 
             except Exception as e:
