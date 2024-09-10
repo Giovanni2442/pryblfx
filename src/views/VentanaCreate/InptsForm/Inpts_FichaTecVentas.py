@@ -48,7 +48,9 @@ class Inpts_FichaTec_Ventas():
             value=self.data("",1),
             #value=self.aux().getData(self.id,'FICHA',1,""),
             label_style=TextStyle(color="Black",italic=True),
-            on_change= lambda e: self.valida.verInpts(e,filter.vrfCliente)
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfCliente),
+            disabled= self.editCliente()
+
         )
 
         self.fecha_Elav = TextField(
@@ -148,28 +150,35 @@ class Inpts_FichaTec_Ventas():
 
     # GET FICHA
     def data(self,default_value,Indx):
-        #if self.id != "Insert":
-        if self.estd != "Insert" and self.estd != "UpdateMsv":      # UPDATE     
+        if self.estd == "Insert":   
+            return default_value
+        elif self.estd == "UpdateMsv":
+            return 'N/A'
+        else:
             return self.dta[Indx]
             #return f"{Indx}"
-        else:
-            return default_value
-            #return None
 
     # GET VENTAS
     def dataVentas(self,default_value,Indx):
         #if self.id != "Insert":
-        if self.estd != "Insert" and self.estd != "UpdateMsv":   
+        if self.estd == "Insert":   
+            return default_value
+        elif self.estd == "UpdateMsv":
+            return 'N/A'
+        else:
             return self.dtaVnts[Indx]
             #return f"{Indx}"
-        else:
-            #print(self.id)
-            return default_value
 
     # DESACTIVAR EDICIÓN
     def edit(self):
         #if  self.id != "Insert":
-        if self.estd != "Insert" and self.estd != "UpdateMsv":
+        if self.estd != "Update" and self.estd != "UpdateMsv":
+            return False
+        else:
+            return True
+    
+    def editCliente(self):
+        if self.estd == "UpdateMsv":
             return True
         else:
             return False

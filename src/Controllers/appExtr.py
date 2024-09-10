@@ -60,7 +60,5 @@ class appExtr():
         finally:
             self.cursorPool.close()
 
-
-
     ################################################
 

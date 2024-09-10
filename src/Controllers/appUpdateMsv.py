@@ -1,64 +1,32 @@
-from flet import *
-#'''
-from src.Controllers.appFichVent import appFichVent
-from src.Controllers.appExtr import appExtr
-from src.Controllers.appImpr import appImpr
-from src.Controllers.appLam import appLam
-from src.Controllers.appRef import appRef
-from src.Controllers.appConvrs import appConvrs #'''
+from src.Controllers.appAux import appAux
 
 class appUpdateMasivo():
     def __init__(self):
-
-        #'''
-        #self.dataTbl = appFichVent
-        self.dtaExtr = appExtr
-        #self.dtaImpr = appImpr
-        #self.dtaLam = appLam
-        #self.dtaRef = appRef
-        #self.dtaConvrs = appConvrs #'''
-
-        self.auxList = []
+        # -- CLASE AUXILIAR DE DATOS -- #
+        self.aux = appAux()
+       
       
         # RECOLECTOR DE DATOS PARA CADA ENTRADA
     def qryUpdateMsv(self,tpl,cliente):                     # Recorre las listas de Inputs para colocarlas en una lista
-        #vle = tpl[2][0].items[0].content.controls[1].value
-        for indx,i in enumerate(tpl):       # Recorre las listas de Inputs
-            for j in i:                     # Recorre los valores de cada lista
-                if isinstance(j, list):     # Verifica si el valor de la lista hay listas, para colocar los valores en la lista padre
-                    for f in j:             # Recorre la sub lista desde el indice
-                        if isinstance( f, PopupMenuButton):
-                            for m in f.items:
-                                txtFld = m.content.controls[1]
-                                #print("--- **** ", txtFld.label)
-                                self.auxList.append(txtFld.value)
-                        else:
-                            #print(f" --xx {f.label}")
-                            self.auxList.append(f.value)
-                        #print("-->" ,f) 
-                    continue
-                if isinstance(j, PopupMenuButton):
-                    for k in j.items:
-                        txtFld = k.content.controls[1]
-                        #print("--- **** ", txtFld.label)
-                        self.auxList.append(txtFld.value)
-                else:
-                    #print(f" --xx {inx}  : {j.label} : {j.value}")
-                    self.auxList.append(j.value)
-
-        #print(self.auxList[10:26],self.auxList[0])
-        
+        dtaList = self.aux.qryPost(tpl)
         #'''
           # --- FICHA ---
 
-            #--UPDATE--#
-        #self.dataTbl.putFichaTec(*self.auxList[1:5], self.auxList[0])
-        # --- VENTAS ---
-        #self.dataTbl.putVentas(*self.auxList[5:10], self.auxList[0])
+            #--UPDATE MASSIVE--#
         # --- FICHA / VENTAS ---
         #self.dataTbl().transactUpdateFichaVents(*self.auxList[1:10],self.auxList[0])
         # --- EXTRUSION ---
-        self.dtaExtr().transctUpdateMsvExtrs(*self.auxList[10:38],cliente) 
+        self.aux.dtaExtr().transctUpdateMsvExtrs(*dtaList[10:38],cliente) 
         # --- IMPRESION ---
-        #self.dtaImpr().transctUpdateImprs(*self.auxList[38:73], self.auxList[0])#'''
-     
+        self.aux.dtaImpr().transctUpdateMsvImprs(*dtaList[38:73],cliente)#'''
+        # --- LAMINACIÓN ---
+            # -- LAMIANDO --
+        self.aux.dtaLam().transctUpdateMsvLamGeneral(*dtaList[73:94], cliente)
+            # -- MATERIAL LAMINADO --
+        self.aux.dtaLam().transctUpdateMsvLaminas(*dtaList[94:122], cliente)
+        
+        # --- REFILADO ---
+        self.aux.dtaRef().transctUpdateMsvRefil(*dtaList[122:150], cliente)
+        
+        # --- CONVERSION ---
+        self.aux.dtaConvrs().transctUpdateMsvCnvrs(*dtaList[150:174], cliente)

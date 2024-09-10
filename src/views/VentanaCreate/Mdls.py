@@ -96,6 +96,16 @@ class opnMdlImg():
                             on_click= self.Img.select_file # Función donde contiene el Picker
                         ),
 
+                        #VENTANA PARA LA IMAGEN#
+                        Container(
+                            #expand=True,
+                            #bgcolor="GREEN",
+                            height=25,
+                            width=230,
+                            alignment=alignment.center,
+                            content=Text(f"{self.dataImg('',id)}")
+                        ),
+
                         Text("Ingresar Numero de Figura : ", color="black", text_align="center"),   # Agregar Num. Fig
                         TextField(
                             label="Figura",
@@ -153,7 +163,8 @@ class opnMdlImg():
                                 },
                             ),
                             # TAREA : CONFIRMA LOS CAMBIOS Y CIERRA EL MODAL, AGREGAR UN MENSAJE DE CONFIRMACIÓN!
-                            on_click= lambda _: self.Img.jer(id,self.mdlObsr.content.content.controls[3].value,self.mdlObsr.content.content.controls[5].value)
+                            #on_click= lambda _: print("--",self.mdlObsr.content.content.controls)
+                            on_click= lambda _: self.Img.jer(id,self.mdlObsr.content.content.controls[4].value,self.mdlObsr.content.content.controls[6].value)
                         ),
                         # CERRAR MODAL
                         FilledButton("CERRAR",  # CERRAR MODAL
@@ -213,6 +224,20 @@ class opnMdlImg():
                 "LMNSN": self.dta[15],
                 "RFLD": self.dta[16],
                 "CNVRSN": self.dta[17],
+            } 
+            return dta[id]
+        else:
+            return default_value
+        
+     # GET DESCR
+    def dataImg(self,default_value,id):
+        if self.estd != "Insert":                  
+            dta = {
+                "EXTRC": self.dta[1],
+                "IMPRC": self.dta[2],
+                "LMNSN": self.dta[3],
+                "RFLD": self.dta[4],
+                "CNVRSN": self.dta[5],
             } 
             return dta[id]
         else:

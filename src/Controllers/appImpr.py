@@ -50,4 +50,19 @@ class appImpr():
         finally:
             self.cursorPool.close()
             #print("Conexión cerrada!")
+
+    ################ UPDATE MASIVO #################
+    
+    # --- TRANSACCIÓN UPDATE MASIVO --- #
+    def transctUpdateMsvImprs(self,*args):
+        try:
+            self.cursorPool.callproc('UpdtMsvImprs',(args))
+            self.conectPool.commit()
+            print("ACTUALIZACIÓN IMPRS MASIVA EXITOSA!")
+        except mysql.connector.Error as err:
+            print("ERROR UPDATE IMPRS MSV : ", err)
+        finally:
+            self.cursorPool.close()
+
+    ################################################
 #'''

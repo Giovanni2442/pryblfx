@@ -14,29 +14,21 @@ from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
 class verificaciones():
     def __init__(self,page):
         super().__init__()
-
-        #self.data = appDb()
-        #pass
-        #'''
-        #self.page = page
+        # EXPRECIÓNES REGULARES # 
         self.filter = filter().vrfPrintCard
-        self.b1 = True
         self.page = page
+        # QURY DE TABLA FICHA / VENTAS
         self.dataTbl = appFichVent
+        # BTN LABEL INSRT / UPDATE
+        self.aux = InptsAux
+        # CREA LOS PDF #
         self.crtPdf = CreatePdf(page)
 
         self.tpl = []
         self.tpl2 = []
-        self.bnd = 0
-
-        # BTN LABEL INSRT / UPDATE
-        self.aux = InptsAux
-    
-        self.Bnd = None
-        #self.Img = FileUploaderApp(page)
-
+ 
         #Inserción de todas las tablas#
-        self.Insrt = appInserts(page)
+        self.Insrt = appInserts
         # UPDATE DE LAS TABLAS#
         self.Update = appUpdate
         # UPDATE MASIVE
@@ -44,16 +36,6 @@ class verificaciones():
 
         #Abrir y Cerrar Modales
         self.mdl = Mdls(page)
-    
-    # Limpiar Labels
-    def clean_fields(self,tpl):
-        #tpl = self.tplInpts()
-        for i in tpl:
-            for j in i:
-                j.value = ""
-                j.update()
-        self.page.update()#'''
-
 
 ###### PRUEBAS PARA FILTRADO ###########
     def verInpts(self,e,rejex):
@@ -179,10 +161,7 @@ class verificaciones():
 
     # Inserta los datos a la base de datos
     def insrtFicha(self,*data):
-        #b1 = self.vlVoid(tpl)
-        #print(b1) <-- bromita de 1 hora XD
-        #pass
-        #'''
+       
         if self.vlVoid(data) != False:                   # Si ninguna validación se cumple
             contact_exists = False
             for row in self.dataTbl().get_row_Table():    # Recorre la tabla FichaTecnica ya que es la tabla padre       
@@ -190,12 +169,12 @@ class verificaciones():
                     contact_exists = True
                     break
              
-            # INSERT
+            # --- INSERT ---
             if self.aux().changeBtn(self.page.client_storage.get("estado")) == "Ingresar":
                 if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
                     
                     #  -- INSERTAR EN DB -- 
-                    self.Insrt.qryPost(data)
+                    self.Insrt().qryPost(data)
 
                     #  -- INSERTAR TEXTO AL PDF -- 
                     self.crtPdf.InsertTxt(data)
@@ -214,7 +193,7 @@ class verificaciones():
                     #self.mdlErrValue(self.msgDlt)
                     self.mdl.open_dialog(self.msgInsrt)
                     #lambda _: self.page.go('/cratePrindCard'),
-                    #self.clean_fields(data)
+
                 else:  # YA EXISTE! EVITA REGISTROS DUPLICADOS
                     self.mdlDplctPrdct = AlertDialog(   # MODAL PRODUCTO DUPLICADO
                         modal=True,

@@ -48,4 +48,20 @@ class appConvrs():
         finally:
             self.cursorPool.close()
             #print("Conexión cerrada!")  
+
+
+################ UPDATE MASIVO #################
+    
+    # --- TRANSACCIÓN UPDATE MASIVO --- #
+    def transctUpdateMsvCnvrs(self,*args):
+        try:
+            self.cursorPool.callproc('UpdtMsvConvrs',(args))
+            self.conectPool.commit()
+            print("ACTUALIZACIÓN CNVRS MASIVA EXITOSA!")
+        except mysql.connector.Error as err:
+            print("ERROR UPDATE CNVRS MSV : ", err)
+        finally:
+            self.cursorPool.close()
+
+################################################
     

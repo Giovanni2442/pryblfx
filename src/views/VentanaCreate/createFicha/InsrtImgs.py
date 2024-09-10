@@ -1,13 +1,9 @@
 '''
-*********** TAREAS ******************
-
-* Establecer la función auxiliar para cada tabla que lo requiera
-* Desarrollar vista para agregar Imágenes al pdf y descipciónes para el footer de cada tabla
-* Hacer las conexiones pertinentes para que todo funcione bien
-* Averiguar como arreglar el bug de los PDF
-* Averiguar como hacer el UPDATE
-* Si no, empezar con el diseño (PRIORIDAD)
-
+        TAREAS
+* Hacer que los pdf se actualicen al hacer el update Masivo
+* Hacer el apartado de procesos. (PUEDES HACER UNA CAPTURA DEL PROSESO AL SER LLENADO UN CAMPO DEL FORMULARIO)
+* colocar try catch
+* HACER Diseño 
 '''
 
 import fitz  # PyMuPDF
@@ -145,7 +141,7 @@ class InstrImgs():
 
             #  - INSERTAR / ANTUALIZAR IMAGENES EN EL PDF - #
 
-        # - UPDATE - 
+        # - UPDATE NORMAL- 
         if self.estd != 'Insert':  
             dicObsrvc = self.page.client_storage.get("id_Img")
             #print("UPDATE-...- ",dicObsrvc)
@@ -183,7 +179,6 @@ class InstrImgs():
                 for key in dicObsrvc:                               # RECORRE EL DICCIONARIO DE OBSERVACIÓNES
                     for i,value in enumerate(dicObsrvc[key]):       # ENUMERA EL DICC PARA ACCEDER AL INDICE   
                         if value != "N/A":                          # SI EL DICC ES DIFERENTE A "N/A"
-                            print("-.-.-.-.",selectImg[key][i])
                             selectImg[key][i] = value               # ACTUALIZAMOS EL DICC DE ELEMENTOS
                 #print("ACTUALIZADO ..--..-- ",selectImg)
 
@@ -193,7 +188,6 @@ class InstrImgs():
                     #if value != "N/A":           # VERIFICAR CONTENIDO
                         
                     fun = select.get(key)
-                    #print("---",value)
                     fun(page,value)            # <-- MODIFICAR ESTA FUNCIÓN 
 
                     img = value[0]
@@ -295,7 +289,7 @@ class InstrImgs():
                 
                 # RUTA DEL DIRECTORIO DEL PROYECTO
                 ruta_relativa = os.path.relpath(nueva_ruta, os.getcwd())
-
+            
                 try:
                     if os.path.exists(ruta_relativa):
                         print(" *** El archivo ya existe! *** ")
@@ -313,15 +307,13 @@ class InstrImgs():
 
                 # Almacena la url en el dicciónario dependiendo de la Key
                     #EJEMPLO : dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
-                self.dicImgs[idSec] = [f'{nueva_ruta}',f'{fig}',f'{cmntrs}']
-                print("-++++",self.dicImgs)
-
+                self.dicImgs[idSec] = [f'{ruta_relativa}',f'{fig}',f'{cmntrs}']
+       
 
                 # Recorrer el Dicciónario y agregar sus value en una lista
                 for key in self.dicImgs: 
                     lstImgs.append(self.dicImgs[key])
                     #print("-- ",self.dicImgs[key])  # Imprimir el diccionario para verificar
-                print("lista -o--",lstImgs)      # <-- pedo aqui ##
                 #return lstImgs
 
             except Exception as e:

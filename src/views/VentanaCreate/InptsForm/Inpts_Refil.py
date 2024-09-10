@@ -484,8 +484,8 @@ class Inpts_Refil():
     #def dataLamGen(self,default_value):
         if self.estd != "Insert" and self.estd != "UpdateMsv":  
             #print(self.dtaRef)                  
-            #return self.dtaRef[Indx]
-            return f"{Indx}"
+            return self.dtaRef[Indx]
+            #return f"{Indx}"
         else:
             return default_value
 
