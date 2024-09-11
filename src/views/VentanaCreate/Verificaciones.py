@@ -45,18 +45,18 @@ class verificaciones():
         #print(jer)
         if jer != 0 and trimmed_value:      # trimed_value : localiza espacios en blanco 
             if rejex(inpt.value):
-                print(f"{inpt.label}  : {inpt.value}")
+                #print(f"{inpt.label}  : {inpt.value}")
                 inpt.border_color="green"
                 inpt.error_text=""
             else:
                 #inpt.border_color="red"
                 inpt.error_text=f"{inpt.label} Incorrecto!"
-                print("Incorrecto")
+                #print("Incorrecto")
         else:
             #e.control.border_color="red"
             inpt.error_text="Favor de ingresar un valor!"
             self.page.update()
-            print("Campo Vacio")
+            #print("Campo Vacio")
 
         inpt.update()  # Actualiza el control para reflejar los cambios
         #'''
@@ -83,12 +83,12 @@ class verificaciones():
                                 txtFld = m.content.controls[1]
                                 if txtFld.value != "":
                                     if txtfld.error_text !="":
-                                        print(txtfld.label)
+                                        #print(txtfld.label)
                                         vlErr.append(txtfld.label)       # Captura los campos vacios
                                     continue
                                 else:
                                     txtfld.error_text = "Ingrese los valores"
-                                    print(txtfld.label)
+                                    #print(txtfld.label)
                                     vlVoid.append(txtfld.label)
                                     m.content.update()
                     continue
@@ -98,12 +98,12 @@ class verificaciones():
                             txtfld =  k.content.controls[1]
                             if txtfld.value != "":
                                 if txtfld.error_text !="":
-                                    print(txtfld.label)
+                                    #print(txtfld.label)
                                     vlErr.append(txtfld.label)       # Captura los campos vacios
                                 continue
                             else:
                                 txtfld.error_text = "Ingrese los valores"
-                                print(txtfld.label)
+                                #print(txtfld.label)
                                 vlVoid.append(txtfld.label)
                                 k.content.update()
                             #print(k.content.controls[1].value)

@@ -1,4 +1,4 @@
-		/*---	QURY´S DE PRUEBAS	---*/
+/*---	QURY´S DE PRUEBAS	---*/
         
 show databases;
 use dbingbf;
@@ -9,7 +9,7 @@ create database dbingbf;
 
 									/*--CREATE TABLE--*/
 select * from PrindCardLOCAL;
-SELECT prindCrdPdf_URL FROM PrindCardLOCAL WHERE idCodPrdc = '2323'
+SELECT prindCrdPdf_URL FROM PrindCardLOCAL WHERE idCodPrdc = '2323';
 drop table PrindCardLOCAL;
 
 
@@ -236,11 +236,31 @@ DELIMITER $$
     
     
 -- ########## PROCESOS DEL PRIND CARD ######################
+select * from fichatec;
+CALL getSecpdf(
+	'1111'
+);
+
+DROP PROCEDURE IF EXISTS getSecpdf;
+
+
+DELIMITER $$
+	CREATE PROCEDURE getSecpdf(
+		IN id_idCodPrdct VARCHAR(255)
+    )
+    BEGIN 
+		START TRANSACTION;
+			SELECT * FROM secpdf sec WHERE sec.idCodPrdc = id_idCodPrdct;
+		COMMIT;
+	END$$
+    DELIMITER ; 
 
 
 select * from secpdf;
-
 select * from fichatec;
+
+DROP PROCEDURE IF EXISTS InsertSecPdf;
+
 CALL InsertSecPdf(
 	"1111",
 	"1",
@@ -262,11 +282,10 @@ DELIMITER $$
     BEGIN 
 		START TRANSACTION;
 			INSERT INTO SecPdf(idCodPrdc,sec1,sec2,sec3,sec4,sec5)
-            VALUES (idCodPrdc,sec1,sec1,sec3,sec4,sec5);
+            VALUES (idCodPrdc,sec1,sec2,sec3,sec4,sec5);
 		COMMIT;
 	END$$
     DELIMITER ; 
-
 
 	/*-- UPDATE -- */
 DELIMITER $$
@@ -290,4 +309,4 @@ DELIMITER $$
 			WHERE id_idCodPrdct = id_idCodPrdct;
 		COMMIT;
 	END$$
-    DELIMITER ; 
+    DELIMITER ;

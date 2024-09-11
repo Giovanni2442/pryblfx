@@ -2,7 +2,7 @@ import fitz  # PyMuPDF
 import shutil
 from PIL import Image
 from flet import *  
-import os
+import os     
 import io
 
 from src.views.VentanaCreate.createFicha.Insrt_FichaVentas import Insrt_FichaVentas
@@ -83,11 +83,12 @@ class CreatePdf():
 
 
         # -- LISTA DE PROCESOS -- 
-        lstProc = self.secProc.pruSec(self.pagPdf) 
-  
+        lstProc = self.secProc.pruSec(self.pagPdf,idpdf) 
+        print("---",lstProc)
+
         # -- LISTA DE  IMAGENES --# 
         lstImg = self.pdfImg.main2(self.pagPdf,idpdf)
-        print("IMG --",lstImg)      # <- EYY! Q CHECA LA LISTA
+        #print("IMG --",lstImg)      # <- EYY! Q CHECA LA LISTA
         #self.pdfImg.main(self.page,tpl)
 
         for pros in lstImg:                 # KEY Recorre el proceso
@@ -102,8 +103,8 @@ class CreatePdf():
 
         ############################ INSRCIÓNES A LA BD #######################
             # PROCESOS
-        self.postSecuenciaPdf(idpdf,lstProc)
-
+        print("--",self.postSecuenciaPdf(idpdf,lstProc))
+        
             # OBSERVACIÓNES
         # pdf : Url y nombre donde se guarda el pdf
         # idpdf : Id del Prindcard
@@ -148,14 +149,14 @@ class CreatePdf():
 
     def postSecuenciaPdf(self,id_pdf,dta):
         print("PEDAZOS.-.-.",dta[:])
-        print(id_pdf)
+        #print(id_pdf)
         #'''
         if self.estd != "Insert":
                     # UPDATE
             # IMAGENES  =       [:15:3]
             # FIGURAS   =       [1:15:3]
             # DESCRIPCIÓNES =   [2:15:3]
-            self.postSecuencias().transUpdateProceso(*dta[:],id_pdf)
+            self.postSecuencias().transUpdateProceso(*dta,id_pdf)
             #self.doc.close()
             #print("PROXIMAMENTE!")
         else:

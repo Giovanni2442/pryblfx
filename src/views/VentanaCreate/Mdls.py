@@ -43,7 +43,7 @@ class opnMdlImg():
         self.estd = self.page.client_storage.get("estado")
         # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
-        print(self.id)
+        #print(self.id)
     
         # CONTROLADOR PRINDCARD
         dtaPrind = appPrindCard
@@ -191,15 +191,15 @@ class opnMdlImg():
                 ),
                 ]
             )
-        print("---> ",self.mdlObsr.content.content.controls[3].value)       # TextField Num.Fig
-        print("---> ",self.mdlObsr.content.content.controls[5].value)       # TextField Observaciones
-        print("---> ",self.mdlObsr.content.content.controls[1])       # TextField Observaciones
+        #print("---> ",self.mdlObsr.content.content.controls[3].value)       # TextField Num.Fig
+        #print("---> ",self.mdlObsr.content.content.controls[5].value)       # TextField Observaciones
+        #print("---> ",self.mdlObsr.content.content.controls[1])       # TextField Observaciones
 
         self.mdl.open_dialog(self.mdlObsr)#'''
 
      # GET FIG
     def dataFig(self,default_value,id):
-        print(id)
+        #print(id)
         
         if self.estd != "Insert":
             dta = {

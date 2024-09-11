@@ -28,7 +28,7 @@ DELETE FROM FichaTec WHERE id_codProduct = "2323";
 # --------------------------------------------- NUMERO DE PROCESOS -----------------------------------------------------
 select * from impresion;
 select * from extrusion;
-SELECT COUNT(*) FROM INFORMATION_SCHEMA.PROCESSLIST
+SELECT COUNT(*) FROM INFORMATION_SCHEMA.PROCESSLIST;
 SHOW PROCESSLIST;
 KILL 2310;
 
@@ -52,7 +52,7 @@ SELECT * FROM FICHATEC;
 
 CALL getExtrs(
 	'2222'
-)
+);
 
 select * from fichatec;
 

@@ -1,4 +1,5 @@
 import fitz  # PyMuPDF
+from src.Controllers.appSec import appSec
 
 class prInrs:
     def __init__(self,page):
@@ -11,6 +12,10 @@ class prInrs:
         self.text_size = 24   
         self.color = (0.25, 0.25, 0.25)                     # Color gris claro, con valores RGB entre 0 y 1
         self.lstSec = ['N/A','N/A','N/A','N/A','N/A']       # Lista de secuencias para almacenar en la BD
+        self.estd = self.page.client_storage.get("estado")
+
+        # Controlador secuencias de procesos#
+        self.appSec = appSec
 
     def pdfProcExtrs(self,page,Proceso,bnd,fuente):
             ## -- PROCESO  EXTRS -- ##
@@ -142,7 +147,7 @@ class prInrs:
         page.insert_textbox(rectPrdctTerm,"PRODUCTO TERMINADO", fontsize=14.7, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
     
 
-    def pruSec(self,pagePdf):
+    def pruSec(self,pagePdf,idpdf):
         dicObsrvc = self.page.client_storage.get("id_Img")
         count = 0 # ACOMULA EL ULTIMO EL ULTIMO VALOR DE LA SECUENCIA
         # DICCIÓNARIO DONDE ACCEDE A LAS COORDENADAS DE SECUENCIAS
@@ -155,24 +160,66 @@ class prInrs:
             5 : self.pdfProcPrdctTerm
         }
       
-        #'''
-        for i,key in enumerate(dicObsrvc):
-            print("--SECUENCIAS---",i,key)
-            fun = pdfPros.get(i)
-            fun(pagePdf,key,True,self.text_size)
-            self.lstSec[i] = key
-            count=i
-        
-        #print(count)
-        #print(".-.",self.lstSec)
-        # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
-        if count != 5:
-            fun = pdfPros.get(count+1)
-            fun(pagePdf,"PRODUCTO TERMINADO",False,self.Text_PrdctTerm)
+        if self.estd != "Insert":
+            dataBd = self.appSec().transGetProceso(idpdf)[1:]
+            print(f"EL ID : {idpdf} TIENE -> {dataBd}")
+            
+            # Si preciono el boton de imagen en una de las secuencias, se reinicia
+            if dicObsrvc: 
+                for i,key in enumerate(dicObsrvc):
+                    print("--SECUENCIAS---",i,key)
+                    fun = pdfPros.get(i)
+                    fun(pagePdf,key,True,self.text_size)
+                    self.lstSec[i] = key
+                    count=i
+            
+                print(count)
+                #print(".-.",self.lstSec)
+                # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
+                if count != 4:
+                    fun = pdfPros.get(count+1)
+                    fun(pagePdf,"PRODUCTO TERMINADO",False,self.Text_PrdctTerm)
+                else:
+                    fun = pdfPros.get(5)
+                    fun(pagePdf)
+
+            # DIBUJA EL PROCESO LA DATA TRAIDA EN BD
+            else: 
+                for i,key in enumerate(dataBd):
+                    if key != 'N/A':
+                        fun = pdfPros.get(i)
+                        fun(pagePdf,key,True,self.text_size)
+                        self.lstSec[i] = key
+                        count=i
+                        #count=i
+                print(count)
+                #print(".-.",self.lstSec)
+                # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
+                if count != 4:
+                    fun = pdfPros.get(count+1)
+                    fun(pagePdf,"PRODUCTO TERMINADO",False,self.Text_PrdctTerm)
+                else:
+                    fun = pdfPros.get(5)
+                    fun(pagePdf)
         else:
-            fun = pdfPros.get(5)
-            fun(pagePdf)
-          
+            #'''
+            for i,key in enumerate(dicObsrvc):
+                print("--SECUENCIAS---",i,key)
+                fun = pdfPros.get(i)
+                fun(pagePdf,key,True,self.text_size)
+                self.lstSec[i] = key
+                count=i
+            
+            print(count)
+            #print(".-.",self.lstSec)
+            # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
+            if count != 4:
+                fun = pdfPros.get(count+1)
+                fun(pagePdf,"PRODUCTO TERMINADO",False,self.Text_PrdctTerm)
+            else:
+                fun = pdfPros.get(5)
+                fun(pagePdf)
+            
         return self.lstSec
     
 # Ejecuta la prueba

@@ -42,7 +42,7 @@ class InstrImgs():
 ###################### ASIGNACIÓN DE COORDENADAS PARA CADA IMAGEN , FIGURA Y DESCRIPCIÓN ###########################################
     
     def pdfImageExtr(self,page,dic):
-        print("MTHOD EXTRS -- ",dic)
+        #print("MTHOD EXTRS -- ",dic)
         # Figuras
         numFig = fitz.Rect(186, 587, 400, 609)      # Num. Fig. Bobina
         Img_rect = fitz.Rect(70, 587, 180, 659)     # Img. Extrusión
@@ -136,7 +136,7 @@ class InstrImgs():
             #print("UPDATE-...- ",dicObsrvc)
             # TRAE LAS URL DE LA BASE DE DATOS
             dta = self.appPrind().transactGetObsrv(idPrint)
-            print(f'-- BD -- : ',dta)
+            #print(f'-- BD -- : ',dta)
             #'''
             # RECOLECTA DE LA BASE DE DATOS# 
             # NOTA : REALIZAR UN INNER JOIN DE LAS TABLAS:
@@ -211,13 +211,13 @@ class InstrImgs():
                     
                 # Limpiar el diccionario id_Img
                 self.page.client_storage.set("id_Img", {})
-                print("UPDATE--",r)
+                #print("UPDATE--",r)
                 return r 
         
         #  -- INSERTAR --
         else : 
             dicObsrvc = self.page.client_storage.get("id_Img")    
-            print("--**",dicObsrvc)
+            #print("--**",dicObsrvc)
           
             #'''# COORDENADAS EN IMAGENES
             select = {
@@ -232,7 +232,7 @@ class InstrImgs():
             if dicObsrvc:
                 for key in dicObsrvc:
                     value = dicObsrvc[key]
-                    print("--d-- : ",value)
+                    #print("--d-- : ",value)
                     fun = select.get(key)
                     fun(page,value)
 
@@ -248,7 +248,7 @@ class InstrImgs():
                 
                 # Limpiar el diccionario id_Img
                 self.page.client_storage.set("id_Img", {})
-                print(r)
+                #print(r)
                 return r 
             else:
                 # SE INSERTAN IMAGENES VACIAS SI NO HAY IMAGENES
@@ -263,7 +263,7 @@ class InstrImgs():
         lstImgs = []
 
         if url_Img != "N/A":     # si la url de la imagen no es N/A
-            print("--URL IMG --",idSec,"---",url_Img)
+            #print("--URL IMG --",idSec,"---",url_Img)
             
             try:
                 # Abrir la imagen con Pillow para detectar el formato original
@@ -278,7 +278,7 @@ class InstrImgs():
                 
                 # RUTA DEL DIRECTORIO DEL PROYECTO
                 ruta_relativa = os.path.relpath(nueva_ruta, os.getcwd())
-            
+                print(ruta_relativa)
                 try:
                     if os.path.exists(ruta_relativa):
                         #print(" *** El archivo ya existe! *** ")
@@ -288,6 +288,8 @@ class InstrImgs():
                         shutil.copy(url_Img, ruta_relativa)
                 except Exception as e:
                     print("El archivo ya existe!")
+                    #pass
+                   
                  
                 #shutil.copy(url_Img, ruta_relativa)
                 # Mover y renombrar el archivo
@@ -297,7 +299,7 @@ class InstrImgs():
                 # Almacena la url en el dicciónario dependiendo de la Key
                     #EJEMPLO : dicImgs[idSec] = f'Imagenes/{nuevo_nombre}'
                 self.dicImgs[idSec] = [f'{ruta_relativa}',f'{fig}',f'{cmntrs}']
-       
+
 
                 # Recorrer el Dicciónario y agregar sus value en una lista
                 for key in self.dicImgs: 
@@ -315,6 +317,6 @@ class InstrImgs():
 
             for key in self.dicImgs: 
                 lstImgs.append(self.dicImgs[key])
-            print("--vacio--",lstImgs)
+            #print("--vacio--",lstImgs)
         return lstImgs
     
