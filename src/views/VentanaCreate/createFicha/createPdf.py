@@ -1,4 +1,6 @@
 import fitz  # PyMuPDF
+import shutil
+from PIL import Image
 from flet import *  
 import os
 import io
@@ -51,7 +53,7 @@ class CreatePdf():
         # ADD TO DATABASE
         self.postpdf = appPrindCard
         # PAGINA "0" DEL PDF
-        self.page = self.doc[0]
+        self.pagPdf = self.doc[0]
         
     # agregar tpl
     #def InsertImg(self,id,dicImg):
@@ -59,7 +61,7 @@ class CreatePdf():
         #print(dicImg)
         #### -- PREUBAS PARA IMAGEN -- #####
         #self.pdfImg.main(self.page,id,dicImg)
-        self.pdfImg.main2(self.page)
+        self.pdfImg.main2(self.pagPdf)
         #self.Btnid = dicImg
         #print(self.Btnid)
         self.temp_filename = "Template/Template_temp.pdf"
@@ -74,22 +76,21 @@ class CreatePdf():
 
         #'''
         #### -- TABLA EXTRUSIÓN -- #####       
-        self.pdfFichVent.pdfFichVent(self.page,tpl)
+        self.pdfFichVent.pdfFichVent(self.pagPdf,tpl)
         #### -- TABLA EXTRUSIÓN -- #####       
-        self.pdfExtr.pdfExtru(self.page,tpl)
+        self.pdfExtr.pdfExtru(self.pagPdf,tpl)
         #### -- TABLA IMPRESION -- #####       
-        self.pdfImpr.pdfImpr(self.page,tpl)
+        self.pdfImpr.pdfImpr(self.pagPdf,tpl)
         #### -- TABLA LAMINADO -- #####
-        self.pdfLam.pdfLam(self.page,tpl)
+        self.pdfLam.pdfLam(self.pagPdf,tpl)
         #self.pdfLam.pru(tpl)
         #### -- TABLA REFILADO -- #####
-        self.pdfRef.pdfRefil(self.page,tpl)
+        self.pdfRef.pdfRefil(self.pagPdf,tpl)
         #### -- TABLA CONVERSIÓN -- #####
-        self.pdfCnvrs.pdfConvrs(self.page,tpl)#'''
-        #self.pdfImg.main(self.page,id,dicImg)
-        
-        # INSERCIÓN DE IMAGENES # 
-        lstImg = self.pdfImg.main2(self.page,idpdf)
+        self.pdfCnvrs.pdfConvrs(self.pagPdf,tpl)#'''
+
+        # -- LISTA DE  IMAGENES --# 
+        lstImg = self.pdfImg.main2(self.pagPdf,idpdf)
         print("IMG --",lstImg)      # <- EYY! Q CHECA LA LISTA
         #self.pdfImg.main(self.page,tpl)
 
@@ -163,5 +164,162 @@ class CreatePdf():
             self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,*dta[:15:3],*dta[1:15:3],*dta[2:15:3])
             self.doc.close()#'''
 
-#crpdf = CreatePdf()
-#crpdf.Insert()
+class prInrs:
+    def __init__(self):
+        template = "Template/Template.pdf"
+        self.doc = fitz.open(template)  # Asegúrate de abrir el PDF correcto
+        self.text_color = (0,0,0)               # Color del Recuadro(ELIMINAR)
+        self.text_size = 24    
+
+    def pruebas(self):
+        color = (0, 1, 0)  # Color gris claro, con valores RGB entre 0 y 1
+
+        # Asegúrate de acceder a la página correcta del PDF
+        page = self.doc[0]  # Cambia el índice a la página que necesites
+
+        ########### PRUEBAS #################
+
+         # Otro rectángulo para una imagen
+        # X = Representa el ancho de la figura
+        # Y = Altura de la figura
+        # X1 , Y1 , X2 , Y2
+
+ ############################EXTRUSION PROCESO############################################
+                ## -- PROCESO rectangulo EXTRS -- ##
+        rectExtrs = fitz.Rect(880, 810, 1045, 865)  # Img. Extrusión
+        page.draw_rect(rectExtrs, color=color)
+
+                ## -- AGREGAR TEXTO -- ##
+        page.insert_textbox(rectExtrs,"EXTRUSION", fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
+
+
+                ## -- FLECHA EXTRUSION -- ##
+        arrwExtrs = [
+            # X , Y
+            fitz.Point(955,870),  # punta Izq de la Base SUPERIOR    P1
+            fitz.Point(975,870),  # punta derch de la Base SUPERIOR  P2
+            fitz.Point(975,880),  # Base derecha   INFERIOR          P3
+            fitz.Point(985,880),  # Punta derecha de la flecha       P4
+            fitz.Point(965,890),  # Punta de la flecha (INFERIOR)    P5
+            fitz.Point(945,880),  # Punta izquierda de la flecha     P6   
+            fitz.Point(955,880),  # Base izquierda INFERIOR          P7
+        ]
+
+        # Dibuja el polígono con los puntos especificados
+        page.draw_polyline(arrwExtrs, color=color, fill=color) 
+##########################################################################################
+
+ ############################IMPRESION PROCESO############################################
+                ## -- PROCESO rectangulo -- ##
+        rectImprs = fitz.Rect(880, 895, 1045, 950)  # Img. Extrusión
+        page.draw_rect(rectImprs, color=color)
+
+                ## -- AGREGAR TEXTO -- ##
+        page.insert_textbox(rectImprs,"IMPRECIÓN", fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
+
+                ## -- FLECHA EXTRUSION -- ##
+        arrwImprs = [
+            # X , Y
+            fitz.Point(955,955),  # punta Izq de la Base SUPERIOR    P1
+            fitz.Point(975,955),  # punta derch de la Base SUPERIOR  P2
+            fitz.Point(975,965),  # Base derecha   INFERIOR          P3
+            fitz.Point(985,965),  # Punta derecha de la flecha       P4
+            fitz.Point(965,975),  # Punta de la flecha (INFERIOR)    P5
+            fitz.Point(945, 965),  # Punta izquierda de la flecha     P6   
+            fitz.Point(955,965),  # Base izquierda INFERIOR          P7
+        ]
+
+        # Dibuja el polígono con los puntos especificados
+        page.draw_polyline(arrwImprs, color=color, fill=color) 
+##########################################################################################
+
+ ############################LAMINADO PROCESO############################################
+                ## -- PROCESO rectangulo -- ##
+        rectLam = fitz.Rect(880, 975, 1045, 1030)  # Img. Extrusión
+        page.draw_rect(rectLam, color=color)
+            
+                    ## -- AGREGAR TEXTO -- ##
+        page.insert_textbox(rectLam,"LAMINADO", fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
+
+                ## -- FLECHA EXTRUSION -- ##
+        arrwImprs = [
+            # X , Y
+            fitz.Point(955,1035),  # punta Izq de la Base SUPERIOR    P1
+            fitz.Point(975,1035),  # punta derch de la Base SUPERIOR  P2
+            fitz.Point(975,1045),  # Base derecha   INFERIOR          P3
+            fitz.Point(985,1045),  # Punta derecha de la flecha       P4
+            fitz.Point(965,1055),  # Punta de la flecha (INFERIOR)    P5
+            fitz.Point(945, 1045),  # Punta izquierda de la flecha     P6   
+            fitz.Point(955,1045),  # Base izquierda INFERIOR          P7
+        ]
+
+        # Dibuja el polígono con los puntos especificados
+        page.draw_polyline(arrwImprs, color=color, fill=color) 
+##########################################################################################
+
+ ############################REFILADO PROCESO############################################
+                ## -- PROCESO rectangulo -- ##
+        rectRefil = fitz.Rect(880, 1055, 1045, 1110)  # Img. Extrusión
+        page.draw_rect(rectRefil, color=color)
+                
+                    ## -- AGREGAR TEXTO -- ##
+        page.insert_textbox(rectRefil,"REFILADO", fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
+
+                ## -- FLECHA EXTRUSION -- ##
+        arrwImprs = [
+            # X , Y
+            fitz.Point(955,1115),  # punta Izq de la Base SUPERIOR    P1
+            fitz.Point(975,1115),  # punta derch de la Base SUPERIOR  P2
+            fitz.Point(975,1125),  # Base derecha   INFERIOR          P3
+            fitz.Point(985,1125),  # Punta derecha de la flecha       P4
+            fitz.Point(965,1135),  # Punta de la flecha (INFERIOR)    P5
+            fitz.Point(945, 1125),  # Punta izquierda de la flecha     P6   
+            fitz.Point(955,1125),  # Base izquierda INFERIOR          P7
+        ]
+
+        # Dibuja el polígono con los puntos especificados
+        page.draw_polyline(arrwImprs, color=color, fill=color) 
+##########################################################################################
+
+ ############################CONVERSION PROCESO############################################
+                ## -- PROCESO rectangulo -- ##
+        rectCnvrs = fitz.Rect(880, 1135, 1045, 1190)  # Img. Extrusión
+        page.draw_rect(rectCnvrs, color=color)
+                
+                ## -- AGREGAR TEXTO -- ##
+        page.insert_textbox(rectCnvrs,"CONVERSIÓN", fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
+        
+                ## -- FLECHA EXTRUSION -- ##
+        arrwImprs = [
+            # X , Y
+            fitz.Point(955,1195),  # punta Izq de la Base SUPERIOR    P1
+            fitz.Point(975,1195),  # punta derch de la Base SUPERIOR  P2
+            fitz.Point(975,1205),  # Base derecha   INFERIOR          P3
+            fitz.Point(985,1205),  # Punta derecha de la flecha       P4
+            fitz.Point(965,1215),  # Punta de la flecha (INFERIOR)    P5
+            fitz.Point(945, 1205),  # Punta izquierda de la flecha     P6   
+            fitz.Point(955,1205),  # Base izquierda INFERIOR          P7
+        ]
+
+        # Dibuja el polígono con los puntos especificados
+        page.draw_polyline(arrwImprs, color=color, fill=color) 
+##########################################################################################
+
+ ############################PROCESO TERMINADO############################################
+                ## -- PROCESO rectangulo -- ##
+        rectPrdctTerm = fitz.Rect(880, 1215, 1045, 1260)  # Img. Extrusión
+        page.draw_rect(rectPrdctTerm, color=color)
+
+         ## -- AGREGAR TEXTO -- ##
+        page.insert_textbox(rectPrdctTerm,"TERMINADO", fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
+              
+##########################################################################################
+
+        # Guarda el documento modificado
+        self.temp_filename = "Template/Template_temp.pdf"
+        self.doc.save(self.temp_filename)
+        self.doc.close()
+
+# Ejecuta la prueba
+crpdf = prInrs()
+crpdf.pruebas()

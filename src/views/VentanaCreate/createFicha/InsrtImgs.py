@@ -92,7 +92,12 @@ class InstrImgs():
     
     #  --- PROXIMAMENTE HACER ESTO AUTOMATICO --- 
     def pdfSecuen(self,page):
-        image_path = "Imagenes/img1.png" 
+
+        # --- DIBUJA EL RECTANGULO ---      
+        page.draw_rect(numFig,color=color) 
+        page.draw_rect(Img_rect,color=color)
+        page.draw_rect(text_rect,color=color)
+    
         color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
         # Figuras
         Img_rect = fitz.Rect(800, 810, 1125, 1265)     # Img. Extrusión
@@ -100,7 +105,7 @@ class InstrImgs():
         page.draw_rect(Img_rect,color=color)
  
         # Sirve para Ingresar Textos dentro del Rectangulo
-        page.insert_image(Img_rect, filename=image_path)
+        #page.insert_image(Img_rect, filename=image_path)
     
 ############################################################################################################
 
@@ -119,7 +124,7 @@ class InstrImgs():
                 page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
                 page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
             else :
-                print("---AUI ESTA EL PEDO--")
+                #print("---AUI ESTA EL PEDO--")
                 return None
         except Exception  as e:
             print("ERROR EN INSERTAR LA IMAGEN",e)
@@ -292,7 +297,7 @@ class InstrImgs():
             
                 try:
                     if os.path.exists(ruta_relativa):
-                        print(" *** El archivo ya existe! *** ")
+                        #print(" *** El archivo ya existe! *** ")
                         #os.remove(ruta_relativa)
                         shutil.copy(url_Img, ruta_relativa)
                     else:
