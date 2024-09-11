@@ -63,13 +63,24 @@ select * from DescImgPdf;
 
 
 CREATE TABLE DescImgPdf(		/* DESCRIPCIÓNES DE LA IMAGEN" */
-		idCodPrdc VARCHAR(255),
-		ExtrsDesc VARCHAR(255),
-		ImprsDesc VARCHAR(255),
-		LamDesc VARCHAR(255),
-		RefDesc VARCHAR(255),
-		CnvsDesc VARCHAR(255),
-		FOREIGN KEY (idCodPrdc) REFERENCES PrindCardLOCAL(idCodPrdc) ON DELETE CASCADE
+	idCodPrdc VARCHAR(255),
+	ExtrsDesc VARCHAR(255),
+	ImprsDesc VARCHAR(255),
+	LamDesc VARCHAR(255),
+	RefDesc VARCHAR(255),
+	CnvsDesc VARCHAR(255),
+	FOREIGN KEY (idCodPrdc) REFERENCES PrindCardLOCAL(idCodPrdc) ON DELETE CASCADE
+);
+
+drop table SecPdf;
+CREATE TABLE SecPdf(			/* SECUANCIAS DE PROCESOS PDF */
+	idCodPrdc VARCHAR(255),
+    sec1 VARCHAR(25),
+    sec2 VARCHAR(25),
+    sec3 VARCHAR(25),
+    sec4 VARCHAR(25),
+    sec5 VARCHAR(25),
+	FOREIGN KEY (idCodPrdc) REFERENCES FichaTec(id_codProduct) ON DELETE CASCADE
 );
         
         /* ------------ PROCEDIMIENTOS ALMACENADOS --------------------------- */
@@ -223,3 +234,60 @@ DELIMITER $$
 	END$$
 	DELIMITER ;
     
+    
+-- ########## PROCESOS DEL PRIND CARD ######################
+
+
+select * from secpdf;
+
+select * from fichatec;
+CALL InsertSecPdf(
+	"1111",
+	"1",
+    "1",
+    "1",
+    "1",
+    "1"
+);
+	/*-- INSERT -- */
+DELIMITER $$
+	CREATE PROCEDURE InsertSecPdf(
+		IN idCodPrdc VARCHAR(255),			-- TABLA PADRE
+		IN sec1 VARCHAR(25),
+        IN sec2 VARCHAR(25),
+        IN sec3 VARCHAR(25),
+        IN sec4 VARCHAR(25),
+        IN sec5 VARCHAR(25)
+    )
+    BEGIN 
+		START TRANSACTION;
+			INSERT INTO SecPdf(idCodPrdc,sec1,sec2,sec3,sec4,sec5)
+            VALUES (idCodPrdc,sec1,sec1,sec3,sec4,sec5);
+		COMMIT;
+	END$$
+    DELIMITER ; 
+
+
+	/*-- UPDATE -- */
+DELIMITER $$
+	CREATE PROCEDURE UpdateSecPdf(
+		IN sec1 VARCHAR(25),
+        IN sec2 VARCHAR(25),
+        IN sec3 VARCHAR(25),
+        IN sec4 VARCHAR(25),
+        IN sec5 VARCHAR(25),
+        
+        IN id_idCodPrdct VARCHAR(255)
+    )
+    BEGIN 
+		START TRANSACTION;
+			UPDATE SecPdf SET
+				sec1=sec1,
+                sec2=sec2,
+                sec3=sec3,
+                sec4=sec4,
+                sec5=sec5
+			WHERE id_idCodPrdct = id_idCodPrdct;
+		COMMIT;
+	END$$
+    DELIMITER ; 

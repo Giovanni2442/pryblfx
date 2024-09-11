@@ -90,23 +90,7 @@ class InstrImgs():
  
         self.chekKey(page=page,fig=Img_rect,numFig=numFig,obsr=text_rect,dicImgs=dic)#'''
     
-    #  --- PROXIMAMENTE HACER ESTO AUTOMATICO --- 
-    def pdfSecuen(self,page):
 
-        # --- DIBUJA EL RECTANGULO ---      
-        page.draw_rect(numFig,color=color) 
-        page.draw_rect(Img_rect,color=color)
-        page.draw_rect(text_rect,color=color)
-    
-        color = (0,1,0)  # Color gris claro, con valores RGB entre 0 y 1
-        # Figuras
-        Img_rect = fitz.Rect(800, 810, 1125, 1265)     # Img. Extrusión
-        # CONTENEDOR GUIA DE IMAGEN
-        page.draw_rect(Img_rect,color=color)
- 
-        # Sirve para Ingresar Textos dentro del Rectangulo
-        #page.insert_image(Img_rect, filename=image_path)
-    
 ############################################################################################################
 
 
