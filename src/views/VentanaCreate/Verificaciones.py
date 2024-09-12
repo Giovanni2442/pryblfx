@@ -245,7 +245,9 @@ class verificaciones():
                 #print("HOLA TE ENCUENTRAS EN VERIFICACIÓNES",)
                 #'''
                 # ACTUALIZACIÓNES MASIVAS
-                self.UpdtMsv().qryUpdateMsv(data,cliente) 
+                print("MASIVAS")
+                #MsvIds = ['','']
+                #self.UpdtMsv().qryUpdateMsv(data,cliente) 
                 
                 # INSERTAR TEXTO EN PDF
                 #self.crtPdf.InsertTxt(data)  # <- trabajar las actualizaciónes masivas en los PDF

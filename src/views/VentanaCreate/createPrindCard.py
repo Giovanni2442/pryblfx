@@ -44,6 +44,7 @@ class createPrind(UserControl):
 
         # BOTON AGREGAR
         self.btn = FilledButton(
+    
             text= self.aux().changeBtn(self.page.client_storage.get("estado")),
             adaptive=True,
             style=ButtonStyle(
@@ -65,7 +66,6 @@ class createPrind(UserControl):
             
         )
         
-
         # PESTAÑAS
         self.Pestañas = Tabs(
             label_color="#761010", #45484b

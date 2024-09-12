@@ -35,21 +35,71 @@ select * from ventas;
 SET SQL_SAFE_UPDATES = 0;
 
 
+select * from fichatec;
+
 -- PRUEBAS
-CALL UpdtMsvFichaVentas(
+CALL UpdtMsvFichaVentas_PRU(
     'Asi nomas',      -- producto (se actualiza)
     'N/A',        -- fecha_Elav (se actualiza)
-    'N/A',        -- fecha_Rev (se actualiza)
+    'QUEDO',        -- fecha_Rev (se actualiza)
     'N/A',       -- asesor (se actualiza)
     'N/A',    -- tipo_Empaque (se actualiza)
     'N/A',-- product_Laminado (se actualiza)
-    'JII',     -- estruct_Product (se actualiza)
+    'JBANDA',     -- estruct_Product (se actualiza)
     'N/A',       -- empaca (se actualiza)
-    'REYMA'            -- cliente (cliente a actualizar)
+    '2222,3333'            -- ID (id a actualizar)
 );
 
 
-DROP PROCEDURE IF EXISTS UpdtMsvFichaVentas;
+DROP PROCEDURE IF EXISTS UpdtMsvFichaVentas_PRU;
+
+
+/* ---- ACTUALIZACIÓN MASIVA, PRUEBAS ----- */
+DELIMITER $$
+CREATE PROCEDURE UpdtMsvFichaVentas_PRU(
+    IN producto VARCHAR(255),
+    IN fecha_Elav VARCHAR(255),
+    IN fecha_Rev VARCHAR(255),
+    IN asesor VARCHAR(255),
+    IN tipo_Empaque VARCHAR(255),
+    IN product_Laminado VARCHAR(255),
+    IN estruct_Product VARCHAR(255),
+    IN empaca VARCHAR(255),
+    
+    IN p_ids_codProduct TEXT
+)
+BEGIN
+    -- Iniciar la transacción
+    START TRANSACTION;
+    
+    -- UPDATE FichaTec usando la clave primaria
+    UPDATE FichaTec
+    SET fecha_Elav = CASE WHEN fecha_Elav <> 'N/A' THEN fecha_Elav ELSE fecha_Elav END,
+        fecha_Rev = CASE WHEN fecha_Rev <> 'N/A' THEN fecha_Rev ELSE fecha_Rev END,
+        producto = CASE WHEN producto <> 'N/A' THEN producto ELSE producto END
+	WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+
+    
+    -- UPDATE VENTAS con JOIN usando la clave primaria de FichaTec
+    UPDATE VENTAS vnts
+    INNER JOIN FichaTec ft ON vnts.idCodPrdc = ft.id_codProduct
+    SET asesor = CASE WHEN asesor <> 'N/A' THEN asesor ELSE asesor END,
+        tipo_Empaque = CASE WHEN tipo_Empaque <> 'N/A' THEN tipo_Empaque ELSE tipo_Empaque END,
+        product_Laminado = CASE WHEN product_Laminado <> 'N/A' THEN product_Laminado ELSE product_Laminado END,
+        estruct_Product = CASE WHEN estruct_Product <> 'N/A' THEN estruct_Product ELSE estruct_Product END,
+        empaca = CASE WHEN empaca <> 'N/A' THEN empaca ELSE empaca END
+    WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+    
+    -- Si todo fue exitoso, hacer commit
+    COMMIT;
+END$$
+ DELIMITER ;
+ 
+
+
+
+
+
 
 DELIMITER $$
 CREATE PROCEDURE UpdtMsvFichaVentas(
@@ -242,7 +292,7 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
-DELIMITER ;
+ DELIMITER ;
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

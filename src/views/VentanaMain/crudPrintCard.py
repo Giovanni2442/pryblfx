@@ -25,6 +25,9 @@ class crudPrintCard(UserControl):
         self.pr = pr(page)
         self.pdf = opnPrindPdf(page)#'''
 
+        # LIMPIAR TODO EL CONTENIDO DEL STORAGE 
+        #self.page.client_storage.clear()
+
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
         self.InptPrindCard = TextField(

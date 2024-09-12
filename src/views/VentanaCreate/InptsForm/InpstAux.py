@@ -21,6 +21,7 @@ class InptsAux():
 
     # CAMBIA EL VALOR DEL LABEL EN EL BTN
     def changeBtn(self,id):
+        print("--,",id)
         if id == "Insert":
             return "Ingresar"
         elif id == "UpdateMsv":

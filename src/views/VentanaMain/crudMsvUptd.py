@@ -10,6 +10,9 @@ class crudMsv(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
         self.color_teal = "teal"
+
+        self.lstId = []
+
         #'''
     # ########## COMPONENTES ############################
         self.page = page  
@@ -55,9 +58,11 @@ class crudMsv(UserControl):
   
         # --- BOTONES ---
             ###  - CREAR UN NUEVO PRIND CARD  - ###
+
         self.BtnCreate = FilledButton(
             text="Crear PrindCard",
             adaptive=True,
+            disabled=True,
             style=ButtonStyle(
                 bgcolor="#21A772",
                 color={
@@ -73,15 +78,17 @@ class crudMsv(UserControl):
                 },
             ),
             on_click= lambda _: (
-                page.client_storage.set("id", "Insert"),
+                page.client_storage.set("estado", "Insert"),
+                #page.client_storage.set("id", "Insert"),
                 self.page.go('/cratePrindCard'),
             ),
             #on_click= self.inptTable.jer
         )
 
         self.BtnCreate2 = FilledButton(
-            text="Crear PrindCard 2",
+            text="ACTUALIZAR",
             adaptive=True,
+            #disabled=self.dsbldBtn,
             style=ButtonStyle(
                 bgcolor="#21A742",
                 color={
@@ -95,8 +102,14 @@ class crudMsv(UserControl):
                     ControlState.HOVERED: RoundedRectangleBorder(radius=15),
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
-            ),     
-            on_click= lambda _: self.page.go('/editMsv'),
+            ),
+            on_click= lambda e: (
+                print("",self.lstId),
+                self.page.client_storage.set("estado","UpdateMsv"),
+                print(self.page.client_storage.get("estado")),
+                self.page.client_storage.set("id_masivo",self.lstId),
+                self.page.go('/cratePrindCard'),
+            ),
         )
 
         # --- TABLA ---
@@ -110,7 +123,10 @@ class crudMsv(UserControl):
             border_radius=border_radius.only(top_left=10,top_right=10),
             vertical_lines= BorderSide(0.5,color=colors.WHITE24),
             columns=[
+                DataColumn(Text("ID_PRODUCTO",color=colors.WHITE,weight="bold")),
                 DataColumn(Text("CLIENTE",color=colors.WHITE,weight="bold")),
+                DataColumn(Text("PRODUCTO",color=colors.WHITE,weight="bold")),
+                DataColumn(Text("FECHA",color=colors.WHITE,weight="bold")),
                 DataColumn(Text("HERRAMIENTAS",color=colors.WHITE,weight="bold"))
             ],
         )
@@ -205,8 +221,12 @@ class crudMsv(UserControl):
             #color="yellow",
             cells=[
                 DataCell(Text(row[0],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
+                DataCell(Text(row[1],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
+                DataCell(Text(row[3],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
+                DataCell(Text(row[2],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
                 DataCell(
                     Row([
+                        Checkbox(on_change=lambda e: self.chkBx(e.control.value,row[0])),
                         IconButton("delete",
                             #icons.CHECK,
                             icon_color=colors.BLACK54,
@@ -217,13 +237,17 @@ class crudMsv(UserControl):
                             icon_color=colors.BLACK54,
                             data=row,
                             on_click= lambda e: (
-                                self.page.client_storage.set("estado","UpdateMsv"),
-                                print("--",self.page.client_storage.get("estado")),
+                                self.page.client_storage.set("estado","Update"),
                                 self.page.client_storage.set("id",e.control.data[0]),
-                                
                                 self.page.go('/cratePrindCard'),
                             ),
                         ),
+                        IconButton("NEWSPAPER", # Ficha Tecnica
+                            icon_color=colors.BLACK54,
+                            data=row,
+                            on_click= self.pdf.openPdfLocal     # ABRE EN LOCAL
+                            #on_click= self.pdf.opnPdfBffer     # ABRE EN BD
+                        )
                     ])
                 )
             ]
@@ -267,18 +291,33 @@ class crudMsv(UserControl):
                 size=20
             )
         
+    # AGREGAR ID´S SELECCIÓNADOS PARA MODIFICAR
+    def chkBx(self,bnd,idPrind):
+        if not bnd:
+            self.lstId.remove(idPrind)
+        else:
+            self.lstId.append(idPrind)
+        print(self.lstId)
+
+
+    def dsbldBtn(self):
+        if not self.lstId:
+            return False
+        else:
+            return True
+
     #''' <-- DESCOMENTAR -->
     # Muestra los datos de la base de datos
     def showData(self):
         #'''
         self.Table.rows = []
-        for row in self.dataTbl().get_row_clientes():    # Accede a la variable de la conexión
+        for row in self.dataTbl().get_row_Table():    # Accede a la variable de la conexión
             self.Table.rows.append(
                 self.dataRows(row)
             )
         self.update()#'''
         #pass
-
+        
     #######################################################
 
     # --- CONTENEDORES,FRAMES ETC ... ---
@@ -330,6 +369,7 @@ class crudMsv(UserControl):
                                                 font_family="Calibri",italic=True),
                                             self.BtnCreate,
                                             self.BtnCreate2
+                                            # COLOCAR EL BOTON DE EDICIÓN
                                         ]
                                     )
                                 )

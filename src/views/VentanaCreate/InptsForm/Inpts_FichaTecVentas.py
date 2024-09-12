@@ -155,8 +155,8 @@ class Inpts_FichaTec_Ventas():
         elif self.estd == "UpdateMsv":
             return 'N/A'
         else:
-            return self.dta[Indx]
-            #return f"{Indx}"
+            #return self.dta[Indx]
+            return f"{Indx}"
 
     # GET VENTAS
     def dataVentas(self,default_value,Indx):
@@ -166,8 +166,8 @@ class Inpts_FichaTec_Ventas():
         elif self.estd == "UpdateMsv":
             return 'N/A'
         else:
-            return self.dtaVnts[Indx]
-            #return f"{Indx}"
+            #return self.dtaVnts[Indx]
+            return f"{Indx}"
 
     # DESACTIVAR EDICIÓN
     def edit(self):

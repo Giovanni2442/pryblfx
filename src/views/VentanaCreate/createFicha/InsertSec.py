@@ -146,7 +146,7 @@ class prInrs:
          ## -- AGREGAR TEXTO -- ##
         page.insert_textbox(rectPrdctTerm,"PRODUCTO TERMINADO", fontsize=14.7, fontname="helv", color=self.text_color, align=1)       # EN POSICIÓN [1] SE ENCIENTRA EL NUM. FIGURA
     
-
+    # SECUENCIAS DEL PRINDCARD
     def pruSec(self,pagePdf,idpdf):
         dicObsrvc = self.page.client_storage.get("id_Img")
         count = 0 # ACOMULA EL ULTIMO EL ULTIMO VALOR DE LA SECUENCIA
@@ -162,7 +162,7 @@ class prInrs:
       
         if self.estd != "Insert":
             dataBd = self.appSec().transGetProceso(idpdf)[1:]
-            print(f"EL ID : {idpdf} TIENE -> {dataBd}")
+            #print(f"EL ID : {idpdf} TIENE -> {dataBd}")
             
             # Si preciono el boton de imagen en una de las secuencias, se reinicia
             if dicObsrvc: 

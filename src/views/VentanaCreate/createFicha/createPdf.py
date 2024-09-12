@@ -26,6 +26,8 @@ from src.Controllers.appPrindCard import appPrindCard
 
 class CreatePdf():
     def __init__(self,page):
+
+        # --------- COORDENADAS TXT -------- #
         self.page = page
         self.pdfFichVent = Insrt_FichaVentas()
         self.pdfExtr = Insrt_Extr()
@@ -35,30 +37,32 @@ class CreatePdf():
         self.pdfCnvrs = Insrt_Convrs()
         self.secProc = prInrs(self.page)
         self.pdfImg = InstrImgs(self.page)
+        # --------------------------------- #
 
+        # --------- TEMPLATE PDF ---------- #
         self.tmpl = "Template/Template.pdf"
-
         #self.tmpl = "C:/Users/csanchez/Desktop/pryblfx/venv/src/views/VentanaCreate/createFicha/Template/Template.pdf"
+        # --------------------------------- #
+
+        # ------- APERTURA DEL PDF --------- #
         self.doc = fitz.open(self.tmpl)
+        # PAGINA "0" DEL PDF
+        self.pagPdf = self.doc[0]
+        # ---------------------------------- #
 
         # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
         self.estd = self.page.client_storage.get("estado")
         # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
 
-
         # -- ELEMENTOS DE PRUEBA --
         self.dta = []       # ALMACENA LOS DATOS QUE SE VAN A INGRESAR EN LA BD
-
-        ########################### 
 
         # ADD TO DATABASE
         self.postpdf = appPrindCard
         self.postSecuencias = appSec
-        # PAGINA "0" DEL PDF
-        self.pagPdf = self.doc[0]
         
-
+    # -- INSERTA TEXTO 
     def InsertTxt(self,tpl):
     #def Insert(self):
         # Ejemplo: añadir texto en la primera página
@@ -66,8 +70,9 @@ class CreatePdf():
         #print(tpl[5])
         idpdf = tpl[0][0].value
 
+        # --- INSERTA COORDENADAS AL TXT --- #
         #'''
-        #### -- TABLA EXTRUSIÓN -- #####       
+        #### -- TABLA FICHA / VENTAS -- #####       
         self.pdfFichVent.pdfFichVent(self.pagPdf,tpl)
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfExtr.pdfExtru(self.pagPdf,tpl)
@@ -83,8 +88,8 @@ class CreatePdf():
 
 
         # -- LISTA DE PROCESOS -- 
-        lstProc = self.secProc.pruSec(self.pagPdf,idpdf) 
-        print("---",lstProc)
+        #lstProc = self.secProc.pruSec(self.pagPdf,idpdf) 
+        #print("---",lstProc)
 
         # -- LISTA DE  IMAGENES --# 
         lstImg = self.pdfImg.main2(self.pagPdf,idpdf)
@@ -100,26 +105,23 @@ class CreatePdf():
         self.pdf = f"FilePdf/{idpdf}.pdf"
         self.doc.save(self.pdf)
 
-
         ############################ INSRCIÓNES A LA BD #######################
-            # PROCESOS
-        print("--",self.postSecuenciaPdf(idpdf,lstProc))
+            # GUARDA LA SECUENCIA DE PROCESOS
+        #self.postSecuenciaPdf(idpdf,lstProc)
         
             # OBSERVACIÓNES
         # pdf : Url y nombre donde se guarda el pdf
         # idpdf : Id del Prindcard
-        # 
-        #print("--INSERTA AQUI -- : ",self.dta)
+        # data  : Lista de iamgen, figura y Observaciónes
         self.postPdfLOCAL(idpdf,self.pdf,self.dta) # ----- MOVERLE A ESTE PEDO
 
-        self.doc.close()
+        self.doc.close()    # CIERRA EL DOCUMENTO
         ###########################################################################################
 
-        
-        
         # --- FUNCIÓN POST PDF ----
         #self.postPdf(pdf_binary,idpdf)
 
+    ## ¡ ADVERTENCIA FUNCIÓN DE PRUEBAS ! ##
     def postPdfSQL(self,pdf,id_pdf):
         if self.estd != "Insert":
             # UPDATE
@@ -137,15 +139,12 @@ class CreatePdf():
             # FIGURAS   =       [1:15:3]
             # DESCRIPCIÓNES =   [2:15:3]
             self.postpdf().transctUpdatePrindCardLOCAL(url_pef,*dta[:15:3],*dta[1:15:3],*dta[2:15:3],id_pdf)
-            #self.doc.close()
-            #print("PROXIMAMENTE!")
         else:
                     # INSERT
             # IMAGENES  =   [:15:3]
-           # DESCRIPCIÓNES = [2:15:3]
-             # FIGURAS   =   [1:15:3]
+            # DESCRIPCIÓNES = [2:15:3]
+            # FIGURAS   =   [1:15:3]
             self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,*dta[:15:3],*dta[1:15:3],*dta[2:15:3])
-            #self.doc.close()#'''
 
     def postSecuenciaPdf(self,id_pdf,dta):
         print("PEDAZOS.-.-.",dta[:])
@@ -157,16 +156,12 @@ class CreatePdf():
             # FIGURAS   =       [1:15:3]
             # DESCRIPCIÓNES =   [2:15:3]
             self.postSecuencias().transUpdateProceso(*dta,id_pdf)
-            #self.doc.close()
-            #print("PROXIMAMENTE!")
         else:
                     # INSERT
             # IMAGENES  =   [:15:3]
-           # DESCRIPCIÓNES = [2:15:3]
-             # FIGURAS   =   [1:15:3]
+            # DESCRIPCIÓNES = [2:15:3]
+            # FIGURAS   =   [1:15:3]
             self.postSecuencias().transInsertProceso(id_pdf,*dta[:])
-            #self.doc.close()#'''
-
 
         ### -- ADVERTENCIA - ESTA FUNCIÓN ES DE PRUEBAS Y ALIMENTA LA BD CON PDF --
     def InsertBd(self):  
