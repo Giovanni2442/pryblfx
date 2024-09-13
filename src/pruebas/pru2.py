@@ -27,7 +27,6 @@ class FileUploaderApp:
         #print(any)
         self.file_picker.pick_files(allow_multiple=False)
 
-    
     def jer(self,*any):     # Inserción al PDF y a la base de datos (PROXIMAMENTE!)
         #self.crtPdf.jir1(any)
         self.Btnid = any

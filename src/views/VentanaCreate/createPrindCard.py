@@ -63,7 +63,6 @@ class createPrind(UserControl):
             ),
 
             on_click= self.eventInsert # <- CLAVE UPDATE MSV
-            
         )
         
         # PESTAÑAS

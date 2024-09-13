@@ -57,6 +57,56 @@ CALL UpdtMsvExtrsID_PRU(
     '1111,2222'               -- Updt_ID´S (Conjunto de prindCards a actualizar)
 );
 	
+/* ---------------------------------------------------------  GET MASSIVE TO ID´S ---------------------------------------*/
+
+select * from extrusion;
+
+CALL getExtrsMsv(
+	'2222,3333,4444,55555,6666,7777,8888,9999,1010'
+);
+
+
+DROP PROCEDURE IF EXISTS getExtrsMsv;
+
+DELIMITER $$
+	CREATE PROCEDURE getExtrsMsv(
+		#IN id_idCodPrdct VARCHAR(255)
+        IN p_ids_codProduct TEXT
+	)
+	BEGIN 
+		-- Iniciar la transacción
+		START TRANSACTION;
+
+		SELECT * FROM extrusion extr
+	        INNER JOIN CalibrePel_Tolr cltr ON extr.idCodPrdc = cltr.idCodPrdc
+            INNER JOIN AnchoBob_TolrExtr anchBob ON extr.idCodPrdc = anchBob.idCodPrdc
+            INNER JOIN AnchoCore_TolrExtr anchCor ON extr.idCodPrdc = anchCor.idCodPrdc
+            INNER JOIN DiametroBob_Tolr didmBob ON extr.idCodPrdc = didmBob.idCodPrdc
+            INNER JOIN Peso_Prom_Bob psPrmBob ON extr.idCodPrdc = psPrmBob.idCodPrdc
+            INNER JOIN Num_BobCama_CamTam numBobCam ON extr.idCodPrdc = numBobCam.idCodPrdc
+            INNER JOIN Peso_prom_tarimaExtr psPrmTrm ON extr.idCodPrdc = psPrmTrm.idCodPrdc
+		WHERE FIND_IN_SET(extr.idCodPrdc, p_ids_codProduct);
+        
+        SELECT * FROM IMPRESION imprs
+	        INNER JOIN vldClr vlcl ON imprs.idCodPrdc = vlcl.idCodPrdc
+            INNER JOIN CalMater_Tolr clMtr ON imprs.idCodPrdc = clMtr.idCodPrdc
+            INNER JOIN AnchoBobImpr_Tolr anchBob ON imprs.idCodPrdc = anchBob.idCodPrdc
+            INNER JOIN AnchoCore_TolrImpr anchCr ON imprs.idCodPrdc = anchCr.idCodPrdc
+            INNER JOIN DiamBob_Tolr dmBob ON imprs.idCodPrdc = dmBob.idCodPrdc
+            INNER JOIN PesoPromBob psPrmB ON imprs.idCodPrdc = psPrmB.idCodPrdc
+            INNER JOIN Num_BobCama_CamaTarima numCm ON imprs.idCodPrdc = numCm.idCodPrdc
+			INNER JOIN Peso_prom_tarimaImpr psPrmT ON imprs.idCodPrdc = psPrmT.idCodPrdc
+		WHERE FIND_IN_SET(imprs.idCodPrdc, p_ids_codProduct);
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+    
+/* ------------------------------------------------------------------------------------------------------------------------*/
+
+
+
     
 /* ---------------------------------------------------------  UPDATE MASSIVE TO ID´S ---------------------------------------*/
    
@@ -136,6 +186,20 @@ DELIMITER ;
 
 /* -------- FICHA / VENTAS ---------*/
 DROP PROCEDURE IF EXISTS UpdtMsvFichaVentasID;
+
+select * from ventas;
+CALL UpdtMsvFichaVentasID(
+    'TUUUTUTUT',   -- Valor para el parámetro id_idCodPrdct
+    'N/A',       -- Valor para el parámetro cliente
+    'N/A',      -- Valor para el parámetro producto
+    'TUUUTUTUT',    -- Valor para el parámetro fecha_Elav
+    'N/A',     -- Valor para el parámetro fecha_Rev
+    'N/A',        -- Valor para el parámetro asesor
+    'N/A',  -- Valor para el parámetro tipo_Empaque
+    'N/A', -- Valor para el parámetro product_Laminado
+   
+    '2222,3333,4444'         -- Valor para el parámetro empaca
+);
 
 DELIMITER $$
 CREATE PROCEDURE UpdtMsvFichaVentasID(

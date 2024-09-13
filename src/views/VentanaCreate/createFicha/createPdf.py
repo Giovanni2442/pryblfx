@@ -14,6 +14,7 @@ from src.views.VentanaCreate.createFicha.Insrt_Convrs import Insrt_Convrs
 from src.views.VentanaCreate.createFicha.InsrtImgs import InstrImgs
 from src.views.VentanaCreate.createFicha.InsertSec import prInrs
 from src.Controllers.appSec import appSec
+from src.Controllers.appAux import appAux
 from src.Controllers.appPrindCard import appPrindCard
 
 #### TAREAS ###
@@ -62,6 +63,7 @@ class CreatePdf():
         # ADD TO DATABASE
         self.postpdf = appPrindCard
         self.postSecuencias = appSec
+        self.aux = appAux
         
     # -- INSERTA TEXTO 
     def InsertTxt(self,tpl):
@@ -106,7 +108,7 @@ class CreatePdf():
 
         ############################ INSRCIÓNES A LA BD #######################
             # GUARDA LA SECUENCIA DE PROCESOS
-        #self.postSecuenciaPdf(idpdf,lstProc)
+        self.postSecuenciaPdf(idpdf,lstProc)
         
             # OBSERVACIÓNES
         # pdf : Url y nombre donde se guarda el pdf
@@ -119,6 +121,13 @@ class CreatePdf():
 
         # --- FUNCIÓN POST PDF ----
         #self.postPdf(pdf_binary,idpdf)
+
+    def UpdateTxt(self,lstId):
+        #self.aux().dtaExtr.transactGetExtrs()
+
+        for i in lstId:
+            print(i)
+ 
 
     ## ¡ ADVERTENCIA FUNCIÓN DE PRUEBAS ! ##
     def postPdfSQL(self,pdf,id_pdf):

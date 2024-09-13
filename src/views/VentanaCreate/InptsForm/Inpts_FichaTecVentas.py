@@ -22,9 +22,10 @@ class Inpts_FichaTec_Ventas():
         self.estd = self.page.client_storage.get("estado")
         # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
+        print(self.id)
         
-        self.dta = self.dtaFich().getFicha(self.id)
-        self.dtaVnts = self.dtaFich().get_Ventas(self.id)
+        #self.dta = self.dtaFich().getFicha(self.id)
+        #self.dtaVnts = self.dtaFich().get_Ventas(self.id)
 
         
     ### INPUTS DE TABLA FichaTecnica ###
@@ -150,12 +151,14 @@ class Inpts_FichaTec_Ventas():
 
     # GET FICHA
     def data(self,default_value,Indx):
+        dta = self.dtaFich.getFicha(self.id)
+        print("--",dta)
         if self.estd == "Insert":   
             return default_value
         elif self.estd == "UpdateMsv":
             return 'N/A'
         else:
-            return self.dta[Indx]
+            return dta[Indx]
             #return f"{Indx}"
 
     # GET VENTAS

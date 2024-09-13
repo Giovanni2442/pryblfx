@@ -38,7 +38,7 @@ class appPrindCard():
 
     #########################################################
 
-    ############ PROCEDURES TRASACCTIONS PRUEBAS ALAMCENAMIENTO EN LOCAL ####################
+    ############ PROCEDURES TRASACCTIONS PRUEBAS ALAMACENAMIENTO EN LOCAL ####################
     # GET OBSERVACIÓNES
     # --- TRANSACCIÓN GET --- #
     def transactGetObsrv(self,id):
@@ -52,7 +52,6 @@ class appPrindCard():
             print("ERROR EN GET OBSRVS",err)
         finally:
             self.cursorPool.close() 
-    
     
     # INSERT PRINDCARD
     def transctInsertPrindCardLOCAL(self,*args):
@@ -91,6 +90,36 @@ class appPrindCard():
             print("ERROR AL ACTUALIZAR PRIND CARDLOCAL! : ",err )
         finally:
             self.cursorPool.close()
+
+    # OBTENER LA RUTA DEL PDF
+    def getPridCardPdfLOCAL(self,id):
+        try:
+            query = 'SELECT prindCrdPdf_URL FROM PrindCardLOCAL WHERE idCodPrdc = %s'
+            #cur = self.connect.cursor()
+            cur = self.dtaDb.cursor()
+            cur.execute(query,(id,))   
+            result = cur.fetchone()
+            return result
+        except:
+            print("ERROR AL OBTENER DATOS!")
+        finally:
+            cur.close()
+            self.dtaDb.close()
+
+    # OBTENER LA RUTA DE LAS IMAGENES
+    def getPridCardImagesLOCAL(self,id):
+        try:
+            query = 'SELECT * FROM UrlImgsPdf WHERE idCodPrdc = %s'
+            #cur = self.connect.cursor()
+            cur = self.dtaDb.cursor()
+            cur.execute(query,(id,))   
+            result = cur.fetchone()
+            return result
+        except:
+            print("ERROR AL OBTENER DATOS!")
+        finally:
+            cur.close()
+            self.dtaDb.close()
 
     
     #########################################################

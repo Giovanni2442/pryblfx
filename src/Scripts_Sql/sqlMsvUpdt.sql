@@ -49,7 +49,7 @@ CALL UpdtMsvFichaVentas_PRU(
 );
 
 
-DROP PROCEDURE IF EXISTS UpdtMsvFichaVentas_PRU;
+DROP PROCEDURE IF EXISTS UpdtMsvFichaVentas;
 
 
 /* ---- ACTUALIZACIÓN MASIVA, PRUEBAS ----- */
@@ -428,7 +428,7 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
- DELIMITER ;
+DELIMITER ;
 
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -748,7 +748,7 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
-	DELIMITER ;
+ DELIMITER ;
 
 -- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -952,9 +952,7 @@ CALL UpdtMsvConvrs(
     'REYMA'           -- Updt_Cliente
 );
 
-
 DROP PROCEDURE IF EXISTS UpdtMsvConvrs;
-
 
 DELIMITER $$
 	CREATE PROCEDURE UpdtMsvConvrs(

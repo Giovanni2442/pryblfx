@@ -15,7 +15,8 @@ class appUpdateMasivo():
 
             #--UPDATE MASSIVE--#
         # --- FICHA / VENTAS ---
-        self.dataTbl().transactUpdateFichaVents(*self.auxList[1:10],ids)
+        #print(dtaList[1:10])
+        self.aux.dataTbl().transactUpdateFichaVentsID(*dtaList[2:10],ids)
         #self.dataTbl().transactUpdateFichaVents(*self.auxList[1:10],self.auxList[0])
         # --- EXTRUSION ---
         self.aux.dtaExtr().transctUpdateMsvExtrsID(*dtaList[10:38],ids) 

@@ -40,7 +40,6 @@ class appFichVent():
 
     ###################################
 
-
     def get_row_Table(self):
         try:
             query = 'SELECT * FROM FichaTec;'
@@ -123,15 +122,29 @@ class appFichVent():
 
     #'''
     def transactUpdateFichaVents(self,*args):
-            try:
-                self.cursorPool.callproc('UpdateFichaVentas',(args))
-                self.conectPool.commit()
-            except mysql.connector.Error as err:
-                print("ERROR GET FICHA",err)
-            finally:
-                self.cursorPool.close()#'''
+        try:
+            self.cursorPool.callproc('UpdateFichaVentas',(args))
+            self.conectPool.commit()
+        except mysql.connector.Error as err:
+            print("ERROR GET FICHA",err)
+        finally:
+            self.cursorPool.close()#'''
 
     ###################################
+
+
+    ########## UPDATE MASSIVE #############
+    def transactUpdateFichaVentsID(self,*args):
+        try:
+            self.cursorPool.callproc('UpdtMsvFichaVentasID',(args))
+            self.conectPool.commit()
+            print("EXITO")
+        except mysql.connector.Error as err:
+            print("ERROR UPDATE MSV FICHA",err)
+        finally:
+            self.cursorPool.close()#'''
+
+    #######################################
     
 #pr = Controllers()
 #print(pr.delete_row_Table("E-2335"))

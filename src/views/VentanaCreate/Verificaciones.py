@@ -178,6 +178,7 @@ class verificaciones():
 
                     #  -- INSERTAR TEXTO AL PDF -- 
                     self.crtPdf.InsertTxt(data)
+                    self.page.client_storage.clear()
         
                     self.msgInsrt = SnackBar(         # Insert exitoso!
                         content=Column(
@@ -224,6 +225,7 @@ class verificaciones():
                     
                     # INSERTAR TEXTO EN PDF
                     self.crtPdf.InsertTxt(data)
+                    self.page.client_storage.clear()
 
                     self.msgInsrt = SnackBar(         # Insert exitoso!
                         content=Column(
@@ -247,9 +249,12 @@ class verificaciones():
                 print(ids_codProduct)
                 
                 self.UpdtMsv().qryUpdateMsv(data,ids_codProduct) 
+                self.page.client_storage.clear()
                 
                 # INSERTAR TEXTO EN PDF
                 #self.crtPdf.InsertTxt(data)  # <- trabajar las actualizaciónes masivas en los PDF
+                #self.crtPdf.UpdateTxt(ids_codProduct)
+
 
                 self.msgInsrt = SnackBar(         # Insert exitoso!
                     content=Column(
@@ -265,3 +270,4 @@ class verificaciones():
                 )
                 #self.mdlErrValue(self.msgDlt)
                 self.mdl.open_dialog(self.msgInsrt)#'''
+            #self.page.client_storage.clear()

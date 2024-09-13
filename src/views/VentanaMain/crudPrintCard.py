@@ -27,6 +27,9 @@ class crudPrintCard(UserControl):
 
         # LIMPIAR TODO EL CONTENIDO DEL STORAGE 
         #self.page.client_storage.clear()
+        #page.client_storage.set("estado", ""),
+        #page.client_storage.set("estado", ""),
+
 
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
