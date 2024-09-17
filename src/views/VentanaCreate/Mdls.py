@@ -199,7 +199,7 @@ class opnMdlImg():
 
      # GET FIG
     def dataFig(self,default_value,id):
-        #print(id)
+        print(self.dta)
         
         if self.estd != "Insert":
             dta = {

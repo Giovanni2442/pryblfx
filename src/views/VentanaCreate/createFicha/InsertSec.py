@@ -159,7 +159,8 @@ class prInrs:
             4 : self.pdfProcCnvrs,
             5 : self.pdfProcPrdctTerm
         }
-      
+
+        # UPDATE
         if self.estd != "Insert":
             dataBd = self.appSec().transGetProceso(idpdf)[1:]
             #print(f"EL ID : {idpdf} TIENE -> {dataBd}")
@@ -201,25 +202,33 @@ class prInrs:
                 else:
                     fun = pdfPros.get(5)
                     fun(pagePdf)
+        # INSERT
         else:
-            #'''
-            for i,key in enumerate(dicObsrvc):
-                print("--SECUENCIAS---",i,key)
-                fun = pdfPros.get(i)
-                fun(pagePdf,key,True,self.text_size)
-                self.lstSec[i] = key
-                count=i
-            
-            print(count)
-            #print(".-.",self.lstSec)
-            # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
-            if count != 4:
-                fun = pdfPros.get(count+1)
-                fun(pagePdf,"PRODUCTO TERMINADO",False,self.Text_PrdctTerm)
-            else:
+            # SI EL DICCIÓNARIO "NO" ESTA VACIO..
+            if dicObsrvc:
+                #'''
+                for i,key in enumerate(dicObsrvc):
+                    print("--SECUENCIAS---",i,key)
+                    fun = pdfPros.get(i)
+                    fun(pagePdf,key,True,self.text_size)
+                    self.lstSec[i] = key
+                    count=i
+                
+                print(count)
+                #print(".-.",self.lstSec)
+                # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
+                if count != 4:
+                    fun = pdfPros.get(count+1)
+                    fun(pagePdf,"PRODUCTO TERMINADO",False,self.Text_PrdctTerm)
+                else:
+                    fun = pdfPros.get(5)
+                    fun(pagePdf)
+                    
+            # DICCIÓNARIO VACIÓ EN SECUENCIAS
+            else : 
+                print("VACIO!")
                 fun = pdfPros.get(5)
                 fun(pagePdf)
-            
         return self.lstSec
     
 # Ejecuta la prueba

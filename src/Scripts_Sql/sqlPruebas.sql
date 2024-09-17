@@ -169,6 +169,7 @@ DELIMITER $$
  
 DROP PROCEDURE IF EXISTS UpdatePrindCardUrl_PRU;
 
+select * from PrindCardLOCAL;
     	-- PRIND CARD
 DELIMITER $$
 	CREATE PROCEDURE UpdatePrindCardUrl_PRU(
@@ -200,7 +201,7 @@ DELIMITER $$
 			-- prindCrdPdf_URL
 			UPDATE PrindCardLOCAL SET
                 prindCrdPdf_URL=prindCrdPdf_URL
-            WHERE id_idCodPrdct = id_idCodPrdct;
+            WHERE idCodPrdc = id_idCodPrdct;
                    
 			-- UrlImages
 			UPDATE UrlImgsPdf SET
@@ -209,7 +210,7 @@ DELIMITER $$
                 LamImg=LamImg,
                 RefImg=RefImg,
                 CnvsImg=CnvsImg
-            WHERE id_idCodPrdct = id_idCodPrdct;
+            WHERE idCodPrdc = id_idCodPrdct;
 
 			-- Numero de Figura
 			UPDATE FigImgPdf SET
@@ -218,7 +219,7 @@ DELIMITER $$
 				LamFig=LamFig,
 				RefFig=RefFig,
 				CnvsFig=CnvsFig
-			WHERE id_idCodPrdct = id_idCodPrdct;
+			WHERE idCodPrdc = id_idCodPrdct;
 
 			-- Descripción del Proceso
 			UPDATE DescImgPdf SET
@@ -227,7 +228,7 @@ DELIMITER $$
 				LamDesc=LamDesc,
 				RefDesc=RefDesc,
 				CnvsDesc=CnvsDesc
-			WHERE id_idCodPrdct = id_idCodPrdct;
+			WHERE idCodPrdc = id_idCodPrdct;
             
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;

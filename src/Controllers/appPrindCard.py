@@ -26,7 +26,7 @@ class appPrindCard():
     # UPDATE PRINDCARD
     def transctUpdatePrindCard(self,*args):
         try:
-            self.cursorPool.callproc('UpdatePrindCard',(args))
+            self.cursorPool.callproc('UpdatePrindCardUrl_PRU',(args))
             self.conectPool.commit()
             #print(args)
             print("UPDATE PRIND OK!")

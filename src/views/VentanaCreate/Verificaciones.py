@@ -162,6 +162,9 @@ class verificaciones():
     # Inserta los datos a la base de datos
     def insrtFicha(self,*data):
        
+        #print("***",data)
+        #print(,data)
+
         if self.vlVoid(data) != False:                   # Si ninguna validación se cumple
             contact_exists = False
             for row in self.dataTbl().get_row_Table():    # Recorre la tabla FichaTecnica ya que es la tabla padre       
@@ -227,7 +230,7 @@ class verificaciones():
                     self.crtPdf.InsertTxt(data)
                     self.page.client_storage.clear()
 
-                    self.msgInsrt = SnackBar(         # Insert exitoso!
+                    self.msgInsrt = SnackBar(         # Update exitoso!
                         content=Column(
                             controls=[
                                 Container(
@@ -249,8 +252,12 @@ class verificaciones():
                 print(ids_codProduct)
                 
                 self.UpdtMsv().qryUpdateMsv(data,ids_codProduct) 
-                self.page.client_storage.clear()
                 
+                # --- INSERTAR DATOS EN PDF --- # 
+                self.crtPdf.UpdateTxt(listPridCards)
+
+                self.page.client_storage.clear()
+
                 # INSERTAR TEXTO EN PDF
                 #self.crtPdf.InsertTxt(data)  # <- trabajar las actualizaciónes masivas en los PDF
                 #self.crtPdf.UpdateTxt(ids_codProduct)

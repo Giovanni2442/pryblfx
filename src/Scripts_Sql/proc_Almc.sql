@@ -45,6 +45,32 @@ KILL CONNECTION 1559;
 
 DROP PROCEDURE IF EXISTS getExtrs;
 
+		-- * --------------------- FICHA / VENTAS  ------------------- *
+
+
+select * from fichatec;
+call getFicha_ventas(
+	"2222"
+)
+
+DELIMITER $$
+	CREATE PROCEDURE getFicha_ventas(
+		IN id_idCodPrdct VARCHAR(255)
+	)
+	BEGIN 
+		-- Iniciar la transacción
+		START TRANSACTION;
+
+		SELECT * FROM  fichatec ficha
+	        INNER JOIN ventas vtn ON vtn.idCodPrdc = ficha.id_codProduct
+        WHERE ficha.id_codProduct = id_idCodPrdct;
+
+		-- Si todo fue exitoso, hacer commit
+		COMMIT;
+	END$$
+	DELIMITER ;
+
+
         -- * --------------------- EXTRUSIÓN  ------------------- *
 SELECT * FROM extrusion;
 DELETE FROM FichaTec WHERE id_codProduct = "232323";

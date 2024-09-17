@@ -35,6 +35,8 @@ SET SQL_SAFE_UPDATES = 0;
 
 select * from fichatec;
 
+
+
 -- PRUEBAS
 CALL UpdtMsvFichaVentas_PRU(
     'Asi nomas',      -- producto (se actualiza)

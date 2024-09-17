@@ -506,8 +506,7 @@ class InptsExtrc():
     def dataExtrs(self,default_value,Indx):
         #if self.id != "Insert": 
         if self.estd != "Insert" and self.estd != "UpdateMsv":                   
-            #return self.dta[Indx]
-            return f"{Indx}"
+            return self.dta[Indx] if self.dta else default_value
         else:
             return default_value
     

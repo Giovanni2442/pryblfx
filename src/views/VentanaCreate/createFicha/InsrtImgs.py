@@ -107,6 +107,10 @@ class InstrImgs():
             elif dicImgs[1] and dicImgs[2] != "N/A":        # Si no hay imagen, agrega los demas textos NUM. FIG Y DESCRIP
                 page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
                 page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
+            elif dicImgs[1] != "N/A":
+                page.insert_textbox(numFig, dicImgs[1].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=1)
+            elif dicImgs[1] != "N/A":
+                page.insert_textbox(obsr, dicImgs[2].upper(), fontsize=self.text_size, fontname="helv", color=self.text_color, align=0)
             else :
                 #print("---AUI ESTA EL PEDO--")
                 return None
@@ -127,6 +131,7 @@ class InstrImgs():
         img = ""
         fig = ""
         comntrs = ""
+        Imgs = ""        
 
             #  - INSERTAR / ANTUALIZAR IMAGENES EN EL PDF - #
 
@@ -162,7 +167,7 @@ class InstrImgs():
             #####################################
 
             ######################
-            # SI EL dicObsrvc NO ES VACIO
+            # SI EL DICCIÓNARIO dicObsrvc "NO" ESTA VACIO  
             if dicObsrvc:  
                 #print("LLENO",dicObsrvc)
                 for key in dicObsrvc:                               # RECORRE EL DICCIONARIO DE OBSERVACIÓNES
@@ -183,13 +188,15 @@ class InstrImgs():
                     fig = value[1]
                     comntrs = value[2]
 
-                    r = self.PostImgs(idPrint,key,img,fig,comntrs)
+                    #r = self.PostImgs(idPrint,key,img,fig,comntrs)
+                    Imgs = self.PostImgs(idPrint,key,img,fig,comntrs)
                     
                 # Limpiar el diccionario id_Img
                 self.page.client_storage.set("id_Img", {})
-                print("UPDATE--",r)
-                return r 
+                #print("UPDATE--",r)
+                #return r 
 
+            # SI ESTA VACIÓ
             else:
                     #print("VACIO",dicObsrvc)
                 ######################
@@ -207,12 +214,13 @@ class InstrImgs():
                     comntrs = value[2]
                     
 
-                    r = self.PostImgs(idPrint,key,img,fig,comntrs)
+                    #r = self.PostImgs(idPrint,key,img,fig,comntrs)
+                    Imgs = self.PostImgs(idPrint,key,img,fig,comntrs)
                     
                 # Limpiar el diccionario id_Img
                 self.page.client_storage.set("id_Img", {})
                 #print("UPDATE--",r)
-                return r 
+                #return r 
         
         #  -- INSERTAR --
         else : 
@@ -228,13 +236,13 @@ class InstrImgs():
                 'CNVRSN' : self.pdfImageCnvrs
             }#'''
 
-            # SI NO ES NONE, INSERTA EN LAS COORDENADAS
+            #   SI EL DICCIÓNARIO "NO" ESTA VACIO, INSERTA EN LAS COORDENADAS
             if dicObsrvc:
                 for key in dicObsrvc:
-                    value = dicObsrvc[key]
-                    #print("--d-- : ",value)
-                    fun = select.get(key)
-                    fun(page,value)
+                    value = dicObsrvc[key]      # RECORRER DICCIÓNARIO 
+                    
+                    fun = select.get(key)       # EJECUTAR LA FUNCIÓN DEL DICCIÓRARIO
+                    fun(page,value) 
 
                     ### VARIABLES DE LA LISTA ###
                     img = value[0]
@@ -244,27 +252,28 @@ class InstrImgs():
                     #############################
                     #POST IMAGENES
                     # LLAMADA PARA CREAR LA LISTA Y ALMACENAR EN BD
-                    r = self.PostImgs(idPrint,key,img,fig,comntrs)
-                
+                    #r = self.PostImgs(idPrint,key,img,fig,comntrs)
+                    Imgs = self.PostImgs(idPrint,key,img,fig,comntrs)
                 # Limpiar el diccionario id_Img
                 self.page.client_storage.set("id_Img", {})
                 #print(r)
-                return r 
+                #return r 
             else:
                 # SE INSERTAN IMAGENES VACIAS SI NO HAY IMAGENES
-                return ["N/A","N/A","N/A","N/A","N/A"]
+                Imgs = [['N/A', 'N/A', 'N/A'], ['N/A', 'N/A', 'N/A'], ['N/A', 'N/A', 'N/A'], ['N/A', 'N/A', 'N/A'], ['N/A', 'N/A', 'N/A']]
+                #return ["N/A","N/A","N/A","N/A","N/A"]
                 #print("ERROR")
+
+        return Imgs
 
     # idPrint : Id del Prindcard
     # idSec     : Id de la secuencia (EXTRUSION,IMPRESION,LAMINADO,REFILADO,CONVERSION)
-    # url_Img   : url de la Imagen
-    # 
+    # url_Img   : url de la Imagen 
     def PostImgs(self,idPrint,idSec,url_Img,fig,cmntrs):
         lstImgs = []
 
         if url_Img != "N/A":     # si la url de la imagen no es N/A
-            #print("--URL IMG --",idSec,"---",url_Img)
-            
+            #print("--URL IMG --",idSec,"---",url_Img)            
             try:
                 # Abrir la imagen con Pillow para detectar el formato original
                 with Image.open(url_Img) as img:
@@ -304,8 +313,6 @@ class InstrImgs():
                 # Recorrer el Dicciónario y agregar sus value en una lista
                 for key in self.dicImgs: 
                     lstImgs.append(self.dicImgs[key])
-                    #print("-- ",self.dicImgs[key])  # Imprimir el diccionario para verificar
-                #return lstImgs
 
             except Exception as e:
                 print(f"Error al copiar y renombrar la imagen: {e}")

@@ -220,7 +220,8 @@ class crudPrintCard(UserControl):
                 DataCell(Text(row[3],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
                 DataCell(Text(row[2],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
                 DataCell(
-                    Row([
+                    Row(
+                        controls=[
                         IconButton("delete",
                             #icons.CHECK,
                             icon_color=colors.BLACK54,
@@ -248,13 +249,17 @@ class crudPrintCard(UserControl):
         )
         return self.rows
     
+
+    def jer(self):
+        self.rows.data
+    
     # --- BUSCADORES ---
         # inpt  : Input que se va a utilizar
         # e     : Evento de escucha
         # i     : El atributo de la tabla donde buscara i = 0 : id_pridcard ; i = 1 : cliente
     def searchInput(self,e,i):
         srchInpt = e.control.value.lower()  # Convierte a minuscula la enrada de Texto
-        #print( e.control.value.lower())
+        print("..-.-",self.rows.cells[4].content.controls)
         filterId = list(filter(lambda x: srchInpt in x[i].lower(), self.dataTbl().get_row_Table()))       # Toma la tabla padre FichaTecnica
         #print("you find : ",filterId)
         self.Table.rows = []

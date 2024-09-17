@@ -24,8 +24,8 @@ class Inpts_FichaTec_Ventas():
         self.id = self.page.client_storage.get("id")
         print(self.id)
         
-        #self.dta = self.dtaFich().getFicha(self.id)
-        #self.dtaVnts = self.dtaFich().get_Ventas(self.id)
+        self.dta = self.dtaFich().getFicha(self.id)
+        self.dtaVnts = self.dtaFich().get_Ventas(self.id)
 
         
     ### INPUTS DE TABLA FichaTecnica ###
@@ -151,14 +151,14 @@ class Inpts_FichaTec_Ventas():
 
     # GET FICHA
     def data(self,default_value,Indx):
-        dta = self.dtaFich.getFicha(self.id)
-        print("--",dta)
+        
+        #print("--",dta)
         if self.estd == "Insert":   
             return default_value
         elif self.estd == "UpdateMsv":
             return 'N/A'
         else:
-            return dta[Indx]
+            return self.dta[Indx] if self.dta else default_value
             #return f"{Indx}"
 
     # GET VENTAS
@@ -169,8 +169,7 @@ class Inpts_FichaTec_Ventas():
         elif self.estd == "UpdateMsv":
             return 'N/A'
         else:
-            #return self.dtaVnts[Indx]
-            return f"{Indx}"
+            return self.dtaVnts[Indx] if self.dtaVnts else default_value
 
     # DESACTIVAR EDICIÓN
     def edit(self):

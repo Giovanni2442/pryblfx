@@ -109,6 +109,19 @@ class appFichVent():
 
     #### QUERY´S DE PRUEBA ####
     #'''
+
+    def transactGetFicha(self,id):
+        try:
+            self.cursorPool.callproc('getFicha_ventas',[id])
+            # Recuperar los resultados
+            for result in self.cursorPool.stored_results():
+                data = result.fetchone()
+            return data
+        except mysql.connector.Error as err:
+            print("ERROR EN GET FICHA_VENTAS",err)
+        finally:
+            self.cursorPool.close() 
+
     def transactInsrtFichVents(self,*args):
         try:
             self.cursorPool.callproc('InsertFichaVentas',(args))

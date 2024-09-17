@@ -13,8 +13,10 @@ from src.views.VentanaCreate.createFicha.Insrt_Refilado import Instr_Refilado
 from src.views.VentanaCreate.createFicha.Insrt_Convrs import Insrt_Convrs
 from src.views.VentanaCreate.createFicha.InsrtImgs import InstrImgs
 from src.views.VentanaCreate.createFicha.InsertSec import prInrs
+#from src.views.VentanaCreate.createFicha.pdfAux import MtdsAuxPdf
 from src.Controllers.appSec import appSec
 from src.Controllers.appAux import appAux
+from src.views.VentanaCreate.createFicha.pdfAux import frmtDtaUpdate
 from src.Controllers.appPrindCard import appPrindCard
 
 #### TAREAS ###
@@ -27,15 +29,27 @@ from src.Controllers.appPrindCard import appPrindCard
 
 class CreatePdf():
     def __init__(self,page):
+        self.page = page
+
+        self.auxPdf = frmtDtaUpdate
+
+        # --- ESTADO IDENTIFICADOR DE INSERT Y UPDATE ---
+        self.estd = self.page.client_storage.get("estado")
+        # ID DEL PRODUCTO HA EDITAR
+        self.id = self.page.client_storage.get("id")
+        # ---------------------------------------------- #
 
         # --------- COORDENADAS TXT -------- #
-        self.page = page
-        self.pdfFichVent = Insrt_FichaVentas()
-        self.pdfExtr = Insrt_Extr()
-        self.pdfImpr = Insrt_Impr()
-        self.pdfLam = Insrt_Laminado()
-        self.pdfRef = Instr_Refilado()
-        self.pdfCnvrs = Insrt_Convrs()
+        
+        #self.pdfaux = MtdsAuxPdf(self.estd)
+        self.pdfFichVent = Insrt_FichaVentas(self.estd)
+        self.pdfExtr = Insrt_Extr(self.estd)
+        self.pdfImpr = Insrt_Impr(self.estd)
+        '''        
+        self.pdfLam = Insrt_Laminado(self.estd)
+        self.pdfRef = Instr_Refilado(self.estd)
+        self.pdfCnvrs = Insrt_Convrs(self.estd)
+        '''
         self.secProc = prInrs(self.page)
         self.pdfImg = InstrImgs(self.page)
         # --------------------------------- #
@@ -51,11 +65,7 @@ class CreatePdf():
         self.pagPdf = self.doc[0]
         # ---------------------------------- #
 
-        # --- ESTADO IDENTIFICADOR DE INSERT Y UPDATE ---
-        self.estd = self.page.client_storage.get("estado")
-        # ID DEL PRODUCTO HA EDITAR
-        self.id = self.page.client_storage.get("id")
-        # ---------------------------------------------- #
+        
 
         # -- ELEMENTOS DE PRUEBA --
         self.dta = []       # ALMACENA LOS DATOS QUE SE VAN A INGRESAR EN LA BD
@@ -72,20 +82,21 @@ class CreatePdf():
         idpdf = tpl[0][0].value
 
         # --- INSERTA COORDENADAS AL TXT --- #
-        #'''
+    
         #### -- TABLA FICHA / VENTAS -- #####       
         self.pdfFichVent.pdfFichVent(self.pagPdf,tpl)
         #### -- TABLA EXTRUSIÓN -- #####       
         self.pdfExtr.pdfExtru(self.pagPdf,tpl)
         #### -- TABLA IMPRESION -- #####       
         self.pdfImpr.pdfImpr(self.pagPdf,tpl)
+        '''
         #### -- TABLA LAMINADO -- #####
         self.pdfLam.pdfLam(self.pagPdf,tpl)
         #self.pdfLam.pru(tpl)
         #### -- TABLA REFILADO -- #####
         self.pdfRef.pdfRefil(self.pagPdf,tpl)
         #### -- TABLA CONVERSIÓN -- #####
-        self.pdfCnvrs.pdfConvrs(self.pagPdf,tpl)#'''
+        self.pdfCnvrs.pdfConvrs(self.pagPdf,tpl)'''
 
 
         # -- LISTA DE PROCESOS -- 
@@ -124,10 +135,26 @@ class CreatePdf():
 
     def UpdateTxt(self,lstId):
         #self.aux().dtaExtr.transactGetExtrs()
-
+        ficha_Ventas = self.aux().dataTbl
+        extrs = self.aux().dtaExtr
+        imprs = self.aux().dtaImpr
+        #pdf = f"FilePdf/{i}.pdf"
+        pdf = f"Template/Template.pdf"
+        
         for i in lstId:
-            print(i)
- 
+            
+            docPdf = fitz.open(pdf)
+            pagPdf = docPdf[0]
+            print(".IMPR.",self.auxPdf().formatData(imprs().transGetImprs(i)))
+            self.pdfFichVent.pdfFichVent(pagPdf,self.auxPdf().formatData(ficha_Ventas().transactGetFicha(i)))
+            self.pdfExtr.pdfExtru(pagPdf,self.auxPdf().formatData(extrs().transactGetExtrs(i)))
+            self.pdfImpr.pdfImpr(pagPdf,self.auxPdf().formatData(imprs().transGetImprs(i)))
+
+        
+            # GUARDAR Y CERRAR EL NUEVO PDF
+            ji = f"FilePdf/{i}.pdf"
+            docPdf.save(ji)
+            docPdf.close()    # CIERRA EL DOCUMENTO
 
     ## ¡ ADVERTENCIA FUNCIÓN DE PRUEBAS ! ##
     def postPdfSQL(self,pdf,id_pdf):
@@ -155,7 +182,7 @@ class CreatePdf():
             self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,*dta[:15:3],*dta[1:15:3],*dta[2:15:3])
 
     def postSecuenciaPdf(self,id_pdf,dta):
-        print("PEDAZOS.-.-.",dta[:])
+        #print("PEDAZOS.-.-.",dta[:])
         #print(id_pdf)
         #'''
         if self.estd != "Insert":

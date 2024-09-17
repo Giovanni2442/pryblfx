@@ -27,7 +27,7 @@ class opnPrindPdf():
     def opnPdfBffer(self,e):
         #pass
         #'''
-        idPrind = e.control.data[0]         # OBTENER EL ID DESDE EL EVENTO ON_CLICK
+        idPrind = e.control.data[0]                                 # OBTENER EL ID DESDE EL EVENTO ON_CLICK
         getPdf = self.qryPrndCrd().getPridCardPdf(idPrind)[0]       # OBTIENEN EL BINARIO DEL PDF PARA CONVERTIRLO
         
         print(getPdf)
@@ -66,8 +66,8 @@ class opnPrindPdf():
         self.page.update()#'''
 
     def openPdfLocal(self,e):
-        idPrind = e.control.data[0]  # OBTENER EL ID DESDE EL EVENTO ON_CLICK
-        getPdf = self.qryPrndCrd().getPridCardPdfLOCAL(idPrind)[0]  # OBTIENE LA RUTA DEL PDF, regresa una tupla
+        idPrind = e.control.data[0]                                     # OBTENER EL ID DESDE EL EVENTO ON_CLICK
+        getPdf = self.qryPrndCrd().getPridCardPdfLOCAL(idPrind)[0]      # OBTIENE LA RUTA DEL PDF, regresa una tupla
         #print("id : ", idPrind)
         #print(getPdf)
        # '''
