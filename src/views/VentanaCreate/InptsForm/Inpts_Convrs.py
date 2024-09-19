@@ -178,7 +178,7 @@ class Inpts_Convrs():
                 dropdown.Option("CAJA"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+           # on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.mdEmblj = TextField(
@@ -203,7 +203,7 @@ class Inpts_Convrs():
                 dropdown.Option("CAJA")
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.psProm = TextField(
@@ -228,7 +228,7 @@ class Inpts_Convrs():
                 dropdown.Option("AMBOS")
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.numBltsCjsCam_CmsTam = PopupMenuButton(
@@ -371,9 +371,7 @@ class Inpts_Convrs():
     # GET CNVRS
     def dataCnvrs(self,default_value,Indx):
         if self.estd != "Insert" and self.estd != "UpdateMsv":  
-            #print(self.dtaCvrs)             
-            #return self.dtaCvrs[Indx]
-            return f"{Indx}"
+            return self.dtaCvrs[Indx] if self.dtaCvrs else default_value
         else:
             return default_value
 

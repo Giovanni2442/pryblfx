@@ -267,7 +267,7 @@ class Inpst_ImprDig():
                 dropdown.Option(8),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         # --- REVISAR ESTA ENTRADA --
@@ -342,7 +342,7 @@ class Inpst_ImprDig():
                 dropdown.Option("VERTICAL"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
     
     ### SECCIÓN 3 num: 6 ###
@@ -360,7 +360,7 @@ class Inpst_ImprDig():
                 dropdown.Option("AMBAS"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.dimtrBob_Tol = PopupMenuButton(
@@ -451,7 +451,7 @@ class Inpst_ImprDig():
                 dropdown.Option("AMBAS"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.numBobCam_CamTam = PopupMenuButton(

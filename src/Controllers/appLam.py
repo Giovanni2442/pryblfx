@@ -81,7 +81,7 @@ class appLam():
         try:
             self.cursorPool.callproc('UpdateLmns',(args))
             self.conectPool.commit()
-            print("ACTUALIZADA LAMINASIO GENERAL!")
+            #print("ACTUALIZADA LAMINASIO GENERAL!")
         except mysql.connector.Error as err:
             print("ERROR AL ACTUALIZAR LAMINS",err)
         finally:
@@ -90,7 +90,7 @@ class appLam():
     
 
     #################################################################
-
+    '''
             # --- TRANSACCIÓN UPDATE MASIVO --- #
     # -- LAMINACIÓN GENERAL --#
     def transctUpdateMsvLamGeneral(self,*args):
@@ -113,7 +113,7 @@ class appLam():
             print("ERROR UPDATE LAMINAS MSV : ", err)
         finally:
             self.cursorPool.close()
-
+        '''
 
     # ------- MODIFICACIÓNES MASIVAS POR ID´S -----------
 
@@ -122,9 +122,9 @@ class appLam():
         try:
             self.cursorPool.callproc('UpdtMsvLamGenID',(args))
             self.conectPool.commit()
-            print("ACTUALIZACIÓN LAM GEN MASIVA EXITOSA!")
+            #print("ACTUALIZACIÓN LAM GEN MASIVA EXITOSA!")
         except mysql.connector.Error as err:
-            print("ERROR UPDATE LAM GEN MSV : ", err)
+            print("ERROR UPDATE LAM GEN MSV ID: ", err)
         finally:
             self.cursorPool.close()
 
@@ -133,9 +133,9 @@ class appLam():
         try:
             self.cursorPool.callproc('UpdtMsvLaminasID',(args))
             self.conectPool.commit()
-            print("ACTUALIZACIÓN LAMINAS MASIVA EXITOSA!")
+            #print("ACTUALIZACIÓN LAMINAS MASIVA EXITOSA!")
         except mysql.connector.Error as err:
-            print("ERROR UPDATE LAMINAS MSV : ", err)
+            print("ERROR UPDATE LAMINAS MSV ID: ", err)
         finally:
             self.cursorPool.close()
 

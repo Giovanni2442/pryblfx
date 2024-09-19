@@ -36,6 +36,7 @@ class Inpts_Refil():
                 dropdown.Option("N/A"),
                 dropdown.Option("DOBLADO"),
                 dropdown.Option("REFILADO"),
+                dropdown.Option("REFILADO / LASER"),
                 dropdown.Option("AMBOS"),
             ],
             autofocus=True,
@@ -173,7 +174,7 @@ class Inpts_Refil():
                 dropdown.Option("PESO"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.mtrBobRefl = PopupMenuButton(
@@ -298,7 +299,7 @@ class Inpts_Refil():
                 dropdown.Option("BOLSA"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.psrPrdct = Dropdown(
@@ -313,7 +314,7 @@ class Inpts_Refil():
                 dropdown.Option("AMBAS"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.psPromBob = PopupMenuButton(
@@ -483,9 +484,7 @@ class Inpts_Refil():
     def dataRefil(self,default_value,Indx):
     #def dataLamGen(self,default_value):
         if self.estd != "Insert" and self.estd != "UpdateMsv":  
-            #print(self.dtaRef)                  
-            #return self.dtaRef[Indx]
-            return f"{Indx}"
+            return self.dtaRef[Indx] if self.dtaRef else default_value
         else:
             return default_value
 

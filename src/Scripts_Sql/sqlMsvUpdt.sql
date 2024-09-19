@@ -36,7 +36,6 @@ SET SQL_SAFE_UPDATES = 0;
 select * from fichatec;
 
 
-
 -- PRUEBAS
 CALL UpdtMsvFichaVentas_PRU(
     'Asi nomas',      -- producto (se actualiza)
@@ -260,6 +259,8 @@ CALL getImprs(
 	'3333'
 );
 
+DROP PROCEDURE IF EXISTS UpdtMsvImprs;
+
 -- PRUEBAS
 CALL UpdtMsvImprs(
     'Material para Imprimir',  -- material_Imprimir
@@ -473,6 +474,8 @@ CALL UpdtMsvLamGen(
     
     'REYMA'                   -- Updt_Cliente
 );
+
+DROP PROCEDURE IF EXISTS UpdtMsvLamGen;
 
 DELIMITER $$
 	CREATE PROCEDURE UpdtMsvLamGen(			-- Update Masivo de Laminación general

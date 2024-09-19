@@ -24,10 +24,10 @@ class appSec():
       try:
         self.cursorPool.callproc('InsertSecPdf',(args))
         self.conectPool.commit()
-        print("PROCESO INSERTADO!")
+        #print("PROCESO INSERTADO!")
         return "PROCESO INSERTADO!"
       except mysql.connector.Error as err:
-        print("ERROR AL INSERTAR PROCESO!",err)
+        #print("ERROR AL INSERTAR PROCESO!",err)
         return "ERROR AL INSERTAR PROCESO!",err
       finally:
           self.cursorPool.close()

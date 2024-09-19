@@ -30,7 +30,7 @@ class opnPrindPdf():
         idPrind = e.control.data[0]                                 # OBTENER EL ID DESDE EL EVENTO ON_CLICK
         getPdf = self.qryPrndCrd().getPridCardPdf(idPrind)[0]       # OBTIENEN EL BINARIO DEL PDF PARA CONVERTIRLO
         
-        print(getPdf)
+        #print(getPdf)
 
         # Recuperar el archivo PDF de la base de datos
         if getPdf:
@@ -45,7 +45,7 @@ class opnPrindPdf():
                 temp_pdf_path = "Template/archivo_temporal.pdf"
                 pdf_document.save(temp_pdf_path)
             except Exception as e:
-                print("CIERRA EL ARCHIVO!")
+                #print("CIERRA EL ARCHIVO!")
                 self.mdlClsPdf = AlertDialog(   # MODAL PRODUCTO DUPLICADO
                         modal=True,
                         title= Text(f"PrindCard Abierto!"),
@@ -78,7 +78,7 @@ class opnPrindPdf():
                 if os.path.exists(getPdf):
                     webbrowser.open(f'file://{os.path.abspath(getPdf)}')
                 else:
-                    print("El archivo no existe.")
+                    #print("El archivo no existe.")
                     self.mdlClsPdf = AlertDialog(   # MODAL PRODUCTO DUPLICADO
                             modal=True,
                             title=Text(f"Archivo no encontrado!"),
@@ -89,7 +89,7 @@ class opnPrindPdf():
                     self.mdl.open_dialog(self.mdlClsPdf)
 
             except Exception as e:
-                print("Error al abrir el archivo:", e)
+                #print("Error al abrir el archivo:", e)
                 self.mdlClsPdf = AlertDialog(   # MODAL PRODUCTO DUPLICADO
                         modal=True,
                         title= Text(f"Error al abrir el archivo!"),

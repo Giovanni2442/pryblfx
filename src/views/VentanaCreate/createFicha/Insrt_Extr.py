@@ -6,8 +6,7 @@ class Insrt_Extr():
         self.estd = estd
         self.aux = MtdsAuxPdf(self.estd)
         self.vl = 7
-
-        
+     
     # Tabla de Extrusion
     def pdfExtru(self,page,tpl):
         vl = 9

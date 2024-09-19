@@ -16,7 +16,7 @@ class appPrindCard():
         try:
             self.cursorPool.callproc('InsertPrindCard',(args))  
             self.conectPool.commit()
-            print("INSERT PRIND OK!")
+            #print("INSERT PRIND OK!")
             #return "INSERT PRIND OK!"
         except mysql.connector.Error as err:
             print("ERROR AL INSERTAR PRINDCARD! : ",err )
@@ -29,7 +29,7 @@ class appPrindCard():
             self.cursorPool.callproc('UpdatePrindCardUrl_PRU',(args))
             self.conectPool.commit()
             #print(args)
-            print("UPDATE PRIND OK!")
+            #print("UPDATE PRIND OK!")
             #return "INSERT PRIND OK!"
         except mysql.connector.Error as err:
             print("ERROR AL INSERTAR PRINDCARD! : ",err )
@@ -58,7 +58,7 @@ class appPrindCard():
         try:
             self.cursorPool.callproc('InsertPrindCardUrl_PRU',(args))  
             self.conectPool.commit()
-            print("INSERT PRIND OK!")
+            #print("INSERT PRIND OK!")
             #return "INSERT PRIND OK!"
         except mysql.connector.Error as err:
             print("ERROR AL INSERTAR PRINDCARDLOCAL! : ",err )
@@ -71,7 +71,7 @@ class appPrindCard():
             self.cursorPool.callproc('UpdatePrindCardUrl_PRU',(args))
             self.conectPool.commit()
             #print(args)
-            print("UPDATE PRIND OK!")
+            #print("UPDATE PRIND OK!")
             #return "INSERT PRIND OK!"
         except mysql.connector.Error as err:
             print("ERROR AL ACTUALIZAR PRINDCARDLOCAL! : ",err )
@@ -84,7 +84,7 @@ class appPrindCard():
             self.cursorPool.callproc('UpdtMsvFichaVentasID',(args))
             self.conectPool.commit()
             #print(args)
-            print("UPDATE PRIND OK!")
+            #print("UPDATE PRIND OK!")
             #return "INSERT PRIND OK!"
         except mysql.connector.Error as err:
             print("ERROR AL ACTUALIZAR PRIND CARDLOCAL! : ",err )

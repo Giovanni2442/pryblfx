@@ -51,7 +51,7 @@ class appConvrs():
 
 
 ################ UPDATE MASIVO #################
-    
+    '''
     # --- TRANSACCIÓN UPDATE MASIVO --- #
     def transctUpdateMsvCnvrs(self,*args):
         try:
@@ -62,6 +62,7 @@ class appConvrs():
             print("ERROR UPDATE CNVRS MSV : ", err)
         finally:
             self.cursorPool.close()
+    '''
 
     # --- TRANSACCIÓN UPDATE MASIVO --- #
     def transctUpdateMsvCnvrsID(self,*args):
@@ -70,7 +71,7 @@ class appConvrs():
             self.conectPool.commit()
             print("ACTUALIZACIÓN CNVRS MASIVA EXITOSA!")
         except mysql.connector.Error as err:
-            print("ERROR UPDATE CNVRS MSV : ", err)
+            print("ERROR UPDATE CNVRS MSV ID: ", err)
         finally:
             self.cursorPool.close()
 

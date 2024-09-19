@@ -1,14 +1,22 @@
+from time import sleep
 import flet as ft
 
+def main(page: ft.Page):
+    pr = ft.ProgressRing(width=16, height=16, stroke_width = 2)
 
-def main(page):
-  def checkbox_changed(e):
-    t.value = f"Checkbox value changed to {c.value}" 
-    t.update()
+    page.add(
+        ft.Text("Circular progress indicator", style="headlineSmall"),
+        ft.Row([ft.ProgressRing(), ft.Text("Wait for the completion...")]),
+        ft.Text("Indeterminate cicrular progress", style="headlineSmall"),
+        ft.Column(
+            [ft.ProgressRing(), ft.Text("I'm going to run for ages...")],
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+        ),
+    )
 
-  c = ft.Checkbox(label="Checkbox with 'change' event", on_change=checkbox_changed)
-  t = ft.Text()
-
-  page.add(c, t)
+    for i in range(0, 101):
+        pr.value = i * 0.01
+        sleep(0.1)
+        page.update()
 
 ft.app(main)

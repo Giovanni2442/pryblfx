@@ -49,6 +49,7 @@ class appExtr():
             
     ################ UPDATE MASIVO #################
     
+    '''
     # --- TRANSACCIÓN UPDATE MASIVO --- #
     def transctUpdateMsvExtrs(self,*args):
         try:
@@ -58,7 +59,7 @@ class appExtr():
         except mysql.connector.Error as err:
             print("ERROR UPDATE EXTRS MSV : ", err)
         finally:
-            self.cursorPool.close()
+            self.cursorPool.close()'''
 
     # --- TRANSACCIÓN UPDATE POR ID´D SELECCIÓNADOS --- #
     def transctUpdateMsvExtrsID(self,*args):
@@ -67,9 +68,9 @@ class appExtr():
         try:
             self.cursorPool.callproc('UpdtMsvExtrsID',(args))
             self.conectPool.commit()
-            print("ACTUALIZACIÓN MASIVA EN EXTRS EXITOSA!")
+            print("ACTUALIZACIÓN MASIVA ID EN EXTRS EXITOSA!")
         except mysql.connector.Error as err:
-            print("ERROR UPDATE EXTRS MSV : ", err)
+            print("ERROR UPDATE EXTRS MSV ID: ", err)
         finally:
             self.cursorPool.close()#'''
         

@@ -8,7 +8,7 @@ class Insrt_FichaVentas():
     
     def pdfFichVent(self,page,tpl):
         txt = "VALUE"
-        print("--",tpl)
+        
         #### TABLA FichaTecnica ####
             # id_producto
         page.insert_text(   
@@ -30,35 +30,36 @@ class Insrt_FichaVentas():
             fontname="Helvetica-Bold"
         )
 
-            # fecha_elav
+            # Producto
         page.insert_text(   
-            (915, 58),
-            #text =  tpl[0][2].value.upper(),
+            (304, 135),
+            #text = tpl[0][4].value.upper(),
             text=self.aux.txtAux(tpl,0,2),
             color=(0, 0, 0),
             fontsize=19,
             fontname="Helvetica-Bold"
         )
 
-            # fecha_Rev
+            # fecha_elav
         page.insert_text(   
-            (653, 82),
-            #text =  tpl[0][3].value.upper(),
+            (915, 58),
+            #text =  tpl[0][2].value.upper(),
             text=self.aux.txtAux(tpl,0,3),
             color=(0, 0, 0),
             fontsize=19,
             fontname="Helvetica-Bold"
         )
 
-            # Producto
+        '''    # fecha_Rev
         page.insert_text(   
-            (304, 135),
-            #text = tpl[0][4].value.upper(),
+            (653, 82),
+            #text =  tpl[0][3].value.upper(),
             text=self.aux.txtAux(tpl,0,4),
             color=(0, 0, 0),
             fontsize=19,
             fontname="Helvetica-Bold"
-        )
+        )'''
+
         ################################
 
         #### -- TABLA VENTAS -- #####

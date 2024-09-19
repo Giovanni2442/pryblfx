@@ -45,18 +45,19 @@ class CreatePdf():
         self.pdfFichVent = Insrt_FichaVentas(self.estd)
         self.pdfExtr = Insrt_Extr(self.estd)
         self.pdfImpr = Insrt_Impr(self.estd)
-        '''        
         self.pdfLam = Insrt_Laminado(self.estd)
         self.pdfRef = Instr_Refilado(self.estd)
         self.pdfCnvrs = Insrt_Convrs(self.estd)
-        '''
+    
         self.secProc = prInrs(self.page)
         self.pdfImg = InstrImgs(self.page)
         # --------------------------------- #
 
         # --------- TEMPLATE PDF ---------- #
-        self.tmpl = "Template/Template.pdf"
+        #self.tmpl = "Template/Template.pdf"
         #self.tmpl = "C:/Users/csanchez/Desktop/pryblfx/venv/src/views/VentanaCreate/createFicha/Template/Template.pdf"
+        self.tmpl = "venv/src/views/VentanaCreate/createFicha/Template/Template.pdf"
+
         # --------------------------------- #
 
         # ------- APERTURA DEL PDF --------- #
@@ -65,7 +66,6 @@ class CreatePdf():
         self.pagPdf = self.doc[0]
         # ---------------------------------- #
 
-        
 
         # -- ELEMENTOS DE PRUEBA --
         self.dta = []       # ALMACENA LOS DATOS QUE SE VAN A INGRESAR EN LA BD
@@ -89,15 +89,13 @@ class CreatePdf():
         self.pdfExtr.pdfExtru(self.pagPdf,tpl)
         #### -- TABLA IMPRESION -- #####       
         self.pdfImpr.pdfImpr(self.pagPdf,tpl)
-        '''
         #### -- TABLA LAMINADO -- #####
         self.pdfLam.pdfLam(self.pagPdf,tpl)
         #self.pdfLam.pru(tpl)
         #### -- TABLA REFILADO -- #####
         self.pdfRef.pdfRefil(self.pagPdf,tpl)
         #### -- TABLA CONVERSIÓN -- #####
-        self.pdfCnvrs.pdfConvrs(self.pagPdf,tpl)'''
-
+        self.pdfCnvrs.pdfConvrs(self.pagPdf,tpl)
 
         # -- LISTA DE PROCESOS -- 
         lstProc = self.secProc.pruSec(self.pagPdf,idpdf) 
@@ -114,7 +112,8 @@ class CreatePdf():
                 self.dta.append(lst)        # ADD VALUE EN LISTA
 
         # Guarda el nuevo pdf
-        self.pdf = f"FilePdf/{idpdf}.pdf"
+        #self.pdf = f"FilePdf/{idpdf}.pdf"
+        self.pdf = f"venv/src/views/VentanaCreate/createFicha/FilePdf/{idpdf}.pdf"
         self.doc.save(self.pdf)
 
         ############################ INSRCIÓNES A LA BD #######################
@@ -138,22 +137,49 @@ class CreatePdf():
         ficha_Ventas = self.aux().dataTbl
         extrs = self.aux().dtaExtr
         imprs = self.aux().dtaImpr
-        #pdf = f"FilePdf/{i}.pdf"
-        pdf = f"Template/Template.pdf"
-        
+        lamn = self.aux().dtaLam
+        refil = self.aux().dtaRef
+        cnvrs = self.aux().dtaConvrs
+        # RUTA DEL ARCHIVO PDF
+        pdf = f"venv/src/views/VentanaCreate/createFicha/Template/Template.pdf"
+        # RECORRE EL NUMERO DE ELEMENTOS PDF A ACTUALIZAR
         for i in lstId:
-            
+            # LISTA LAMANINACIÓN GENERAL    
+            lstLamGen = self.auxPdf().formatData(lamn().transctGetLamGen(i))
+            # LISTA LAMINACIÓNES
+            lstLamin = self.auxPdf().formatData(lamn().transctGetLmns(i))
+            # ALL DATA OF LAMINACIÓN
+            lstLamAll = [lstLamGen,lstLamin]
+
             docPdf = fitz.open(pdf)
             pagPdf = docPdf[0]
-            print(".IMPR.",self.auxPdf().formatData(imprs().transGetImprs(i)))
+            #print("----CONVERSI-->",self.auxPdf().formatData(cnvrs().transGetConvrs(i)))
             self.pdfFichVent.pdfFichVent(pagPdf,self.auxPdf().formatData(ficha_Ventas().transactGetFicha(i)))
             self.pdfExtr.pdfExtru(pagPdf,self.auxPdf().formatData(extrs().transactGetExtrs(i)))
             self.pdfImpr.pdfImpr(pagPdf,self.auxPdf().formatData(imprs().transGetImprs(i)))
-
+            self.pdfLam.pdfLam(pagPdf,lstLamAll)
+            self.pdfRef.pdfRefil(pagPdf,self.auxPdf().formatData(refil().transGetRefil(i)))
+            self.pdfCnvrs.pdfConvrs(pagPdf,self.auxPdf().formatData(cnvrs().transGetConvrs(i)))
         
+
+                # -- LISTA DE PROCESOS -- 
+            lstProc = self.secProc.pruSec(pagPdf,i) 
+            #print("---",lstProc)
+
+            # -- LISTA DE  IMAGENES --# 
+            lstImg = self.pdfImg.main2(pagPdf,i)
+            #print("IMG --",lstImg)      # <- EYY! Q CHECA LA LISTA
+            #self.pdfImg.main(self.page,tpl)
+
+            for pros in lstImg:                 # KEY Recorre el proceso
+                for lst in pros:                # VALUE DE CADA PROCESO
+                    #print("--.i.- ",lst)
+                    self.dta.append(lst)        # ADD VALUE EN LISTA
+
             # GUARDAR Y CERRAR EL NUEVO PDF
-            ji = f"FilePdf/{i}.pdf"
-            docPdf.save(ji)
+            #dirPdf = f"FilePdf/{i}.pdf"
+            dirPdf = f"venv/src/views/VentanaCreate/createFicha/FilePdf/{i}.pdf"
+            docPdf.save(dirPdf)
             docPdf.close()    # CIERRA EL DOCUMENTO
 
     ## ¡ ADVERTENCIA FUNCIÓN DE PRUEBAS ! ##

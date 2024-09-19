@@ -184,6 +184,9 @@ DELIMITER ;
 	
    /* --------------------------------------------------------------------------------*/
 
+
+
+
 /* -------- FICHA / VENTAS ---------*/
 DROP PROCEDURE IF EXISTS UpdtMsvFichaVentasID;
 
@@ -203,7 +206,6 @@ CALL UpdtMsvFichaVentasID(
 );
 
 DELIMITER $$
-
 CREATE PROCEDURE UpdtMsvFichaVentasID(
     IN producto VARCHAR(255),
     IN fecha_Elav VARCHAR(255),
@@ -365,7 +367,7 @@ DELIMITER $$
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
-    DELIMITER ;
+DELIMITER ;
  
 /* --------------------------------------------------------------------------------*/
                 
@@ -413,6 +415,8 @@ CALL UpdtMsvImprsID(
 );
 
 DROP PROCEDURE IF EXISTS UpdtMsvImprsID;
+
+
 DELIMITER $$
 	CREATE PROCEDURE UpdtMsvImprsID(
 		IN material_Imprimir VARCHAR(255),				/*EXTRUCIÓN*/
@@ -492,21 +496,21 @@ DELIMITER $$
 		UPDATE CalMater_Tolr clm   	
 		INNER JOIN fichatec ft on clm.idCodPrdc = ft.id_codProduct	
 		SET calibre = CASE WHEN calibre <> 0.0 THEN calibre ELSE clm.calibre END,
-			tolerancia = CASE WHEN tol_cal <> 0.0 THEN tol_cal ELSE clm.tol_cal END
+			tolerancia = CASE WHEN tol_cal <> 0.0 THEN tol_cal ELSE clm.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- ACTUALIZA ANCHOBOB_TOL
 		UPDATE AnchoBobImpr_Tolr anchBobImpr   	
 		INNER JOIN fichatec ft on anchBobImpr.idCodPrdc = ft.id_codProduct	
 		SET ancho = CASE WHEN ancho <> 0.0 THEN ancho ELSE anchBobImpr.ancho END,
-			tolerancia = CASE WHEN tol_ancho <> 0.0 THEN tol_ancho ELSE anchBobImpr.tol_ancho END
+			tolerancia = CASE WHEN tol_ancho <> 0.0 THEN tol_ancho ELSE anchBobImpr.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- ACTUALIZA ANCHO_CORE_TOL
 		UPDATE AnchoCore_TolrImpr anchCre   	
 		INNER JOIN fichatec ft on anchCre.idCodPrdc = ft.id_codProduct
 		SET ancho_Core = CASE WHEN ancho_Core <> 0.0 THEN ancho_Core ELSE anchCre.ancho_Core END,
-			tolerancia = CASE WHEN tol_anchCore <> 0.0 THEN tol_anchCore ELSE anchCre.tol_anchCore END
+			tolerancia = CASE WHEN tol_anchCore <> 0.0 THEN tol_anchCore ELSE anchCre.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- ACTUALIZA DIAMETRO_BOB_TOL
@@ -514,14 +518,14 @@ DELIMITER $$
 		UPDATE DiamBob_Tolr dmBob   	
 		INNER JOIN fichatec ft on dmBob.idCodPrdc = ft.id_codProduct
 		SET diametro = CASE WHEN diametro <> 0.0 THEN diametro ELSE dmBob.diametro END,
-			tolerancia = CASE WHEN tol_dim <> 0.0 THEN tol_dim ELSE dmBob.tol_dim END
+			tolerancia = CASE WHEN tol_dim <> 0.0 THEN tol_dim ELSE dmBob.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
         
 		-- ACTUALIZA PESO_PROM_BOB
 		UPDATE PesoPromBob psPrmBob   	
 		INNER JOIN fichatec ft on psPrmBob.idCodPrdc = ft.id_codProduct
 		SET peso = CASE WHEN peso <> 0.0 THEN peso ELSE psPrmBob.peso END,
-			tolerancia = CASE WHEN tol_pso <> 0.0 THEN tol_pso ELSE psPrmBob.tol_pso END
+			tolerancia = CASE WHEN tol_pso <> 0.0 THEN tol_pso ELSE psPrmBob.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- ACTUALIZA NUM_BOB_CAMATAM
@@ -535,13 +539,13 @@ DELIMITER $$
 		UPDATE Peso_prom_tarimaImpr psPrmTrm   	
 		INNER JOIN fichatec ft on psPrmTrm.idCodPrdc = ft.id_codProduct
 		SET pesoNto = CASE WHEN pesoNto <> 0 THEN pesoNto ELSE psPrmTrm.pesoNto END,
-			tolerancia = CASE WHEN tol_psoNto <> 0 THEN tol_psoNto ELSE psPrmTrm.tol_psoNto END
+			tolerancia = CASE WHEN tol_psoNto <> 0 THEN tol_psoNto ELSE psPrmTrm.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
         
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
-    DELIMITER ;
+ DELIMITER ;
                                             
 /* --------------------------------------------------------------------------------*/
 
@@ -585,7 +589,6 @@ CALL UpdtMsvLamGenID(
 );
 
 DROP PROCEDURE IF EXISTS UpdtMsvLamGenID;
-
 
 DELIMITER $$
 	CREATE PROCEDURE UpdtMsvLamGenID(			-- Update Masivo de Laminación general
@@ -636,20 +639,20 @@ DELIMITER $$
 		UPDATE MedidManga mng 	
 		INNER JOIN fichatec ft on mng.idCodPrdc = ft.id_codProduct	
 		SET medidaManga = CASE WHEN medidaManga <> 0.0 THEN medidaManga ELSE mng.medidaManga END,
-			tolerancia = CASE WHEN tol_Mng <> 0.0 THEN tol_Mng ELSE mng.tol_Mng END
+			tolerancia = CASE WHEN tol_Mng <> 0.0 THEN tol_Mng ELSE mng.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
          -- Actualizar la tabla AnchoCore_TolrLam
 		UPDATE AnchoCore_TolrLam anchCr 	
 		INNER JOIN fichatec ft on anchCr.idCodPrdc = ft.id_codProduct
-		SET anchoCore = CASE WHEN anchoCore <> 0.0 THEN anchoCore ELSE anchCr.tol_Mng END,
-			tolerancia = CASE WHEN tol_anchCore <> 0.0 THEN tol_anchCore ELSE anchCr.tol_anchCore END
+		SET anchoCore = CASE WHEN anchoCore <> 0.0 THEN anchoCore ELSE anchCr.tolerancia END,
+			tolerancia = CASE WHEN tol_anchCore <> 0.0 THEN tol_anchCore ELSE anchCr.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
         
 		-- Actualizar la tabla Diametro_GrosCore
 		UPDATE Diametro_GrosCore dmGrs 	
 		INNER JOIN fichatec ft on dmGrs.idCodPrdc = ft.id_codProduct
-        SET diametro = CASE WHEN diametro <> 0.0 THEN diametro ELSE dmGrsdiametro END,
+        SET diametro = CASE WHEN diametro <> 0.0 THEN diametro ELSE dmGrs.diametro END,
 			grosorCore = CASE WHEN grosorCore <> 0.0 THEN grosorCore ELSE dmGrs.grosorCore END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
         
@@ -657,7 +660,7 @@ DELIMITER $$
 		UPDATE Diametro_Bob_Tolr dmBob 	
 		INNER JOIN fichatec ft on dmBob.idCodPrdc = ft.id_codProduct
 		SET diametroBob = CASE WHEN diametroBob <> 0.0 THEN diametroBob ELSE dmBob.diametroBob END,
-			tolerancia = CASE WHEN tol_diamBob <> 0.0 THEN tol_diamBob ELSE dmBob.tol_diamBob END
+			tolerancia = CASE WHEN tol_diamBob <> 0.0 THEN tol_diamBob ELSE dmBob.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- MATERIAL IMPRESO
@@ -670,13 +673,13 @@ DELIMITER $$
 		UPDATE CalibrePelic_Tolr clbr 	
 		INNER JOIN fichatec ft on clbr.idCodPrdc = ft.id_codProduct
 		SET calibre = CASE WHEN calibre <> 0.0 THEN calibre ELSE clbr.calibre END,
-			tolerancia = CASE WHEN tol_cal <> 0.0 THEN tol_cal ELSE clbr.tol_cal END
+			tolerancia = CASE WHEN tol_cal <> 0.0 THEN tol_cal ELSE clbr.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
         
 		UPDATE AnchoBob_TolrMtrl anchBob 	
 		INNER JOIN fichatec ft on anchBob.idCodPrdc = ft.id_codProduct
 		SET anchoBob = CASE WHEN anchoBob <> 0.0 THEN anchoBob ELSE anchBob.anchoBob END,
-			tolerancia =  CASE WHEN tol_bob <> 0.0 THEN tol_bob ELSE anchBob.tol_bob END
+			tolerancia =  CASE WHEN tol_bob <> 0.0 THEN tol_bob ELSE anchBob.tolerancia END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- Si todo fue exitoso, hacer commit
@@ -730,6 +733,8 @@ CALL UpdtMsvLaminas(
     'REYMA'           -- Updt_Cliente
 );
 
+DROP PROCEDURE IF EXISTS UpdtMsvLaminasID;
+
 DELIMITER $$
 	CREATE PROCEDURE UpdtMsvLaminasID(			-- Update masivo de Materiales ha laminar
 		IN Mtrl_1 VARCHAR(255),
@@ -781,88 +786,88 @@ DELIMITER $$
 		-- Material_Laminar_1
 		UPDATE Material_Laminar_1 mt1   	
 		INNER JOIN fichatec ft on mt1.idCodPrdc = ft.id_codProduct			
-		SET Material = CASE WHEN Mtrl_1 <> 'N/A' THEN Mtrl_1 ELSE mt1.Mtrl_1 END,
-			tipoTratado = CASE WHEN tipoTratado_1 <> 'N/A' THEN tipoTratado_1 ELSE mt1.tipoTratado_1 END,
-			tipoLamin =  CASE WHEN tipoLamin_1 <> 'N/A' THEN tipoLamin_1 ELSE mt1.tipoLamin_1 END
+		SET Material = CASE WHEN Mtrl_1 <> 'N/A' THEN Mtrl_1 ELSE mt1.Material END,
+			tipoTratado = CASE WHEN tipoTratado_1 <> 'N/A' THEN tipoTratado_1 ELSE mt1.tipoTratado END,
+			tipoLamin =  CASE WHEN tipoLamin_1 <> 'N/A' THEN tipoLamin_1 ELSE mt1.tipoLamin END
 		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			UPDATE CalibrePelic_TolrLam1 clbPl1   	
 			INNER JOIN fichatec ft on clbPl1.idCodPrdc = ft.id_codProduct	
-			SET calibre = CASE WHEN cal_1 <> 0.0 THEN cal_1 ELSE clbPl1.cal_1 END,
-				tolerancia =  CASE WHEN tol_cal_1 <> 0.0 THEN tol_cal_1 ELSE clbPl1.tol_cal_1 END
+			SET calibre = CASE WHEN cal_1 <> 0.0 THEN cal_1 ELSE clbPl1.calibre END,
+				tolerancia =  CASE WHEN tol_cal_1 <> 0.0 THEN tol_cal_1 ELSE clbPl1.tolerancia END
 			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			UPDATE AnchoBob_TolrLam1 anchBob1   	
 			INNER JOIN fichatec ft on anchBob1.idCodPrdc = ft.id_codProduct	
-			SET anchoBob =  CASE WHEN anchoBob_1 <> 0.0 THEN anchoBob_1 ELSE anchBob1.anchoBob_1 END,
-				tolerancia =  CASE WHEN tol_bob_1 <> 0.0 THEN tol_bob_1 ELSE anchBob1.tol_bob_1 END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET anchoBob =  CASE WHEN anchoBob_1 <> 0.0 THEN anchoBob_1 ELSE anchBob1.anchoBob END,
+				tolerancia =  CASE WHEN tol_bob_1 <> 0.0 THEN tol_bob_1 ELSE anchBob1.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- Material_Laminar_2
 		UPDATE Material_Laminar_2 mt2   	
 		INNER JOIN fichatec ft on mt2.idCodPrdc = ft.id_codProduct			
-		SET Material = CASE WHEN Mtrl_2 <> 'N/A' THEN Mtrl_2 ELSE Mtrl_2 END,
-			tipoTratado = CASE WHEN tipoTratado_2 <> 'N/A' THEN tipoTratado_2 ELSE tipoTratado_2 END,
-			tipoLamin =  CASE WHEN tipoLamin_2 <> 'N/A' THEN tipoLamin_2 ELSE tipoLamin_2 END
-		WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+		SET Material = CASE WHEN Mtrl_2 <> 'N/A' THEN Mtrl_2 ELSE mt2.Material END,
+			tipoTratado = CASE WHEN tipoTratado_2 <> 'N/A' THEN tipoTratado_2 ELSE mt2.tipoTratado END,
+			tipoLamin =  CASE WHEN tipoLamin_2 <> 'N/A' THEN tipoLamin_2 ELSE mt2.tipoLamin END
+		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			UPDATE CalibrePelic_TolrLam2 clbPl2   	
 			INNER JOIN fichatec ft on clbPl2.idCodPrdc = ft.id_codProduct	
-			SET calibre = CASE WHEN cal_2 <> 0.0 THEN cal_2 ELSE cal_2 END,
-				tolerancia =  CASE WHEN tol_cal_2 <> 0.0 THEN tol_cal_2 ELSE tol_cal_2 END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET calibre = CASE WHEN cal_2 <> 0.0 THEN cal_2 ELSE clbPl2.calibre END,
+				tolerancia =  CASE WHEN tol_cal_2 <> 0.0 THEN tol_cal_2 ELSE clbPl2.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			UPDATE AnchoBob_TolrLam2 anchBob2   	
 			INNER JOIN fichatec ft on anchBob2.idCodPrdc = ft.id_codProduct	
-			SET anchoBob =  CASE WHEN anchoBob_2 <> 0.0 THEN anchoBob_2 ELSE anchoBob_2 END,
-				tolerancia = CASE WHEN tol_bob_2 <> 0.0 THEN tol_bob_2 ELSE tol_bob_2 END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET anchoBob =  CASE WHEN anchoBob_2 <> 0.0 THEN anchoBob_2 ELSE anchBob2.anchoBob END,
+				tolerancia = CASE WHEN tol_bob_2 <> 0.0 THEN tol_bob_2 ELSE anchBob2.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- Material_Laminar_3	
 		UPDATE Material_Laminar_3 mt3   	
 		INNER JOIN fichatec ft on mt3.idCodPrdc = ft.id_codProduct			
-		SET Material = CASE WHEN Mtrl_3 <> 'N/A' THEN Mtrl_3 ELSE Mtrl_3 END,
-			tipoTratado = CASE WHEN tipoTratado_3 <> 'N/A' THEN tipoTratado_3 ELSE tipoTratado_3 END,
-			tipoLamin =  CASE WHEN tipoLamin_3 <> 'N/A' THEN tipoLamin_3 ELSE tipoLamin_3 END
-		WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+		SET Material = CASE WHEN Mtrl_3 <> 'N/A' THEN Mtrl_3 ELSE mt3.Material END,
+			tipoTratado = CASE WHEN tipoTratado_3 <> 'N/A' THEN tipoTratado_3 ELSE mt3.tipoTratado END,
+			tipoLamin =  CASE WHEN tipoLamin_3 <> 'N/A' THEN tipoLamin_3 ELSE mt3.tipoLamin END
+		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			UPDATE CalibrePelic_TolrLam3 clbPl3   	
 			INNER JOIN fichatec ft on clbPl3.idCodPrdc = ft.id_codProduct	
-			SET calibre = CASE WHEN cal_3 <> 0.0 THEN cal_3 ELSE cal_3 END,
-				tolerancia =  CASE WHEN tol_cal_3 <> 0.0 THEN tol_cal_3 ELSE tol_cal_3 END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET calibre = CASE WHEN cal_3 <> 0.0 THEN cal_3 ELSE clbPl3.calibre END,
+				tolerancia =  CASE WHEN tol_cal_3 <> 0.0 THEN tol_cal_3 ELSE clbPl3.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			UPDATE AnchoBob_TolrLam3 anchBob3   	
 			INNER JOIN fichatec ft on anchBob3.idCodPrdc = ft.id_codProduct	
-			SET anchoBob =  CASE WHEN anchoBob_3 <> 0.0 THEN anchoBob_3 ELSE anchoBob_3 END,
-				tolerancia = CASE WHEN tol_bob_3 <> 0.0 THEN tol_bob_3 ELSE tol_bob_3 END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET anchoBob =  CASE WHEN anchoBob_3 <> 0.0 THEN anchoBob_3 ELSE anchBob3.anchoBob END,
+				tolerancia = CASE WHEN tol_bob_3 <> 0.0 THEN tol_bob_3 ELSE  anchBob3.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- Material_Laminar_4
 		UPDATE Material_Laminar_4 mt4   	
 		INNER JOIN fichatec ft on mt4.idCodPrdc = ft.id_codProduct			
-		SET Material = CASE WHEN Mtrl_4 <> 'N/A' THEN Mtrl_4 ELSE Mtrl_4 END,
-			tipoTratado = CASE WHEN tipoTratado_4 <> 'N/A' THEN tipoTratado_4 ELSE tipoTratado_4 END,
-			tipoLamin =  CASE WHEN tipoLamin_4 <> 'N/A' THEN tipoLamin_4 ELSE tipoLamin_4 END
-		WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+		SET Material = CASE WHEN Mtrl_4 <> 'N/A' THEN Mtrl_4 ELSE mt4.Material END,
+			tipoTratado = CASE WHEN tipoTratado_4 <> 'N/A' THEN tipoTratado_4 ELSE mt4.tipoTratado END,
+			tipoLamin =  CASE WHEN tipoLamin_4 <> 'N/A' THEN tipoLamin_4 ELSE mt4.tipoLamin END
+		WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			UPDATE CalibrePelic_TolrLam4 clbPl4   	
 			INNER JOIN fichatec ft on clbPl4.idCodPrdc = ft.id_codProduct	
-			SET calibre = CASE WHEN cal_4 <> 0.0 THEN cal_4 ELSE cal_4 END,
-				tolerancia =  CASE WHEN tol_cal_4 <> 0.0 THEN tol_cal_4 ELSE tol_cal_4 END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET calibre = CASE WHEN cal_4 <> 0.0 THEN cal_4 ELSE clbPl4.calibre END,
+				tolerancia =  CASE WHEN tol_cal_4 <> 0.0 THEN tol_cal_4 ELSE clbPl4.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			UPDATE AnchoBob_TolrLam4 anchBob4   	
 			INNER JOIN fichatec ft on anchBob4.idCodPrdc = ft.id_codProduct	
-			SET anchoBob =  CASE WHEN anchoBob_4 <> 0.0 THEN anchoBob_4 ELSE anchoBob_4 END,
-				tolerancia = CASE WHEN tol_bob_4 <> 0.0 THEN tol_bob_4 ELSE tol_bob_4 END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET anchoBob =  CASE WHEN anchoBob_4 <> 0.0 THEN anchoBob_4 ELSE anchBob4.anchoBob END,
+				tolerancia = CASE WHEN tol_bob_4 <> 0.0 THEN tol_bob_4 ELSE anchBob4.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 		
 
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
-DELIMITER ;
+ DELIMITER ;
 
 	/* --------------------------------------- */
 
@@ -908,7 +913,9 @@ select * from refilado;
 		-- CALL QUE MUESTRA TODOS LOS ATRIBUTOS DEL PROCESO
 CALL getRefil(
 	'1111'
-)
+);
+
+DROP PROCEDURE IF EXISTS UpdtMsvRefilID;
 
 	-- REFILADO
 DELIMITER $$
@@ -957,70 +964,70 @@ DELIMITER $$
 			-- REFILADO
 			UPDATE REFILADO ref   	
 			INNER JOIN fichatec ft on ref.idCodPrdc = ft.id_codProduct
-			SET proceso = CASE WHEN proceso <> 'N/A' THEN proceso ELSE proceso END,
-				acabadoBob = CASE WHEN acabadoBob <> 'N/A' THEN acabadoBob ELSE acabadoBob END,
-				grosorCore = CASE WHEN grosorCore <> 'N/A' THEN grosorCore ELSE grosorCore END,
-				figEmbob_impr = CASE WHEN figEmbob_impr <> 'N/A' THEN figEmbob_impr ELSE figEmbob_impr END,
-				bobinaRefilar = CASE WHEN bobinaRefilar <> 'N/A' THEN bobinaRefilar ELSE bobinaRefilar END,
-				maximo_Empal = CASE WHEN maximo_Empal <> 0 THEN maximo_Empal ELSE maximo_Empal END,
-				señalEmpl = CASE WHEN señalEmpl <> 'N/A' THEN señalEmpl ELSE señalEmpl END,
-				orient_Bob_Tarima = CASE WHEN orient_Bob_Tarima <> 'N/A' THEN orient_Bob_Tarima ELSE orient_Bob_Tarima END,
-				tipo_Empaque = CASE WHEN tipo_Empaque <> 'N/A' THEN tipo_Empaque ELSE tipo_Empaque END,
-				pesar_Prdct = CASE WHEN pesar_Prdct <> 'N/A' THEN pesar_Prdct ELSE pesar_Prdct END,
-				etiquetado = CASE WHEN etiquetado <> 'N/A' THEN etiquetado ELSE etiquetado END,
-				tarima_emplaye = CASE WHEN tarima_emplaye <> 'N/A' THEN tarima_emplaye ELSE tarima_emplaye END,
-				tarima_flejada = CASE WHEN tarima_flejada <> 'N/A' THEN tarima_flejada ELSE tarima_flejada END,
-				numBobTam = CASE WHEN numBobTam <> 0 THEN numBobTam ELSE numBobTam END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET proceso = CASE WHEN proceso <> 'N/A' THEN proceso ELSE ref.proceso END,
+				acabadoBob = CASE WHEN acabadoBob <> 'N/A' THEN acabadoBob ELSE ref.acabadoBob END,
+				grosorCore = CASE WHEN grosorCore <> 'N/A' THEN grosorCore ELSE ref.grosorCore END,
+				figEmbob_impr = CASE WHEN figEmbob_impr <> 'N/A' THEN figEmbob_impr ELSE ref.figEmbob_impr END,
+				bobinaRefilar = CASE WHEN bobinaRefilar <> 'N/A' THEN bobinaRefilar ELSE ref.bobinaRefilar END,
+				maximo_Empal = CASE WHEN maximo_Empal <> 0 THEN maximo_Empal ELSE ref.maximo_Empal END,
+				señalEmpl = CASE WHEN señalEmpl <> 'N/A' THEN señalEmpl ELSE ref.señalEmpl END,
+				orient_Bob_Tarima = CASE WHEN orient_Bob_Tarima <> 'N/A' THEN orient_Bob_Tarima ELSE ref.orient_Bob_Tarima END,
+				tipo_Empaque = CASE WHEN tipo_Empaque <> 'N/A' THEN tipo_Empaque ELSE ref.tipo_Empaque END,
+				pesar_Prdct = CASE WHEN pesar_Prdct <> 'N/A' THEN pesar_Prdct ELSE ref.pesar_Prdct END,
+				etiquetado = CASE WHEN etiquetado <> 'N/A' THEN etiquetado ELSE ref.etiquetado END,
+				tarima_emplaye = CASE WHEN tarima_emplaye <> 'N/A' THEN tarima_emplaye ELSE ref.tarima_emplaye END,
+				tarima_flejada = CASE WHEN tarima_flejada <> 'N/A' THEN tarima_flejada ELSE ref.tarima_flejada END,
+				numBobTam = CASE WHEN numBobTam <> 0 THEN numBobTam ELSE ref.numBobTam END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			-- Ancho Bobina / Tol
 			UPDATE AnchoFinalBob_TolrRef anchFnBob   	
 			INNER JOIN fichatec ft on anchFnBob.idCodPrdc = ft.id_codProduct
-			SET anchoFinalBob = CASE WHEN anchoFinalBob <> 0.0 THEN anchoFinalBob ELSE anchoFinalBob END,
-				tolerancia = CASE WHEN tol_anchoBob <> 0.0 THEN tol_anchoBob ELSE tol_anchoBob END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET anchoFinalBob = CASE WHEN anchoFinalBob <> 0.0 THEN anchoFinalBob ELSE anchFnBob.anchoFinalBob END,
+				tolerancia = CASE WHEN tol_anchoBob <> 0.0 THEN tol_anchoBob ELSE anchFnBob.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 			
 			-- MetrosBobRefil_Tolr
 			UPDATE MetrosBobRefil_Tolr mtrsBbRef   	
 			INNER JOIN fichatec ft on mtrsBbRef.idCodPrdc = ft.id_codProduct
-			SET metros = CASE WHEN metros <> 0.0 THEN metros ELSE metros END,
-				tolerancia = CASE WHEN tol_Mtrs <> 0.0 THEN tol_Mtrs ELSE tol_Mtrs END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET metros = CASE WHEN metros <> 0.0 THEN metros ELSE mtrsBbRef.metros END,
+				tolerancia = CASE WHEN tol_Mtrs <> 0.0 THEN tol_Mtrs ELSE mtrsBbRef.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			-- MetrosBobRefil_Tolr
 			UPDATE DiamBobRefil_Tolr dmBbRef   	
 			INNER JOIN fichatec ft on dmBbRef.idCodPrdc = ft.id_codProduct
-			SET diametro = CASE WHEN diametro <> 0.0 THEN diametro ELSE diametro END,
-				tolerancia = CASE WHEN tol_dim <> 0.0 THEN tol_dim ELSE tol_dim END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET diametro = CASE WHEN diametro <> 0.0 THEN diametro ELSE dmBbRef.diametro END,
+				tolerancia = CASE WHEN tol_dim <> 0.0 THEN tol_dim ELSE dmBbRef.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			-- PesoNet_Prom_Bob
 			UPDATE PesoNet_Prom_Bob psNtBb   	
 			INNER JOIN fichatec ft on psNtBb.idCodPrdc = ft.id_codProduct
-			SET peso = CASE WHEN peso <> 0.0 THEN peso ELSE peso END,
-				tolerancia = CASE WHEN tol_pso <> 0.0 THEN tol_pso ELSE tol_pso END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET peso = CASE WHEN peso <> 0.0 THEN peso ELSE psNtBb.peso END,
+				tolerancia = CASE WHEN tol_pso <> 0.0 THEN tol_pso ELSE psNtBb.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 			
 			-- Num_BobCama_CamTamRefil
 			UPDATE Num_BobCama_CamTamRefil numBbCm   	
 			INNER JOIN fichatec ft on numBbCm.idCodPrdc = ft.id_codProduct
-			SET num_Bob_Cama = CASE WHEN num_Bob_Cama <> 0.0 THEN num_Bob_Cama ELSE num_Bob_Cama END,
-				camas_Tarima = CASE WHEN camas_Tarima <> 0.0 THEN camas_Tarima ELSE camas_Tarima END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET num_Bob_Cama = CASE WHEN num_Bob_Cama <> 0.0 THEN num_Bob_Cama ELSE numBbCm.num_Bob_Cama END,
+				camas_Tarima = CASE WHEN camas_Tarima <> 0.0 THEN camas_Tarima ELSE numBbCm.camas_Tarima END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			-- Peso_prom_tarimaRefil			
 			UPDATE Peso_prom_tarimaRefil psPrmTam   	
 			INNER JOIN fichatec ft on psPrmTam.idCodPrdc = ft.id_codProduct
-			SET pesoNeto = CASE WHEN pesoNeto <> 0.0 THEN pesoNeto ELSE pesoNeto END,
-				tolerancia = CASE WHEN tol_psNto <> 0.0 THEN tol_psNto ELSE tol_psNto END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET pesoNeto = CASE WHEN pesoNeto <> 0.0 THEN pesoNeto ELSE psPrmTam.pesoNeto END,
+				tolerancia = CASE WHEN tol_psNto <> 0.0 THEN tol_psNto ELSE psPrmTam.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			-- anchCre_TolRefil
 			UPDATE anchCre_TolRefil anchCr  	
 			INNER JOIN fichatec ft on anchCr.idCodPrdc = ft.id_codProduct
-			SET core = CASE WHEN core <> 0.0 THEN core ELSE core END,
-				tolerancia = CASE WHEN tol_core <> 0.0 THEN tol_core ELSE tol_core END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET core = CASE WHEN core <> 0.0 THEN core ELSE anchCr.core END,
+				tolerancia = CASE WHEN tol_core <> 0.0 THEN tol_core ELSE anchCr.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 	
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
@@ -1111,56 +1118,54 @@ DELIMITER $$
 			
 			UPDATE CONVERSION cnvrs   	
 			INNER JOIN fichatec ft on cnvrs.idCodPrdc = ft.id_codProduct
-			SET tipo_Empaque = CASE WHEN tipo_Empaque <> 'N/A' THEN tipo_Empaque ELSE tipo_Empaque END,
-				tipoSello = CASE WHEN tipoSello <> 'N/A' THEN tipoSello ELSE tipoSello END,
-				tipoAcabado = CASE WHEN tipoAcabado <> 'N/A' THEN tipoAcabado ELSE tipoAcabado END,
-				prdctPerf = CASE WHEN prdctPerf <> 'N/A' THEN prdctPerf ELSE prdctPerf END,
-				cntPerf =  CASE WHEN cntPerf <> 0 THEN cntPerf ELSE cntPerf END,
-				prdctSuaje = CASE WHEN prdctSuaje <> 'N/A' THEN prdctSuaje ELSE prdctSuaje END,
-				tipSuaje = CASE WHEN tipSuaje <> 'N/A' THEN tipSuaje ELSE tipSuaje END,
-				empcdPrdct = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE tipEmblj END,
-				cantPzsPacq = CASE WHEN cantPzsPacq <> 0.0 THEN cantPzsPacq ELSE cantPzsPacq END,
-				tipEmblj = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE tipEmblj END,
-				medidEmblj = CASE WHEN medidEmblj <> 0 THEN medidEmblj ELSE medidEmblj END,
-				pesarProd = CASE WHEN pesarProd <> 'N/A' THEN pesarProd ELSE pesarProd END,
-				pesoProm = CASE WHEN pesoProm <> 0.0 THEN pesoProm ELSE pesoProm END,
-				etiquetado = CASE WHEN etiquetado <> 'N/A' THEN etiquetado ELSE etiquetado END,
-				tarima_Emplaye = CASE WHEN tarima_Emplaye <> 'N/A' THEN tarima_Emplaye ELSE tarima_Emplaye END,
-				tarima_Flejada = CASE WHEN tarima_Flejada <> 'N/A' THEN tarima_Flejada ELSE tarima_Flejada END
-				WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET tipo_Empaque = CASE WHEN tipo_Empaque <> 'N/A' THEN tipo_Empaque ELSE cnvrs.tipo_Empaque END,
+				tipoSello = CASE WHEN tipoSello <> 'N/A' THEN tipoSello ELSE cnvrs.tipoSello END,
+				tipoAcabado = CASE WHEN tipoAcabado <> 'N/A' THEN tipoAcabado ELSE cnvrs.tipoAcabado END,
+				prdctPerf = CASE WHEN prdctPerf <> 'N/A' THEN prdctPerf ELSE cnvrs.prdctPerf END,
+				cntPerf =  CASE WHEN cntPerf <> 0 THEN cntPerf ELSE cnvrs.cntPerf END,
+				prdctSuaje = CASE WHEN prdctSuaje <> 'N/A' THEN prdctSuaje ELSE cnvrs.prdctSuaje END,
+				tipSuaje = CASE WHEN tipSuaje <> 'N/A' THEN tipSuaje ELSE cnvrs.tipSuaje END,
+				empcdPrdct = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE cnvrs.tipEmblj END,
+				cantPzsPacq = CASE WHEN cantPzsPacq <> 0.0 THEN cantPzsPacq ELSE cnvrs.cantPzsPacq END,
+				tipEmblj = CASE WHEN tipEmblj <> 'N/A' THEN tipEmblj ELSE cnvrs.tipEmblj END,
+				medidEmblj = CASE WHEN medidEmblj <> 0 THEN medidEmblj ELSE cnvrs.medidEmblj END,
+				pesarProd = CASE WHEN pesarProd <> 'N/A' THEN pesarProd ELSE cnvrs.pesarProd END,
+				pesoProm = CASE WHEN pesoProm <> 0.0 THEN pesoProm ELSE cnvrs.pesoProm END,
+				etiquetado = CASE WHEN etiquetado <> 'N/A' THEN etiquetado ELSE cnvrs.etiquetado END,
+				tarima_Emplaye = CASE WHEN tarima_Emplaye <> 'N/A' THEN tarima_Emplaye ELSE cnvrs.tarima_Emplaye END,
+				tarima_Flejada = CASE WHEN tarima_Flejada <> 'N/A' THEN tarima_Flejada ELSE cnvrs.tarima_Flejada END
+				WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 			
 			-- MedidEmpq
 			UPDATE MedidEmpq mdEmpq   	
 			INNER JOIN fichatec ft on mdEmpq.idCodPrdc = ft.id_codProduct
-			SET ancho = CASE WHEN ancho <> 0.0 THEN ancho ELSE ancho END,
-				alto = CASE WHEN alto <> 0.0 THEN alto ELSE alto END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET ancho = CASE WHEN ancho <> 0.0 THEN ancho ELSE mdEmpq.ancho END,
+				alto = CASE WHEN alto <> 0.0 THEN alto ELSE mdEmpq.alto END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			-- 	NumBlts_CajsCmas_CmasTarim
 			
 			UPDATE NumBlts_CajsCmas_CmasTarim cjsCms   	
 			INNER JOIN fichatec ft on cjsCms.idCodPrdc = ft.id_codProduct
-			SET cajasCama = CASE WHEN cajasCama <> 0.0 THEN cajasCama ELSE cajasCama END,
-				camasTarima = CASE WHEN camasTarima <> 0.0 THEN camasTarima ELSE camasTarima END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET cajasCama = CASE WHEN cajasCama <> 0.0 THEN cajasCama ELSE cjsCms.cajasCama END,
+				camasTarima = CASE WHEN camasTarima <> 0.0 THEN camasTarima ELSE cjsCms.camasTarima END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
             
 			-- NumBlts_CajsTarim
 			UPDATE NumBlts_CajsTarim nmBltsCjs   	
 			INNER JOIN fichatec ft on nmBltsCjs.idCodPrdc = ft.id_codProduct
-			SET num = CASE WHEN num <> 0.0 THEN num ELSE num END,
-				tolerancia = CASE WHEN tol_num <> 0.0 THEN tol_num ELSE tol_num  END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET num = CASE WHEN num <> 0.0 THEN num ELSE nmBltsCjs.num END,
+				tolerancia = CASE WHEN tol_num <> 0.0 THEN tol_num ELSE nmBltsCjs.tolerancia  END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 			-- psPromTam
 			UPDATE psPromTam nmBltsCjs   	
 			INNER JOIN fichatec ft on nmBltsCjs.idCodPrdc = ft.id_codProduct
-			SET peso = CASE WHEN peso <> 0.0 THEN peso ELSE peso END,
-				tolerancia =  CASE WHEN tol_pso <> 0.0 THEN tol_pso ELSE tol_pso END
-			WHERE FIND_IN_SET(id_codProduct, p_ids_codProduct);
+			SET peso = CASE WHEN peso <> 0.0 THEN peso ELSE nmBltsCjs.peso END,
+				tolerancia =  CASE WHEN tol_pso <> 0.0 THEN tol_pso ELSE nmBltsCjs.tolerancia END
+			WHERE FIND_IN_SET(idCodPrdc, p_ids_codProduct);
 
 		-- Si todo fue exitoso, hacer commit
 		COMMIT;
 	END$$
 DELIMITER ;
-
-/* --------------------------------------------------------------------------------*/

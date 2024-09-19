@@ -22,7 +22,7 @@ class Inpts_FichaTec_Ventas():
         self.estd = self.page.client_storage.get("estado")
         # ID DEL PRODUCTO HA EDITAR
         self.id = self.page.client_storage.get("id")
-        print(self.id)
+        #print(self.id)
         
         self.dta = self.dtaFich().getFicha(self.id)
         self.dtaVnts = self.dtaFich().get_Ventas(self.id)
@@ -54,39 +54,41 @@ class Inpts_FichaTec_Ventas():
 
         )
 
+        self.producto = TextField(
+            label="Producto",
+            border= InputBorder.OUTLINE,       
+            border_color="Black",
+            value=self.data("",2),
+            error_text = "",
+            #value=self.aux().getData(self.id,'FICHA',4,""),
+            label_style=TextStyle(color="Black",italic=True),
+            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
+        )
+
         self.fecha_Elav = TextField(
             label="dd/MM/YYYY",
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=self.data("",2),
+            value=self.data("",3),
             error_text = "",
             #value=self.aux().getData(self.id,'FICHA',2,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
         )
 
+        #'''
         self.fecha_Rev = TextField(
             label="dd/MM/YYYY",
             #label_style=,
             border= InputBorder.OUTLINE,
             border_color="Black",
-            value=self.data("",3),
+            #value=self.data("",4),
+            value='NULL',
             error_text = "",
             #value=self.aux().getData(self.id,'FICHA',3,""),
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e: self.valida.verInpts(e,filter.vrfFechas)
-        )
-
-        self.producto = TextField(
-            label="Producto",
-            border= InputBorder.OUTLINE,       
-            border_color="Black",
-            value=self.data("",4),
-            error_text = "",
-            #value=self.aux().getData(self.id,'FICHA',4,""),
-            label_style=TextStyle(color="Black",italic=True),
-            on_change= lambda e: self.valida.verInpts(e,filter.vrfIsletter)
-        )
+        )#'''
 
     ### --- INPUTS DE TABLA VENTAS --- ###
         self.AsesorCmrcl = TextField(
@@ -190,9 +192,9 @@ class Inpts_FichaTec_Ventas():
         return [
             self.id_product,
             self.cliente,
+            self.producto,
             self.fecha_Elav,
-            self.fecha_Rev,
-            self.producto
+            self.fecha_Rev
         ]
     
     def tplInptsVentas(self):

@@ -57,7 +57,6 @@ class verificaciones():
             inpt.error_text="Favor de ingresar un valor!"
             self.page.update()
             #print("Campo Vacio")
-
         inpt.update()  # Actualiza el control para reflejar los cambios
         #'''
 ######################################################
@@ -195,8 +194,10 @@ class verificaciones():
                         bgcolor="#5AE590",
                     )
                     #self.mdlErrValue(self.msgDlt)
+                    #lambda _: (
                     self.mdl.open_dialog(self.msgInsrt)
-                    #lambda _: self.page.go('/cratePrindCard'),
+                    self.page.go('/')
+                    #) 
 
                 else:  # YA EXISTE! EVITA REGISTROS DUPLICADOS
                     self.mdlDplctPrdct = AlertDialog(   # MODAL PRODUCTO DUPLICADO
@@ -242,14 +243,16 @@ class verificaciones():
                         bgcolor="#5AE590",
                     )
                     #self.mdlErrValue(self.msgDlt)
-                    self.mdl.open_dialog(self.msgInsrt)#'''
+                    self.mdl.open_dialog(self.msgInsrt)
+                    self.page.go('/')
+                    #'''
             
             # UPDATE MASIVO
             else:                   # <- CLAVE UPDATE MSV
                 listPridCards = self.page.client_storage.get("id_masivo")
                 
                 ids_codProduct = ','.join(listPridCards)    # CONVIERTE LA LISTA EN UNA CADENA SEPARA POR COMAS
-                print(ids_codProduct)
+                #print(ids_codProduct)
                 
                 self.UpdtMsv().qryUpdateMsv(data,ids_codProduct) 
                 
@@ -257,11 +260,6 @@ class verificaciones():
                 self.crtPdf.UpdateTxt(listPridCards)
 
                 self.page.client_storage.clear()
-
-                # INSERTAR TEXTO EN PDF
-                #self.crtPdf.InsertTxt(data)  # <- trabajar las actualizaciónes masivas en los PDF
-                #self.crtPdf.UpdateTxt(ids_codProduct)
-
 
                 self.msgInsrt = SnackBar(         # Insert exitoso!
                     content=Column(
@@ -277,4 +275,5 @@ class verificaciones():
                 )
                 #self.mdlErrValue(self.msgDlt)
                 self.mdl.open_dialog(self.msgInsrt)#'''
+                self.page.go('/')
             #self.page.client_storage.clear()

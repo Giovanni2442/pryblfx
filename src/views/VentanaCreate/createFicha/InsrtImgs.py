@@ -7,6 +7,7 @@
 '''
 
 import fitz  # PyMuPDF
+from flet import *
 import os
 import shutil
 from PIL import Image
@@ -23,7 +24,9 @@ class InstrImgs():
         self.text_size = 12     
         self.lst = []                            # Lista de urls que retorna la función para almacenar en BD            
         self.appPrind = appPrindCard
-       
+        # DIRECTORIO DONDE SE GUARDARAN LAS IMAGENES
+        self.dirImgs = "venv/src/views/VentanaCreate/createFicha/Imagenes"
+
         # ESTADO IDENTIFICADOR DE INSERT Y UPDATE
         self.estd = self.page.client_storage.get("estado")
         # ID DEL PRODUCTO HA EDITAR
@@ -281,13 +284,13 @@ class InstrImgs():
 
                 #nuevo_nombre = f"{idPrint}_{idSec}.{extencion}"             # Nombre nueva de la Imagen ejemplo : 'E34EE_344_IMPRS.png'
                 nuevo_nombre = f"{idPrint}.{extencion}" 
-                nuevo_directorio = os.path.join(os.getcwd(), "Imagenes",f'{idSec}')     # NOTA : HACER QUE SE GUARDEN POR SUBCARPETAS
+                nuevo_directorio = os.path.join(os.getcwd(),self.dirImgs,f'{idSec}')     # NOTA : HACER QUE SE GUARDEN POR SUBCARPETAS
                 # Crear la ruta completa para la nueva ubicación
                 nueva_ruta = os.path.join(nuevo_directorio, nuevo_nombre)
                 
                 # RUTA DEL DIRECTORIO DEL PROYECTO
                 ruta_relativa = os.path.relpath(nueva_ruta, os.getcwd())
-                print(ruta_relativa)
+                #print(ruta_relativa)
                 try:
                     if os.path.exists(ruta_relativa):
                         #print(" *** El archivo ya existe! *** ")
@@ -296,8 +299,8 @@ class InstrImgs():
                     else:
                         shutil.copy(url_Img, ruta_relativa)
                 except Exception as e:
-                    print("El archivo ya existe!")
-                    #pass
+                    #print("El archivo ya existe!")
+                    pass
                    
                  
                 #shutil.copy(url_Img, ruta_relativa)
@@ -315,6 +318,7 @@ class InstrImgs():
                     lstImgs.append(self.dicImgs[key])
 
             except Exception as e:
+                
                 print(f"Error al copiar y renombrar la imagen: {e}")
         else:
             # EL PEDO ESTA QUE AL HABER UN "N/A", no retorna ni madres

@@ -164,7 +164,10 @@ class opnMdlImg():
                             ),
                             # TAREA : CONFIRMA LOS CAMBIOS Y CIERRA EL MODAL, AGREGAR UN MENSAJE DE CONFIRMACIÓN!
                             #on_click= lambda _: print("--",self.mdlObsr.content.content.controls)
-                            on_click= lambda _: self.Img.jer(id,self.mdlObsr.content.content.controls[4].value,self.mdlObsr.content.content.controls[6].value)
+                            on_click= lambda _:(
+                                self.Img.jer(id,self.mdlObsr.content.content.controls[4].value,self.mdlObsr.content.content.controls[6].value),
+                                self.mdl.close_dialog(self.mdlObsr)
+                            ) 
                         ),
                         # CERRAR MODAL
                         FilledButton("CERRAR",  # CERRAR MODAL
@@ -199,9 +202,9 @@ class opnMdlImg():
 
      # GET FIG
     def dataFig(self,default_value,id):
-        print(self.dta)
-        
-        if self.estd != "Insert":
+        #print(self.dta)
+        # UPDATE
+        if self.estd != "Insert" and self.estd != "UpdateMsv":
             dta = {
                 "EXTRC": self.dta[7],
                 "IMPRC": self.dta[8],
@@ -209,7 +212,7 @@ class opnMdlImg():
                 "RFLD": self.dta[10],
                 "CNVRSN": self.dta[11],
             } 
-            return dta[id]      # id = Proceso
+            return dta[id] if dta else default_value      # id = Proceso
             #return f'{self.dta[Indx]} , id : {id}'
             #return f"{Indx}"
         else:
@@ -217,7 +220,7 @@ class opnMdlImg():
         
      # GET DESCR
     def dataDescr(self,default_value,id):
-        if self.estd != "Insert":                  
+        if self.estd != "Insert" and self.estd != "UpdateMsv":                  
             dta = {
                 "EXTRC": self.dta[13],
                 "IMPRC": self.dta[14],
@@ -225,13 +228,13 @@ class opnMdlImg():
                 "RFLD": self.dta[16],
                 "CNVRSN": self.dta[17],
             } 
-            return dta[id]
+            return dta[id] if dta else default_value
         else:
             return default_value
         
      # GET DESCR
     def dataImg(self,default_value,id):
-        if self.estd != "Insert":                  
+        if self.estd != "Insert" and self.estd != "UpdateMsv":                  
             dta = {
                 "EXTRC": self.dta[1],
                 "IMPRC": self.dta[2],
@@ -239,7 +242,7 @@ class opnMdlImg():
                 "RFLD": self.dta[4],
                 "CNVRSN": self.dta[5],
             } 
-            return dta[id]
+            return dta[id] if dta else default_value
         else:
             return default_value
             

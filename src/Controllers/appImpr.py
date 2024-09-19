@@ -71,9 +71,9 @@ class appImpr():
         try:
             self.cursorPool.callproc('UpdtMsvImprsID',(args))
             self.conectPool.commit()
-            print("ACTUALIZACIÓN MASIVA EN EXTRS EXITOSA!")
+            print("ACTUALIZACIÓN MASIVA EN IMPRS ID EXITOSA!")
         except mysql.connector.Error as err:
-            print("ERROR UPDATE EXTRS MSV : ", err)
+            print("ERROR UPDATE IMPS MSV ID: ", err)
         finally:
             self.cursorPool.close()#'''
 

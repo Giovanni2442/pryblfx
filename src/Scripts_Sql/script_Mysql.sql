@@ -190,6 +190,8 @@ CREATE TABLE PrindCard(
 );
 
 /*------------------------FICHA TECNICA------------------------------*/
+drop table FichaTec;
+select * from FichaTec;
 CREATE TABLE FichaTec(
 	id_codProduct VARCHAR(255) PRIMARY KEY NOT NULL,
     cliente VARCHAR(255) NOT NULL,
@@ -198,6 +200,7 @@ CREATE TABLE FichaTec(
     fecha_Rev VARCHAR(255) NOT NULL
 );
 /*------------------------VENTAS------------------------------*/
+drop table VENTAS;
 	CREATE TABLE VENTAS(
         idCodPrdc VARCHAR(255),
         asesor  VARCHAR(255) NOT NULL,

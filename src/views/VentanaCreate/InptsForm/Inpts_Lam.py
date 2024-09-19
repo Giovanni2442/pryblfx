@@ -599,7 +599,7 @@ class Inpts_Lam():
                 dropdown.Option("SIN TRATADO"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.LN2tipLam = Dropdown(
@@ -713,7 +713,7 @@ class Inpts_Lam():
                 dropdown.Option("SIN TRATADO"),
             ],
             autofocus=True,
-            on_change= lambda e: print(e.control.value)  # Imprimir el resultado
+            #on_change= lambda e: print(e.control.value)  # Imprimir el resultado
         )
 
         self.LN3tipLam = Dropdown(
@@ -884,21 +884,18 @@ class Inpts_Lam():
     def dataLamGen(self,default_value,Indx):
     #def dataLamGen(self,default_value):
         if self.estd != "Insert" and self.estd != "UpdateMsv":  
-            #print(self.dtaGen)                  
-            #return self.dtaGen[Indx]
-            return f"{Indx}"
+            return self.dtaGen[Indx] if self.dtaGen else default_value
+            #return "NONE"
         else:
             return default_value
         
     def dataLamns(self,default_value,Indx):
     #def dataLamns(self,default_value):
         if self.estd != "Insert" and self.estd != "UpdateMsv":                   
-            #print(self.dtaLmns)
-            #return self.dtaLmns[Indx]
-            return f"{Indx}"
+            return self.dtaLmns[Indx] if self.dtaLmns else default_value
+            #return "NONE"
         else:
             return default_value
-
 
     def tplInptsLam(self):
         return [

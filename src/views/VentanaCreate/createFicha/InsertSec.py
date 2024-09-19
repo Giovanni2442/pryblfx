@@ -4,8 +4,8 @@ from src.Controllers.appSec import appSec
 class prInrs:
     def __init__(self,page):
         self.page = page
-        template = "Template/Template.pdf"
-        self.doc = fitz.open(template)                      # Asegúrate de abrir el PDF correcto
+        #template = "Template/Template.pdf"
+        #self.doc = fitz.open(template)                      # Asegúrate de abrir el PDF correcto
         self.text_color = (0,0,0)                           # Color del texto
         self.fill_color = (0.75, 0.75, 0.75)                # Color de fondo
         self.Text_PrdctTerm = 14.7                          # Tamaño de la fuente de Producto terminado
@@ -149,7 +149,7 @@ class prInrs:
     # SECUENCIAS DEL PRINDCARD
     def pruSec(self,pagePdf,idpdf):
         dicObsrvc = self.page.client_storage.get("id_Img")
-        count = 0 # ACOMULA EL ULTIMO EL ULTIMO VALOR DE LA SECUENCIA
+        count = 0 # ACOMULA EL ULTIMO VALOR DE LA SECUENCIA
         # DICCIÓNARIO DONDE ACCEDE A LAS COORDENADAS DE SECUENCIAS
         pdfPros = {
             0 : self.pdfProcExtrs,
@@ -168,13 +168,13 @@ class prInrs:
             # Si preciono el boton de imagen en una de las secuencias, se reinicia
             if dicObsrvc: 
                 for i,key in enumerate(dicObsrvc):
-                    print("--SECUENCIAS---",i,key)
+                    #print("--SECUENCIAS---",i,key)
                     fun = pdfPros.get(i)
                     fun(pagePdf,key,True,self.text_size)
                     self.lstSec[i] = key
                     count=i
             
-                print(count)
+                #print(count)
                 #print(".-.",self.lstSec)
                 # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
                 if count != 4:
@@ -193,7 +193,7 @@ class prInrs:
                         self.lstSec[i] = key
                         count=i
                         #count=i
-                print(count)
+                #print(count)
                 #print(".-.",self.lstSec)
                 # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
                 if count != 4:
@@ -208,13 +208,13 @@ class prInrs:
             if dicObsrvc:
                 #'''
                 for i,key in enumerate(dicObsrvc):
-                    print("--SECUENCIAS---",i,key)
+                    #print("--SECUENCIAS---",i,key)
                     fun = pdfPros.get(i)
                     fun(pagePdf,key,True,self.text_size)
                     self.lstSec[i] = key
                     count=i
                 
-                print(count)
+                #print(count)
                 #print(".-.",self.lstSec)
                 # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
                 if count != 4:
@@ -226,7 +226,7 @@ class prInrs:
                     
             # DICCIÓNARIO VACIÓ EN SECUENCIAS
             else : 
-                print("VACIO!")
+                #print("VACIO!")
                 fun = pdfPros.get(5)
                 fun(pagePdf)
         return self.lstSec

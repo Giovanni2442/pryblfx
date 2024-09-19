@@ -62,7 +62,7 @@ class createPrind(UserControl):
                 },
             ),
 
-            on_click= self.eventInsert # <- CLAVE UPDATE MSV
+            on_click=self.eventInsert, # <- CLAVE UPDATE MSV
         )
         
         # PESTAÑAS
@@ -203,11 +203,17 @@ class createPrind(UserControl):
                             alignment=MainAxisAlignment.SPACE_BETWEEN,
                             controls=[
                                 Container(
-                                    TextButton("INICIO",
+                                    TextButton(
                                                icon=icons.HOME,
+                                               icon_color="#405d44",
                                                on_click=  lambda _: self.page.go('/')),
                                     #bgcolor="RED",
-                                ), 
+                                ),
+
+                                Container(
+                                    Image(src="venv/src/views/VentanaMain/logotipo/logo.png", width=155, height=30), 
+                                ),
+                                
                                 Container(
                                     IconButton(icon=icons.ACCOUNT_CIRCLE,
                                                icon_color="violet",
@@ -310,8 +316,8 @@ class createPrind(UserControl):
                                                 Text("Fecha de Elavoración"),
                                                 self.Inpts.fecha_Elav,
 
-                                                Text("Fecha de Revición"),
-                                                self.Inpts.fecha_Rev,
+                                                #Text("Fecha de Revición"),
+                                                #self.Inpts.fecha_Rev,
 
                                                 Text("Nombre del Producto"),
                                                 self.Inpts.producto,

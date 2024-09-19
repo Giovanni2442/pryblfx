@@ -10,6 +10,8 @@ class crudPrintCard(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
         self.color_teal = "teal"
+        
+        self.lstId = []
         #'''
     # ########## COMPONENTES ############################
         self.page = page  
@@ -34,7 +36,7 @@ class crudPrintCard(UserControl):
         # --- INPUTS DE BUSQUEDA --- 
             # Busqueda del PrindCard
         self.InptPrindCard = TextField(
-            label="Buscar PridCard",
+            label="Buscar PrindCard",
             suffix_icon= icons.SEARCH,
             border= InputBorder.UNDERLINE,
             border_color= "black",
@@ -50,15 +52,7 @@ class crudPrintCard(UserControl):
             label_style=TextStyle(color="Black",italic=True),
             on_change= lambda e : self.searchInput(e,i=1)
         )
-            # Busqueda / cliente Masivo
-        self.InptClienteMasiva = TextField(
-            label="Buscar Cliente",
-            suffix_icon= icons.SEARCH,
-            border= InputBorder.UNDERLINE,
-            border_color= "black",
-            label_style=TextStyle(color="black",italic=True)
-        )
-  
+         
         # --- BOTONES ---
             ###  - CREAR UN NUEVO PRIND CARD  - ###
 
@@ -66,12 +60,12 @@ class crudPrintCard(UserControl):
             text="Crear PrindCard",
             adaptive=True,
             style=ButtonStyle(
-                bgcolor="#21A772",
+                bgcolor=colors.BLACK,
                 color={
-                    ControlState.HOVERED: colors.RED,
-                    ControlState.HOVERED: colors.BLACK,
-                },
-                overlay_color=ft.colors.TRANSPARENT,
+                    ControlState.DEFAULT: colors.WHITE,
+                    ControlState.HOVERED: colors.WHITE,
+                }, 
+                overlay_color="#405d44",
                 elevation={"pressed": 0, "": 1},
                 animation_duration=200,
                 shape={
@@ -81,15 +75,15 @@ class crudPrintCard(UserControl):
             ),
             on_click= lambda _: (
                 page.client_storage.set("estado", "Insert"),
-                #page.client_storage.set("id", "Insert"),
                 self.page.go('/cratePrindCard'),
             ),
             #on_click= self.inptTable.jer
         )
 
         self.BtnCreate2 = FilledButton(
-            text="Crear PrindCard 2",
+            text="Actualizar Masivo",
             adaptive=True,
+            disabled=True,
             style=ButtonStyle(
                 bgcolor="#21A742",
                 color={
@@ -104,7 +98,13 @@ class crudPrintCard(UserControl):
                     ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
                 },
             ),     
-            on_click= lambda _: self.page.go('/editMsv'),
+            on_click= lambda e: (
+                #print("",self.lstId),
+                self.page.client_storage.set("estado","UpdateMsv"),
+                #print(self.page.client_storage.get("estado")),
+                self.page.client_storage.set("id_masivo",self.lstId),
+                self.page.go('/cratePrindCard'),
+            ),
         )
 
         # --- TABLA ---
@@ -113,7 +113,8 @@ class crudPrintCard(UserControl):
             #border= border.all(2,"purple"),
             #border_radius=2,
             expand=True,
-            bgcolor="#146364",
+            #bgcolor="#146364",
+            bgcolor="#263b27",
             data_row_color = colors.WHITE70,
             border_radius=border_radius.only(top_left=10,top_right=10),
             vertical_lines= BorderSide(0.5,color=colors.WHITE24),
@@ -133,7 +134,7 @@ class crudPrintCard(UserControl):
         # Modularizar el Modal para Eliminar, Atualizar y Agregar
     def dltButton(self,e):
         idPrind = e.control.data[0]
-        print(e.control.data)
+        #print(e.control.data)
         self.mdlDlt = AlertDialog(
             modal=True,
             title=Text("Alerta!"),
@@ -159,13 +160,13 @@ class crudPrintCard(UserControl):
         # LISTA DE RUTAS DE IMAGENES Y PDF
         urlPdf = [
             # ELIMINAR PDF DESDE LA RUTA LOCAL}
-            f'FilePdf/{id}.pdf',
+            f'venv/src/views/VentanaCreate/createFicha/FilePdf/{id}.pdf',
             # ELIMINAR  IMAGENES DEL PDF
-            f'Imagenes/EXTRC/{id}.png',
-            f'Imagenes/IMPRC/{id}.png',
-            f'Imagenes/LMNSN/{id}.png',
-            f'Imagenes/RFLD/{id}.png',
-            f'Imagenes/CNVRSN/{id}.png',
+            f'venv/src/views/VentanaCreate/createFicha/Imagenes/EXTRC/{id}.png',
+            f'venv/src/views/VentanaCreate/createFicha/Imagenes/IMPRC/{id}.png',
+            f'venv/src/views/VentanaCreate/createFicha/Imagenes/LMNSN/{id}.png',
+            f'venv/src/views/VentanaCreate/createFicha/Imagenes/RFLD/{id}.png',
+            f'venv/src/views/VentanaCreate/createFicha/Imagenes/CNVRSN/{id}.png',
         ]
 
         for url in urlPdf:
@@ -183,7 +184,7 @@ class crudPrintCard(UserControl):
         else:
             # ELIMINA DATOS DEL PRINDCARD#
             self.dataTbl().delete_row_Table(id)
-            # ELIMINA REGISTRO DEL PDF#
+            # ELIMINA REGISTRO E IMAGES DEL PDF#
             self.dltPdfImgs(id)
         
             self.mdlDlt.open = False
@@ -217,11 +218,12 @@ class crudPrintCard(UserControl):
             cells=[
                 DataCell(Text(row[0],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
                 DataCell(Text(row[1],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
-                DataCell(Text(row[3],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
                 DataCell(Text(row[2],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
+                DataCell(Text(row[3],color=colors.BLACK,theme_style=TextThemeStyle.BODY_LARGE,font_family="Arial")),
                 DataCell(
                     Row(
                         controls=[
+                        Checkbox(on_change=lambda e: self.chkBx(e.control.value,row[0])),
                         IconButton("delete",
                             #icons.CHECK,
                             icon_color=colors.BLACK54,
@@ -259,7 +261,7 @@ class crudPrintCard(UserControl):
         # i     : El atributo de la tabla donde buscara i = 0 : id_pridcard ; i = 1 : cliente
     def searchInput(self,e,i):
         srchInpt = e.control.value.lower()  # Convierte a minuscula la enrada de Texto
-        print("..-.-",self.rows.cells[4].content.controls)
+        #print("..-.-",self.rows.cells[4].content.controls)
         filterId = list(filter(lambda x: srchInpt in x[i].lower(), self.dataTbl().get_row_Table()))       # Toma la tabla padre FichaTecnica
         #print("you find : ",filterId)
         self.Table.rows = []
@@ -267,7 +269,7 @@ class crudPrintCard(UserControl):
         # Si el input es diferente de vacio
         if not e.control.value == "":
             # Si la list que se creo es mayor a cero, significa que encontro coincidencias
-            print(len(filterId))
+            #print(len(filterId))
             if len(filterId) > 0:
                 #self.dataNotFound = False
                 for row in filterId:
@@ -276,7 +278,7 @@ class crudPrintCard(UserControl):
                     )
                 self.update()
             else:
-                print("data no found!")
+                #print("data no found!")
                 self.dataRows("data not fount")
                 self.update()
         # Si no hay datos en el TextFile Vuelve a mostrar los datos en la tabla
@@ -289,6 +291,25 @@ class crudPrintCard(UserControl):
                 weight="bold",
                 size=20
             )
+        
+    # AGREGAR ID´S SELECCIÓNADOS PARA MODIFICAR
+    def chkBx(self,bnd,idPrind):
+        if not bnd:
+            self.lstId.remove(idPrind)
+        else:
+            self.lstId.append(idPrind)
+        
+        # Verificar si el arreglo tiene al menos 2 elementos
+        if len(self.lstId) >= 2:
+            self.BtnCreate2.disabled = False  # Habilitar botón
+        else:
+            self.BtnCreate2.disabled = True  # Deshabilitar botón
+
+        # Actualizar el estado del botón en la interfaz
+        self.BtnCreate2.update()
+
+        print(self.lstId)
+ 
         
     #''' <-- DESCOMENTAR -->
     # Muestra los datos de la base de datos
@@ -325,18 +346,28 @@ class crudPrintCard(UserControl):
                         content= Column(
                             controls=[
                                 Container( 
-                                    Text("FICHA TECNICA",color=colors.BLACK38,theme_style=TextThemeStyle.TITLE_SMALL),
+                                    Image(src="venv/src/views/VentanaMain/logotipo/logo.png", width=200, height=200),
+                                    #Text("FICHA TECNICA",color=colors.BLACK38,theme_style=TextThemeStyle.TITLE_SMALL),
                                     border=border.only(bottom=border.BorderSide(0.5, colors.BLACK87)),
                                     #expand=True,
                                     #self.InptPrindCard,
                                     alignment=alignment.center,
+                                    
+                                    shadow=BoxShadow(
+                                        spread_radius=-35,   # No se expande hacia dentro ni hacia afuera
+                                        blur_radius=95,    # Incrementa el desenfoque para suavizar la sombra
+                                        offset=Offset(0,0),  # Desplaza la sombra más hacia abajo
+                                        color="#283c29",
+                                        blur_style=ShadowBlurStyle.NORMAL
+                                    ),
+
                                     height=50,
                                     #bgcolor=colors.AMBER,
                                     border_radius=0
                                 ),
                                 
                                 self.InptPrindCard,
-                                #self.InptClienteSimple,
+                                self.InptClienteSimple,
                                 # Se coloca en un contenedor para centar
                                 Container(
                                     #expand=True,
