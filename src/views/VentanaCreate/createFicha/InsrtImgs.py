@@ -134,14 +134,17 @@ class InstrImgs():
         img = ""
         fig = ""
         comntrs = ""
-        Imgs = ""        
+        Imgs = ""  
+
+        self.dicObsrvc = self.page.client_storage.get("id_Img")      
 
             #  - INSERTAR / ANTUALIZAR IMAGENES EN EL PDF - #
 
         # - UPDATE NORMAL- 
-        if self.estd != 'Insert':  
-            dicObsrvc = self.page.client_storage.get("id_Img")
-            #print("UPDATE-...- ",dicObsrvc)
+        #if self.estd != 'Insert' and self.estd != 'UpdateMsv':
+        if self.estd != 'Insert':
+            #dicObsrvc = self.page.client_storage.get("id_Img")
+            print("UPDATE-...- ",self.dicObsrvc)
             # TRAE LAS URL DE LA BASE DE DATOS
             dta = self.appPrind().transactGetObsrv(idPrint)
             #print(f'-- BD -- : ',dta)
@@ -171,10 +174,10 @@ class InstrImgs():
 
             ######################
             # SI EL DICCIÓNARIO dicObsrvc "NO" ESTA VACIO  
-            if dicObsrvc:  
+            if self.dicObsrvc:  
                 #print("LLENO",dicObsrvc)
-                for key in dicObsrvc:                               # RECORRE EL DICCIONARIO DE OBSERVACIÓNES
-                    for i,value in enumerate(dicObsrvc[key]):       # ENUMERA EL DICC PARA ACCEDER AL INDICE   
+                for key in self.dicObsrvc:                               # RECORRE EL DICCIONARIO DE OBSERVACIÓNES
+                    for i,value in enumerate(self.dicObsrvc[key]):       # ENUMERA EL DICC PARA ACCEDER AL INDICE   
                         if value != "N/A":                          # SI EL DICC ES DIFERENTE A "N/A"
                             selectImg[key][i] = value               # ACTUALIZAMOS EL DICC DE ELEMENTOS
                 #print("ACTUALIZADO ..--..-- ",selectImg)
@@ -225,9 +228,11 @@ class InstrImgs():
                 #print("UPDATE--",r)
                 #return r 
         
+        # -- PROXIMAMENTE -- #
+        #elif self.estd != 'UpdateMsv':
+
         #  -- INSERTAR --
         else : 
-            dicObsrvc = self.page.client_storage.get("id_Img")    
             #print("--**",dicObsrvc)
           
             #'''# COORDENADAS EN IMAGENES
@@ -240,9 +245,9 @@ class InstrImgs():
             }#'''
 
             #   SI EL DICCIÓNARIO "NO" ESTA VACIO, INSERTA EN LAS COORDENADAS
-            if dicObsrvc:
-                for key in dicObsrvc:
-                    value = dicObsrvc[key]      # RECORRER DICCIÓNARIO 
+            if self.dicObsrvc:
+                for key in self.dicObsrvc:
+                    value = self.dicObsrvc[key]      # RECORRER DICCIÓNARIO 
                     
                     fun = select.get(key)       # EJECUTAR LA FUNCIÓN DEL DICCIÓRARIO
                     fun(page,value) 

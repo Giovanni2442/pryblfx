@@ -10,6 +10,7 @@ from src.views.VentanaCreate.createFicha.createPdf import CreatePdf
 from src.views.VentanaCreate.Mdls import Mdls
 from src.pruebas.pru2 import FileUploaderApp
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+from src.views.ViewAsync.MdlProgress import MdlProgress
 
 class verificaciones():
     def __init__(self,page):
@@ -36,6 +37,8 @@ class verificaciones():
 
         #Abrir y Cerrar Modales
         self.mdl = Mdls(page)
+
+        self.mdlPgrss = MdlProgress
 
 ###### PRUEBAS PARA FILTRADO ###########
     def verInpts(self,e,rejex):
@@ -176,10 +179,17 @@ class verificaciones():
                 if not contact_exists: # SI NO EXISTE EN LA BD INSERTA!
                     
                     #  -- INSERTAR EN DB -- 
-                    self.Insrt().qryPost(data)
+                    #self.Insrt().qryPost(data)
 
                     #  -- INSERTAR TEXTO AL PDF -- 
-                    self.crtPdf.InsertTxt(data)
+                    #self.crtPdf.InsertTxt(data)
+
+                    self.mdlPgrss.pruProgress(self,
+                        self.Insrt().qryPost(data),
+                        self.crtPdf.InsertTxt(data)
+                    )
+                    
+
                     self.page.client_storage.clear()
         
                     self.msgInsrt = SnackBar(         # Insert exitoso!
@@ -254,6 +264,7 @@ class verificaciones():
                 ids_codProduct = ','.join(listPridCards)    # CONVIERTE LA LISTA EN UNA CADENA SEPARA POR COMAS
                 #print(ids_codProduct)
                 
+                # ACTUALIZACIÓN MASIVA
                 self.UpdtMsv().qryUpdateMsv(data,ids_codProduct) 
                 
                 # --- INSERTAR DATOS EN PDF --- # 

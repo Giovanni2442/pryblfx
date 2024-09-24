@@ -69,7 +69,7 @@ class opnPrindPdf():
         idPrind = e.control.data[0]                                     # OBTENER EL ID DESDE EL EVENTO ON_CLICK
         getPdf = self.qryPrndCrd().getPridCardPdfLOCAL(idPrind)[0]      # OBTIENE LA RUTA DEL PDF, regresa una tupla
         #print("id : ", idPrind)
-        #print(getPdf)
+        print(getPdf)
        # '''
         # Comprobar si se ha recuperado una ruta válida
         if getPdf:

@@ -26,8 +26,9 @@ class MtdsAuxPdf():
 
 
     # --- SOLO SIRVE PARA AVTUALIZACIÓNES MASIVAS ---- # 
- 
-    def toleranciasMsv(self,tpl,tbl1,indx1,tbl2,indx2,arg): # Ayuda a Colocar las Tolerancias o inputs secundarios al PDF
+
+    # Ayuda a Colocar las Tolerancias o inputs secundarios al PDF
+    def toleranciasMsv(self,tpl,tbl1,indx1,tbl2,indx2,arg): 
         if str(tpl[tbl2][indx2]) != '0.0' :
             #print(tpl[tbl2][indx2])
             #return "NULL"
@@ -132,6 +133,7 @@ class frmtDtaUpdate:
     def __init__(self):
         pass       
 
+    # TRANSFORMA LOS DATOS TRAIDOS DE LA BD EN SUBLISTAS
     def formatData(self,tplData): 
         # Lista que contendrá las sublistas
         resultado = []

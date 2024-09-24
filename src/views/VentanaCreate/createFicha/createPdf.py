@@ -99,7 +99,7 @@ class CreatePdf():
 
         # -- LISTA DE PROCESOS -- 
         lstProc = self.secProc.pruSec(self.pagPdf,idpdf) 
-        #print("---",lstProc)
+        print("-AQUIII--",lstProc)
 
         # -- LISTA DE  IMAGENES --# 
         lstImg = self.pdfImg.main2(self.pagPdf,idpdf)
@@ -129,9 +129,7 @@ class CreatePdf():
         self.doc.close()    # CIERRA EL DOCUMENTO
         ###########################################################################################
 
-        # --- FUNCIÓN POST PDF ----
-        #self.postPdf(pdf_binary,idpdf)
-
+    # lstId : Lista de productos selecciónados
     def UpdateTxt(self,lstId):
         #self.aux().dtaExtr.transactGetExtrs()
         ficha_Ventas = self.aux().dataTbl
@@ -142,8 +140,11 @@ class CreatePdf():
         cnvrs = self.aux().dtaConvrs
         # RUTA DEL ARCHIVO PDF
         pdf = f"venv/src/views/VentanaCreate/createFicha/Template/Template.pdf"
-        # RECORRE EL NUMERO DE ELEMENTOS PDF A ACTUALIZAR
+
+        # SI lstId NO ES NONE
         for i in lstId:
+            lstLamAll = []  # DATA LAMINACIÓN
+
             # LISTA LAMANINACIÓN GENERAL    
             lstLamGen = self.auxPdf().formatData(lamn().transctGetLamGen(i))
             # LISTA LAMINACIÓNES
@@ -151,9 +152,9 @@ class CreatePdf():
             # ALL DATA OF LAMINACIÓN
             lstLamAll = [lstLamGen,lstLamin]
 
-            docPdf = fitz.open(pdf)
+            docPdf = fitz.open(pdf)     # Abrir PDF
             pagPdf = docPdf[0]
-            #print("----CONVERSI-->",self.auxPdf().formatData(cnvrs().transGetConvrs(i)))
+
             self.pdfFichVent.pdfFichVent(pagPdf,self.auxPdf().formatData(ficha_Ventas().transactGetFicha(i)))
             self.pdfExtr.pdfExtru(pagPdf,self.auxPdf().formatData(extrs().transactGetExtrs(i)))
             self.pdfImpr.pdfImpr(pagPdf,self.auxPdf().formatData(imprs().transGetImprs(i)))
@@ -164,22 +165,35 @@ class CreatePdf():
 
                 # -- LISTA DE PROCESOS -- 
             lstProc = self.secProc.pruSec(pagPdf,i) 
-            #print("---",lstProc)
+            print("-AQUIII--",lstProc)
 
             # -- LISTA DE  IMAGENES --# 
             lstImg = self.pdfImg.main2(pagPdf,i)
-            #print("IMG --",lstImg)      # <- EYY! Q CHECA LA LISTA
+            print(f"ID : {i}  ; IMG : {lstImg}")      # <- EYY! Q CHECA LA LISTA
             #self.pdfImg.main(self.page,tpl)
 
             for pros in lstImg:                 # KEY Recorre el proceso
-                for lst in pros:                # VALUE DE CADA PROCESO
+                for vlImg in pros:                # VALUE DE CADA PROCESO
                     #print("--.i.- ",lst)
-                    self.dta.append(lst)        # ADD VALUE EN LISTA
+                    self.dta.append(vlImg)        # ADD VALUE EN LISTA
 
             # GUARDAR Y CERRAR EL NUEVO PDF
             #dirPdf = f"FilePdf/{i}.pdf"
             dirPdf = f"venv/src/views/VentanaCreate/createFicha/FilePdf/{i}.pdf"
             docPdf.save(dirPdf)
+
+
+                ############################ INSRCIÓNES A LA BD #######################
+                # GUARDA LA SECUENCIA DE PROCESOS
+            self.postSecuenciaPdf(i,lstProc)
+            
+                # OBSERVACIÓNES
+            # pdf : Url y nombre donde se guarda el pdf
+            # idpdf : Id del Prindcard
+            # data  : Lista de iamgen, figura y Observaciónes
+            self.postPdfLOCAL(i,dirPdf,self.dta) # ----- MOVERLE A ESTE PEDO
+
+
             docPdf.close()    # CIERRA EL DOCUMENTO
 
     ## ¡ ADVERTENCIA FUNCIÓN DE PRUEBAS ! ##
@@ -208,7 +222,7 @@ class CreatePdf():
             self.postpdf().transctInsertPrindCardLOCAL(id_pdf,url_pef,*dta[:15:3],*dta[1:15:3],*dta[2:15:3])
 
     def postSecuenciaPdf(self,id_pdf,dta):
-        #print("PEDAZOS.-.-.",dta[:])
+        print("PEDAZOS.-.-.",dta[:])
         #print(id_pdf)
         #'''
         if self.estd != "Insert":

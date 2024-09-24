@@ -16,6 +16,7 @@ from src.views.VentanaCreate.Verificaciones import verificaciones      # <---- D
 #from src.Controllers.appInserts import appInserts
 from src.views.VentanaCreate.Mdls import opnMdlImg
 from src.views.VentanaCreate.InptsForm.InpstAux import InptsAux
+from src.views.ViewAsync.MdlProgress import MdlProgress
 
 class createPrind(UserControl):
     def __init__(self,page):
@@ -23,6 +24,8 @@ class createPrind(UserControl):
 
         self.color_teal = "teal"
         self.page = page
+
+        self.mdlPgrss = MdlProgress
 
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
         self.aux = InptsAux
@@ -63,6 +66,7 @@ class createPrind(UserControl):
             ),
 
             on_click=self.eventInsert, # <- CLAVE UPDATE MSV
+            #on_click= lambda _: self.mdlPgrss.pruProgress(self,self.eventInsert)
         )
         
         # PESTAÑAS

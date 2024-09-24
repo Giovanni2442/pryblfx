@@ -288,6 +288,9 @@ DELIMITER $$
 	END$$
     DELIMITER ; 
 
+
+DROP PROCEDURE IF EXISTS UpdateSecPdf;
+
 	/*-- UPDATE -- */
 DELIMITER $$
 	CREATE PROCEDURE UpdateSecPdf(
@@ -307,7 +310,7 @@ DELIMITER $$
                 sec3=sec3,
                 sec4=sec4,
                 sec5=sec5
-			WHERE id_idCodPrdct = id_idCodPrdct;
+			WHERE idCodPrdc = id_idCodPrdct;
 		COMMIT;
 	END$$
     DELIMITER ;

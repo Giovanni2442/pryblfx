@@ -1,16 +1,27 @@
 import os
 from typing import Any, List
+import time
+import threading
 import flet as ft
 from flet import *          # Se importa todos los componentes de la Libreria "flet"
 from src.Controllers.appFichVent import appFichVent
 from src.views.VentanaMain.vtnMain import pr
 from src.views.VentanaMain.openPdf.opnPrindPdf import opnPrindPdf
+from src.views.VentanaCreate.Mdls import Mdls
+from src.views.ViewAsync.MdlProgress import MdlProgress
+
 
 class crudPrintCard(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
         self.color_teal = "teal"
         
+
+        self.mdlPgrss = MdlProgress(page)
+
+        # ABRIR Y CERRAR MODAL
+        self.mdl = Mdls(page)
+
         self.lstId = []
         #'''
     # ########## COMPONENTES ############################
@@ -55,6 +66,34 @@ class crudPrintCard(UserControl):
          
         # --- BOTONES ---
             ###  - CREAR UN NUEVO PRIND CARD  - ###
+
+        ########### BOTON DE PRUEBAS #################
+        self.BtnpRU = FilledButton(
+            text="click me!",
+            adaptive=True,
+            style=ButtonStyle(
+                bgcolor=colors.BLACK,
+                color={
+                    ControlState.DEFAULT: colors.WHITE,
+                    ControlState.HOVERED: colors.WHITE,
+                }, 
+                overlay_color="#405d44",
+                elevation={"pressed": 0, "": 1},
+                animation_duration=200,
+                shape={
+                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                },
+            ),
+            on_click=lambda _:(
+                page.client_storage.set("estado", "Insert"),
+                self.mdlPgrss.pruProgress(
+                    self.page.go('/cratePrindCard')
+                )
+            )
+            #on_click= self.inptTable.jer
+        )
+        ##################################################################
 
         self.BtnCreate = FilledButton(
             text="Crear PrindCard",
@@ -310,7 +349,49 @@ class crudPrintCard(UserControl):
 
         print(self.lstId)
  
+    '''
+    #  -- PRUEBAAA  -- #
+    def pruProgress(self,e):
+        self.mdlpRUE = AlertDialog(
+            modal=True,
+            
+            content= Column([
+                Text("CARGANDO ELEMENTOS..."),
+                ProgressRing()
+                ],
+                height=20,
+                width=10,
+                horizontal_alignment=CrossAxisAlignment.CENTER,
+            ),
+            actions=[
+                #TextButton("Eliminar",on_click= lambda _: self.btnSlct(bnd=True,id=idPrind)),   # lambda _ : "_" el guión sirve para tomar ignorar los parametros, ya que no se usan en la función  
+                TextButton("CERRAR", on_click= lambda e: self.mdl.close_dialog(self.mdlpRUE))
+            ],
+            actions_alignment= MainAxisAlignment.END
+        )
+        self.page.overlay.append(self.mdlpRUE)
+        self.mdlpRUE.open = True
+        self.page.update()
         
+        # Ejecutar el proceso en un hilo separado
+        threading.Thread(target=self.simulate_long_process).start()
+
+    def simulate_long_process(self):
+        time.sleep(0.5)  # Simula un proceso largo de 2 segundos
+
+        # Redirigir a la página deseada
+        self.page.go('/cratePrindCard')
+
+        # Cerrar el diálogo al finalizar el proceso
+        self.mdlpRUE.open = False
+        self.page.update()
+
+    ###########################################
+    '''
+
+
+
+
     #''' <-- DESCOMENTAR -->
     # Muestra los datos de la base de datos
     def showData(self):
@@ -383,6 +464,7 @@ class crudPrintCard(UserControl):
                                                 theme_style=TextThemeStyle.TITLE_LARGE,
                                                 font_family="Calibri",italic=True),
                                             self.BtnCreate,
+                                            self.BtnpRU,
                                             self.BtnCreate2
                                         ]
                                     )

@@ -148,6 +148,8 @@ class prInrs:
     
     # SECUENCIAS DEL PRINDCARD
     def pruSec(self,pagePdf,idpdf):
+        self.dataBd = ""
+        self.lstSec = ['N/A','N/A','N/A','N/A','N/A']
         dicObsrvc = self.page.client_storage.get("id_Img")
         count = 0 # ACOMULA EL ULTIMO VALOR DE LA SECUENCIA
         # DICCIÓNARIO DONDE ACCEDE A LAS COORDENADAS DE SECUENCIAS
@@ -160,10 +162,75 @@ class prInrs:
             5 : self.pdfProcPrdctTerm
         }
 
+        pdfProsUpdt = {
+            "EXTRC" : self.pdfProcExtrs,
+            "IMPRC" : self.pdfProcImprs,
+            "LMNSN" : self.pdfProcLam,
+            "RFLD" : self.pdfProcRef,
+            "CNVRSN" : self.pdfProcCnvrs
+            #"" : self.pdfProcPrdctTerm
+        }
+
+        
         # UPDATE
-        if self.estd != "Insert":
-            dataBd = self.appSec().transGetProceso(idpdf)[1:]
+        if self.estd != "Insert" and self.estd != "UpdateMsv":
+            self.dataBd = self.appSec().transGetProceso(idpdf)[1:]
             #print(f"EL ID : {idpdf} TIENE -> {dataBd}")
+            filtrado = [x for x in self.dataBd if x != "N/A"]    # Ciclo donde trae los datos de la BD diferentes a N/A
+            print(f"-- {filtrado}")
+
+            #''' 
+            if dicObsrvc: 
+                print("-x-x-",dicObsrvc)
+                for i in dicObsrvc:
+                    #print("->",i)
+                    if i not in filtrado:       # SI AL DICCIÓNARIO DE IMAGENES NO EXISTE EN EL DICC DE LA BD, INSERTA
+                        filtrado.insert(0,i)
+                    else:
+                        print("YA EXISTE!")
+                #print("__",filtrado)
+                #'''
+                # PRUEBAS ##
+                for i,key in enumerate(filtrado):
+                    if key != 'N/A':
+                        #print("--JER-",key)
+                        fun = pdfPros.get(i)
+                        fun(pagePdf,key,True,self.text_size)
+                        self.lstSec[i] = key
+                        count=i
+                        #count=i #'''
+
+                # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
+                if count != 4:
+                    fun = pdfPros.get(count+1)
+                    fun(pagePdf,"PRODUCTO TERMINADO",False,self.Text_PrdctTerm)
+                else:
+                    fun = pdfPros.get(5)
+                    fun(pagePdf)
+
+            # DIBUJA EL PROCESO LA DATA TRAIDA EN BD
+            else: 
+                for i,key in enumerate(self.dataBd):
+                    if key != 'N/A':
+                        fun = pdfPros.get(i)
+                        fun(pagePdf,key,True,self.text_size)
+                        self.lstSec[i] = key
+                        count=i
+                        #count=i
+                #print(count)
+                #print(".-.",self.lstSec)
+                # ASEGURA EN COLOCAR EL PRODUCTO TERMINADO AL FINAL DE CADA SECUENCIA
+                if count != 4:
+                    fun = pdfPros.get(count+1)
+                    fun(pagePdf,"PRODUCTO TERMINADO",False,self.Text_PrdctTerm)
+                else:
+                    fun = pdfPros.get(5)
+                    fun(pagePdf)
+
+        # MASIVO
+        elif self.estd == "UpdateMsv":
+            self.dataBd = self.appSec().transGetProceso(idpdf)[1:]
+            print(f"ID : {idpdf} data : {self.dataBd}")
             
             # Si preciono el boton de imagen en una de las secuencias, se reinicia
             if dicObsrvc: 
@@ -186,7 +253,7 @@ class prInrs:
 
             # DIBUJA EL PROCESO LA DATA TRAIDA EN BD
             else: 
-                for i,key in enumerate(dataBd):
+                for i,key in enumerate(self.dataBd):
                     if key != 'N/A':
                         fun = pdfPros.get(i)
                         fun(pagePdf,key,True,self.text_size)
@@ -202,6 +269,7 @@ class prInrs:
                 else:
                     fun = pdfPros.get(5)
                     fun(pagePdf)
+        
         # INSERT
         else:
             # SI EL DICCIÓNARIO "NO" ESTA VACIO..
@@ -229,6 +297,8 @@ class prInrs:
                 #print("VACIO!")
                 fun = pdfPros.get(5)
                 fun(pagePdf)
+
+        print("--",self.lstSec)
         return self.lstSec
     
 # Ejecuta la prueba
