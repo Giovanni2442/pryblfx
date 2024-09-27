@@ -43,10 +43,27 @@ KILL CONNECTION 1559;
 
 # ---------------------------------------------------------------------------------  GET ---------------------------------------------------------------------------------  #
 
+/* ---------------------------------- GET GENERAL DE TODAS LAS TABLAS ---------------------------------------*/
+DELIMITER $$
+	CREATE PROCEDURE getAll(
+		IN id_codProduct TEXT
+    )
+		BEGIN
+			START TRANSACTION ;
+
+			CALL 
+            
+			COMMIT;
+        END$$
+	DELIMITER;
+
+
+/* -----------------------------------------------------------------------------------------------------------*/
+
+
 DROP PROCEDURE IF EXISTS getExtrs;
 
 		-- * --------------------- FICHA / VENTAS  ------------------- *
-
 
 select * from fichatec;
 call getFicha_ventas(

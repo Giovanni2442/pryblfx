@@ -28,7 +28,7 @@ class MdlProgress(UserControl):
         self.page.update()
 
         # Ejecutar el proceso en un hilo separado
-        threading.Thread(target=lambda : self.simulate_long_process(fun)).start()
+        threading.Thread(target=lambda:self.simulate_long_process(fun)).start()
 
 
     def simulate_long_process(self, fun):

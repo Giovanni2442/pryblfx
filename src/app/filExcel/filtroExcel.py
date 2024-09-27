@@ -48,7 +48,8 @@ class filter():
    
     #Verifica la estructura del Producto
     def vrfEstrcProd(*args):
-        patron = re.compile(r'^(PET|BOPP|LDPE)[A-Za-z0-9%+/()-µ± ]*\d{2,}[A-Za-z0-9%+/()-µ± ]*$')
+        #patron = re.compile(r'^(PET|BOPP|LDPE)[A-Za-z0-9%+/()-µ± ]*\d{2,}[A-Za-z0-9%+/()-µ± ]*$')
+        patron = re.compile(r'^(PET|BOPP|LDPE)[A-Za-z0-9%+/()-µ± ]*[A-Za-z0-9%+/()-µ± ]*$')
         return all(bool(patron.fullmatch(arg)) for arg in args)
 
     #Verificación generica

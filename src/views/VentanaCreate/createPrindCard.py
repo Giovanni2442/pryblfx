@@ -25,7 +25,7 @@ class createPrind(UserControl):
         self.color_teal = "teal"
         self.page = page
 
-        self.mdlPgrss = MdlProgress
+        #self.mdlPgrss = MdlProgress
 
         # -- ACTUALIZA SI ES INSERT O UPDATE --#
         self.aux = InptsAux

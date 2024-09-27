@@ -1,93 +1,113 @@
-import time
-import threading
-
 from flet import * 
-from src.views.VentanaCreate.Mdls import Mdls
 
-class pru3(UserControl):
+class MenuBar(UserControl):
     def __init__(self,page):
         super().__init__(expand=True)
+        self.color_teal = "teal50"
 
-        self.page = page
 
-        # ABRIR Y CERRAR MODAL
-        self.mdl = Mdls(page)
-
-        self.BtnCreate = FilledButton(
-            text="CLICK ME!",
-            adaptive=True,
-            style=ButtonStyle(
-                bgcolor=colors.BLACK,
-                color={
-                    ControlState.DEFAULT: colors.WHITE,
-                    ControlState.HOVERED: colors.WHITE,
-                }, 
-                overlay_color="#405d44",
-                elevation={"pressed": 0, "": 1},
-                animation_duration=200,
-                shape={
-                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
-                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
-                },
-            ),
-            on_click= lambda e: self.pruProgress 
-             
-            #                
-            #on_click= self.inptTable.jer
-        )
-
-        self.frameMain = Container(
-            bgcolor=colors.WHITE,
-            border_radius=10,
+        # HEADER AND MENU
+        self.header = Container(
+            #expand =True,
+            bgcolor="Red",
+            #width=50,
+            #height=50,  
+            #alignment=alignment.center,
+            padding=0,
             content=Column(
+                #alignment=MainAxisAlignment.END,
                 controls=[
-                    self.BtnCreate
+                    Container(      #-- CONTENEDOR INICIO Y USUARIO --
+                        #expand=True,
+                        #height=100,
+                        bgcolor=colors.WHITE,
+                        #border=border.only(bottom=border.BorderSide(1, "#858585")),
+                        margin=margin.only(bottom=-6,left=0,right=0,top=0),
+                    
+                        alignment=alignment.center,
+                        content= Row(
+                            alignment=MainAxisAlignment.SPACE_BETWEEN,
+                            controls=[
+                                Container(
+                                    TextButton(
+                                        icon=icons.MENU,
+                                        icon_color="#405d44",
+                                        on_click=self.toggle_menu
+                                    #bgcolor="RED",
+                                    )
+                                ),
+
+                                Container(
+                                    IconButton(icon=icons.MENU,
+                                               icon_color="violet",
+                                               on_click=  lambda _: self.page.go('/prueba')), #Agregar el registro de usuarios
+                                    #bgcolor="RED",
+                                )            
+                            ]
+                        )
+                    )
                 ]
             )
         )
 
-        # Contenerdor para hacer resposiva la app
-        self.container = ResponsiveRow(
+        self.mnuBar = Container(
+            expand=True,
+            #visible=False,
+            bgcolor="yellow",
+            margin=margin.only(top=50),
+            #window = 90
+            #height=200,
+            padding=5,
+            width=0,
+            alignment=alignment.top_left,
+            animate=animation.Animation(1000, AnimationCurve.FAST_LINEAR_TO_SLOW_EASE_IN),
+            content=Column(
+                expand=False,
+                #bgcolor="Blue",
+                #alignment=MainAxisAlignment.CENTER,
+                controls=[
+                    Container(
+                        visible=True,
+                        width=200,
+                        height=30,
+                        bgcolor="Blue",
+                        content=TextButton("Button with icon", icon="chair_outlined")   
+                    )                   
+                ]  
+            )
+        )
+
+        self.frameMain = Container(
+            padding=8,
+            #expand=True,
+            border_radius=10,
+            bgcolor="GREEN70",
+            content=Column(
+                controls=[
+                    self.header
+                    #self.mnuBar
+                ]
+            )
+        )
+        '''
+        self.contResposive = ResponsiveRow(
             controls=[
                 self.frameMain
             ]
         )
+        '''
 
-    def pruProgress(self,e):
-        self.mdlDlt = AlertDialog(
-            modal=True,
-            
-            content= Column([
-                Text("CARGANDO ELEMENTOS..."),
-                ProgressRing()
-                ],
-                height=20,
-                width=10,
-                horizontal_alignment=CrossAxisAlignment.CENTER,
-            ),
-            actions=[
-                #TextButton("Eliminar",on_click= lambda _: self.btnSlct(bnd=True,id=idPrind)),   # lambda _ : "_" el guión sirve para tomar ignorar los parametros, ya que no se usan en la función  
-                #TextButton("CERRAR", on_click= lambda e: self.mdl.close_dialog(self.mdlDlt))
-            ],
-            actions_alignment= MainAxisAlignment.END
-        )
-        self.page.overlay.append(self.mdlDlt)
-        self.mdlDlt.open = True
-        self.page.update()
-
-        # Ejecutar el proceso en un hilo separado
-        threading.Thread(target=self.simulate_long_process).start()
-
-    def simulate_long_process(self):
-        # Redirigir a la página deseada
-        #self.page.go('/cratePrindCard')
-        time.sleep(3)
-        # Cerrar el diálogo al finalizar el proceso
-        self.mdlDlt.open = False
+    def toggle_menu(self, e):       
+        print(self.mnuBar.content.controls[0].width)
+        self.mnuBar.width = 290 if self.mnuBar.width == 0 else 0
+        
+        #self.mnuBar.content.controls[0].width = 200 if self.mnuBar.content.controls[0].width == 0 else 0
+        #self.mnuBar.gbcolor = "Red" if self.mnuBar.bgcolor == "Yellow" else "Yellow"
+        self.page.overlay.append(self.mnuBar)
         self.page.update()
 
     def build(self):
-        return self.container
+        return self.frameMain
 
 def main(page: Page):
     page.window_min_height = 200
@@ -96,6 +116,6 @@ def main(page: Page):
     #page.theme_mode = ThemeMode.DARK
     page.padding = 0
     #page.adaptive = True
-    page.add(pru3(page))
+    page.add(MenuBar(page))
 
 app(main)

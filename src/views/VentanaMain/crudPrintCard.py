@@ -16,7 +16,6 @@ class crudPrintCard(UserControl):
         super().__init__(expand=True)      # Clase de herencia que toma las caracteristicas del Frame
         self.color_teal = "teal"
         
-
         self.mdlPgrss = MdlProgress(page)
 
         # ABRIR Y CERRAR MODAL
@@ -66,7 +65,7 @@ class crudPrintCard(UserControl):
          
         # --- BOTONES ---
             ###  - CREAR UN NUEVO PRIND CARD  - ###
-
+        '''
         ########### BOTON DE PRUEBAS #################
         self.BtnpRU = FilledButton(
             text="click me!",
@@ -92,7 +91,7 @@ class crudPrintCard(UserControl):
                 )
             )
             #on_click= self.inptTable.jer
-        )
+        )'''
         ##################################################################
 
         self.BtnCreate = FilledButton(
@@ -124,12 +123,16 @@ class crudPrintCard(UserControl):
             adaptive=True,
             disabled=True,
             style=ButtonStyle(
-                bgcolor="#21A742",
-                color={
-                    ControlState.HOVERED: colors.RED,
-                    ControlState.HOVERED: colors.BLACK,
+                bgcolor={
+                    ControlState.DEFAULT: "#94c5c9",
+                    ControlState.DISABLED: "#d3d3d3",  # Color cuando el botón está desactivado
                 },
-                overlay_color=ft.colors.TRANSPARENT,
+                color={
+                    ControlState.DEFAULT: colors.BLACK,
+                    ControlState.HOVERED: colors.WHITE,
+                    ControlState.DISABLED: colors.GREY,  # Cambia el color del texto cuando está deshabilitado
+                },
+                overlay_color="#151717",
                 elevation={"pressed": 0, "": 1},
                 animation_duration=200,
                 shape={
@@ -155,7 +158,7 @@ class crudPrintCard(UserControl):
             #bgcolor="#146364",
             bgcolor="#263b27",
             data_row_color = colors.WHITE70,
-            border_radius=border_radius.only(top_left=10,top_right=10),
+            #border_radius=border_radius.only(top_left=10,top_right=10),
             vertical_lines= BorderSide(0.5,color=colors.WHITE24),
             columns=[
                 DataColumn(Text("ID_PRODUCTO",color=colors.WHITE,weight="bold")),
@@ -390,8 +393,6 @@ class crudPrintCard(UserControl):
     '''
 
 
-
-
     #''' <-- DESCOMENTAR -->
     # Muestra los datos de la base de datos
     def showData(self):
@@ -407,7 +408,7 @@ class crudPrintCard(UserControl):
     #######################################################
 
     # --- CONTENEDORES,FRAMES ETC ... ---
-        # --- FRAME FILTRADO ---
+        # --- FRAME HEADER ---
         self.cntFiltPrinf = Container(
             #expand=True,
             bgcolor= colors.BLACK12,
@@ -421,11 +422,25 @@ class crudPrintCard(UserControl):
                         expand=True,
                         bgcolor= colors.WHITE,
                         border_radius=0,
-                        padding=8,
-                    
+                        padding=8,   
                         alignment=alignment.center,
                         content= Column(
                             controls=[
+                                #'''         # MENU PARA TABLA DE PRODUCTOS
+                                #Container(
+                                    #bgcolor="Red",
+                                #    margin=margin.only(top=-5),
+                                #    height=25,
+                                #    content=
+                                #        TextButton(
+                                #            icon=icons.MENU,
+                                #            #icon=lambda e: self.prbtn(e),
+                                #            icon_color="#405d44",
+                                #            #on_click= lambda _:self.toggle_menu()
+                                #        #bgcolor="RED",
+                                #        )
+                                #),
+                                #'''
                                 Container( 
                                     Image(src="venv/src/views/VentanaMain/logotipo/logo.png", width=200, height=200),
                                     #Text("FICHA TECNICA",color=colors.BLACK38,theme_style=TextThemeStyle.TITLE_SMALL),
@@ -446,7 +461,7 @@ class crudPrintCard(UserControl):
                                     #bgcolor=colors.AMBER,
                                     border_radius=0
                                 ),
-                                
+                                # BUSCADORES...
                                 self.InptPrindCard,
                                 self.InptClienteSimple,
                                 # Se coloca en un contenedor para centar
@@ -464,7 +479,7 @@ class crudPrintCard(UserControl):
                                                 theme_style=TextThemeStyle.TITLE_LARGE,
                                                 font_family="Calibri",italic=True),
                                             self.BtnCreate,
-                                            self.BtnpRU,
+                                            #self.BtnpRU,
                                             self.BtnCreate2
                                         ]
                                     )
@@ -479,7 +494,7 @@ class crudPrintCard(UserControl):
         # --- FRAME TABLE ---
         self.cntTable = Container(
             bgcolor= colors.WHITE54,  # Cambiado a azul para distinguir visualmente
-            border_radius=5,
+            border_radius=0,
             alignment=alignment.top_center,
             expand=True,
             padding=5,
@@ -498,13 +513,90 @@ class crudPrintCard(UserControl):
             )
         )
 
+        '''
+        self.mnuBar = Container(
+            expand=True,
+            #visible=False,
+            bgcolor="#ddddddcd",
+            
+            margin=margin.only(top=50),
+            #window = 90
+            padding=5,
+            width=0,
+            alignment=alignment.top_left,
+            animate=animation.Animation(1000, AnimationCurve.FAST_LINEAR_TO_SLOW_EASE_IN),
+            content=Column(
+                expand=False,
+                #bgcolor="Blue",
+                #alignment=MainAxisAlignment.CENTER,
+                controls=[
+                    Container(
+                        visible=True,
+                        width=200,
+                        height=30,
+                        #bgcolor="Blue",
+                        content=TextButton(
+                            "Crear PrindCard",
+                            icon="chair_outlined",
+                            style=ButtonStyle(
+                                bgcolor=colors.BLACK,
+                                color={
+                                    ControlState.DEFAULT: colors.WHITE,
+                                    ControlState.HOVERED: colors.WHITE,
+                                }, 
+                                overlay_color="#6b211d",
+                                elevation={"pressed": 0, "": 1},
+                                animation_duration=200,
+                                shape={
+                                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                                },
+                            ),
+                            on_click= lambda _: (
+                                #self.mnuBar.width = 290 if self.mnuBar.width == 0 else 0
+                                #self.page.client_storage.set("estado", "Tabla"),
+                                self.toggle_menu(),
+                                self.page.go('/TablaPrdcts')
+                            ),
+                            #on_click=self.page.go("/TablaPrdcts")    
+                        )   
+                    ),
+                    Container(
+                        visible=True,
+                        width=200,
+                        height=30,
+                        #bgcolor="Blue",
+                        content=TextButton(
+                            "Tabla de Datos",
+                            icon="chair_outlined",
+                            style=ButtonStyle(
+                                bgcolor=colors.BLACK,
+                                color={
+                                    ControlState.DEFAULT: colors.WHITE,
+                                    ControlState.HOVERED: colors.WHITE,
+                                }, 
+                                overlay_color="#6b211d",
+                                elevation={"pressed": 0, "": 1},
+                                animation_duration=200,
+                                shape={
+                                    ControlState.HOVERED: RoundedRectangleBorder(radius=15),
+                                    ControlState.DEFAULT: RoundedRectangleBorder(radius=3),
+                                },
+                            ),
+                        )   
+                    ),                 
+                ]  
+            )
+        )
+        '''
         # Colocar los frames en forma de columna
         self.frameMain = Container(
             bgcolor= colors.BLACK12,
             border_radius=10,
-            padding=8,
+            #padding=8,
             content=Column(
                     controls=[
+                        #self.mnuBar,         # MENU LATERAL DE PRUEBAS
                         self.cntFiltPrinf,
                         self.cntTable
                     ],
@@ -516,6 +608,18 @@ class crudPrintCard(UserControl):
                 self.frameMain
             ]
         )
+
+    def toggle_menu(self):       
+        #print(self.mnuBar.content.controls[0].width)
+        self.mnuBar.width = 290 if self.mnuBar.width == 0 else 0
+        
+        #self.mnuBar.content.controls[0].width = 200 if self.mnuBar.content.controls[0].width == 0 else 0
+        #self.mnuBar.gbcolor = "Red" if self.mnuBar.bgcolor == "Yellow" else "Yellow"
+         # Si no está en el overlay, lo añadimos
+        
+        self.page.overlay.append(self.mnuBar)
+        self.page.update()
+
 
     # IMPORTANTE : Retorna todos los Gidwts del promama
     def build(self):    

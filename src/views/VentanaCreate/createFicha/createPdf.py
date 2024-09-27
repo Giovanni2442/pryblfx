@@ -165,11 +165,11 @@ class CreatePdf():
 
                 # -- LISTA DE PROCESOS -- 
             lstProc = self.secProc.pruSec(pagPdf,i) 
-            print("-AQUIII--",lstProc)
+            #print("-AQUIII--",lstProc)
 
             # -- LISTA DE  IMAGENES --# 
             lstImg = self.pdfImg.main2(pagPdf,i)
-            print(f"ID : {i}  ; IMG : {lstImg}")      # <- EYY! Q CHECA LA LISTA
+            #print(f"ID : {i}  ; IMG : {lstImg}")      # <- EYY! Q CHECA LA LISTA
             #self.pdfImg.main(self.page,tpl)
 
             for pros in lstImg:                 # KEY Recorre el proceso

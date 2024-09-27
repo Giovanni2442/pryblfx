@@ -15,6 +15,8 @@ from src.Controllers.appPrindCard import appPrindCard
 
 class InstrImgs():
     def __init__(self,page):
+        self.cntd = 0
+
         self.page = page
         self.vl = 7
         self.clr = (0, 0, 0)
@@ -135,14 +137,15 @@ class InstrImgs():
         fig = ""
         comntrs = ""
         Imgs = ""  
+      
 
         self.dicObsrvc = self.page.client_storage.get("id_Img")      
 
             #  - INSERTAR / ANTUALIZAR IMAGENES EN EL PDF - #
 
         # - UPDATE NORMAL- 
-        #if self.estd != 'Insert' and self.estd != 'UpdateMsv':
-        if self.estd != 'Insert':
+        if self.estd != 'Insert' and self.estd != 'UpdateMsv':
+        #if self.estd != 'Insert':
             #dicObsrvc = self.page.client_storage.get("id_Img")
             print("UPDATE-...- ",self.dicObsrvc)
             # TRAE LAS URL DE LA BASE DE DATOS
@@ -229,8 +232,50 @@ class InstrImgs():
                 #return r 
         
         # -- PROXIMAMENTE -- #
-        #elif self.estd != 'UpdateMsv':
+        elif self.estd == 'UpdateMsv': 
+            print("-.-.-.",idPrint)
+            lstIds = len(self.page.client_storage.get("id_masivo"))
+            select = {
+                'EXTRC' : self.pdfImageExtr,
+                'IMPRC' : self.pdfImageImpr,
+                'LMNSN' : self.pdfImageLam,
+                'RFLD'  : self.pdfImageRef,
+                'CNVRSN' : self.pdfImageCnvrs
+            }#'''
+ 
+            if self.cntd != lstIds:  
+                self.cntd +=1  
+                #print("--Lista de Imagenes",self.dicObsrvc)
+                #print(f" -++-+ {self.cntd} : {lstIds}")
+            #'''
+                #   SI EL DICCIÓNARIO "NO" ESTA VACIO, INSERTA EN LAS COORDENADAS
+                if self.dicObsrvc:
+                    for key in self.dicObsrvc:
+                        value = self.dicObsrvc[key]      # RECORRER DICCIÓNARIO 
+                        
+                        fun = select.get(key)       # EJECUTAR LA FUNCIÓN DEL DICCIÓRARIO
+                        fun(page,value) 
 
+                        ### VARIABLES DE LA LISTA ###
+                        img = value[0]
+                        fig = value[1]
+                        comntrs = value[2]
+
+                        #############################
+                        #POST IMAGENES
+                        # LLAMADA PARA CREAR LA LISTA Y ALMACENAR EN BD
+                        #r = self.PostImgs(idPrint,key,img,fig,comntrs)
+                        Imgs = self.PostImgs(idPrint,key,img,fig,comntrs)
+                    
+                else:
+                    # SE INSERTAN IMAGENES VACIAS SI NO HAY IMAGENES
+                    Imgs = [['N/A', 'N/A', 'N/A'], ['N/A', 'N/A', 'N/A'], ['N/A', 'N/A', 'N/A'], ['N/A', 'N/A', 'N/A'], ['N/A', 'N/A', 'N/A']]
+                    #return ["N/A","N/A","N/A","N/A","N/A"]
+                    #print("ERROR")
+            else:
+                # Limpiar el diccionario id_Img
+                self.page.client_storage.set("id_Img", {})
+                #'''
         #  -- INSERTAR --
         else : 
             #print("--**",dicObsrvc)

@@ -2,6 +2,7 @@ from flet import *
 from src.views.VentanaMain.crudPrintCard import crudPrintCard
 from src.views.VentanaCreate.createPrindCard import createPrind
 from src.views.VentanaCreate.WindowPru import windowPru
+from src.views.VentanaMain.TablaPrdcts import TablaPrdcts
 
 def getViews(page):
     id = page.client_storage.get("id") or "id"
@@ -20,10 +21,10 @@ def getViews(page):
             ]
         ),
 
-        '/prueba': View(
-            route='/windowPru',
+        '/TablaPrdcts': View(
+            route='/TablaPrdcts',
             controls=[
-                windowPru(page)
+                TablaPrdcts(page)
             ]
         )
     }

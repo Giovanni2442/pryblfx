@@ -184,10 +184,11 @@ class verificaciones():
                     #  -- INSERTAR TEXTO AL PDF -- 
                     #self.crtPdf.InsertTxt(data)
 
-                    self.mdlPgrss.pruProgress(self,
-                        self.Insrt().qryPost(data),
-                        self.crtPdf.InsertTxt(data)
-                    )
+                    #self.mdlPgrss.pruProgress(self,
+                    self.Insrt().qryPost(data),
+                    self.crtPdf.InsertTxt(data)
+                    
+                    #)
                     
 
                     self.page.client_storage.clear()
